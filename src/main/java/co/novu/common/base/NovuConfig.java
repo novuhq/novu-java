@@ -8,5 +8,5 @@ import lombok.Setter;
 public class NovuConfig {
 
     private String apiKey;
-    private String baseUrl = "";
+    private String baseUrl = "https://api.novu.co/v1";
 }
