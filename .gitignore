@@ -18,6 +18,9 @@ target/
 *.iws
 *.iml
 *.ipr
+.mvn
+mvnw
+mvnw.cmd
 
 ### NetBeans ###
 /nbproject/private/
@@ -26,8 +29,8 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+**/src/main/**/build/
+**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
