@@ -42,6 +42,33 @@ public class Novu {
         return eventsHandler.triggerEvent(request, novuConfig);
     }
 
+    public TriggerEventResponse bulkTriggerEvent(TriggerEventRequest request) {
+        try {
+            return eventsHandler.bulkTriggerEvent(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Triggering Event", e);
+            throw e;
+        }
+    }
+
+    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) {
+        try {
+            return eventsHandler.broadcastEvent(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error BroadCasting Event", e);
+            throw e;
+        }
+    }
+
+    public TriggerEventResponse cancelTriggeredEvent(TriggerEventRequest request) {
+        try {
+            return eventsHandler.cancelTriggeredEvent(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Canceling Event", e);
+            throw e;
+        }
+    }
+
     public NotificationsResponse getNotifications(NotificationRequest request) {
         try {
             return notificationHandler.getNotifications(request, novuConfig);

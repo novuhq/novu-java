@@ -13,7 +13,22 @@ public class EventsHandler {
         this.restHandler = restHandler;
     }
 
+
     public TriggerEventResponse triggerEvent(TriggerEventRequest request, NovuConfig novuConfig) {
-        return null;
+        return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"/events/trigger");
     }
+
+    public TriggerEventResponse bulkTriggerEvent(TriggerEventRequest request, NovuConfig novuConfig) {
+        return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"/events/trigger/bulk");
+    }
+
+    public TriggerEventResponse broadcastEvent(TriggerEventRequest request, NovuConfig novuConfig) {
+        return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"/events/trigger/broadcast");
+    }
+
+    public TriggerEventResponse cancelTriggeredEvent(TriggerEventRequest request, NovuConfig novuConfig) {
+        return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"/events/trigger/{transactionId}");
+    }
+
+
 }

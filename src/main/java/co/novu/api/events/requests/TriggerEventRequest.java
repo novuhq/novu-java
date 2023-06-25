@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class TriggerEventRequest implements IRequest {
     private String name;
     private Payload payload;
-    private To to;
+    private ToData to;
     private String transactionId;
 }
