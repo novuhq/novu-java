@@ -12,5 +12,5 @@ public class NovuConfig {
     }
 
     private String apiKey;
-    private String baseUrl = "https://api.novu.co/v1";
+    private String baseUrl = "https://api.novu.co/v1/";
 }
