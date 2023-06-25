@@ -2,20 +2,16 @@ package co.novu.common.rest;
 
 import co.novu.common.base.NovuConfig;
 import co.novu.common.contracts.IRequest;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
-@Lazy
-@Component
 public class RestHandler {
 
     private final RestTemplate restTemplate = new RestTemplate();

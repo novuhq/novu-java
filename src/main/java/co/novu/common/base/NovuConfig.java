@@ -7,6 +7,10 @@ import lombok.Setter;
 @Setter
 public class NovuConfig {
 
+    public NovuConfig(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
     private String apiKey;
     private String baseUrl = "https://api.novu.co/v1";
 }
