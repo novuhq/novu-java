@@ -1,4 +1,4 @@
-package co.novu.api.notifications.responses;
+package co.novu.api.notifications.pojos;
 
 import co.novu.common.contracts.IResponse;
 import lombok.Data;
