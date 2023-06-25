@@ -11,6 +11,7 @@ import co.novu.common.rest.RestHandler;
 public class Novu {
 
     private final NovuConfig novuConfig;
+    private final RestHandler restHandler;
     private final EventsHandler eventsHandler;
     private final NotificationsHandler notificationsHandler;
 
@@ -20,9 +21,16 @@ public class Novu {
 
     public Novu(NovuConfig novuConfig) {
         this.novuConfig = novuConfig;
-        RestHandler restHandler = new RestHandler();
+        this.restHandler = new RestHandler();
         this.eventsHandler = new EventsHandler(restHandler);
         this.notificationsHandler = new NotificationsHandler(restHandler);
+    }
+
+    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationsHandler notificationsHandler) {
+        this.novuConfig = novuConfig;
+        this.restHandler = restHandler;
+        this.eventsHandler = eventsHandler;
+        this.notificationsHandler = notificationsHandler;
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
