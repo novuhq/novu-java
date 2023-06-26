@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class TriggerEventResponse implements IResponse {
 
-    private Datum data;
+    private TriggerEventResponseData data;
 }

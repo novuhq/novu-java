@@ -1,7 +1,10 @@
 package co.novu.common.base;
 
 import co.novu.api.events.EventsHandler;
+import co.novu.api.events.pojos.BulkTriggerEventRequest;
 import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.responses.BulkTriggerEventResponse;
+import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.api.notifications.NotificationHandler;
 import co.novu.api.notifications.requests.NotificationRequest;
@@ -39,10 +42,15 @@ public class Novu {
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
-        return eventsHandler.triggerEvent(request, novuConfig);
+        try {
+            return eventsHandler.triggerEvent(request, novuConfig);
+        }catch (Exception e){
+            log.error("Error triggering event", e);
+            throw e;
+        }
     }
 
-    public TriggerEventResponse bulkTriggerEvent(TriggerEventRequest request) {
+    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) {
         try {
             return eventsHandler.bulkTriggerEvent(request, novuConfig);
         } catch (Exception e) {
@@ -60,9 +68,9 @@ public class Novu {
         }
     }
 
-    public TriggerEventResponse cancelTriggeredEvent(TriggerEventRequest request) {
+    public CancelEventResponse cancelTriggeredEvent(String transactionId) {
         try {
-            return eventsHandler.cancelTriggeredEvent(request, novuConfig);
+            return eventsHandler.cancelTriggeredEvent(novuConfig, transactionId);
         } catch (Exception e) {
             log.error("Error Canceling Event", e);
             throw e;

@@ -1,16 +1,17 @@
 package co.novu.api.events.requests;
 
+import co.novu.api.events.pojos.ToData;
 import co.novu.common.contracts.IRequest;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
+import java.util.Map;
+
+
 @Data
 public class TriggerEventRequest implements IRequest {
     private String name;
-    private Payload payload;
     private ToData to;
+    private Map<String, Object> payload;
+    private Map<String, Object> overrides;
     private String transactionId;
 }
