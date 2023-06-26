@@ -28,6 +28,12 @@ public class RestHandler {
         return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.GET, requestEntity, responseClazz).getBody();
     }
 
+    public <T> T handleDelete(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
+        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.DELETE, requestEntity, responseClazz).getBody();
+    }
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint, Map<String, Object> queryParams) {
         HttpHeaders headers = getHeaders(novuConfig.getApiKey());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
