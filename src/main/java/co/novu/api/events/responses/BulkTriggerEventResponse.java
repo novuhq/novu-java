@@ -3,9 +3,9 @@ package co.novu.api.events.responses;
 import co.novu.common.contracts.IResponse;
 import lombok.Data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class BulkTriggerEventResponse implements IResponse {
-    private ArrayList<TriggerEventResponseData> data;
+    private List<TriggerEventResponseData> data;
 }

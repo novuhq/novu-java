@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class ToData {
+public class SubscriberRequest {
 
     private String subscriberId;
     private String email;

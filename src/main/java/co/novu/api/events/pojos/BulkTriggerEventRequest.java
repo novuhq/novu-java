@@ -5,8 +5,9 @@ import co.novu.common.contracts.IRequest;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class BulkTriggerEventRequest implements IRequest {
-    private ArrayList<TriggerEventRequest> events;
+    private List<TriggerEventRequest> events;
 }

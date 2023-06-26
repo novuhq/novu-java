@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class CancelEventResponse {
-    private boolean data;
+    private Boolean data;
 }
