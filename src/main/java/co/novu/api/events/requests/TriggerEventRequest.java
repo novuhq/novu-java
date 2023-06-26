@@ -1,6 +1,5 @@
 package co.novu.api.events.requests;
 
-import co.novu.api.events.pojos.SubscriberRequest;
 import co.novu.common.contracts.IRequest;
 import lombok.Data;
 

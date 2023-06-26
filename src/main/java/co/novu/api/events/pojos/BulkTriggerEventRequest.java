@@ -4,7 +4,6 @@ import co.novu.api.events.requests.TriggerEventRequest;
 import co.novu.common.contracts.IRequest;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
