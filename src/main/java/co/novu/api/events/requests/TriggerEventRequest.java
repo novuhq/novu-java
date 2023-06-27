@@ -9,7 +9,7 @@ import java.util.Map;
 @Data
 public class TriggerEventRequest implements IRequest {
     private String name;
-    private Object to;
+    private Object to;//TODO: Indicate the possible types this field accepts
     private Map<String, Object> payload;
     private Map<String, Object> overrides;
     private String transactionId;
