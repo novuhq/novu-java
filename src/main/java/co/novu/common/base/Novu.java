@@ -12,6 +12,11 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.topics.TopicHandler;
+import co.novu.api.topics.requests.FilterTopicsRequest;
+import co.novu.api.topics.requests.TopicRequest;
+import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.TopicResponse;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +28,8 @@ public class Novu {
     private final EventsHandler eventsHandler;
     private final NotificationHandler notificationHandler;
 
+    private final TopicHandler topicHandler;
+
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
     }
@@ -32,13 +39,15 @@ public class Novu {
         this.restHandler = new RestHandler();
         this.eventsHandler = new EventsHandler(restHandler);
         this.notificationHandler = new NotificationHandler(restHandler);
+        this.topicHandler = new TopicHandler(restHandler);
     }
 
-    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler) {
+    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler, TopicHandler topicHandler) {
         this.novuConfig = novuConfig;
         this.restHandler = restHandler;
         this.eventsHandler = eventsHandler;
         this.notificationHandler = notificationHandler;
+        this.topicHandler = topicHandler;
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
@@ -112,4 +121,25 @@ public class Novu {
             throw e;
         }
     }
+
+    public TopicResponse createTopic(TopicRequest request) {
+        try {
+            return topicHandler.createTopic(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Creating Topic", e);
+            throw e;
+        }
+    }
+    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) {
+        try {
+            return topicHandler.filterTopics(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Creating Topic", e);
+            throw e;
+        }
+    }
+
+
+
+
 }
