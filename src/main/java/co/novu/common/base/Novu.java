@@ -12,8 +12,24 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.subscribers.SubscribersHandler;
+import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
+import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
+import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
+import co.novu.api.subscribers.requests.SubscriberRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
+import co.novu.api.subscribers.responses.BulkSubscriberResponse;
+import co.novu.api.subscribers.responses.CreateSubscriberResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberResponse;
+import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
+import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
+import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.Nullable;
 
 @Slf4j
 public class Novu {
@@ -22,6 +38,8 @@ public class Novu {
     private final RestHandler restHandler;
     private final EventsHandler eventsHandler;
     private final NotificationHandler notificationHandler;
+
+    private final SubscribersHandler subscribersHandler;
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -32,13 +50,15 @@ public class Novu {
         this.restHandler = new RestHandler();
         this.eventsHandler = new EventsHandler(restHandler);
         this.notificationHandler = new NotificationHandler(restHandler);
+        this.subscribersHandler = new SubscribersHandler(restHandler);
     }
 
-    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler) {
+    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler, SubscribersHandler subscribersHandler) {
         this.novuConfig = novuConfig;
         this.restHandler = restHandler;
         this.eventsHandler = eventsHandler;
         this.notificationHandler = notificationHandler;
+        this.subscribersHandler = subscribersHandler;
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
@@ -109,6 +129,123 @@ public class Novu {
             return notificationHandler.getNotification(novuConfig, notificationId);
         } catch (Exception e) {
             log.error("Error Getting Notification", e);
+            throw e;
+        }
+    }
+
+    public BulkSubscriberResponse getSubscribers(@Nullable Integer page, @Nullable Integer limit) {
+        try {
+            return subscribersHandler.getSubscribers(novuConfig, page, limit);
+        } catch (Exception e) {
+            log.error("Error getting Subscribers", e);
+            throw e;
+        }
+    }
+
+    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) {
+        try {
+            return subscribersHandler.createSubscriber(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error creating Subscriber", e);
+            throw e;
+        }
+    }
+
+    public SingleSubscriberResponse getSubscriber(String subscriberId) {
+        try {
+            return subscribersHandler.getSubscriber(novuConfig, subscriberId);
+        } catch (Exception e) {
+            log.error("Error getting Subscriber", e);
+            throw e;
+        }
+    }
+
+    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) {
+        try {
+            return subscribersHandler.updateSubscriber(request, subscriberId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error updating Subscriber", e);
+            throw e;
+        }
+    }
+
+    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) {
+        try {
+            return subscribersHandler.deleteSubscriber(novuConfig, subscriberId);
+        } catch (Exception e) {
+            log.error("Error deleting Subscriber", e);
+            throw e;
+        }
+    }
+
+    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) {
+        try {
+            return subscribersHandler.updateSubscriberCredentials(request, subscriberId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error updating Subscriber Credentials", e);
+            throw e;
+        }
+    }
+
+    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) {
+        try {
+            return subscribersHandler.updateSubscriberOnlineStatus(request, subscriberId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error updating Subscriber Online Status", e);
+            throw e;
+        }
+    }
+
+    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) {
+        try {
+            return subscribersHandler.getSubscriberPreferences(novuConfig, subscriberId);
+        } catch (Exception e) {
+            log.error("Error getting Subscriber Preferences", e);
+            throw e;
+        }
+    }
+
+    public SubscriberPreferenceResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
+        try {
+            return subscribersHandler.updateSubscriberPreferences(request, subscriberId, templateId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error updating Subscriber Preferences", e);
+            throw e;
+        }
+    }
+
+    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) {
+        try {
+            return subscribersHandler.getSubscriberNotificationsFeed(novuConfig, subscriberId);
+        } catch (Exception e) {
+            log.error("Error getting Subscriber Notifications Feed", e);
+            throw e;
+        }
+    }
+
+    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) {
+        try {
+            return subscribersHandler.getSubscriberUnseenNotificationsCount(novuConfig, subscriberId);
+        } catch (Exception e) {
+            log.error("Error getting Subscriber unseen Notifications Count", e);
+            throw e;
+        }
+    }
+
+    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) {
+        try {
+            return subscribersHandler.markSubscriberMessageFeedAs(request, subscriberId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error marking Subscriber Message Feed", e);
+            throw e;
+        }
+    }
+
+    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) {
+        try {
+            return subscribersHandler.markMessageActionAsSeen(request, subscriberId, messageId, type, novuConfig);
+        } catch (Exception e) {
+            log.error("Error marking Message Action as seen", e);
             throw e;
         }
     }
