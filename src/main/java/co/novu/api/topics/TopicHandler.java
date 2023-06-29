@@ -1,8 +1,12 @@
 package co.novu.api.topics;
 
+import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.api.topics.requests.FilterTopicsRequest;
+import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.TopicResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
@@ -29,5 +33,10 @@ public class TopicHandler {
         if (request.getPageSize() != null) params.put("pageSize", request.getPageSize());
         if (request.getKey() != null) params.put("key", request.getKey());
         return restHandler.handleGet(FilterTopicsResponse.class, novuConfig,"topics", params);
+    }
+
+
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, NovuConfig novuConfig) {
+        return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig,"topics/:topicKey/subscribers");
     }
 }
