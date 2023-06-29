@@ -5,9 +5,7 @@ import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
-import co.novu.api.topics.responses.FilterTopicsResponse;
-import co.novu.api.topics.responses.SubscriberAdditionResponse;
-import co.novu.api.topics.responses.TopicResponse;
+import co.novu.api.topics.responses.*;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 
@@ -36,7 +34,23 @@ public class TopicHandler {
     }
 
 
-    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, NovuConfig novuConfig) {
-        return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig,"topics/:topicKey/subscribers");
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey,NovuConfig novuConfig) {
+        return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig,"topics/"+ topicKey+"/subscribers");
     }
+
+    public CheckTopicSubscriberResponse checkTopicSubscriber( String topicKey,String externalSubscriberId,NovuConfig novuConfig) {
+        return restHandler.handleGet(CheckTopicSubscriberResponse.class, novuConfig,"topics/"+topicKey+"/subscribers/"+externalSubscriberId);
+    }
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey, NovuConfig novuConfig) {
+        return restHandler.handlePost(request,SubscriberRemovalResponse.class, novuConfig,"topics/"+topicKey+"/subscribers/removal");
+    }
+
+    public DeleteTopicResponse deleteTopic(String topicKey, NovuConfig novuConfig) {
+        return restHandler.handleDelete(DeleteTopicResponse.class, novuConfig,"topics/" +topicKey);
+    }
+
+    public GetTopicResponse getTopic(String topicKey, NovuConfig novuConfig) {
+        return restHandler.handleGet(GetTopicResponse.class, novuConfig,"topics/" +topicKey);
+    }
+
 }

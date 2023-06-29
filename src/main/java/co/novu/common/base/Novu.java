@@ -14,9 +14,9 @@ import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
 import co.novu.api.topics.TopicHandler;
 import co.novu.api.topics.requests.FilterTopicsRequest;
+import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
-import co.novu.api.topics.responses.FilterTopicsResponse;
-import co.novu.api.topics.responses.TopicResponse;
+import co.novu.api.topics.responses.*;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
 
@@ -134,10 +134,57 @@ public class Novu {
         try {
             return topicHandler.filterTopics(request, novuConfig);
         } catch (Exception e) {
-            log.error("Error Creating Topic", e);
+            log.error("Error filtering Topic", e);
             throw e;
         }
     }
+
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
+        try {
+            return topicHandler.addSubscriberToTopic(request,topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error adding subscriber to Topic", e);
+            throw e;
+        }
+    }
+
+
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+        try {
+            return topicHandler.checkTopicSubscriber(topicKey,externalSubscriberId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error checking topic subscriber", e);
+            throw e;
+        }
+    }
+
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+        try {
+            return topicHandler.removeSubscriberFromTopic(request,topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error removing subscriber from Topic", e);
+            throw e;
+        }
+    }
+
+    public DeleteTopicResponse deleteTopic(String topicKey) {
+        try {
+            return topicHandler.deleteTopic(topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Deleting Topic", e);
+            throw e;
+        }
+    }
+
+    public GetTopicResponse getTopic(String topicKey) {
+        try {
+            return topicHandler.getTopic(topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Deleting Topic", e);
+            throw e;
+        }
+    }
+
 
 
 
