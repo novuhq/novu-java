@@ -1,5 +1,6 @@
 package co.novu.api.notifications.pojos;
 
+import co.novu.api.common.Template;
 import lombok.Data;
 
 import java.util.List;

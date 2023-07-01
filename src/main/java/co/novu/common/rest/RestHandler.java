@@ -18,7 +18,8 @@ public class RestHandler {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public <T> T handlePost(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, constructHttpEntity(request, novuConfig.getApiKey()), responseClazz);
+        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
+        return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz);
     }
 
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
@@ -28,12 +29,6 @@ public class RestHandler {
         return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.GET, requestEntity, responseClazz).getBody();
     }
 
-    public <T> T handleDelete(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.DELETE, requestEntity, responseClazz).getBody();
-    }
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint, Map<String, Object> queryParams) {
         HttpHeaders headers = getHeaders(novuConfig.getApiKey());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
@@ -44,6 +39,23 @@ public class RestHandler {
         UriComponents uriComponents = builder.build();
 
         return restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, requestEntity, responseClazz).getBody();
+    }
+
+    public <T> T handleDelete(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
+        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.DELETE, requestEntity, responseClazz).getBody();
+    }
+
+    public <T> T handlePut(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
+        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
+        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.PUT, requestEntity, responseClazz).getBody();
+    }
+
+    public <T> T handlePatch(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
+        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
+        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.PATCH, requestEntity, responseClazz).getBody();
     }
 
     private HttpEntity<IRequest> constructHttpEntity(IRequest request, String apiKey) {
