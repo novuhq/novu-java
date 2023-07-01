@@ -1,8 +1,8 @@
 package co.novu.api.topics;
 
-import co.novu.api.events.requests.TriggerEventRequest;
-import co.novu.api.events.responses.TriggerEventResponse;
+
 import co.novu.api.topics.requests.FilterTopicsRequest;
+import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.*;
@@ -38,7 +38,7 @@ public class TopicHandler {
         return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig,"topics/"+ topicKey+"/subscribers");
     }
 
-    public CheckTopicSubscriberResponse checkTopicSubscriber( String topicKey,String externalSubscriberId,NovuConfig novuConfig) {
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey,String externalSubscriberId,NovuConfig novuConfig) {
         return restHandler.handleGet(CheckTopicSubscriberResponse.class, novuConfig,"topics/"+topicKey+"/subscribers/"+externalSubscriberId);
     }
     public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey, NovuConfig novuConfig) {
@@ -52,5 +52,10 @@ public class TopicHandler {
     public GetTopicResponse getTopic(String topicKey, NovuConfig novuConfig) {
         return restHandler.handleGet(GetTopicResponse.class, novuConfig,"topics/" +topicKey);
     }
+
+    public RenameTopicResponse renameTopic(RenameTopicRequest request,String topicKey, NovuConfig novuConfig) {
+        return restHandler.handlePost(request,RenameTopicResponse.class, novuConfig,"topics/" +topicKey);
+    }
+
 
 }
