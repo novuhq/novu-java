@@ -17,7 +17,9 @@ import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
-import co.novu.api.topics.responses.*;
+import co.novu.api.topics.responses.TopicResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.api.subscribers.SubscribersHandler;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
@@ -321,7 +323,7 @@ public class Novu {
         try {
             return topicHandler.getTopic(topicKey, novuConfig);
         } catch (Exception e) {
-            log.error("Error Deleting Topic", e);
+            log.error("Error Getting Topic", e);
             throw e;
         }
     }
