@@ -14,6 +14,7 @@ import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
 import co.novu.api.topics.TopicHandler;
 import co.novu.api.topics.requests.FilterTopicsRequest;
+import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.*;
@@ -181,6 +182,15 @@ public class Novu {
             return topicHandler.getTopic(topicKey, novuConfig);
         } catch (Exception e) {
             log.error("Error Deleting Topic", e);
+            throw e;
+        }
+    }
+
+    public RenameTopicResponse renameTopic(RenameTopicRequest request,String topicKey) {
+        try {
+            return topicHandler.renameTopic(request,topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error renaming Topic", e);
             throw e;
         }
     }
