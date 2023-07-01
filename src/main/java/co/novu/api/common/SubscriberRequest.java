@@ -1,4 +1,4 @@
-package co.novu.api.subscribers.requests;
+package co.novu.api.common;
 
 import co.novu.common.contracts.IRequest;
 import lombok.Data;

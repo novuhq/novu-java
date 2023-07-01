@@ -12,11 +12,19 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.topics.TopicHandler;
+import co.novu.api.topics.requests.FilterTopicsRequest;
+import co.novu.api.topics.requests.RenameTopicRequest;
+import co.novu.api.topics.requests.SubscriberAdditionRequest;
+import co.novu.api.topics.requests.TopicRequest;
+import co.novu.api.topics.responses.TopicResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.api.subscribers.SubscribersHandler;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
-import co.novu.api.subscribers.requests.SubscriberRequest;
+import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
@@ -39,7 +47,11 @@ public class Novu {
     private final EventsHandler eventsHandler;
     private final NotificationHandler notificationHandler;
 
+
+    private final TopicHandler topicHandler;
+
     private final SubscribersHandler subscribersHandler;
+
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -50,14 +62,16 @@ public class Novu {
         this.restHandler = new RestHandler();
         this.eventsHandler = new EventsHandler(restHandler);
         this.notificationHandler = new NotificationHandler(restHandler);
+        this.topicHandler = new TopicHandler(restHandler);
         this.subscribersHandler = new SubscribersHandler(restHandler);
     }
 
-    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler, SubscribersHandler subscribersHandler) {
+    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler, SubscribersHandler subscribersHandler, TopicHandler topicHandler) {
         this.novuConfig = novuConfig;
         this.restHandler = restHandler;
         this.eventsHandler = eventsHandler;
         this.notificationHandler = notificationHandler;
+        this.topicHandler = topicHandler;
         this.subscribersHandler = subscribersHandler;
     }
 
@@ -249,4 +263,78 @@ public class Novu {
             throw e;
         }
     }
+
+
+    public TopicResponse createTopic(TopicRequest request) {
+        try {
+            return topicHandler.createTopic(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Creating Topic", e);
+            throw e;
+        }
+    }
+    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) {
+        try {
+            return topicHandler.filterTopics(request, novuConfig);
+        } catch (Exception e) {
+            log.error("Error filtering Topic", e);
+            throw e;
+        }
+    }
+
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
+        try {
+            return topicHandler.addSubscriberToTopic(request,topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error adding subscriber to Topic", e);
+            throw e;
+        }
+    }
+    public TopicResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+        try {
+            return topicHandler.checkTopicSubscriber(topicKey,externalSubscriberId, novuConfig);
+        } catch (Exception e) {
+            log.error("Error checking topic subscriber", e);
+            throw e;
+        }
+    }
+
+
+    public Void removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+        try {
+            return topicHandler.removeSubscriberFromTopic(request,topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error removing subscriber from Topic", e);
+            throw e;
+        }
+    }
+
+    public Void deleteTopic(String topicKey) {
+        try {
+            return topicHandler.deleteTopic(topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Deleting Topic", e);
+            throw e;
+        }
+    }
+
+
+    public TopicResponse getTopic(String topicKey) {
+        try {
+            return topicHandler.getTopic(topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error Getting Topic", e);
+            throw e;
+        }
+    }
+
+    public TopicResponse renameTopic(RenameTopicRequest request,String topicKey) {
+        try {
+            return topicHandler.renameTopic(request,topicKey, novuConfig);
+        } catch (Exception e) {
+            log.error("Error renaming Topic", e);
+            throw e;
+        }
+    }
+
 }

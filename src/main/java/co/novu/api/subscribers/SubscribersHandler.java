@@ -3,7 +3,7 @@ package co.novu.api.subscribers;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
-import co.novu.api.subscribers.requests.SubscriberRequest;
+import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
