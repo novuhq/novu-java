@@ -1,6 +1,5 @@
 package co.novu.api.topics;
 
-
 import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
@@ -33,6 +32,9 @@ public class TopicHandler {
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getPageSize() != null) params.put("pageSize", request.getPageSize());
         if (request.getKey() != null) params.put("key", request.getKey());
+        if (params.isEmpty()) {
+            return restHandler.handleGet(FilterTopicsResponse.class, novuConfig, ENDPOINT);
+        }
         return restHandler.handleGet(FilterTopicsResponse.class, novuConfig,ENDPOINT, params);
     }
 
