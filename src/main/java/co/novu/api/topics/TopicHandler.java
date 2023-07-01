@@ -38,23 +38,24 @@ public class TopicHandler {
         return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig,"topics/"+ topicKey+"/subscribers");
     }
 
-    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey,String externalSubscriberId,NovuConfig novuConfig) {
-        return restHandler.handleGet(CheckTopicSubscriberResponse.class, novuConfig,"topics/"+topicKey+"/subscribers/"+externalSubscriberId);
+    public TopicResponse checkTopicSubscriber(String topicKey,String externalSubscriberId,NovuConfig novuConfig) {
+        return restHandler.handleGet(TopicResponse.class, novuConfig,"topics/"+topicKey+"/subscribers/"+externalSubscriberId);
     }
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey, NovuConfig novuConfig) {
-        return restHandler.handlePost(request,SubscriberRemovalResponse.class, novuConfig,"topics/"+topicKey+"/subscribers/removal");
-    }
-
-    public DeleteTopicResponse deleteTopic(String topicKey, NovuConfig novuConfig) {
-        return restHandler.handleDelete(DeleteTopicResponse.class, novuConfig,"topics/" +topicKey);
+    public Void removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey, NovuConfig novuConfig) {
+        return restHandler.handlePost(request,Void.class, novuConfig,"topics/"+topicKey+"/subscribers/removal");
     }
 
-    public GetTopicResponse getTopic(String topicKey, NovuConfig novuConfig) {
-        return restHandler.handleGet(GetTopicResponse.class, novuConfig,"topics/" +topicKey);
+    public Void deleteTopic( String topicKey, NovuConfig novuConfig) {
+        return restHandler.handleDelete(Void.class, novuConfig,"topics/" +topicKey);
     }
 
-    public RenameTopicResponse renameTopic(RenameTopicRequest request,String topicKey, NovuConfig novuConfig) {
-        return restHandler.handlePatch(request,RenameTopicResponse.class, novuConfig,"topics/" +topicKey);
+
+    public TopicResponse getTopic(String topicKey, NovuConfig novuConfig) {
+        return restHandler.handleGet(TopicResponse.class, novuConfig,"topics/" +topicKey);
+    }
+
+    public TopicResponse renameTopic(RenameTopicRequest request,String topicKey, NovuConfig novuConfig) {
+        return restHandler.handlePatch(request,TopicResponse.class, novuConfig,"topics/" +topicKey);
     }
 
 

@@ -22,7 +22,7 @@ import co.novu.api.subscribers.SubscribersHandler;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
-import co.novu.api.subscribers.requests.SubscriberRequest;
+import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
@@ -288,7 +288,7 @@ public class Novu {
             throw e;
         }
     }
-    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+    public TopicResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
         try {
             return topicHandler.checkTopicSubscriber(topicKey,externalSubscriberId, novuConfig);
         } catch (Exception e) {
@@ -298,7 +298,7 @@ public class Novu {
     }
 
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+    public Void removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
         try {
             return topicHandler.removeSubscriberFromTopic(request,topicKey, novuConfig);
         } catch (Exception e) {
@@ -307,7 +307,7 @@ public class Novu {
         }
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) {
+    public Void deleteTopic(String topicKey) {
         try {
             return topicHandler.deleteTopic(topicKey, novuConfig);
         } catch (Exception e) {
@@ -316,7 +316,8 @@ public class Novu {
         }
     }
 
-    public GetTopicResponse getTopic(String topicKey) {
+
+    public TopicResponse getTopic(String topicKey) {
         try {
             return topicHandler.getTopic(topicKey, novuConfig);
         } catch (Exception e) {
@@ -325,7 +326,7 @@ public class Novu {
         }
     }
 
-    public RenameTopicResponse renameTopic(RenameTopicRequest request,String topicKey) {
+    public TopicResponse renameTopic(RenameTopicRequest request,String topicKey) {
         try {
             return topicHandler.renameTopic(request,topicKey, novuConfig);
         } catch (Exception e) {
