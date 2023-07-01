@@ -54,7 +54,7 @@ public class TopicHandler {
     }
 
     public RenameTopicResponse renameTopic(RenameTopicRequest request,String topicKey, NovuConfig novuConfig) {
-        return restHandler.handlePost(request,RenameTopicResponse.class, novuConfig,"topics/" +topicKey);
+        return restHandler.handlePatch(request,RenameTopicResponse.class, novuConfig,"topics/" +topicKey);
     }
 
 
