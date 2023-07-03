@@ -6,6 +6,11 @@ import co.novu.api.events.requests.TriggerEventRequest;
 import co.novu.api.events.responses.BulkTriggerEventResponse;
 import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
+import co.novu.api.integrations.IntegrationsHandler;
+import co.novu.api.integrations.requests.IntegrationRequest;
+import co.novu.api.integrations.responses.BulkIntegrationResponse;
+import co.novu.api.integrations.responses.ProviderWebhookStatusResponse;
+import co.novu.api.integrations.responses.SingleIntegrationResponse;
 import co.novu.api.notifications.NotificationHandler;
 import co.novu.api.notifications.requests.NotificationRequest;
 import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
@@ -44,13 +49,14 @@ public class Novu {
 
     private final NovuConfig novuConfig;
     private final RestHandler restHandler;
-    private final EventsHandler eventsHandler;
-    private final NotificationHandler notificationHandler;
+    private EventsHandler eventsHandler;
+    private NotificationHandler notificationHandler;
 
+    private TopicHandler topicHandler;
 
-    private final TopicHandler topicHandler;
+    private SubscribersHandler subscribersHandler;
 
-    private final SubscribersHandler subscribersHandler;
+    private IntegrationsHandler integrationsHandler;
 
 
     public Novu(String apiKey) {
@@ -64,15 +70,12 @@ public class Novu {
         this.notificationHandler = new NotificationHandler(restHandler);
         this.topicHandler = new TopicHandler(restHandler);
         this.subscribersHandler = new SubscribersHandler(restHandler);
+        this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
     }
 
-    protected Novu(NovuConfig novuConfig, RestHandler restHandler, EventsHandler eventsHandler, NotificationHandler notificationHandler, SubscribersHandler subscribersHandler, TopicHandler topicHandler) {
+    protected Novu(NovuConfig novuConfig, RestHandler restHandler) {
         this.novuConfig = novuConfig;
         this.restHandler = restHandler;
-        this.eventsHandler = eventsHandler;
-        this.notificationHandler = notificationHandler;
-        this.topicHandler = topicHandler;
-        this.subscribersHandler = subscribersHandler;
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
@@ -337,4 +340,57 @@ public class Novu {
         }
     }
 
+    public BulkIntegrationResponse getIntegrations() {
+        try {
+            return integrationsHandler.getIntegrations();
+        } catch (Exception e) {
+            log.error("Error getting Integrations", e);
+            throw e;
+        }
+    }
+
+    public SingleIntegrationResponse createIntegration(IntegrationRequest request) {
+        try {
+            return integrationsHandler.createIntegration(request);
+        } catch (Exception e) {
+            log.error("Error creating Integrations", e);
+            throw e;
+        }
+    }
+
+    public BulkIntegrationResponse getActiveIntegrations() {
+        try {
+            return integrationsHandler.getActiveIntegrations();
+        } catch (Exception e) {
+            log.error("Error getting active Integrations", e);
+            throw e;
+        }
+    }
+
+    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) {
+        try {
+            return integrationsHandler.getProviderWebhookStatus(providerId);
+        } catch (Exception e) {
+            log.error("Error getting Provider Webhook Status", e);
+            throw e;
+        }
+    }
+
+    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) {
+        try {
+            return integrationsHandler.updateIntegration(integrationId, request);
+        } catch (Exception e) {
+            log.error("Error updating Integration", e);
+            throw e;
+        }
+    }
+
+    public BulkIntegrationResponse deleteIntegration(String integrationId) {
+        try {
+            return integrationsHandler.deleteIntegration(integrationId);
+        } catch (Exception e) {
+            log.error("Error deleting Integration", e);
+            throw e;
+        }
+    }
 }
