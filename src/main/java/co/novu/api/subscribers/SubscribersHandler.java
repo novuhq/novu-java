@@ -23,13 +23,16 @@ import java.util.Map;
 public class SubscribersHandler {
 
     private final RestHandler restHandler;
+
+    private final NovuConfig novuConfig;
     private static final String ENDPOINT = "subscribers";
 
-    public SubscribersHandler(RestHandler restHandler) {
+    public SubscribersHandler(RestHandler restHandler, NovuConfig novuConfig) {
         this.restHandler = restHandler;
+        this.novuConfig = novuConfig;
     }
 
-    public BulkSubscriberResponse getSubscribers(NovuConfig novuConfig, Integer page, Integer limit) {
+    public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) {
         Map<String, Object> params = new HashMap<>();
         if (page != null) params.put("page", page);
         if (limit != null) params.put("limit", limit);
@@ -39,51 +42,51 @@ public class SubscribersHandler {
         return restHandler.handleGet(BulkSubscriberResponse.class, novuConfig, ENDPOINT, params);
     }
 
-    public CreateSubscriberResponse createSubscriber(SubscriberRequest request, NovuConfig novuConfig) {
+    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) {
         return restHandler.handlePost(request, CreateSubscriberResponse.class, novuConfig, ENDPOINT);
     }
 
-    public SingleSubscriberResponse getSubscriber(NovuConfig novuConfig, String subscriberId) {
+    public SingleSubscriberResponse getSubscriber(String subscriberId) {
         return restHandler.handleGet(SingleSubscriberResponse.class, novuConfig, ENDPOINT + "/" + subscriberId);
     }
 
-    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId, NovuConfig novuConfig) {
+    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) {
         return restHandler.handlePut(request, SingleSubscriberResponse.class, novuConfig, ENDPOINT + "/" + subscriberId);
     }
 
-    public SubscriberDeleteResponse deleteSubscriber(NovuConfig novuConfig, String subscriberId) {
+    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) {
         return restHandler.handleDelete(SubscriberDeleteResponse.class, novuConfig, ENDPOINT + "/" + subscriberId);
     }
 
-    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId, NovuConfig novuConfig) {
+    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) {
         return restHandler.handlePut(request, SingleSubscriberResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/credentials");
     }
 
-    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId, NovuConfig novuConfig) {
+    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) {
         return restHandler.handlePatch(request, SingleSubscriberResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/online-status");
     }
 
-    public SubscriberPreferenceResponse getSubscriberPreferences(NovuConfig novuConfig, String subscriberId) {
+    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) {
         return restHandler.handleGet(SubscriberPreferenceResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences");
     }
 
-    public SubscriberPreferenceResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId, NovuConfig novuConfig) {
+    public SubscriberPreferenceResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
         return restHandler.handlePut(request, SubscriberPreferenceResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences/" + templateId);
     }
 
-    public SubscriberNotificationResponse getSubscriberNotificationsFeed(NovuConfig novuConfig, String subscriberId) {
+    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) {
         return restHandler.handleGet(SubscriberNotificationResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/notifications/feed");
     }
 
-    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(NovuConfig novuConfig, String subscriberId) {
+    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) {
         return restHandler.handleGet(UnseenNotificationsCountResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/notifications/unseen");
     }
 
-    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId, NovuConfig novuConfig) {
+    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) {
         return restHandler.handlePost(request, SubscriberNotificationResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/messages/markAs");
     }
 
-    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type, NovuConfig novuConfig) {
+    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) {
         return restHandler.handlePost(request, SubscriberNotificationResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/messages/" + messageId + "/actions/" + type);
     }
 }
