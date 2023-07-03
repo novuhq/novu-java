@@ -12,26 +12,26 @@ public class EventsHandler {
 
     private final RestHandler restHandler;
 
-    public EventsHandler(RestHandler restHandler) {
+    private final NovuConfig novuConfig;
+
+    public EventsHandler(RestHandler restHandler, NovuConfig novuConfig) {
         this.restHandler = restHandler;
+        this.novuConfig = novuConfig;
     }
 
-
-    public TriggerEventResponse triggerEvent(TriggerEventRequest request, NovuConfig novuConfig) {
+    public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
         return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"events/trigger");
     }
 
-    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request, NovuConfig novuConfig) {
+    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) {
         return restHandler.handlePost(request, BulkTriggerEventResponse.class, novuConfig,"events/trigger/bulk");
     }
 
-    public TriggerEventResponse broadcastEvent(TriggerEventRequest request, NovuConfig novuConfig) {
+    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) {
         return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"events/trigger/broadcast");
     }
 
-    public CancelEventResponse cancelTriggeredEvent(NovuConfig novuConfig, String transactionId ) {
-        return restHandler.handleDelete(CancelEventResponse.class, novuConfig,"events/trigger/" +transactionId);
+    public CancelEventResponse cancelTriggeredEvent(String transactionId ) {
+        return restHandler.handleDelete(CancelEventResponse.class, novuConfig,"events/trigger/" + transactionId);
     }
-
-
 }

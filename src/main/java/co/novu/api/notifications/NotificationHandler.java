@@ -15,11 +15,14 @@ public class NotificationHandler {
 
     private final RestHandler restHandler;
 
-    public NotificationHandler(RestHandler restHandler) {
+    private final NovuConfig novuConfig;
+
+    public NotificationHandler(RestHandler restHandler, NovuConfig novuConfig) {
         this.restHandler = restHandler;
+        this.novuConfig = novuConfig;
     }
 
-    public NotificationsResponse getNotifications(NotificationRequest request, NovuConfig novuConfig) {
+    public NotificationsResponse getNotifications(NotificationRequest request) {
         Map<String, Object> params = new HashMap<>();
         params.put("channels", request.getChannels());
         params.put("templates", request.getTemplates());
@@ -30,15 +33,15 @@ public class NotificationHandler {
         return restHandler.handleGet(NotificationsResponse.class, novuConfig, "notifications", params);
     }
 
-    public NotificationStatsResponse getNotificationsStats(NovuConfig novuConfig) {
+    public NotificationStatsResponse getNotificationsStats() {
         return restHandler.handleGet(NotificationStatsResponse.class, novuConfig, "notifications/stats");
     }
 
-    public NotificationGraphStatsResponse getNotificationGraphStats(NovuConfig novuConfig) {
+    public NotificationGraphStatsResponse getNotificationGraphStats() {
         return restHandler.handleGet(NotificationGraphStatsResponse.class, novuConfig, "notifications/graph/stats");
     }
 
-    public NotificationResponse getNotification(NovuConfig novuConfig, String notificationId) {
+    public NotificationResponse getNotification(String notificationId) {
         return restHandler.handleGet(NotificationResponse.class, novuConfig, "notifications/" + notificationId);
     }
 }
