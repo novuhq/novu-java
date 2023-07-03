@@ -4,9 +4,7 @@ package co.novu.api.layouts;
 import co.novu.api.layouts.requests.FilterLayoutRequest;
 import co.novu.api.layouts.requests.LayoutRequest;
 import co.novu.api.layouts.responses.LayoutResponse;
-import co.novu.api.layouts.responses.UpdateLayoutResponse;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
-import co.novu.api.layouts.responses.FilterLayoutResponseData;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 
@@ -44,15 +42,15 @@ public class LayoutHandler {
         return restHandler.handleGet(FilterLayoutResponse.class, novuConfig, ENDPOINT, params);
     }
 
-    public FilterLayoutResponseData getLayout(String layoutId) {
-        return restHandler.handleGet(FilterLayoutResponseData.class, novuConfig, ENDPOINT  + "/" + layoutId);
+    public LayoutResponse getLayout(String layoutId) {
+        return restHandler.handleGet(LayoutResponse.class, novuConfig, ENDPOINT  + "/" + layoutId);
     }
 
     public Void deleteLayout(String layoutId) {
         return restHandler.handleDelete(Void.class, novuConfig,ENDPOINT + "/" + layoutId);
     }
-    public UpdateLayoutResponse updateLayout(String layoutId, LayoutRequest request) {
-        return restHandler.handlePatch(request, UpdateLayoutResponse.class, novuConfig, ENDPOINT+ "/" + layoutId);
+    public LayoutResponse updateLayout(String layoutId, LayoutRequest request) {
+        return restHandler.handlePatch(request, LayoutResponse.class, novuConfig, ENDPOINT+ "/" + layoutId);
     }
 
     public Void setDefaultLayout(String layoutId) {
