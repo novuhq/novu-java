@@ -3,10 +3,7 @@ package co.novu.api.layouts;
 
 import co.novu.api.layouts.requests.FilterLayoutRequest;
 import co.novu.api.layouts.requests.LayoutRequest;
-import co.novu.api.layouts.responses.LayoutResponse;
-import co.novu.api.layouts.responses.UpdateLayoutResponse;
-import co.novu.api.layouts.responses.GetLayoutResponse;
-import co.novu.api.layouts.responses.FilterLayoutResponse;
+import co.novu.api.layouts.responses.*;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 
@@ -35,8 +32,8 @@ public class LayoutHandler {
         Map<String, Object> params = new HashMap<>();
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getPageSize() != null) params.put("pageSize", request.getPageSize());
-        if (request.getSortBy() != null) params.put("key", request.getSortBy());
-        if (request.getOrderBy() != null) params.put("key", request.getOrderBy());
+        if (request.getSortBy() != null) params.put("sortBy", request.getSortBy());
+        if (request.getOrderBy() != null) params.put("orderBy", request.getOrderBy());
 
         if (params.isEmpty()) {
             return restHandler.handleGet(FilterLayoutResponse.class, novuConfig, ENDPOINT);
@@ -44,8 +41,8 @@ public class LayoutHandler {
         return restHandler.handleGet(FilterLayoutResponse.class, novuConfig, ENDPOINT, params);
     }
 
-    public GetLayoutResponse getLayout(String layoutId) {
-        return restHandler.handleGet(GetLayoutResponse.class, novuConfig, ENDPOINT  + "/" + layoutId);
+    public FilterLayoutResponseData getLayout(String layoutId) {
+        return restHandler.handleGet(FilterLayoutResponseData.class, novuConfig, ENDPOINT  + "/" + layoutId);
     }
 
     public Void deleteLayout(String layoutId) {
@@ -56,7 +53,7 @@ public class LayoutHandler {
     }
 
     public Void setDefaultLayout(String layoutId) {
-        return restHandler.handleDelete(Void.class, novuConfig,ENDPOINT + "/" + layoutId+ "/default");
+        return restHandler.handlePost(Void.class, novuConfig,ENDPOINT + "/" + layoutId+ "/default");
     }
 
 }

@@ -22,6 +22,12 @@ public class RestHandler {
         return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz);
     }
 
+    public <T> T handlePost(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
+        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz);
+    }
+
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
         HttpHeaders headers = getHeaders(novuConfig.getApiKey());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);

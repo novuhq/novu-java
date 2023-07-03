@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class FilterTopicsResponse implements IResponse {
     private List<TopicResponseData> data;
-    private int page;
-    private int pageSize;
-    private int totalCount;
+    private Integer page;
+    private Integer pageSize;
+    private Integer totalCount;
 }
