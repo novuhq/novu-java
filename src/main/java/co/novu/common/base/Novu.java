@@ -15,6 +15,7 @@ import co.novu.api.layouts.LayoutHandler;
 import co.novu.api.layouts.requests.FilterLayoutRequest;
 import co.novu.api.layouts.requests.LayoutRequest;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
+import co.novu.api.layouts.responses.GetLayoutResponse;
 import co.novu.api.layouts.responses.LayoutResponse;
 import co.novu.api.notifications.NotificationHandler;
 import co.novu.api.notifications.requests.NotificationRequest;
@@ -417,7 +418,7 @@ public class Novu {
         }
     }
 
-    public LayoutResponse getLayout(String layoutId) {
+    public GetLayoutResponse getLayout(String layoutId) {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
@@ -435,7 +436,7 @@ public class Novu {
         }
     }
 
-    public LayoutResponse updateIntegration(String layoutId, LayoutRequest request) {
+    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) {
         try {
             return layoutHandler.updateLayout(layoutId, request);
         } catch (Exception e) {
