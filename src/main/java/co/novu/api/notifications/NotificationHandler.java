@@ -7,20 +7,17 @@ import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class NotificationHandler {
 
     private final RestHandler restHandler;
 
     private final NovuConfig novuConfig;
-
-    public NotificationHandler(RestHandler restHandler, NovuConfig novuConfig) {
-        this.restHandler = restHandler;
-        this.novuConfig = novuConfig;
-    }
 
     public NotificationsResponse getNotifications(NotificationRequest request) {
         Map<String, Object> params = new HashMap<>();

@@ -7,17 +7,14 @@ import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class EventsHandler {
 
     private final RestHandler restHandler;
 
     private final NovuConfig novuConfig;
-
-    public EventsHandler(RestHandler restHandler, NovuConfig novuConfig) {
-        this.restHandler = restHandler;
-        this.novuConfig = novuConfig;
-    }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
         return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig,"events/trigger");

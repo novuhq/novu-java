@@ -7,10 +7,12 @@ import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class LayoutHandler {
 
     private final RestHandler restHandler;
@@ -18,12 +20,6 @@ public class LayoutHandler {
     private final NovuConfig novuConfig;
 
     private static final String ENDPOINT = "layouts";
-
-
-    public LayoutHandler(RestHandler restHandler, NovuConfig novuConfig) {
-        this.restHandler = restHandler;
-        this.novuConfig = novuConfig;
-    }
 
     public CreateLayoutResponse createLayout(LayoutRequest request) {
         return restHandler.handlePost(request, CreateLayoutResponse.class, novuConfig, ENDPOINT);

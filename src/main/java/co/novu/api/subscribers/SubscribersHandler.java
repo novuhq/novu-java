@@ -16,21 +16,18 @@ import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
 import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class SubscribersHandler {
 
     private final RestHandler restHandler;
 
     private final NovuConfig novuConfig;
     private static final String ENDPOINT = "subscribers";
-
-    public SubscribersHandler(RestHandler restHandler, NovuConfig novuConfig) {
-        this.restHandler = restHandler;
-        this.novuConfig = novuConfig;
-    }
 
     public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) {
         Map<String, Object> params = new HashMap<>();
