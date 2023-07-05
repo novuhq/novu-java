@@ -47,7 +47,7 @@ public class LayoutHandler {
     }
 
     public Void deleteLayout(String layoutId) {
-        return restHandler.handleDelete(Void.class, novuConfig,ENDPOINT + "/" + layoutId);
+        return restHandler.handleDelete(Void.class, novuConfig, ENDPOINT + "/" + layoutId);
     }
 
     public GetLayoutResponse updateLayout(String layoutId, LayoutRequest request) {
@@ -55,7 +55,7 @@ public class LayoutHandler {
     }
 
     public Void setDefaultLayout(String layoutId) {
-        return restHandler.handlePost(Void.class, novuConfig,ENDPOINT + "/" + layoutId + "/default");
+        return restHandler.handlePost(Void.class, novuConfig, ENDPOINT + "/" + layoutId + "/default");
     }
 
 }
