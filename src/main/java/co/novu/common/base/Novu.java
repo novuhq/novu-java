@@ -11,6 +11,12 @@ import co.novu.api.integrations.requests.IntegrationRequest;
 import co.novu.api.integrations.responses.BulkIntegrationResponse;
 import co.novu.api.integrations.responses.ProviderWebhookStatusResponse;
 import co.novu.api.integrations.responses.SingleIntegrationResponse;
+import co.novu.api.layouts.LayoutHandler;
+import co.novu.api.layouts.requests.FilterLayoutRequest;
+import co.novu.api.layouts.requests.LayoutRequest;
+import co.novu.api.layouts.responses.FilterLayoutResponse;
+import co.novu.api.layouts.responses.GetLayoutResponse;
+import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.notifications.NotificationHandler;
 import co.novu.api.notifications.requests.NotificationRequest;
 import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
@@ -57,6 +63,8 @@ public class Novu {
 
     private IntegrationsHandler integrationsHandler;
 
+    private LayoutHandler layoutHandler;
+
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -69,6 +77,7 @@ public class Novu {
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
         this.topicHandler = new TopicHandler(restHandler, novuConfig);
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
+        this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -390,4 +399,59 @@ public class Novu {
             throw e;
         }
     }
+
+    public CreateLayoutResponse createLayout(LayoutRequest request) {
+        try {
+            return layoutHandler.createLayout(request);
+        } catch (Exception e) {
+            log.error("Error creating Layout", e);
+            throw e;
+        }
+    }
+
+    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) {
+        try {
+            return layoutHandler.filterLayouts(request);
+        } catch (Exception e) {
+            log.error("Error filtering Layout", e);
+            throw e;
+        }
+    }
+
+    public GetLayoutResponse getLayout(String layoutId) {
+        try {
+            return layoutHandler.getLayout(layoutId);
+        } catch (Exception e) {
+            log.error("Error getting Layouts", e);
+            throw e;
+        }
+    }
+
+    public Void deleteLayout(String layoutId) {
+        try {
+            return layoutHandler.deleteLayout(layoutId);
+        } catch (Exception e) {
+            log.error("Error Deleting Layout", e);
+            throw e;
+        }
+    }
+
+    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) {
+        try {
+            return layoutHandler.updateLayout(layoutId, request);
+        } catch (Exception e) {
+            log.error("Error updating Layout", e);
+            throw e;
+        }
+    }
+
+    public Void setDefaultLayout(String layoutId) {
+        try {
+            return layoutHandler.setDefaultLayout(layoutId);
+        } catch (Exception e) {
+            log.error("Error Setting Default Layout", e);
+            throw e;
+        }
+    }
+
 }

@@ -6,7 +6,9 @@ import co.novu.api.integrations.responses.ProviderWebhookStatusResponse;
 import co.novu.api.integrations.responses.SingleIntegrationResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class IntegrationsHandler {
 
     private final RestHandler restHandler;
@@ -14,11 +16,6 @@ public class IntegrationsHandler {
     private final NovuConfig novuConfig;
 
     private static final String ENDPOINT = "integrations";
-
-    public IntegrationsHandler(RestHandler restHandler, NovuConfig novuConfig) {
-        this.restHandler = restHandler;
-        this.novuConfig = novuConfig;
-    }
 
     public BulkIntegrationResponse getIntegrations() {
         return restHandler.handleGet(BulkIntegrationResponse.class, novuConfig, ENDPOINT);

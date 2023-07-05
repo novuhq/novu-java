@@ -9,10 +9,12 @@ import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class TopicHandler {
 
     private final RestHandler restHandler;
@@ -20,11 +22,6 @@ public class TopicHandler {
     private final NovuConfig novuConfig;
 
     private static final String ENDPOINT = "topics";
-
-    public TopicHandler(RestHandler restHandler, NovuConfig novuConfig) {
-        this.restHandler = restHandler;
-        this.novuConfig = novuConfig;
-    }
 
     public TopicResponse createTopic(TopicRequest request) {
         return restHandler.handlePost(request, TopicResponse.class, novuConfig, ENDPOINT);

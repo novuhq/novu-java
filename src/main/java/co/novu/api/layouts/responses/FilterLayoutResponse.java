@@ -1,4 +1,4 @@
-package co.novu.api.topics.responses;
+package co.novu.api.layouts.responses;
 
 import co.novu.common.contracts.IResponse;
 import lombok.Data;
@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class FilterTopicsResponse implements IResponse {
-    private List<TopicResponseData> data;
+public class FilterLayoutResponse implements IResponse {
+    private List<LayoutResponse> data;
     private Integer page;
     private Integer pageSize;
     private Integer totalCount;
