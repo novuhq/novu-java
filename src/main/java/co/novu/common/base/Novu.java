@@ -46,6 +46,12 @@ import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
 import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
 import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
+import co.novu.api.workflows.WorkflowHandler;
+import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
+import co.novu.api.workflows.requests.WorkflowRequest;
+import co.novu.api.workflows.responses.BulkWorkflowResponse;
+import co.novu.api.workflows.responses.DeleteWorkflowResponse;
+import co.novu.api.workflows.responses.SingleWorkflowResponse;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
@@ -65,6 +71,8 @@ public class Novu {
 
     private LayoutHandler layoutHandler;
 
+    private WorkflowHandler workflowHandler;
+
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -78,6 +86,7 @@ public class Novu {
         this.topicHandler = new TopicHandler(restHandler, novuConfig);
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
         this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
+        this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -454,4 +463,57 @@ public class Novu {
         }
     }
 
+    public BulkWorkflowResponse getWorkflows(@Nullable Integer page, @Nullable Integer limit) {
+        try {
+            return workflowHandler.getWorkflows(page, limit);
+        } catch (Exception e) {
+            log.error("Error getting Workflows", e);
+            throw e;
+        }
+    }
+
+    public SingleWorkflowResponse createWorkflow(WorkflowRequest request) {
+        try {
+            return workflowHandler.createWorkflow(request);
+        } catch (Exception e) {
+            log.error("Error creating Workflow", e);
+            throw e;
+        }
+    }
+
+    public SingleWorkflowResponse updateWorkflow(String workflowId, WorkflowRequest request) {
+        try {
+            return workflowHandler.updateWorkflow(workflowId, request);
+        } catch (Exception e) {
+            log.error("Error updating Workflow", e);
+            throw e;
+        }
+    }
+
+    public DeleteWorkflowResponse deleteWorkflow(String workflowId) {
+        try {
+            return workflowHandler.deleteWorkflow(workflowId);
+        } catch (Exception e) {
+            log.error("Error deleting Workflow", e);
+            throw e;
+        }
+    }
+
+    public SingleWorkflowResponse getWorkflow(String workflowId) {
+        try {
+            return workflowHandler.getWorkflow(workflowId);
+        } catch (Exception e) {
+            log.error("Error getting Workflow", e);
+            throw e;
+        }
+    }
+
+    public SingleWorkflowResponse updateWorkflowStatus(String workflowId, UpdateWorkflowStatusRequest request) {
+        try {
+            return workflowHandler.updateWorkflowStatus(workflowId, request);
+        } catch (Exception e) {
+            log.error("Error updating Workflow status", e);
+            throw e;
+        }
+    }
 }
