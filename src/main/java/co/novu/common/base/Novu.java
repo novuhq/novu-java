@@ -1,5 +1,12 @@
 package co.novu.common.base;
 
+import co.novu.api.changes.ChangeHandler;
+import co.novu.api.changes.request.ApplyChangeRequest;
+import co.novu.api.changes.request.ApplyChangesRequest;
+import co.novu.api.changes.request.GetChangesRequest;
+import co.novu.api.changes.responses.ApplyChangesResponse;
+import co.novu.api.changes.responses.ChangeCountResponse;
+import co.novu.api.changes.responses.GetChangesResponse;
 import co.novu.api.events.EventsHandler;
 import co.novu.api.events.pojos.BulkTriggerEventRequest;
 import co.novu.api.events.requests.TriggerEventRequest;
@@ -72,6 +79,7 @@ public class Novu {
     private LayoutHandler layoutHandler;
 
     private WorkflowHandler workflowHandler;
+    private ChangeHandler changeHandler;
 
 
     public Novu(String apiKey) {
@@ -87,6 +95,7 @@ public class Novu {
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
         this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
+        this.changeHandler = new ChangeHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -463,6 +472,7 @@ public class Novu {
         }
     }
 
+
     public BulkWorkflowResponse getWorkflows(@Nullable Integer page, @Nullable Integer limit) {
         try {
             return workflowHandler.getWorkflows(page, limit);
@@ -481,6 +491,7 @@ public class Novu {
         }
     }
 
+
     public SingleWorkflowResponse updateWorkflow(String workflowId, WorkflowRequest request) {
         try {
             return workflowHandler.updateWorkflow(workflowId, request);
@@ -489,6 +500,7 @@ public class Novu {
             throw e;
         }
     }
+
 
     public DeleteWorkflowResponse deleteWorkflow(String workflowId) {
         try {
@@ -516,4 +528,44 @@ public class Novu {
             throw e;
         }
     }
+
+    public GetChangesResponse getChanges(GetChangesRequest request) {
+        try {
+            return changeHandler.getChanges(request);
+        } catch (Exception e) {
+            log.error("Error getting changes", e);
+            throw e;
+        }
+    }
+
+    public ChangeCountResponse getChangesCount() {
+        try {
+            return changeHandler.getChangesCount();
+        } catch (Exception e) {
+            log.error("Error getting changes count", e);
+            throw e;
+        }
+    }
+
+
+    public ApplyChangesResponse applyChanges(ApplyChangesRequest request) {
+        try {
+            return changeHandler.applyChanges(request);
+        } catch (Exception e) {
+            log.error("Error applying changes", e);
+            throw e;
+        }
+    }
+
+    public ApplyChangesResponse applyChange(String changeId,ApplyChangeRequest request) {
+        try {
+            return changeHandler.applyChange(changeId,request);
+        } catch (Exception e) {
+            log.error("Error applying change", e);
+            throw e;
+        }
+    }
+
+
+
 }

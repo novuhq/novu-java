@@ -28,6 +28,13 @@ public class RestHandler {
         return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz);
     }
 
+    public <T> T handlePost(IRequest request,Class<T> responseClazz, NovuConfig novuConfig, String endPoint, Map<String, Object> queryParams) {
+        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
+        HttpEntity<IRequest> requestEntity = new HttpEntity<>(request, headers);
+
+        return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz, queryParams);
+    }
+
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
         HttpHeaders headers = getHeaders(novuConfig.getApiKey());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
