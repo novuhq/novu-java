@@ -6,6 +6,12 @@ import co.novu.api.changes.request.GetChangesRequest;
 import co.novu.api.changes.responses.ApplyChangesResponse;
 import co.novu.api.changes.responses.ChangeCountResponse;
 import co.novu.api.changes.responses.GetChangesResponse;
+import co.novu.api.environments.EnvironmentHandler;
+import co.novu.api.environments.requests.CreateEnvironmentRequest;
+import co.novu.api.environments.requests.UpdateEnvironmentRequest;
+import co.novu.api.environments.responses.ApiKeyResponse;
+import co.novu.api.environments.responses.BulkEnvironmentResponse;
+import co.novu.api.environments.responses.SingleEnvironmentResponse;
 import co.novu.api.events.EventsHandler;
 import co.novu.api.events.pojos.BulkTriggerEventRequest;
 import co.novu.api.events.requests.TriggerEventRequest;
@@ -78,7 +84,10 @@ public class Novu {
     private LayoutHandler layoutHandler;
 
     private WorkflowHandler workflowHandler;
+
     private ChangeHandler changeHandler;
+
+    private EnvironmentHandler environmentHandler;
 
 
     public Novu(String apiKey) {
@@ -95,6 +104,7 @@ public class Novu {
         this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
+        this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -565,6 +575,57 @@ public class Novu {
         }
     }
 
+    public SingleEnvironmentResponse getCurrentEnvironment() {
+        try {
+            return environmentHandler.getCurrentEnvironment();
+        } catch (Exception e) {
+            log.error("Error getting current Environment", e);
+            throw e;
+        }
+    }
 
+    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) {
+        try {
+            return environmentHandler.createEnvironment(request);
+        } catch (Exception e) {
+            log.error("Error creating Environment", e);
+            throw e;
+        }
+    }
 
+    public BulkEnvironmentResponse getEnvironments() {
+        try {
+            return environmentHandler.getEnvironments();
+        } catch (Exception e) {
+            log.error("Error getting Environments", e);
+            throw e;
+        }
+    }
+
+    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) {
+        try {
+            return environmentHandler.updateEnvironmentById(environmentId, request);
+        } catch (Exception e) {
+            log.error("Error updating Environment by ID", e);
+            throw e;
+        }
+    }
+
+    public ApiKeyResponse getApiKeys() {
+        try {
+            return environmentHandler.getApiKeys();
+        } catch (Exception e) {
+            log.error("Error getting Api Keys", e);
+            throw e;
+        }
+    }
+
+    public ApiKeyResponse regenerateApiKeys() {
+        try {
+            return environmentHandler.regenerateApiKeys();
+        } catch (Exception e) {
+            log.error("Error regenerating Api Keys", e);
+            throw e;
+        }
+    }
 }
