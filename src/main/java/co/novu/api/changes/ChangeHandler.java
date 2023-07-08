@@ -1,6 +1,5 @@
 package co.novu.api.changes;
 
-import co.novu.api.changes.request.ApplyChangeRequest;
 import co.novu.api.changes.request.ApplyChangesRequest;
 import co.novu.api.changes.request.GetChangesRequest;
 import co.novu.api.changes.responses.ApplyChangesResponse;
@@ -27,11 +26,7 @@ public class ChangeHandler {
         Map<String, Object> params = new HashMap<>();
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getLimit() != null) params.put("limit", request.getLimit());
-        if (request.getPromoted() != null) params.put("promoted", request.getPromoted());
-
-        if (params.isEmpty()) {
-            return restHandler.handleGet(GetChangesResponse.class, novuConfig, ENDPOINT);
-        }
+        params.put("promoted", request.getPromoted());
         return restHandler.handleGet(GetChangesResponse.class, novuConfig, ENDPOINT, params);
     }
 
@@ -43,14 +38,8 @@ public class ChangeHandler {
         return restHandler.handlePost(request, ApplyChangesResponse.class, novuConfig, ENDPOINT+ "/bulk/apply");
     }
 
-    public ApplyChangesResponse applyChange(String changeId,ApplyChangeRequest request) {
-        Map<String, Object> params = new HashMap<>();
-        if (request.getChangeId() != null) params.put("changeId", request.getChangeId());
-
-        if (params.isEmpty()) {
-            return restHandler.handlePost(request,ApplyChangesResponse.class, novuConfig, ENDPOINT + "/" +changeId+ "/apply");
-        }
-        return restHandler.handlePost(request,ApplyChangesResponse.class, novuConfig, ENDPOINT+ "/" +changeId+ "/apply", params);
+    public ApplyChangesResponse applyChange(String changeId) {
+        return restHandler.handlePost(ApplyChangesResponse.class, novuConfig, ENDPOINT+ "/" +changeId+ "/apply");
     }
 
 

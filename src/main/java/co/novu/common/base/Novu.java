@@ -1,7 +1,6 @@
 package co.novu.common.base;
 
 import co.novu.api.changes.ChangeHandler;
-import co.novu.api.changes.request.ApplyChangeRequest;
 import co.novu.api.changes.request.ApplyChangesRequest;
 import co.novu.api.changes.request.GetChangesRequest;
 import co.novu.api.changes.responses.ApplyChangesResponse;
@@ -557,9 +556,9 @@ public class Novu {
         }
     }
 
-    public ApplyChangesResponse applyChange(String changeId,ApplyChangeRequest request) {
+    public ApplyChangesResponse applyChange(String changeId) {
         try {
-            return changeHandler.applyChange(changeId,request);
+            return changeHandler.applyChange(changeId);
         } catch (Exception e) {
             log.error("Error applying change", e);
             throw e;
