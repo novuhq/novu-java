@@ -18,6 +18,10 @@ import co.novu.api.events.requests.TriggerEventRequest;
 import co.novu.api.events.responses.BulkTriggerEventResponse;
 import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
+import co.novu.api.feeds.FeedsHandler;
+import co.novu.api.feeds.request.FeedRequest;
+import co.novu.api.feeds.response.FeedResponse;
+import co.novu.api.feeds.response.GetFeedsResponse;
 import co.novu.api.integrations.IntegrationsHandler;
 import co.novu.api.integrations.requests.IntegrationRequest;
 import co.novu.api.integrations.responses.BulkIntegrationResponse;
@@ -96,6 +100,8 @@ public class Novu {
 
     private WorkflowGroupHandler workflowGroupHandler;
 
+    private FeedsHandler feedsHandler;
+
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -113,6 +119,7 @@ public class Novu {
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
         this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
+        this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -678,6 +685,33 @@ public class Novu {
             return workflowGroupHandler.deleteWorkflowGroup(id);
         } catch (Exception e) {
             log.error("Error deleting workflow group", e);
+            throw e;
+        }
+    }
+
+    public FeedResponse createFeed(FeedRequest request) {
+        try {
+            return feedsHandler.createFeed(request);
+        } catch (Exception e) {
+            log.error("Error creating feed", e);
+            throw e;
+        }
+    }
+
+    public GetFeedsResponse getFeeds() {
+        try {
+            return feedsHandler.getFeeds();
+        } catch (Exception e) {
+            log.error("Error getting feed", e);
+            throw e;
+        }
+    }
+
+    public GetFeedsResponse deleteFeed(String feedId) {
+        try {
+            return feedsHandler.deleteFeed(feedId);
+        } catch (Exception e) {
+            log.error("Error deleting feed", e);
             throw e;
         }
     }
