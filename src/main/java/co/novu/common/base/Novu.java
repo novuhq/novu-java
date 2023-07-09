@@ -58,6 +58,11 @@ import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
 import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
 import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
+import co.novu.api.workflowGroup.WorkflowGroupHandler;
+import co.novu.api.workflowGroup.request.WorkflowGroupRequest;
+import co.novu.api.workflowGroup.responses.DeleteWorkflowGroup;
+import co.novu.api.workflowGroup.responses.GetWorkflowGroupsResponse;
+import co.novu.api.workflowGroup.responses.WorkflowGroupResponse;
 import co.novu.api.workflows.WorkflowHandler;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
 import co.novu.api.workflows.requests.WorkflowRequest;
@@ -89,6 +94,8 @@ public class Novu {
 
     private EnvironmentHandler environmentHandler;
 
+    private WorkflowGroupHandler workflowGroupHandler;
+
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -105,6 +112,7 @@ public class Novu {
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
         this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
+        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -625,6 +633,51 @@ public class Novu {
             return environmentHandler.regenerateApiKeys();
         } catch (Exception e) {
             log.error("Error regenerating Api Keys", e);
+            throw e;
+        }
+    }
+
+    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) {
+        try {
+            return workflowGroupHandler.createWorkflowGroup(request);
+        } catch (Exception e) {
+            log.error("Error creating workflow group", e);
+            throw e;
+        }
+    }
+
+    public GetWorkflowGroupsResponse getWorkflowGroups() {
+        try {
+            return workflowGroupHandler.getWorkflowGroups();
+        } catch (Exception e) {
+            log.error("Error getting workflow groups", e);
+            throw e;
+        }
+    }
+
+    public WorkflowGroupResponse getWorkflowGroup(String id) {
+        try {
+            return workflowGroupHandler.getWorkflowGroup(id);
+        } catch (Exception e) {
+            log.error("Error getting workflow group", e);
+            throw e;
+        }
+    }
+
+    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) {
+        try {
+            return workflowGroupHandler.updateWorkflowGroup(id,request);
+        } catch (Exception e) {
+            log.error("Error updating workflow group", e);
+            throw e;
+        }
+    }
+
+    public DeleteWorkflowGroup deleteWorkflowGroup(String id) {
+        try {
+            return workflowGroupHandler.deleteWorkflowGroup(id);
+        } catch (Exception e) {
+            log.error("Error deleting workflow group", e);
             throw e;
         }
     }
