@@ -1,9 +1,9 @@
-package co.novu.api.workflowGroup;
+package co.novu.api.workflowgroups;
 
-import co.novu.api.workflowGroup.request.WorkflowGroupRequest;
-import co.novu.api.workflowGroup.responses.DeleteWorkflowGroup;
-import co.novu.api.workflowGroup.responses.GetWorkflowGroupsResponse;
-import co.novu.api.workflowGroup.responses.WorkflowGroupResponse;
+import co.novu.api.workflowgroups.request.WorkflowGroupRequest;
+import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
+import co.novu.api.workflowgroups.responses.GetWorkflowGroupsResponse;
+import co.novu.api.workflowgroups.responses.WorkflowGroupResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;

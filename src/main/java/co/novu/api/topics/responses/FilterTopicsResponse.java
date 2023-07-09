@@ -1,12 +1,11 @@
 package co.novu.api.topics.responses;
 
-import co.novu.common.contracts.IResponse;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class FilterTopicsResponse implements IResponse {
+public class FilterTopicsResponse {
     private List<TopicResponseData> data;
     private Integer page;
     private Integer pageSize;

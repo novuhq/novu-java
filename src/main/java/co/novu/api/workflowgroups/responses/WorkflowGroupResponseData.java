@@ -1,4 +1,4 @@
-package co.novu.api.workflowGroup.responses;
+package co.novu.api.workflowgroups.responses;
 
 import lombok.Data;
 

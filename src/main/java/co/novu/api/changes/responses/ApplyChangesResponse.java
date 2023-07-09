@@ -1,11 +1,10 @@
 package co.novu.api.changes.responses;
 
-import co.novu.common.contracts.IResponse;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ApplyChangesResponse implements IResponse {
+public class ApplyChangesResponse {
     private List<ChangesData> data;
 }

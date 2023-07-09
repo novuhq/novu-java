@@ -1,4 +1,4 @@
-package co.novu.api.workflowGroup.request;
+package co.novu.api.workflowgroups.request;
 
 import co.novu.common.contracts.IRequest;
 import lombok.Data;

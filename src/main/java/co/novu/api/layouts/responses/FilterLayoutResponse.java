@@ -1,12 +1,11 @@
 package co.novu.api.layouts.responses;
 
-import co.novu.common.contracts.IResponse;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class FilterLayoutResponse implements IResponse {
+public class FilterLayoutResponse {
     private List<LayoutResponse> data;
     private Integer page;
     private Integer pageSize;

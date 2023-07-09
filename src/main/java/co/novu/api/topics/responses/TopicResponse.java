@@ -1,10 +1,9 @@
 package co.novu.api.topics.responses;
 
-import co.novu.common.contracts.IResponse;
 import lombok.Data;
 
 @Data
-public class TopicResponse implements IResponse {
+public class TopicResponse {
     private TopicResponseData data;
 
 }
