@@ -2,7 +2,7 @@ package co.novu.api.feeds;
 
 import co.novu.api.feeds.request.FeedRequest;
 import co.novu.api.feeds.response.FeedResponse;
-import co.novu.api.feeds.response.GetFeedsResponse;
+import co.novu.api.feeds.response.BulkFeedsResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +21,13 @@ public class FeedsHandler {
         return restHandler.handlePost(request, FeedResponse.class, novuConfig, ENDPOINT);
     }
 
-    public GetFeedsResponse getFeeds() {
-        return restHandler.handleGet(GetFeedsResponse.class, novuConfig, ENDPOINT);
+    public BulkFeedsResponse getFeeds() {
+        return restHandler.handleGet(BulkFeedsResponse.class, novuConfig, ENDPOINT);
     }
 
 
-    public GetFeedsResponse deleteFeed(String feedId) {
-        return restHandler.handleGet(GetFeedsResponse.class, novuConfig, ENDPOINT+ "/" +feedId);
+    public BulkFeedsResponse deleteFeed(String feedId) {
+        return restHandler.handleGet(BulkFeedsResponse.class, novuConfig, ENDPOINT+ "/" +feedId);
     }
 
 }

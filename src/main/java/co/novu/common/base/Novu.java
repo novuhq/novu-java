@@ -21,7 +21,7 @@ import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.api.feeds.FeedsHandler;
 import co.novu.api.feeds.request.FeedRequest;
 import co.novu.api.feeds.response.FeedResponse;
-import co.novu.api.feeds.response.GetFeedsResponse;
+import co.novu.api.feeds.response.BulkFeedsResponse;
 import co.novu.api.integrations.IntegrationsHandler;
 import co.novu.api.integrations.requests.IntegrationRequest;
 import co.novu.api.integrations.responses.BulkIntegrationResponse;
@@ -698,7 +698,7 @@ public class Novu {
         }
     }
 
-    public GetFeedsResponse getFeeds() {
+    public BulkFeedsResponse getFeeds() {
         try {
             return feedsHandler.getFeeds();
         } catch (Exception e) {
@@ -707,7 +707,7 @@ public class Novu {
         }
     }
 
-    public GetFeedsResponse deleteFeed(String feedId) {
+    public BulkFeedsResponse deleteFeed(String feedId) {
         try {
             return feedsHandler.deleteFeed(feedId);
         } catch (Exception e) {

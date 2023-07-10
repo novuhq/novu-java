@@ -5,6 +5,6 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class GetFeedsResponse {
+public class BulkFeedsResponse {
     private List<FeedResponseData> data;
 }
