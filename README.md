@@ -16,6 +16,6 @@ As always, if you need additional assistance, join our Discord us a note [here](
 
 Name |   
 ------------ |
-[Joseph Olugbohunmi]([https://github.com/mayorJAY) |
+[Joseph Olugbohunmi](https://github.com/mayorJAY) |
 [Mukhtar Onifade](https://github.com/basfar) |
 
