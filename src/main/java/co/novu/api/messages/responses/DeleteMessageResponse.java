@@ -1,9 +1,9 @@
-package co.novu.api.workflowgroups.responses;
+package co.novu.api.messages.responses;
 
 import lombok.Data;
 
 @Data
-public class DeleteWorkflowGroup {
+public class DeleteMessageResponse {
     private Boolean acknowledged;
     private String status;
 }

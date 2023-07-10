@@ -18,10 +18,14 @@ import co.novu.api.events.requests.TriggerEventRequest;
 import co.novu.api.events.responses.BulkTriggerEventResponse;
 import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
+import co.novu.api.executivedetails.ExecutiveDetailsHandler;
+import co.novu.api.executivedetails.responses.ExecutiveDetailsResponse;
 import co.novu.api.feeds.FeedsHandler;
 import co.novu.api.feeds.request.FeedRequest;
 import co.novu.api.feeds.response.FeedResponse;
 import co.novu.api.feeds.response.BulkFeedsResponse;
+import co.novu.api.inboundparse.InboundParseHandler;
+import co.novu.api.inboundparse.responses.ValidateMxRecordResponse;
 import co.novu.api.integrations.IntegrationsHandler;
 import co.novu.api.integrations.requests.IntegrationRequest;
 import co.novu.api.integrations.responses.BulkIntegrationResponse;
@@ -33,6 +37,10 @@ import co.novu.api.layouts.requests.LayoutRequest;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
 import co.novu.api.layouts.responses.GetLayoutResponse;
 import co.novu.api.layouts.responses.CreateLayoutResponse;
+import co.novu.api.messages.MessageHandler;
+import co.novu.api.messages.requests.MessageRequest;
+import co.novu.api.messages.responses.DeleteMessageResponse;
+import co.novu.api.messages.responses.MessageResponse;
 import co.novu.api.notifications.NotificationHandler;
 import co.novu.api.notifications.requests.NotificationRequest;
 import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
@@ -94,13 +102,19 @@ public class Novu {
 
     private WorkflowHandler workflowHandler;
 
+    private WorkflowGroupHandler workflowGroupHandler;
+
     private ChangeHandler changeHandler;
 
     private EnvironmentHandler environmentHandler;
 
-    private WorkflowGroupHandler workflowGroupHandler;
+    private InboundParseHandler inboundParseHandler;
 
     private FeedsHandler feedsHandler;
+
+    private MessageHandler messageHandler;
+
+    private ExecutiveDetailsHandler executiveDetailsHandler;
 
 
     public Novu(String apiKey) {
@@ -116,10 +130,13 @@ public class Novu {
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
         this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
+        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
         this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
-        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
+        this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
+        this.messageHandler = new MessageHandler(restHandler, novuConfig);
+        this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
     }
 
     // For Tests purpose
@@ -553,6 +570,51 @@ public class Novu {
         }
     }
 
+    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) {
+        try {
+            return workflowGroupHandler.createWorkflowGroup(request);
+        } catch (Exception e) {
+            log.error("Error creating workflow group", e);
+            throw e;
+        }
+    }
+
+    public GetWorkflowGroupsResponse getWorkflowGroups() {
+        try {
+            return workflowGroupHandler.getWorkflowGroups();
+        } catch (Exception e) {
+            log.error("Error getting workflow groups", e);
+            throw e;
+        }
+    }
+
+    public WorkflowGroupResponse getWorkflowGroup(String id) {
+        try {
+            return workflowGroupHandler.getWorkflowGroup(id);
+        } catch (Exception e) {
+            log.error("Error getting workflow group", e);
+            throw e;
+        }
+    }
+
+    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) {
+        try {
+            return workflowGroupHandler.updateWorkflowGroup(id,request);
+        } catch (Exception e) {
+            log.error("Error updating workflow group", e);
+            throw e;
+        }
+    }
+
+    public DeleteWorkflowGroup deleteWorkflowGroup(String id) {
+        try {
+            return workflowGroupHandler.deleteWorkflowGroup(id);
+        } catch (Exception e) {
+            log.error("Error deleting workflow group", e);
+            throw e;
+        }
+    }
+
     public GetChangesResponse getChanges(GetChangesRequest request) {
         try {
             return changeHandler.getChanges(request);
@@ -644,47 +706,11 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) {
+    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() {
         try {
-            return workflowGroupHandler.createWorkflowGroup(request);
+            return inboundParseHandler.validateMxRecordSetupForInboundParse();
         } catch (Exception e) {
-            log.error("Error creating workflow group", e);
-            throw e;
-        }
-    }
-
-    public GetWorkflowGroupsResponse getWorkflowGroups() {
-        try {
-            return workflowGroupHandler.getWorkflowGroups();
-        } catch (Exception e) {
-            log.error("Error getting workflow groups", e);
-            throw e;
-        }
-    }
-
-    public WorkflowGroupResponse getWorkflowGroup(String id) {
-        try {
-            return workflowGroupHandler.getWorkflowGroup(id);
-        } catch (Exception e) {
-            log.error("Error getting workflow group", e);
-            throw e;
-        }
-    }
-
-    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) {
-        try {
-            return workflowGroupHandler.updateWorkflowGroup(id,request);
-        } catch (Exception e) {
-            log.error("Error updating workflow group", e);
-            throw e;
-        }
-    }
-
-    public DeleteWorkflowGroup deleteWorkflowGroup(String id) {
-        try {
-            return workflowGroupHandler.deleteWorkflowGroup(id);
-        } catch (Exception e) {
-            log.error("Error deleting workflow group", e);
+            log.error("Error validating Mx record setup", e);
             throw e;
         }
     }
@@ -712,6 +738,33 @@ public class Novu {
             return feedsHandler.deleteFeed(feedId);
         } catch (Exception e) {
             log.error("Error deleting feed", e);
+            throw e;
+        }
+    }
+
+    public MessageResponse getMessages(MessageRequest request) {
+        try {
+            return messageHandler.getMessages(request);
+        } catch (Exception e) {
+            log.error("Error getting Messages", e);
+            throw e;
+        }
+    }
+
+    public DeleteMessageResponse deleteMessage(String messageId) {
+        try {
+            return messageHandler.deleteMessage(messageId);
+        } catch (Exception e) {
+            log.error("Error deleting Message", e);
+            throw e;
+        }
+    }
+
+    public ExecutiveDetailsResponse getExecutionDetails(String notificationId, String subscriberId) {
+        try {
+            return executiveDetailsHandler.getExecutionDetails(notificationId, subscriberId);
+        } catch (Exception e) {
+            log.error("Error getting Execution Details", e);
             throw e;
         }
     }
