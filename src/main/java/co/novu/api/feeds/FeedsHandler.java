@@ -27,7 +27,7 @@ public class FeedsHandler {
 
 
     public BulkFeedsResponse deleteFeed(String feedId) {
-        return restHandler.handleGet(BulkFeedsResponse.class, novuConfig, ENDPOINT+ "/" +feedId);
+        return restHandler.handleDelete(BulkFeedsResponse.class, novuConfig, ENDPOINT+ "/" +feedId);
     }
 
 }
