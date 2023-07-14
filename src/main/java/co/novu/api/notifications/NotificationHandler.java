@@ -19,6 +19,8 @@ public class NotificationHandler {
 
     private final NovuConfig novuConfig;
 
+    private static final String ENDPOINT = "notifications";
+
     public NotificationsResponse getNotifications(NotificationRequest request) {
         Map<String, Object> params = new HashMap<>();
         params.put("channels", request.getChannels());
@@ -27,18 +29,18 @@ public class NotificationHandler {
         params.put("search", request.getSearch());
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getTransactionId() != null) params.put("transactionId", request.getTransactionId());
-        return restHandler.handleGet(NotificationsResponse.class, novuConfig, "notifications", params);
+        return restHandler.handleGet(NotificationsResponse.class, novuConfig, ENDPOINT, params);
     }
 
     public NotificationStatsResponse getNotificationsStats() {
-        return restHandler.handleGet(NotificationStatsResponse.class, novuConfig, "notifications/stats");
+        return restHandler.handleGet(NotificationStatsResponse.class, novuConfig, ENDPOINT + "/stats");
     }
 
     public NotificationGraphStatsResponse getNotificationGraphStats() {
-        return restHandler.handleGet(NotificationGraphStatsResponse.class, novuConfig, "notifications/graph/stats");
+        return restHandler.handleGet(NotificationGraphStatsResponse.class, novuConfig, ENDPOINT + "/graph/stats");
     }
 
     public NotificationResponse getNotification(String notificationId) {
-        return restHandler.handleGet(NotificationResponse.class, novuConfig, "notifications/" + notificationId);
+        return restHandler.handleGet(NotificationResponse.class, novuConfig, ENDPOINT + "/" + notificationId);
     }
 }
