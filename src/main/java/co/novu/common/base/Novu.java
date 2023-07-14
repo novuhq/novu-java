@@ -88,33 +88,32 @@ import org.springframework.lang.Nullable;
 @Slf4j
 public class Novu {
 
-    private final RestHandler restHandler;
-    private EventsHandler eventsHandler;
-    private NotificationHandler notificationHandler;
+    private final EventsHandler eventsHandler;
+    private final NotificationHandler notificationHandler;
 
-    private TopicHandler topicHandler;
+    private final TopicHandler topicHandler;
 
-    private SubscribersHandler subscribersHandler;
+    private final SubscribersHandler subscribersHandler;
 
-    private IntegrationsHandler integrationsHandler;
+    private final IntegrationsHandler integrationsHandler;
 
-    private LayoutHandler layoutHandler;
+    private final LayoutHandler layoutHandler;
 
-    private WorkflowHandler workflowHandler;
+    private final WorkflowHandler workflowHandler;
 
-    private WorkflowGroupHandler workflowGroupHandler;
+    private final WorkflowGroupHandler workflowGroupHandler;
 
-    private ChangeHandler changeHandler;
+    private final ChangeHandler changeHandler;
 
-    private EnvironmentHandler environmentHandler;
+    private final EnvironmentHandler environmentHandler;
 
-    private InboundParseHandler inboundParseHandler;
+    private final InboundParseHandler inboundParseHandler;
 
-    private FeedsHandler feedsHandler;
+    private final FeedsHandler feedsHandler;
 
-    private MessageHandler messageHandler;
+    private final MessageHandler messageHandler;
 
-    private ExecutiveDetailsHandler executiveDetailsHandler;
+    private final ExecutiveDetailsHandler executiveDetailsHandler;
 
 
     public Novu(String apiKey) {
@@ -122,7 +121,7 @@ public class Novu {
     }
 
     public Novu(NovuConfig novuConfig) {
-        this.restHandler = new RestHandler();
+        RestHandler restHandler = new RestHandler();
         this.eventsHandler = new EventsHandler(restHandler, novuConfig);
         this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
@@ -137,11 +136,6 @@ public class Novu {
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
-    }
-
-    // For Tests purpose
-    protected Novu(RestHandler restHandler) {
-        this.restHandler = restHandler;
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
