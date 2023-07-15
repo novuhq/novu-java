@@ -4,6 +4,8 @@ import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
+import co.novu.api.topics.responses.DeleteTopicResponse;
+import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
 import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.FilterTopicsResponse;
@@ -39,26 +41,34 @@ public class TopicHandler {
     }
 
     public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
-        return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig,ENDPOINT + "/" + topicKey + "/subscribers");
+        return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig, ENDPOINT + "/" + topicKey + "/subscribers");
     }
 
     public TopicResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
         return restHandler.handleGet(TopicResponse.class, novuConfig,ENDPOINT + "/" + topicKey +"/subscribers/" + externalSubscriberId);
     }
 
-    public Void removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
-        return restHandler.handlePost(request, Void.class, novuConfig,ENDPOINT + "/" + topicKey + "/subscribers/removal");
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+        boolean isSuccess = restHandler.handlePostForVoid(request, novuConfig, ENDPOINT + "/" + topicKey + "/subscribers/removal");
+        if (isSuccess) {
+            return new SubscriberRemovalResponse();
+        }
+        return null;
     }
 
-    public Void deleteTopic( String topicKey) {
-        return restHandler.handleDelete(Void.class, novuConfig,ENDPOINT + "/" + topicKey);
+    public DeleteTopicResponse deleteTopic(String topicKey) {
+        boolean isSuccess = restHandler.handleDeleteForVoid(novuConfig, ENDPOINT + "/" + topicKey);
+        if (isSuccess) {
+            return new DeleteTopicResponse();
+        }
+        return null;
     }
 
     public TopicResponse getTopic(String topicKey) {
-        return restHandler.handleGet(TopicResponse.class, novuConfig,ENDPOINT + "/" + topicKey);
+        return restHandler.handleGet(TopicResponse.class, novuConfig, ENDPOINT + "/" + topicKey);
     }
 
     public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) {
-        return restHandler.handlePatch(request, TopicResponse.class, novuConfig,ENDPOINT + "/" + topicKey);
+        return restHandler.handlePatch(request, TopicResponse.class, novuConfig, ENDPOINT + "/" + topicKey);
     }
 }
