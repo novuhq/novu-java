@@ -34,9 +34,11 @@ import co.novu.api.integrations.responses.SingleIntegrationResponse;
 import co.novu.api.layouts.LayoutHandler;
 import co.novu.api.layouts.requests.FilterLayoutRequest;
 import co.novu.api.layouts.requests.LayoutRequest;
+import co.novu.api.layouts.responses.DeleteLayoutResponse;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
 import co.novu.api.layouts.responses.GetLayoutResponse;
 import co.novu.api.layouts.responses.CreateLayoutResponse;
+import co.novu.api.layouts.responses.SetDefaultLayoutResponse;
 import co.novu.api.messages.MessageHandler;
 import co.novu.api.messages.requests.MessageRequest;
 import co.novu.api.messages.responses.DeleteMessageResponse;
@@ -52,6 +54,8 @@ import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
+import co.novu.api.topics.responses.DeleteTopicResponse;
+import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
 import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.FilterTopicsResponse;
@@ -363,7 +367,7 @@ public class Novu {
         }
     }
 
-    public Void removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
         try {
             return topicHandler.removeSubscriberFromTopic(request, topicKey);
         } catch (Exception e) {
@@ -372,7 +376,7 @@ public class Novu {
         }
     }
 
-    public Void deleteTopic(String topicKey) {
+    public DeleteTopicResponse deleteTopic(String topicKey) {
         try {
             return topicHandler.deleteTopic(topicKey);
         } catch (Exception e) {
@@ -480,7 +484,7 @@ public class Novu {
         }
     }
 
-    public Void deleteLayout(String layoutId) {
+    public DeleteLayoutResponse deleteLayout(String layoutId) {
         try {
             return layoutHandler.deleteLayout(layoutId);
         } catch (Exception e) {
@@ -498,7 +502,7 @@ public class Novu {
         }
     }
 
-    public Void setDefaultLayout(String layoutId) {
+    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
         } catch (Exception e) {
