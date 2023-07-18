@@ -7,6 +7,11 @@ import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.*;
+import co.novu.api.topics.responses.TopicResponseData;
+import co.novu.api.topics.responses.Failed;
+import co.novu.api.topics.responses.TopicResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 import junit.framework.TestCase;
@@ -146,7 +151,6 @@ public class TopicsHandlerTest extends TestCase {
         assertNotNull(response);
         assertTrue(response.getAcknowledged());
     }
-
     public void test_getTopic() {
         TopicResponse topicResponse = new TopicResponse();
         TopicResponseData data = new TopicResponseData();
@@ -156,6 +160,7 @@ public class TopicsHandlerTest extends TestCase {
         data.set_subscriberId("subscribeId");
         data.set_topicId("topicId");
         data.setTopicKey("topicKey");
+        data.setTopicKey("topickey");
         data.setExternalSubscriberId("extSubscriberId");
         data.setKey("ky");
         data.setName("name");
