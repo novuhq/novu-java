@@ -6,11 +6,7 @@ import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
-import co.novu.api.topics.responses.TopicResponseData;
-import co.novu.api.topics.responses.Failed;
-import co.novu.api.topics.responses.TopicResponse;
-import co.novu.api.topics.responses.FilterTopicsResponse;
-import co.novu.api.topics.responses.SubscriberAdditionResponse;
+import co.novu.api.topics.responses.*;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 import junit.framework.TestCase;
@@ -116,21 +112,39 @@ public class TopicsHandlerTest extends TestCase {
         assertEquals(topicResponse, response);
     }
 
-    public void test_removeSubscriberFromTopic() {
+    public void test_removeSubscriberFromTopicFailure() {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
         additionRequest.setSubscribers(Collections.singletonList(new SubscriberRequest()));
 
-        Mockito.doReturn(null).when(restHandler).handlePost(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.doReturn(false).when(restHandler).handlePostForVoid(Mockito.any(), Mockito.any());
 
-        Void response = topicHandler.removeSubscriberFromTopic(additionRequest,"topickey");
+        SubscriberRemovalResponse response = topicHandler.removeSubscriberFromTopic(additionRequest,"topicKey");
+        assertNull(response);
+    }
+    public void test_removeSubscriberFromTopicSuccess() {
+        SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
+        additionRequest.setSubscribers(Collections.singletonList(new SubscriberRequest()));
+
+        Mockito.doReturn(true).when(restHandler).handlePostForVoid(Mockito.any(), Mockito.any(), Mockito.any());
+
+        SubscriberRemovalResponse response = topicHandler.removeSubscriberFromTopic(additionRequest,"topicKey");
+        assertNotNull(response);
+        assertTrue(response.getAcknowledged());
+    }
+
+    public void test_deleteTopicFailure() {
+        Mockito.doReturn(false).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+
+        DeleteTopicResponse response = topicHandler.deleteTopic("topicKey");
         assertNull(response);
     }
 
-    public void test_deleteTopic() {
-        Mockito.doReturn(null).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
+    public void test_deleteTopicSuccess() {
+        Mockito.doReturn(true).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
 
-        Void response = topicHandler.deleteTopic("topickey");
-        assertNull(response);
+        DeleteTopicResponse response = topicHandler.deleteTopic("topicKey");
+        assertNotNull(response);
+        assertTrue(response.getAcknowledged());
     }
 
     public void test_getTopic() {
@@ -141,7 +155,7 @@ public class TopicsHandlerTest extends TestCase {
         data.set_organizationId("organizationId");
         data.set_subscriberId("subscribeId");
         data.set_topicId("topicId");
-        data.setTopicKey("topickey");
+        data.setTopicKey("topicKey");
         data.setExternalSubscriberId("extSubscriberId");
         data.setKey("ky");
         data.setName("name");
