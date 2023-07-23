@@ -6,6 +6,7 @@ import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
+import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
 import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.DeleteTopicResponse;
 import co.novu.api.topics.responses.TopicResponseData;
@@ -95,27 +96,20 @@ public class TopicsHandlerTest extends TestCase {
         assertEquals(additionResponse, response);
     }
 
-
     public void test_checkTopicSubscriber() {
-        TopicResponse topicResponse = new TopicResponse();
-        TopicResponseData data = new TopicResponseData();
-        data.set_id("id");
-        data.set_environmentId("environmentId");
-        data.set_organizationId("organizationId");
-        data.set_subscriberId("subscribeId");
-        data.set_topicId("topicId");
-        data.setTopicKey("topickey");
-        data.setExternalSubscriberId("extSubscriberId");
-        data.setKey("ky");
-        data.setName("name");
-        data.setSubscribers(Collections.singletonList(new Object()));
-        topicResponse.setData(data);
+        CheckTopicSubscriberResponse responseData = new CheckTopicSubscriberResponse();
+        responseData.set_environmentId("environmentId");
+        responseData.set_organizationId("organizationId");
+        responseData.set_subscriberId("subscribeId");
+        responseData.set_topicId("topicId");
+        responseData.setTopicKey("topickey");
+        responseData.setExternalSubscriberId("extSubscriberId");
 
-        Mockito.doReturn(topicResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.doReturn(responseData).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
 
-        TopicResponse response = topicHandler.checkTopicSubscriber("topicKey","externalSubscriberId");
+        CheckTopicSubscriberResponse response = topicHandler.checkTopicSubscriber("topicKey","externalSubscriberId");
         assertNotNull(response);
-        assertEquals(topicResponse, response);
+        assertEquals(responseData, response);
     }
 
     public void test_removeSubscriberFromTopicFailure() {

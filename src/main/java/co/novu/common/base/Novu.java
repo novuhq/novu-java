@@ -54,6 +54,7 @@ import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
+import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
 import co.novu.api.topics.responses.DeleteTopicResponse;
 import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
@@ -358,7 +359,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
         try {
             return topicHandler.checkTopicSubscriber(topicKey, externalSubscriberId);
         } catch (Exception e) {
