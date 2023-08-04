@@ -25,10 +25,21 @@
 
 	<developers>
 		<developer>
-			<name>xyz</name>
-			<email>xyz</email>
-			<organization>xyz</organization>
-			<organizationUrl>xyz</organizationUrl>
+			<id>unicodeveloper</id>
+			<name>Prosper Otemuyiwa</name>
+			<email>prosper@novu.co</email>
+			<organization>Novu</organization>
+			<organizationUrl>https://novu.co</organizationUrl>
+		</developer>
+		<developer>
+			<id>Mayorjay</id>
+			<name>Joseph Olugbohunmi</name>
+			<email>joseolu4gsm@yahoo.com</email>
+		</developer>
+		<developer>
+			<id>mukhtar</id>
+			<name>Mukhtar Onifade</name>
+			<email>mukhtaronif@gmail.com</email>
 		</developer>
 	</developers>
 
@@ -45,12 +56,12 @@
 				<repository>
 					<id>ossrh</id>
 					<name>Central Repository OSSRH</name>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+					<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
 				<snapshotRepository>
 					<id>ossrh</id>
 					<name>Central Repository OSSRH</name>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+					<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 				</snapshotRepository>
 			</distributionManagement>
 			<build>
@@ -58,11 +69,11 @@
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.13</version>
+						<version>1.6.7</version>
 						<extensions>true</extensions>
 						<configuration>
 							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
 							<autoReleaseAfterClose>true</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
