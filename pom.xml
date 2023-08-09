@@ -11,8 +11,97 @@
 	<groupId>co.novu</groupId>
 	<artifactId>novu-java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Novu Java</name>
+	<packaging>jar</packaging>
+	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Java SDK for Novu - The open-source notification infrastructure for engineers</description>
+	<url>https://github.com/novuhq/novu-java</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/license/mit/</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>unicodeveloper</id>
+			<name>Prosper Otemuyiwa</name>
+			<email>prosper@novu.co</email>
+			<organization>Novu</organization>
+			<organizationUrl>https://novu.co</organizationUrl>
+		</developer>
+		<developer>
+			<id>Mayorjay</id>
+			<name>Joseph Olugbohunmi</name>
+			<email>joseolu4gsm@yahoo.com</email>
+		</developer>
+		<developer>
+			<id>mukhtar</id>
+			<name>Mukhtar Onifade</name>
+			<email>mukhtaronif@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/novuhq/novu-java.git</connection>
+		<developerConnection>scm:git:ssh://github.com/novuhq/novu-java.git</developerConnection>
+		<url>https://github.com/novuhq/novu-java/tree/main</url>
+	</scm>
+
+	<profiles>
+		<profile>
+			<id>ossrhDeploy</id>
+			<distributionManagement>
+				<repository>
+					<id>ossrh</id>
+					<name>Central Repository OSSRH</name>
+					<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<name>Central Repository OSSRH</name>
+					<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>3.1.0</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<gpgArguments>
+										<arg>--pinentry-mode</arg>
+										<arg>loopback</arg>
+									</gpgArguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -45,48 +134,20 @@
 		</dependency>
     </dependencies>
 
-<!--	To be used later-->
-<!--	<build>-->
-<!--		<plugins>-->
-<!--			<plugin>-->
-<!--				<groupId>org.springframework.boot</groupId>-->
-<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--				<configuration>-->
-<!--					<excludes>-->
-<!--						<exclude>-->
-<!--							<groupId>org.projectlombok</groupId>-->
-<!--							<artifactId>lombok</artifactId>-->
-<!--						</exclude>-->
-<!--					</excludes>-->
-<!--				</configuration>-->
-<!--			</plugin>-->
-<!--		</plugins>-->
-<!--	</build>-->
-
-<!--	For development purpose-->
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5.1</version>
-				<executions>
-					<execution>
-						<id>install-local-jar</id>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-						<configuration>
-							<file>target/novu-java-0.0.1-SNAPSHOT.jar</file>
-							<groupId>co.novu</groupId>
-							<artifactId>novu-java</artifactId>
-							<version>0.0.1-SNAPSHOT</version>
-							<packaging>jar</packaging>
-						</configuration>
-					</execution>
-				</executions>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
