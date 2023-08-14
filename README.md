@@ -71,7 +71,7 @@ public class Main {
         Novu novu = new Novu(apiKey);
 
         // Now you can use the 'novu' object to interact with the Novu API
-        // For example: novu.someMethod();
+        novu.triggerEvent();
     }
 }
 
