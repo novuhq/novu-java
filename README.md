@@ -96,9 +96,8 @@ Map<String, Object> payload = new HashMap<>();
         event.put("to", to);
 
         // Call a method to perform trigger event with 'event' map
-   
         // Example method:
-        // triggerEvent(event);
+        triggerEvent(event);
 ```
 **Bulk Trigger** events:
 
@@ -134,7 +133,7 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to perform bulk trigger with 'events' list
 
         // Example method:
-        // bulkTriggerEvent(events);
+        bulkTriggerEvent(events);
 
 ```
 **Broadcast** event to all existing subscribers:
@@ -150,7 +149,7 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to perform broadcast event with 'event' map
 
         // Example method:
-        // broadcastEvent(event);
+        broadcastEvent(event);
 ```
 
 **Cancel** triggered event. Using a previously generated transactionId during the event trigger, this action will cancel any active or pending workflows:
@@ -161,7 +160,7 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to cancel event using the 'transactionId'
 
         // Example method:
-        // cancelTriggeredEvent(transactionId);
+        cancelTriggeredEvent(transactionId);
 ```
 
 ## SUBSCRIBERS
@@ -172,10 +171,10 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to get the subscriber list
 
         // Example method:
-        // getSubscribers();
+        getSubscribers();
 
 // Create subscriber & get the details of the recently created subscriber returned.
-  Map<String, Object> subscriber = new HashMap<>();
+        Map<String, Object> subscriber = new HashMap<>();
         subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
         subscriber.put("email", "<insert-email>");
         subscriber.put("firstName", "<insert-firstname>");
@@ -186,18 +185,17 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to create a subscriber with the 'subscriber' map
 
         // Example method:
-        // createSubscriber(subscriber);
+        createSubscriber(subscriber);
 
 // Get subscriber
-  String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get the subscriber using 'subscriberId'
 
         // Example method:
-        // getSubscriber(subscriberId);
+        getSubscriber(subscriberId);
 
 // Update subscriber
-  Map<String, Object> updatedFields = new HashMap<>();
+        Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("email", "<insert-email>");
         updatedFields.put("firstName", "<insert-firstname>");
         updatedFields.put("lastName", "<insert-lastname>");
@@ -207,18 +205,18 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to update the subscriber with 'subscriberId' and 'updatedFields' map
 
         // Example method:
-        // updateSubscriber(subscriberId, updatedFields);
+        updateSubscriber(subscriberId, updatedFields);
 
 // Delete subscriber
- String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
 
         // Call a method to delete the subscriber using 'subscriberId'
 
         // Example method:
-        // deleteSubscriber(subscriberId);
+        deleteSubscriber(subscriberId);
 
 // Update subscriber credentials
- String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
 
         Map<String, Object> credentialsUpdate = new HashMap<>();
         credentialsUpdate.put("providerId", "<insert-providerId>");
@@ -227,24 +225,22 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to update subscriber credentials with 'subscriberId' and 'credentialsUpdate' map
 
         // Example method:
-        // updateSubscriberCredentials(subscriberId, credentialsUpdate);
+        updateSubscriberCredentials(subscriberId, credentialsUpdate);
 
 // Update subscriber online status
- String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         boolean isOnlineStatus = true; // Set to true or false
-
         // Call a method to update subscriber online status with 'subscriberId' and 'isOnlineStatus'
 
         // Example method:
-        // updateSubscriberOnlineStatus(subscriberId, isOnlineStatus);
+        updateSubscriberOnlineStatus(subscriberId, isOnlineStatus);
 
 // Get subscriber preferences
- String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get subscriber preferences using 'subscriberId'
 
         // Example method:
-        // Map<String, Object> preferences = getSubscriberPreferences(subscriberId);
+        getSubscriberPreferences(subscriberId);
 
 // Update subscriber preference
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
@@ -257,47 +253,46 @@ Map<String, Object> payload = new HashMap<>();
         // Call a method to update subscriber preference using 'subscriberId', 'templateId', and 'preferenceUpdate' map
 
         // Example method:
-        // updateSubscriberPreference(subscriberId, templateId, preferenceUpdate);
+        updateSubscriberPreference(subscriberId, templateId, preferenceUpdate);
 
 // Get a notification feed for a particular subscriber
- String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get the notification feed for subscriber using 'subscriberId'
 
         // Example method:
-        // String feed = getSubscriberNotificationsFeed(subscriberId);
+        getSubscriberNotificationsFeed(subscriberId);
 
 // Get the unseen notification count for subscribers feed
-String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get the unseen notification count for subscriber using 'subscriberId'
 
         // Example method:
-        // int count = getSubscriberUnseenNotificationsCount(subscriberId);
+        getSubscriberUnseenNotificationsCount(subscriberId);
 
 // Mark a subscriber feed message as seen
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
 
         Map<String, Object> request = new HashMap<>();
-        request.put(
+        //request
 
         // Call a method to mark a subscriber's feed message as seen using 'subscriberId', 'messageId', and 'options' map
 
         // Example method:
-        // markSubscriberMessageFeedAs(subscriberId, messageId, request);
+        markSubscriberMessageFeedAs(subscriberId, messageId, request);
 
 // Mark message action as seen
- String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
         String type = "<YOUR_ACTION_TYPE>"; // Replace with the actual action type
 
         Map<String, Object> request = new HashMap<>();
+        //request
 
         // Call a method to mark a subscriber's message action as seen using 'subscriberId', 'messageId', 'type', and 'options' map
 
         // Example method:
-        // markMessageActionAsSeen(subscriberId, messageId, type, request);
+        markMessageActionAsSeen(subscriberId, messageId, type, request);
 ```
 
 ## TOPICS
@@ -312,13 +307,13 @@ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscri
         // Call a method to create a topic with 'key' and 'name'
 
         // Example method:
-        // createTopic(topic);
+        createTopic(topic);
 
 // Fetch all topics
         // Call a method to get the topics list
 
         // Example method:
-        // filterTopics();
+        filterTopics();
 
 // Get a topic
         String topickey = "topicKey"; // Replace with the actual subscriber ID
@@ -326,7 +321,7 @@ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscri
         // Call a method to get the topic using 'topickey'
 
         // Example method:
-        // getTopic(topickey);
+        getTopic(topickey);
 
 // Add subscribers to a topic
         String topicKey = "<YOUR_TOPIC_KEY>"; 
@@ -338,7 +333,7 @@ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscri
         // Call a method to add subscribers to a topic using 'topicKey' and 'subscribers' list
 
         // Example method:
-        // addSubscribersToTopic(topicKey, subscribers);
+        addSubscribersToTopic(topicKey, subscribers);
 
 // Remove subscribers from a topic
         String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
@@ -349,7 +344,7 @@ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscri
         // Call a method to remove subscribers from a topic using 'topicKey' and 'subscribers' list
 
         // Example method:
-        // removeSubscribersFromTopic(topicKey, subscribers);
+        removeSubscribersFromTopic(topicKey, subscribers);
 
 // Rename a topic
         String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
@@ -360,7 +355,7 @@ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscri
         // Call a method to rename a topic using 'topicKey' and 'topic'
 
         // Example method:
-        // renameTopic(topicKey, topic);
+        renameTopic(topicKey, topic);
 ```
 ## CHANGES
 
