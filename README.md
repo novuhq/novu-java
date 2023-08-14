@@ -13,7 +13,29 @@
 
 Novu's API exposes the entire Novu features via a standardized programmatic interface. Please refer to the full [documentation](https://docs.novu.co/docs/overview/introduction) to learn more.
 
+
+## Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Novu API Reference](https://docs.novu.co/api/overview/)
+    * [Events](#events)
+    * [Subscribers](#subscribers)
+    * [Topics](#topics)
+    * [Integrations](#integrations)
+    * [Notifications](#notification)
+    * [Workflow](#workflow)
+    * [Workflow Groups](#workflow-groups)
+    * [Changes](#changes)
+    * [Environments](#environments)
+    * [Feeds](#feeds)
+    * [Messages](#messages)
+    * [Execution Details](#execution-details)
+    * [Validate the MX Record setup for Inbound Parse functionality](#inbound-parse)
+
 ## Installation
+
+**Maven users:**
 
 ```xml
 // add dependency
@@ -25,19 +47,329 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 ```
 Then run `mnv install`.
 
+**Gradle users:**
 
-## List of all methods
 
-The client methods map directly to the Novu API endpoints. Here is a list of all the available methods. Check [the API docs](https://docs.novu.co/api/overview) for list of available `methods`.
+```gradle
+// add dependency
+dependencies {
+    implementation 'co.novu:novu-java:1.0.0'
+}
+```
+then run `gradlew build`
 
-### Changes
+## Usage
+
+First, create an instance of the **Novu SDK** like so:
+
+```java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "INSERT_API_KEY_HERE";
+        Novu novu = new Novu(apiKey);
+
+        // Now you can use the 'novu' object to interact with the Novu API
+        // For example: novu.someMethod();
+    }
+}
+
+// Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
+```
+
+## EVENTS
+
+**Trigger** an event - send notification to subscribers:
+
+```java
+Map<String, Object> payload = new HashMap<>();
+        payload.put("customVariables", "Hello");
+
+        Map<String, Object> to = new HashMap<>();
+        to.put("subscriberId", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
+        to.put("phone", "07983882186");
+
+        Map<String, Object> event = new HashMap<>();
+        event.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
+        event.put("payload", payload);
+        event.put("to", to);
+
+        // Call a method to perform trigger event with 'event' map
+   
+        // Example method:
+        // triggerEvent(event);
+```
+**Bulk Trigger** events:
+
+```java
+        List<Map<String, Object>> events = new ArrayList<>();
+        // First event
+        Map<String, Object> event1 = new HashMap<>();
+        event1.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
+        event1.put("to", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
+        Map<String, Object> payload1 = new HashMap<>();
+        payload1.put("customVariables", "Hello");
+        event1.put("payload", payload1);
+        events.add(event1);
+
+        // Second event
+        Map<String, Object> event2 = new HashMap<>();
+        event2.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
+        event2.put("to", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
+        Map<String, Object> payload2 = new HashMap<>();
+        payload2.put("customVariables", "World");
+        event2.put("payload", payload2);
+        events.add(event2);
+
+        // Third event
+        Map<String, Object> event3 = new HashMap<>();
+        event3.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
+        event3.put("to", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
+        Map<String, Object> payload3 = new HashMap<>();
+        payload3.put("customVariables", "Again");
+        event3.put("payload", payload3);
+        events.add(event3);
+
+        // Call a method to perform bulk trigger with 'events' list
+
+        // Example method:
+        // bulkTriggerEvent(events);
+
+```
+**Broadcast** event to all existing subscribers:
+
+```java
+ Map<String, Object> payload = new HashMap<>();
+        payload.put("customVariables", "Hello");
+
+        Map<String, Object> event = new HashMap<>();
+        event.put("name", "<REPLACE_WITH_EVENT_NAME_FROM_ADMIN_PANEL>");
+        event.put("payload", payload);
+        event.put("transactionId", "<REPLACE_WITH_TRANSACTION_ID>");
+        // Call a method to perform broadcast event with 'event' map
+
+        // Example method:
+        // broadcastEvent(event);
+```
+
+**Cancel** triggered event. Using a previously generated transactionId during the event trigger, this action will cancel any active or pending workflows:
+
+```java
+        String transactionId = "<REPLACE_WITH_TRANSACTION_ID>";
+
+        // Call a method to cancel event using the 'transactionId'
+
+        // Example method:
+        // cancelTriggeredEvent(transactionId);
+```
+
+## SUBSCRIBERS
+
+```java
+
+// Get list of subscribers
+        // Call a method to get the subscriber list
+
+        // Example method:
+        // getSubscribers();
+
+// Create subscriber & get the details of the recently created subscriber returned.
+  Map<String, Object> subscriber = new HashMap<>();
+        subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
+        subscriber.put("email", "<insert-email>");
+        subscriber.put("firstName", "<insert-firstname>");
+        subscriber.put("lastName", "<insert-lastname>");
+        subscriber.put("phone", "<insert-phone>");
+        subscriber.put("avatar", "<insert-avatar>");
+
+        // Call a method to create a subscriber with the 'subscriber' map
+
+        // Example method:
+        // createSubscriber(subscriber);
+
+// Get subscriber
+  String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+
+        // Call a method to get the subscriber using 'subscriberId'
+
+        // Example method:
+        // getSubscriber(subscriberId);
+
+// Update subscriber
+  Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("email", "<insert-email>");
+        updatedFields.put("firstName", "<insert-firstname>");
+        updatedFields.put("lastName", "<insert-lastname>");
+        updatedFields.put("phone", "<insert-phone>");
+        updatedFields.put("avatar", "<insert-avatar>");
+
+        // Call a method to update the subscriber with 'subscriberId' and 'updatedFields' map
+
+        // Example method:
+        // updateSubscriber(subscriberId, updatedFields);
+
+// Delete subscriber
+ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+
+        // Call a method to delete the subscriber using 'subscriberId'
+
+        // Example method:
+        // deleteSubscriber(subscriberId);
+
+// Update subscriber credentials
+ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+
+        Map<String, Object> credentialsUpdate = new HashMap<>();
+        credentialsUpdate.put("providerId", "<insert-providerId>");
+        credentialsUpdate.put("credentials", "<insert-credentials>");
+
+        // Call a method to update subscriber credentials with 'subscriberId' and 'credentialsUpdate' map
+
+        // Example method:
+        // updateSubscriberCredentials(subscriberId, credentialsUpdate);
+
+// Update subscriber online status
+ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        boolean isOnlineStatus = true; // Set to true or false
+
+        // Call a method to update subscriber online status with 'subscriberId' and 'isOnlineStatus'
+
+        // Example method:
+        // updateSubscriberOnlineStatus(subscriberId, isOnlineStatus);
+
+// Get subscriber preferences
+ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+
+        // Call a method to get subscriber preferences using 'subscriberId'
+
+        // Example method:
+        // Map<String, Object> preferences = getSubscriberPreferences(subscriberId);
+
+// Update subscriber preference
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String templateId = "<INSERT_TEMPLATE_ID>"; // Replace with the actual template ID
+
+        Map<String, Object> preferenceUpdate = new HashMap<>();
+        preferenceUpdate.put("channel", "<insert-channel>");
+        preferenceUpdate.put("enabled", "<insert-boolean-value>"); // Set to true or false, optional
+
+        // Call a method to update subscriber preference using 'subscriberId', 'templateId', and 'preferenceUpdate' map
+
+        // Example method:
+        // updateSubscriberPreference(subscriberId, templateId, preferenceUpdate);
+
+// Get a notification feed for a particular subscriber
+ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+
+        // Call a method to get the notification feed for subscriber using 'subscriberId'
+
+        // Example method:
+        // String feed = getSubscriberNotificationsFeed(subscriberId);
+
+// Get the unseen notification count for subscribers feed
+String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+
+        // Call a method to get the unseen notification count for subscriber using 'subscriberId'
+
+        // Example method:
+        // int count = getSubscriberUnseenNotificationsCount(subscriberId);
+
+// Mark a subscriber feed message as seen
+        String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
+
+        Map<String, Object> request = new HashMap<>();
+        request.put(
+
+        // Call a method to mark a subscriber's feed message as seen using 'subscriberId', 'messageId', and 'options' map
+
+        // Example method:
+        // markSubscriberMessageFeedAs(subscriberId, messageId, request);
+
+// Mark message action as seen
+ String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
+        String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
+        String type = "<YOUR_ACTION_TYPE>"; // Replace with the actual action type
+
+        Map<String, Object> request = new HashMap<>();
+
+        // Call a method to mark a subscriber's message action as seen using 'subscriberId', 'messageId', 'type', and 'options' map
+
+        // Example method:
+        // markMessageActionAsSeen(subscriberId, messageId, type, request);
+```
+
+## TOPICS
+
+```java
+
+// Create a Topic
+        Map<String, Object> topic = new HashMap<>();
+        topic.put("key", key);
+        topic.put("name", name);
+
+        // Call a method to create a topic with 'key' and 'name'
+
+        // Example method:
+        // createTopic(topic);
+
+// Fetch all topics
+        // Call a method to get the topics list
+
+        // Example method:
+        // filterTopics();
+
+// Get a topic
+        String topickey = "topicKey"; // Replace with the actual subscriber ID
+
+        // Call a method to get the topic using 'topickey'
+
+        // Example method:
+        // getTopic(topickey);
+
+// Add subscribers to a topic
+        String topicKey = "<YOUR_TOPIC_KEY>"; 
+
+        List<String> subscribers = new ArrayList<>();
+        // subscribers request
+
+
+        // Call a method to add subscribers to a topic using 'topicKey' and 'subscribers' list
+
+        // Example method:
+        // addSubscribersToTopic(topicKey, subscribers);
+
+// Remove subscribers from a topic
+        String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
+
+        List<String> subscribers = new ArrayList<>();
+        // subscribers request
+
+        // Call a method to remove subscribers from a topic using 'topicKey' and 'subscribers' list
+
+        // Example method:
+        // removeSubscribersFromTopic(topicKey, subscribers);
+
+// Rename a topic
+        String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
+
+        Map<String, Object> topic = new HashMap<>();
+        topic.put("name", name);
+
+        // Call a method to rename a topic using 'topicKey' and 'topic'
+
+        // Example method:
+        // renameTopic(topicKey, topic);
+```
+## CHANGES
 
 - `changes(query = {})`
 - `countChanges()`
 - `applyBulkChanges()`
 - `applyChange(changeId)`
 
-### Environments
+## ENVIRONMENTS
 
 - `currentEnvironment()`
 - `createEnvironment(body)`
@@ -47,28 +379,21 @@ The client methods map directly to the Novu API endpoints. Here is a list of all
 - `regenerateApiKeys()`
 - `updateWidgetSettings(body)`
 
-### Events
-
-- `triggerEvent(body)`
-- `triggerBulkEvent(body)`
-- `broadcastEvent(body)`
-- `cancelTriggeredEvent(transactionId)`
-
-### Execution Details
+## EXECUTION DETAILS
 
 - `executionDetails(query = {})`
 
-### Feeds
+### FEEDS
 
 - `createFeed(body)`
 - `feeds()`
 - `deleteFeed(feedId)`
 
-### Inbound Parse
+### INBOUND PARSE
 
 - `validateMxRecordSetupForInboundParse()`
 
-### Integrations
+## INTEGRATIONS
 
 - `integrations()`
 - `createIntegration(body)`
@@ -79,7 +404,7 @@ The client methods map directly to the Novu API endpoints. Here is a list of all
 - `channelLimit(channelType)`
 - `inAppStatus()`
 
-### Layouts
+## LAYOUTS
 
 - `createLayout(body) `
 - `layouts(query = {})`
@@ -88,18 +413,18 @@ The client methods map directly to the Novu API endpoints. Here is a list of all
 - `updateLayout(layoutId, body)`
 - `makeDefaultLayout(layoutId)`
 
-### Messages
+## MESSAGES
 
 - `messages(query = {})`
 - `deleteMessage(messageId)`
 
-### Workflow Groups
+## WORKFLOW GROUPS
 
 - `createWorkflowGroup(body)`
 - `notificationGroups()`
 - `updateWorkflowGroup(workflowId, body)`
 
-### Workflow
+## WORKFLOW
 
 - `notificationTemplates(query = {})`
 - `createWorkflow(body)`
@@ -108,37 +433,15 @@ The client methods map directly to the Novu API endpoints. Here is a list of all
 - `Workflow(WorkflowId)`
 - `updateWorkflowStatus(WorkflowId, body)`
 
-### Notification
+## NOTIFICATION
 
 - `notifications(query = {})`
 - `notificationsStats()`
 - `notificationsGraphStats(query = {})`
 - `notification(notificationId)`
 
-### Subscribers
+Now, you can use the `Novu` instance to perform all the actions that Novu's API provides.
 
-- `subscribers(query = {}) `
-- `createSubscriber(body)`
-- `subscriber(subscriberId)`
-- `updateSubscriber(subscriberId, body)`
-- `deleteSubscriber(subscriberId)`
-- `updateSubscriberCredentials(subscriberId, body)`
-- `updateSubscriberOnlineStatus(subscriberId, body)`
-- `subscriberPreferences(subscriberId)`
-- `updateSubscriberPreference(subscriberId, templateId, body)`
-- `subscriberNotificationFeed(subscriberId, query = {})`
-- `subscriberUnseenNotificationCount(subscriberId, query = {})`
-- `markSubscriberFeedSeen(subscriberId, body)`
-- `markMessageActionSeen(subscriberId, messageId, type)`
-
-### Topics
-
-- `createTopic(body)`
-- `topics(query = {})`
-- `addSubscribers(topicKey, body)`
-- `removeSubscribers(topicKey, body)`
-- `topic(topicKey)`
-- `renameTopic(topicKey, body)`
 
 ### For more information about these methods and their parameters, see the [API documentation](https://docs.novu.co/api/overview).
 
