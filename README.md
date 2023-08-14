@@ -441,9 +441,6 @@ Map<String, Object> payload = new HashMap<>();
 - `notificationsGraphStats(query = {})`
 - `notification(notificationId)`
 
-Now, you can use the `Novu` instance to perform all the actions that Novu's API provides.
-
-
 ### For more information about these methods and their parameters, see the [API documentation](https://docs.novu.co/api/overview).
 
 ## Contributing
@@ -454,9 +451,9 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/novuhq
 
 Be sure to visit the Novu official [documentation website](https://docs.novu.co/docs) for additional information about our API.
 
-If you find a bug, please post the issue on [Github](https://github.com/mayorJAY/novu-java/issues).
+If you find a bug, please create an [issue](https://github.com/novuhq/novu-java/issues).
 
-As always, if you need additional assistance, join our Discord us a note [here](https://discord.gg/TT6TttXjRe).
+If you need additional assistance, join our Discord server [here](https://discord.gg/TT6TttXjRe).
 
 ## Contributors
 
