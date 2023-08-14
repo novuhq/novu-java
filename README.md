@@ -68,14 +68,16 @@ import co.novu.sdk.Novu;
 public class Main {
     public static void main(String[] args) {
         String apiKey = "INSERT_API_KEY_HERE";
+        // Using the API Key only
         Novu novu = new Novu(apiKey);
-        NovuConfig novuConfig = new new NovuConfig(apiKey)
+
+        // Using the Config Param
+        NovuConfig novuConfig = new NovuConfig(apiKey);
+        Novu novu = new Novu(novuConfig);
 
         // Now you can use the 'novu' object to interact with the Novu API
+        // For example;
         novu.triggerEvent();
-        novuConfig.getBaseUrl();
-
-        //
     }
 }
 
