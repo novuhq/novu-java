@@ -69,9 +69,13 @@ public class Main {
     public static void main(String[] args) {
         String apiKey = "INSERT_API_KEY_HERE";
         Novu novu = new Novu(apiKey);
+        NovuConfig novuConfig = new new NovuConfig(apiKey)
 
         // Now you can use the 'novu' object to interact with the Novu API
         novu.triggerEvent();
+        novuConfig.getBaseUrl();
+
+        //
     }
 }
 
