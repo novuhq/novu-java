@@ -83,7 +83,7 @@ public class Main {
 // Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
 ```
 
-## Events
+### Events
 
 **Trigger** an event - send notification to subscribers:
 
@@ -168,7 +168,7 @@ public class Main {
         cancelTriggeredEvent(transactionId);
 ```
 
-## Subscribers
+### Subscribers
 
 ```java
         // Create subscriber & get the details of the recently created subscriber returned.
@@ -293,7 +293,7 @@ public class Main {
         markMessageActionAsSeen(subscriberId, messageId, type, request);
 ```
 
-## Topics
+### Topics
 
 ```java
         // Create a Topic
@@ -354,14 +354,14 @@ public class Main {
         // Example method:
         renameTopic(topicKey, topic);
 ```
-## Changes
+### Changes
 
 - `changes(query = {})`
 - `countChanges()`
 - `applyBulkChanges()`
 - `applyChange(changeId)`
 
-## Environments
+### Environments
 
 - `currentEnvironment()`
 - `createEnvironment(body)`
@@ -371,7 +371,7 @@ public class Main {
 - `regenerateApiKeys()`
 - `updateWidgetSettings(body)`
 
-## Execution Details
+### Execution Details
 
 - `executionDetails(query = {})`
 
@@ -385,7 +385,7 @@ public class Main {
 
 - `validateMxRecordSetupForInboundParse()`
 
-## Integrations
+### Integrations
 
 - `integrations()`
 - `createIntegration(body)`
@@ -396,7 +396,7 @@ public class Main {
 - `channelLimit(channelType)`
 - `inAppStatus()`
 
-## Layouts
+### Layouts
 
 - `createLayout(body) `
 - `layouts(query = {})`
@@ -405,18 +405,18 @@ public class Main {
 - `updateLayout(layoutId, body)`
 - `makeDefaultLayout(layoutId)`
 
-## Messages
+### Messages
 
 - `messages(query = {})`
 - `deleteMessage(messageId)`
 
-## Workflow Groups
+### Workflow Groups
 
 - `createWorkflowGroup(body)`
 - `notificationGroups()`
 - `updateWorkflowGroup(workflowId, body)`
 
-## Workflow
+### Workflow
 
 - `notificationTemplates(query = {})`
 - `createWorkflow(body)`
@@ -425,7 +425,7 @@ public class Main {
 - `Workflow(WorkflowId)`
 - `updateWorkflowStatus(WorkflowId, body)`
 
-## Notification
+### Notification
 
 - `notifications(query = {})`
 - `notificationsStats()`
