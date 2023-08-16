@@ -34,7 +34,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
     * [Validate the MX Record setup for Inbound Parse functionality](#inbound-parse)
 * [Contributing](#contributing)
 * [Support and Feedback](#support-and-feedback)
-* [Licence](#licence)
+* [License](#license)
 * [Contributors](#contributors)
 
 ## Installation
@@ -88,7 +88,7 @@ public class Main {
 **Trigger** an event - send notification to subscribers:
 
 ```java
-Map<String, Object> payload = new HashMap<>();
+        Map<String, Object> payload = new HashMap<>();
         payload.put("customVariables", "Hello");
 
         Map<String, Object> to = new HashMap<>();
@@ -443,7 +443,7 @@ Feature requests, bug reports and pull requests are welcome. Please create an [i
 Be sure to visit the Novu official [documentation website](https://docs.novu.co/docs) for additional information about our API.
 If you need additional assistance, join our Discord server [here](https://discord.novu.co).
 
-## Licence
+## License
 
 Novu Java SDK is licensed under the MIT License - see the [LICENSE](https://github.com/novuhq/novu-java/blob/main/LICENSE.md) file for details.
 
