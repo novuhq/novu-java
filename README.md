@@ -32,13 +32,16 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
     * [Messages](#messages)
     * [Execution Details](#execution-details)
     * [Validate the MX Record setup for Inbound Parse functionality](#inbound-parse)
+* [Contributing](#contributing)
+* [Support and Feedback](#support-and-feedback)
+* [License](#license)
+* [Contributors](#contributors)
 
 ## Installation
 
 **Maven users:**
-
 ```xml
-// add dependency
+<!--add dependency-->
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
@@ -48,8 +51,6 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 Then run `mnv install`.
 
 **Gradle users:**
-
-
 ```gradle
 // add dependency
 dependencies {
@@ -61,7 +62,6 @@ then run `gradlew build`
 ## Usage
 
 First, create an instance of the **Novu SDK** like so:
-
 ```java
 import co.novu.sdk.Novu;
 
@@ -75,20 +75,20 @@ public class Main {
         NovuConfig novuConfig = new NovuConfig(apiKey);
         Novu novu = new Novu(novuConfig);
 
-        // For example;
-        novu.triggerEvent();
+        // Sample usage
+        novu.triggerEvent(event);
     }
 }
 
 // Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
 ```
 
-## EVENTS
+### Events
 
 **Trigger** an event - send notification to subscribers:
 
 ```java
-Map<String, Object> payload = new HashMap<>();
+        Map<String, Object> payload = new HashMap<>();
         payload.put("customVariables", "Hello");
 
         Map<String, Object> to = new HashMap<>();
@@ -144,7 +144,7 @@ Map<String, Object> payload = new HashMap<>();
 **Broadcast** event to all existing subscribers:
 
 ```java
- Map<String, Object> payload = new HashMap<>();
+        Map<String, Object> payload = new HashMap<>();
         payload.put("customVariables", "Hello");
 
         Map<String, Object> event = new HashMap<>();
@@ -168,17 +168,10 @@ Map<String, Object> payload = new HashMap<>();
         cancelTriggeredEvent(transactionId);
 ```
 
-## SUBSCRIBERS
+### Subscribers
 
 ```java
-
-// Get list of subscribers
-        // Call a method to get the subscriber list
-
-        // Example method:
-        getSubscribers();
-
-// Create subscriber & get the details of the recently created subscriber returned.
+        // Create subscriber & get the details of the recently created subscriber returned.
         Map<String, Object> subscriber = new HashMap<>();
         subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
         subscriber.put("email", "<insert-email>");
@@ -192,14 +185,14 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         createSubscriber(subscriber);
 
-// Get subscriber
+        // Get subscriber
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get the subscriber using 'subscriberId'
 
         // Example method:
         getSubscriber(subscriberId);
 
-// Update subscriber
+        // Update subscriber
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("email", "<insert-email>");
         updatedFields.put("firstName", "<insert-firstname>");
@@ -212,7 +205,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         updateSubscriber(subscriberId, updatedFields);
 
-// Delete subscriber
+        // Delete subscriber
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
 
         // Call a method to delete the subscriber using 'subscriberId'
@@ -220,7 +213,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         deleteSubscriber(subscriberId);
 
-// Update subscriber credentials
+        // Update subscriber credentials
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
 
         Map<String, Object> credentialsUpdate = new HashMap<>();
@@ -232,7 +225,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         updateSubscriberCredentials(subscriberId, credentialsUpdate);
 
-// Update subscriber online status
+        // Update subscriber online status
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         boolean isOnlineStatus = true; // Set to true or false
         // Call a method to update subscriber online status with 'subscriberId' and 'isOnlineStatus'
@@ -240,14 +233,14 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         updateSubscriberOnlineStatus(subscriberId, isOnlineStatus);
 
-// Get subscriber preferences
+        // Get subscriber preferences
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get subscriber preferences using 'subscriberId'
 
         // Example method:
         getSubscriberPreferences(subscriberId);
 
-// Update subscriber preference
+        // Update subscriber preference
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String templateId = "<INSERT_TEMPLATE_ID>"; // Replace with the actual template ID
 
@@ -260,21 +253,21 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         updateSubscriberPreference(subscriberId, templateId, preferenceUpdate);
 
-// Get a notification feed for a particular subscriber
+        // Get a notification feed for a particular subscriber
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get the notification feed for subscriber using 'subscriberId'
 
         // Example method:
         getSubscriberNotificationsFeed(subscriberId);
 
-// Get the unseen notification count for subscribers feed
+        // Get the unseen notification count for subscribers feed
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         // Call a method to get the unseen notification count for subscriber using 'subscriberId'
 
         // Example method:
         getSubscriberUnseenNotificationsCount(subscriberId);
 
-// Mark a subscriber feed message as seen
+        // Mark a subscriber feed message as seen
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
 
@@ -286,7 +279,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         markSubscriberMessageFeedAs(subscriberId, messageId, request);
 
-// Mark message action as seen
+        // Mark message action as seen
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
         String type = "<YOUR_ACTION_TYPE>"; // Replace with the actual action type
@@ -300,11 +293,10 @@ Map<String, Object> payload = new HashMap<>();
         markMessageActionAsSeen(subscriberId, messageId, type, request);
 ```
 
-## TOPICS
+### Topics
 
 ```java
-
-// Create a Topic
+        // Create a Topic
         Map<String, Object> topic = new HashMap<>();
         topic.put("key", key);
         topic.put("name", name);
@@ -314,13 +306,13 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         createTopic(topic);
 
-// Fetch all topics
+        // Fetch all topics
         // Call a method to get the topics list
 
         // Example method:
         filterTopics();
 
-// Get a topic
+        // Get a topic
         String topickey = "topicKey"; // Replace with the actual subscriber ID
 
         // Call a method to get the topic using 'topickey'
@@ -328,7 +320,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         getTopic(topickey);
 
-// Add subscribers to a topic
+        // Add subscribers to a topic
         String topicKey = "<YOUR_TOPIC_KEY>"; 
 
         List<String> subscribers = new ArrayList<>();
@@ -340,7 +332,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         addSubscribersToTopic(topicKey, subscribers);
 
-// Remove subscribers from a topic
+        // Remove subscribers from a topic
         String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
 
         List<String> subscribers = new ArrayList<>();
@@ -351,7 +343,7 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         removeSubscribersFromTopic(topicKey, subscribers);
 
-// Rename a topic
+        // Rename a topic
         String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
 
         Map<String, Object> topic = new HashMap<>();
@@ -362,14 +354,14 @@ Map<String, Object> payload = new HashMap<>();
         // Example method:
         renameTopic(topicKey, topic);
 ```
-## CHANGES
+### Changes
 
 - `changes(query = {})`
 - `countChanges()`
 - `applyBulkChanges()`
 - `applyChange(changeId)`
 
-## ENVIRONMENTS
+### Environments
 
 - `currentEnvironment()`
 - `createEnvironment(body)`
@@ -379,21 +371,21 @@ Map<String, Object> payload = new HashMap<>();
 - `regenerateApiKeys()`
 - `updateWidgetSettings(body)`
 
-## EXECUTION DETAILS
+### Execution Details
 
 - `executionDetails(query = {})`
 
-### FEEDS
+### Feeds
 
 - `createFeed(body)`
 - `feeds()`
 - `deleteFeed(feedId)`
 
-### INBOUND PARSE
+### Inbound Parse
 
 - `validateMxRecordSetupForInboundParse()`
 
-## INTEGRATIONS
+### Integrations
 
 - `integrations()`
 - `createIntegration(body)`
@@ -404,7 +396,7 @@ Map<String, Object> payload = new HashMap<>();
 - `channelLimit(channelType)`
 - `inAppStatus()`
 
-## LAYOUTS
+### Layouts
 
 - `createLayout(body) `
 - `layouts(query = {})`
@@ -413,18 +405,18 @@ Map<String, Object> payload = new HashMap<>();
 - `updateLayout(layoutId, body)`
 - `makeDefaultLayout(layoutId)`
 
-## MESSAGES
+### Messages
 
 - `messages(query = {})`
 - `deleteMessage(messageId)`
 
-## WORKFLOW GROUPS
+### Workflow Groups
 
 - `createWorkflowGroup(body)`
 - `notificationGroups()`
 - `updateWorkflowGroup(workflowId, body)`
 
-## WORKFLOW
+### Workflow
 
 - `notificationTemplates(query = {})`
 - `createWorkflow(body)`
@@ -433,7 +425,7 @@ Map<String, Object> payload = new HashMap<>();
 - `Workflow(WorkflowId)`
 - `updateWorkflowStatus(WorkflowId, body)`
 
-## NOTIFICATION
+### Notification
 
 - `notifications(query = {})`
 - `notificationsStats()`
@@ -444,21 +436,19 @@ Map<String, Object> payload = new HashMap<>();
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/novuhq/novu-java
+Feature requests, bug reports and pull requests are welcome. Please create an [issue](https://github.com/novuhq/novu-java/issues).
 
 ## Support and Feedback
 
 Be sure to visit the Novu official [documentation website](https://docs.novu.co/docs) for additional information about our API.
+If you need additional assistance, join our Discord server [here](https://discord.novu.co).
 
-If you find a bug, please create an [issue](https://github.com/novuhq/novu-java/issues).
+## License
 
-If you need additional assistance, join our Discord server [here](https://discord.gg/TT6TttXjRe).
+Novu Java SDK is licensed under the MIT License - see the [LICENSE](https://github.com/novuhq/novu-java/blob/main/LICENSE.md) file for details.
 
 ## Contributors
 
-Name |   
------------- |
-[Joseph Olugbohunmi](https://github.com/mayorJAY) |
-[Mukhtar Onifade](https://github.com/basfar) |
-
-
+<a href="https://github.com/novuhq/novu-java/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=novuhq/novu-java&max=500&columns=20"  alt="Contributors"/>
+</a>
