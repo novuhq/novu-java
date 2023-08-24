@@ -6,25 +6,22 @@ import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
 import co.novu.api.topics.responses.DeleteTopicResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
-import co.novu.api.topics.responses.SubscriberAdditionResponse;
-import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
-import lombok.RequiredArgsConstructor;
-
 import java.util.HashMap;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class TopicHandler {
 
-    private final RestHandler restHandler;
-
-    private final NovuConfig novuConfig;
-
     private static final String ENDPOINT = "topics";
+    private final RestHandler restHandler;
+    private final NovuConfig novuConfig;
 
     public TopicResponse createTopic(TopicRequest request) {
         return restHandler.handlePost(request, TopicResponse.class, novuConfig, ENDPOINT);
