@@ -1,26 +1,25 @@
 package co.novu.api.topics;
 
 
-import co.novu.api.common.SubscriberRequest;
 import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
-import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.DeleteTopicResponse;
-import co.novu.api.topics.responses.TopicResponseData;
 import co.novu.api.topics.responses.Failed;
-import co.novu.api.topics.responses.TopicResponse;
 import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.api.topics.responses.SubscriberAdditionResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponseData;
+import co.novu.api.topics.responses.SubscriberRemovalResponse;
+import co.novu.api.topics.responses.TopicResponse;
+import co.novu.api.topics.responses.TopicResponseData;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
-import junit.framework.TestCase;
-import org.mockito.Mockito;
-
 import java.util.Collections;
 import java.util.List;
+import junit.framework.TestCase;
+import org.mockito.Mockito;
 
 public class TopicsHandlerTest extends TestCase {
     private TopicHandler topicHandler;
@@ -81,13 +80,15 @@ public class TopicsHandlerTest extends TestCase {
 
     public void test_addSubscriberToTopic() {
         SubscriberAdditionResponse additionResponse = new SubscriberAdditionResponse();
+        SubscriberAdditionResponseData additionResponseData = new SubscriberAdditionResponseData();
         Failed failed = new Failed();
         failed.setNotFound(List.of());
-        additionResponse.setSucceeded(List.of());
-        additionResponse.setFailed(failed);
+        additionResponseData.setSucceeded(List.of());
+        additionResponseData.setFailed(failed);
+        additionResponse.setData(additionResponseData);
 
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
-        additionRequest.setSubscribers(Collections.singletonList(new SubscriberRequest()));
+        additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
         Mockito.doReturn(additionResponse).when(restHandler).handlePost(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
 
@@ -114,7 +115,7 @@ public class TopicsHandlerTest extends TestCase {
 
     public void test_removeSubscriberFromTopicFailure() {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
-        additionRequest.setSubscribers(Collections.singletonList(new SubscriberRequest()));
+        additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
         Mockito.doReturn(false).when(restHandler).handlePostForVoid(Mockito.any(), Mockito.any());
 
@@ -123,7 +124,7 @@ public class TopicsHandlerTest extends TestCase {
     }
     public void test_removeSubscriberFromTopicSuccess() {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
-        additionRequest.setSubscribers(Collections.singletonList(new SubscriberRequest()));
+        additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
         Mockito.doReturn(true).when(restHandler).handlePostForVoid(Mockito.any(), Mockito.any(), Mockito.any());
 
