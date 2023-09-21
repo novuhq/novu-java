@@ -193,7 +193,7 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberPreference.setPreference(preference);
         preferenceResponse.setData(List.of(subscriberPreference));
 
-        Mockito.doReturn(preferenceResponse).when(restHandler).handlePut(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Mockito.doReturn(preferenceResponse).when(restHandler).handlePatch(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
 
         SubscriberPreferenceResponse response = subscribersHandler.updateSubscriberPreferences(request, "sId", "tId");
         assertNotNull(response);
