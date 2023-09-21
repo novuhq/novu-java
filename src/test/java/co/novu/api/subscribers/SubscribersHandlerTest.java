@@ -5,6 +5,7 @@ import co.novu.api.subscribers.pojos.Mark;
 import co.novu.api.subscribers.pojos.Preference;
 import co.novu.api.subscribers.pojos.SubscriberNotification;
 import co.novu.api.subscribers.pojos.SubscriberPreference;
+import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
@@ -12,6 +13,7 @@ import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
 import co.novu.api.subscribers.responses.BulkSubscriberResponse;
+import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.subscribers.responses.CreateSubscriberResponse;
 import co.novu.api.subscribers.responses.DeleteResponse;
 import co.novu.api.subscribers.responses.SingleSubscriberResponse;
@@ -77,6 +79,27 @@ public class SubscribersHandlerTest extends TestCase {
         CreateSubscriberResponse response = subscribersHandler.createSubscriber(subscriberRequest);
         assertNotNull(response);
         assertEquals(createSubscriberResponse, response);
+    }
+
+    public void test_createSubscriberBulk() {
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setFirstName("fName");
+        subscriberRequest.setLastName("lName");
+        subscriberRequest.setEmail("email@sample.com");
+        subscriberRequest.setSubscriberId("sId");
+
+        BulkSubscriberRequest bulkSubscriberRequest = new BulkSubscriberRequest();
+        bulkSubscriberRequest.setSubscribers(List.of(subscriberRequest));
+
+        CreateBulkSubscriberResponse createSubscriberResponse = new CreateBulkSubscriberResponse();
+        createSubscriberResponse.setCreated(List.of("sId"));
+
+        Mockito.doReturn(createSubscriberResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+
+        CreateBulkSubscriberResponse response = subscribersHandler.createSubscriberBulk(bulkSubscriberRequest);
+        assertNotNull(response);
+        assertEquals(createSubscriberResponse, response);
+        assertFalse(response.getCreated().isEmpty());
     }
 
     public void test_getSubscriber() {

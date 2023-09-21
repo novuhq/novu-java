@@ -1,7 +1,9 @@
 package co.novu.api.subscribers;
 
+import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
+import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
 import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
@@ -41,6 +43,10 @@ public class SubscribersHandler {
 
     public CreateSubscriberResponse createSubscriber(SubscriberRequest request) {
         return restHandler.handlePost(request, CreateSubscriberResponse.class, novuConfig, ENDPOINT);
+    }
+
+    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) {
+        return restHandler.handlePost(request, CreateBulkSubscriberResponse.class, novuConfig, ENDPOINT + "/bulk");
     }
 
     public SingleSubscriberResponse getSubscriber(String subscriberId) {
