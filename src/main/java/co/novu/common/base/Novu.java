@@ -49,6 +49,8 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.subscribers.requests.BulkSubscriberRequest;
+import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.topics.TopicHandler;
 import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
@@ -229,6 +231,15 @@ public class Novu {
             return subscribersHandler.createSubscriber(request);
         } catch (Exception e) {
             log.error("Error creating Subscriber", e);
+            throw e;
+        }
+    }
+
+    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) {
+        try {
+            return subscribersHandler.createSubscriberBulk(request);
+        } catch (Exception e) {
+            log.error("Error creating bulk Subscribers", e);
             throw e;
         }
     }
