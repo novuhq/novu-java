@@ -68,7 +68,7 @@ public class SubscribersHandler {
     }
 
     public SubscriberPreferenceResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
-        return restHandler.handlePut(request, SubscriberPreferenceResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences/" + templateId);
+        return restHandler.handlePatch(request, SubscriberPreferenceResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences/" + templateId);
     }
 
     public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) {
