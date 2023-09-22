@@ -45,19 +45,18 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
-Then run `mnv install`.
 
 **Gradle users:**
 ```gradle
 // add dependency
 dependencies {
-    implementation 'co.novu:novu-java:1.1.0'
+    implementation 'co.novu:novu-java:1.2.0'
 }
 ```
-then run `gradlew build`
+Sync your project, and you should have the artifacts downloaded.
 
 ## Usage
 
