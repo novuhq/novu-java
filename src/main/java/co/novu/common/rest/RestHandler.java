@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -89,6 +90,7 @@ public class RestHandler {
     public <T> T handlePatch(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
         HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
 
+        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.PATCH, requestEntity, responseClazz).getBody();
     }
 

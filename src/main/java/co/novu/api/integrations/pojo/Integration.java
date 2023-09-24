@@ -14,4 +14,9 @@ public class Integration {
     private Boolean deleted;
     private String createdAt;
     private String updatedAt;
+    private String deletedAt;
+    private String deletedBy;
+    private String identifier;
+    private String name;
+    private Boolean primary;
 }

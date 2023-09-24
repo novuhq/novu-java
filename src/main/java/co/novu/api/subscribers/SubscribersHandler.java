@@ -1,9 +1,11 @@
 package co.novu.api.subscribers;
 
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
+import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
 import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
@@ -65,6 +67,14 @@ public class SubscribersHandler {
         return restHandler.handlePut(request, SingleSubscriberResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/credentials");
     }
 
+    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) {
+        boolean isSuccess = restHandler.handleDeleteForVoid(novuConfig, ENDPOINT + "/" + subscriberId + "/credentials/" + providerId);
+        if (isSuccess) {
+            return new DeleteCredentialsResponse();
+        }
+        return null;
+    }
+
     public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) {
         return restHandler.handlePatch(request, SingleSubscriberResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/online-status");
     }
@@ -87,6 +97,10 @@ public class SubscribersHandler {
 
     public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) {
         return restHandler.handlePost(request, SubscriberNotificationResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/messages/markAs");
+    }
+
+    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) {
+        return restHandler.handlePost(request, Long.class, novuConfig, ENDPOINT + "/" + subscriberId + "/messages/mark-all");
     }
 
     public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) {

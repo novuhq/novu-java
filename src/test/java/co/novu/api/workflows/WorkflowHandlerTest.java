@@ -1,8 +1,9 @@
 package co.novu.api.workflows;
 
 import co.novu.api.common.Trigger;
-import co.novu.api.workflows.pojos.NotificationGroup;
-import co.novu.api.workflows.pojos.PreferenceSettings;
+import co.novu.api.common.NotificationGroup;
+import co.novu.api.common.PreferenceSettings;
+import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
 import co.novu.api.workflows.requests.WorkflowRequest;
 import co.novu.api.workflows.responses.BulkWorkflowResponse;
@@ -47,7 +48,6 @@ public class WorkflowHandlerTest extends TestCase {
 
     public void test_createWorkflow() {
         WorkflowRequest workflowRequest = new WorkflowRequest();
-        workflowRequest.set_id("id");
         workflowRequest.setDescription("Desc");
         workflowRequest.setActive(false);
         workflowRequest.setName("name");
@@ -62,22 +62,13 @@ public class WorkflowHandlerTest extends TestCase {
         workflowRequest.setCritical(false);
         workflowRequest.setTags(List.of());
         workflowRequest.setSteps(List.of());
-        workflowRequest.set_organizationId("organizationId");
-        workflowRequest.set_creatorId("creatorId");
-        workflowRequest.set_environmentId("environmentId");
-        workflowRequest.setTriggers(Collections.singletonList(new Trigger()));
         workflowRequest.setNotificationGroupId("notificationId");
-        workflowRequest.setDeleted(false);
-        workflowRequest.setDeletedAt("deletedAt");
-        workflowRequest.setDeletedBy("deletedBy");
         NotificationGroup notificationGroup1 = new NotificationGroup();
         notificationGroup1.set_id("id");
         notificationGroup1.setName("name");
         notificationGroup1.set_environmentId("environmentId");
         notificationGroup1.set_organizationId("organizationId");
         notificationGroup1.set_parentId("parentId");
-        workflowRequest.setNotificationGroup(notificationGroup1);
-        workflowRequest.setIsBlueprint(false);
 
 
 
@@ -124,8 +115,7 @@ public class WorkflowHandlerTest extends TestCase {
     }
 
     public void test_updateWorkflow() {
-        WorkflowRequest workflowRequest = new WorkflowRequest();
-        workflowRequest.set_id("id");
+        UpdateWorkflowRequest workflowRequest = new UpdateWorkflowRequest();
         workflowRequest.setDescription("Desc");
         workflowRequest.setActive(false);
         workflowRequest.setName("name");
@@ -140,22 +130,13 @@ public class WorkflowHandlerTest extends TestCase {
         workflowRequest.setCritical(false);
         workflowRequest.setTags(List.of());
         workflowRequest.setSteps(List.of());
-        workflowRequest.set_organizationId("organizationId");
-        workflowRequest.set_creatorId("creatorId");
-        workflowRequest.set_environmentId("environmentId");
-        workflowRequest.setTriggers(Collections.singletonList(new Trigger()));
         workflowRequest.setNotificationGroupId("notificationId");
-        workflowRequest.setDeleted(false);
-        workflowRequest.setDeletedAt("deletedAt");
-        workflowRequest.setDeletedBy("deletedBy");
         NotificationGroup notificationGroup1 = new NotificationGroup();
         notificationGroup1.set_id("id");
         notificationGroup1.setName("name");
         notificationGroup1.set_environmentId("environmentId");
         notificationGroup1.set_organizationId("organizationId");
         notificationGroup1.set_parentId("parentId");
-        workflowRequest.setNotificationGroup(notificationGroup1);
-        workflowRequest.setIsBlueprint(false);
 
         SingleWorkflowResponse singleWorkflowResponse = new SingleWorkflowResponse();
         WorkflowResponse data = new WorkflowResponse();

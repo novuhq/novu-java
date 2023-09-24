@@ -8,7 +8,9 @@ import java.util.List;
 @Data
 public class Trigger {
     private String type;
+    private String _id;
     private String identifier;
     private List<Variables> variables;
     private List<Variables> subscriberVariables;
+    private List<Variables> reservedVariables;
 }

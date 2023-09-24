@@ -1,5 +1,8 @@
 package co.novu.common.base;
 
+import co.novu.api.blueprints.BlueprintsHandler;
+import co.novu.api.blueprints.pojos.Blueprint;
+import co.novu.api.blueprints.responses.BlueprintsByCategoryResponse;
 import co.novu.api.changes.ChangeHandler;
 import co.novu.api.changes.request.ApplyChangesRequest;
 import co.novu.api.changes.request.GetChangesRequest;
@@ -50,7 +53,15 @@ import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
+import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
+import co.novu.api.tenants.TenantsHandler;
+import co.novu.api.tenants.requests.GetTenantRequest;
+import co.novu.api.tenants.requests.TenantRequest;
+import co.novu.api.tenants.responses.BulkTenantResponse;
+import co.novu.api.tenants.responses.DeleteTenantResponse;
+import co.novu.api.tenants.responses.TenantResponse;
 import co.novu.api.topics.TopicHandler;
 import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
@@ -83,6 +94,7 @@ import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
 import co.novu.api.workflowgroups.responses.GetWorkflowGroupsResponse;
 import co.novu.api.workflowgroups.responses.WorkflowGroupResponse;
 import co.novu.api.workflows.WorkflowHandler;
+import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
 import co.novu.api.workflows.requests.WorkflowRequest;
 import co.novu.api.workflows.responses.BulkWorkflowResponse;
@@ -122,6 +134,9 @@ public class Novu {
 
     private final ExecutiveDetailsHandler executiveDetailsHandler;
 
+    private final BlueprintsHandler blueprintsHandler;
+
+    private final TenantsHandler tenantsHandler;
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -143,6 +158,8 @@ public class Novu {
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
+        this.blueprintsHandler = new BlueprintsHandler(restHandler, novuConfig);
+        this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
@@ -280,6 +297,15 @@ public class Novu {
         }
     }
 
+    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) {
+        try {
+            return subscribersHandler.deleteSubscriberCredentials(subscriberId, providerId);
+        } catch (Exception e) {
+            log.error("Error deleting Subscriber Credentials", e);
+            throw e;
+        }
+    }
+
     public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) {
         try {
             return subscribersHandler.updateSubscriberOnlineStatus(request, subscriberId);
@@ -330,6 +356,15 @@ public class Novu {
             return subscribersHandler.markSubscriberMessageFeedAs(request, subscriberId);
         } catch (Exception e) {
             log.error("Error marking Subscriber Message Feed", e);
+            throw e;
+        }
+    }
+
+    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) {
+        try {
+            return subscribersHandler.markAllSubscriberMessagesFeedAs(request, subscriberId);
+        } catch (Exception e) {
+            log.error("Error marking all Subscriber Messages Feed", e);
             throw e;
         }
     }
@@ -469,6 +504,15 @@ public class Novu {
         }
     }
 
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) {
+        try {
+            return integrationsHandler.setIntegrationAsPrimary(integrationId);
+        } catch (Exception e) {
+            log.error("Error setting Integration as primary", e);
+            throw e;
+        }
+    }
+
     public CreateLayoutResponse createLayout(LayoutRequest request) {
         try {
             return layoutHandler.createLayout(request);
@@ -542,8 +586,7 @@ public class Novu {
         }
     }
 
-
-    public SingleWorkflowResponse updateWorkflow(String workflowId, WorkflowRequest request) {
+    public SingleWorkflowResponse updateWorkflow(String workflowId, UpdateWorkflowRequest request) {
         try {
             return workflowHandler.updateWorkflow(workflowId, request);
         } catch (Exception e) {
@@ -551,7 +594,6 @@ public class Novu {
             throw e;
         }
     }
-
 
     public DeleteWorkflowResponse deleteWorkflow(String workflowId) {
         try {
@@ -775,6 +817,69 @@ public class Novu {
             return executiveDetailsHandler.getExecutionDetails(notificationId, subscriberId);
         } catch (Exception e) {
             log.error("Error getting Execution Details", e);
+            throw e;
+        }
+    }
+
+    public BlueprintsByCategoryResponse getBlueprintsByCategory() {
+        try {
+            return blueprintsHandler.getBlueprintsByCategory();
+        } catch (Exception e) {
+            log.error("Error getting Blueprints by Category", e);
+            throw e;
+        }
+    }
+
+    public Blueprint getBlueprint(String templateId) {
+        try {
+            return blueprintsHandler.getBlueprint(templateId);
+        } catch (Exception e) {
+            log.error("Error getting Blueprint", e);
+            throw e;
+        }
+    }
+
+    public BulkTenantResponse getTenants(GetTenantRequest request) {
+        try {
+            return tenantsHandler.getTenants(request);
+        } catch (Exception e) {
+            log.error("Error getting Tenants", e);
+            throw e;
+        }
+    }
+
+    public TenantResponse createTenant(TenantRequest request) {
+        try {
+            return tenantsHandler.createTenant(request);
+        } catch (Exception e) {
+            log.error("Error creating Tenant", e);
+            throw e;
+        }
+    }
+
+    public TenantResponse getTenant(String identifier) {
+        try {
+            return tenantsHandler.getTenant(identifier);
+        } catch (Exception e) {
+            log.error("Error getting Tenant", e);
+            throw e;
+        }
+    }
+
+    public TenantResponse updateTenant(TenantRequest request, String identifier) {
+        try {
+            return tenantsHandler.updateTenant(request, identifier);
+        } catch (Exception e) {
+            log.error("Error updating Tenant", e);
+            throw e;
+        }
+    }
+
+    public DeleteTenantResponse deleteTenant(String identifier) {
+        try {
+            return tenantsHandler.deleteTenant(identifier);
+        } catch (Exception e) {
+            log.error("Error deleting Tenant", e);
             throw e;
         }
     }

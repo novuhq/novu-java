@@ -40,4 +40,8 @@ public class IntegrationsHandler {
     public BulkIntegrationResponse deleteIntegration(String integrationId) {
         return restHandler.handleDelete(BulkIntegrationResponse.class, novuConfig, ENDPOINT + "/" + integrationId);
     }
+
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) {
+        return restHandler.handlePost(SingleIntegrationResponse.class, novuConfig, ENDPOINT + "/" + integrationId + "/set-primary");
+    }
 }

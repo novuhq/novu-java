@@ -115,4 +115,19 @@ public class IntegrationsHandlerTest extends TestCase {
         assertNotNull(response);
         assertEquals(bulkIntegrationResponse, response);
     }
+
+    public void test_setIntegrationAsPrimary() {
+        SingleIntegrationResponse singleIntegrationResponse = new SingleIntegrationResponse();
+        Integration integration = new Integration();
+        integration.setActive(true);
+        integration.setChannel("PUSH");
+        integration.setPrimary(true);
+        singleIntegrationResponse.setData(integration);
+
+        Mockito.doReturn(singleIntegrationResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any());
+
+        SingleIntegrationResponse response = integrationsHandler.setIntegrationAsPrimary("id");
+        assertNotNull(response);
+        assertEquals(singleIntegrationResponse, response);
+    }
 }
