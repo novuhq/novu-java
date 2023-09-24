@@ -6,6 +6,7 @@ import co.novu.api.subscribers.pojos.Preference;
 import co.novu.api.subscribers.pojos.SubscriberNotification;
 import co.novu.api.subscribers.pojos.SubscriberPreference;
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
+import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
@@ -15,6 +16,7 @@ import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
 import co.novu.api.subscribers.responses.BulkSubscriberResponse;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.subscribers.responses.CreateSubscriberResponse;
+import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
 import co.novu.api.subscribers.responses.DeleteResponse;
 import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
@@ -171,6 +173,21 @@ public class SubscribersHandlerTest extends TestCase {
         assertEquals(singleSubscriberResponse, response);
     }
 
+    public void test_deleteSubscriberCredentialsFailure() {
+        Mockito.doReturn(false).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+
+        DeleteCredentialsResponse response = subscribersHandler.deleteSubscriberCredentials("sId", "pId");
+        assertNull(response);
+    }
+
+    public void test_deleteSubscriberCredentialsSuccess() {
+        Mockito.doReturn(true).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+
+        DeleteCredentialsResponse response = subscribersHandler.deleteSubscriberCredentials("sId", "pId");
+        assertNotNull(response);
+        assertTrue(response.getAcknowledged());
+    }
+
     public void test_updateSubscriberOnlineStatus() {
         UpdateSubscriberOnlineStatusRequest request = new UpdateSubscriberOnlineStatusRequest();
         request.setIsOnline(true);
@@ -272,6 +289,18 @@ public class SubscribersHandlerTest extends TestCase {
         SubscriberNotificationResponse response = subscribersHandler.markSubscriberMessageFeedAs(request, "id");
         assertNotNull(response);
         assertEquals(notificationResponse, response);
+    }
+
+    public void test_markAllSubscriberMessagesFeedAs() {
+        MarkAllMessagesRequest request = new MarkAllMessagesRequest();
+        request.setFeedIdentifier("fId");
+        request.setMarkAs("read");
+
+        Mockito.doReturn(20L).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+
+        Long response = subscribersHandler.markAllSubscriberMessagesFeedAs(request, "id");
+        assertNotNull(response);
+        assertEquals((Long) 20L, response);
     }
 
     public void test_markMessageActionAsSeen() {
