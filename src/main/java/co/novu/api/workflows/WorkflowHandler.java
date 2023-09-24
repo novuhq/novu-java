@@ -1,5 +1,6 @@
 package co.novu.api.workflows;
 
+import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
 import co.novu.api.workflows.requests.WorkflowRequest;
 import co.novu.api.workflows.responses.BulkWorkflowResponse;
@@ -35,7 +36,7 @@ public class WorkflowHandler {
         return restHandler.handlePost(request, SingleWorkflowResponse.class, novuConfig, ENDPOINT);
     }
 
-    public SingleWorkflowResponse updateWorkflow(String workflowId, WorkflowRequest request) {
+    public SingleWorkflowResponse updateWorkflow(String workflowId, UpdateWorkflowRequest request) {
         return restHandler.handlePut(request, SingleWorkflowResponse.class, novuConfig, ENDPOINT + "/" + workflowId);
     }
 

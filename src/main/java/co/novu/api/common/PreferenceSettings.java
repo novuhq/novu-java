@@ -1,4 +1,4 @@
-package co.novu.api.workflows.pojos;
+package co.novu.api.common;
 
 import lombok.Data;
 

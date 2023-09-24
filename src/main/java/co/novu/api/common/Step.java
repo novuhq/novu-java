@@ -12,7 +12,9 @@ public class Step {
     private Boolean shouldStopOnFail;
     private Object template;
     private Object replyCallback;
+    private String uuid;
+    private String name;
     private String _parentId;
-    private List<Filters> filters;
-    private Metadata metadata;
+    private Object filters;
+    private Object metadata;
 }

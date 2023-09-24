@@ -2,8 +2,8 @@ package co.novu.api.workflows.responses;
 
 import co.novu.api.common.Step;
 import co.novu.api.common.Trigger;
-import co.novu.api.workflows.pojos.NotificationGroup;
-import co.novu.api.workflows.pojos.PreferenceSettings;
+import co.novu.api.common.NotificationGroup;
+import co.novu.api.common.PreferenceSettings;
 import lombok.Data;
 
 import java.util.List;
