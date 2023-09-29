@@ -45,7 +45,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 ```gradle
 // add dependency
 dependencies {
-    implementation 'co.novu:novu-java:1.2.0'
+    implementation 'co.novu:novu-java:1.3.0'
 }
 ```
 Sync your project, and you should have the artifacts downloaded.
@@ -430,6 +430,19 @@ public class Main {
 - `notificationsStats()`
 - `notificationsGraphStats(query = {})`
 - `notification(notificationId)`
+
+### Blueprints
+
+- `getBlueprintsByCategory()`
+- `getBlueprint(templateId)`
+
+### Tenants
+
+- `getTenants(body)`
+- `createTenant(body)`
+- `getTenant(identifier)`
+- `updateTenant(body, identifier)`
+- `deleteTenant(identifier)`
 
 ### For more information about these methods and their parameters, see the [API documentation](https://docs.novu.co/api/overview).
 
