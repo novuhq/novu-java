@@ -394,6 +394,7 @@ public class Main {
 - `deleteIntegration(integrationId)`
 - `channelLimit(channelType)`
 - `inAppStatus()`
+- `setIntegrationAsPrimary(integrationId)`
 
 ### Layouts
 
