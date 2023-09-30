@@ -3,8 +3,7 @@ package co.novu.api.subscribers.pojos;
 import lombok.Data;
 
 @Data
-public class Preference {
+public class PreferenceChannel {
     private Boolean enabled;
-    private Object channels;
-    private Object overrides;
+    private String type;
 }

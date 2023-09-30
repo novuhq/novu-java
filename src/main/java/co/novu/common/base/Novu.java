@@ -56,6 +56,7 @@ import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
 import co.novu.api.tenants.TenantsHandler;
 import co.novu.api.tenants.requests.GetTenantRequest;
 import co.novu.api.tenants.requests.TenantRequest;
@@ -324,7 +325,7 @@ public class Novu {
         }
     }
 
-    public SubscriberPreferenceResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
+    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
         try {
             return subscribersHandler.updateSubscriberPreferences(request, subscriberId, templateId);
         } catch (Exception e) {
