@@ -18,6 +18,7 @@ import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.subscribers.responses.CreateSubscriberResponse;
 import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
 import co.novu.api.subscribers.responses.DeleteResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
 import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
@@ -226,16 +227,16 @@ public class SubscribersHandlerTest extends TestCase {
         UpdateSubscriberPreferenceRequest request = new UpdateSubscriberPreferenceRequest();
         request.setEnabled(false);
 
-        SubscriberPreferenceResponse preferenceResponse = new SubscriberPreferenceResponse();
+        SingleSubscriberPrefResponse preferenceResponse = new SingleSubscriberPrefResponse();
         SubscriberPreference subscriberPreference = new SubscriberPreference();
         Preference preference = new Preference();
         preference.setEnabled(false);
         subscriberPreference.setPreference(preference);
-        preferenceResponse.setData(List.of(subscriberPreference));
+        preferenceResponse.setData(subscriberPreference);
 
         Mockito.doReturn(preferenceResponse).when(restHandler).handlePatch(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
 
-        SubscriberPreferenceResponse response = subscribersHandler.updateSubscriberPreferences(request, "sId", "tId");
+        SingleSubscriberPrefResponse response = subscribersHandler.updateSubscriberPreferences(request, "sId", "tId");
         assertNotNull(response);
         assertEquals(preferenceResponse, response);
     }

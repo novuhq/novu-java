@@ -6,6 +6,7 @@ import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
 import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
 import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
 import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
 import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
@@ -83,8 +84,8 @@ public class SubscribersHandler {
         return restHandler.handleGet(SubscriberPreferenceResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences");
     }
 
-    public SubscriberPreferenceResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
-        return restHandler.handlePatch(request, SubscriberPreferenceResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences/" + templateId);
+    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
+        return restHandler.handlePatch(request, SingleSubscriberPrefResponse.class, novuConfig, ENDPOINT + "/" + subscriberId + "/preferences/" + templateId);
     }
 
     public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) {
