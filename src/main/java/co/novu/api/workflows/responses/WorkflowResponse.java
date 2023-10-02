@@ -4,6 +4,7 @@ import co.novu.api.common.Step;
 import co.novu.api.common.Trigger;
 import co.novu.api.common.NotificationGroup;
 import co.novu.api.common.PreferenceSettings;
+import co.novu.api.workflows.pojos.WorkflowIntegrationStatus;
 import lombok.Data;
 
 import java.util.List;
@@ -29,4 +30,5 @@ public class WorkflowResponse {
     private String deletedBy;
     private NotificationGroup notificationGroup;
     private Boolean isBlueprint;
+    private WorkflowIntegrationStatus workflowIntegrationStatus;
 }
