@@ -568,8 +568,7 @@ public class Novu {
         }
     }
 
-
-    public BulkWorkflowResponse getWorkflows(@Nullable Integer page, @Nullable Integer limit) {
+    public BulkWorkflowResponse getWorkflows(Integer page, Integer limit) {
         try {
             return workflowHandler.getWorkflows(page, limit);
         } catch (Exception e) {

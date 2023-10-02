@@ -20,7 +20,7 @@ public class WorkflowHandler {
 
     private final NovuConfig novuConfig;
 
-    private static final String ENDPOINT = "notification-templates";
+    private static final String ENDPOINT = "workflows";
 
     public BulkWorkflowResponse getWorkflows(Integer page, Integer limit) {
         Map<String, Object> params = new HashMap<>();
