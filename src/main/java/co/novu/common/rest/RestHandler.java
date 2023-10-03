@@ -2,112 +2,105 @@ package co.novu.common.rest;
 
 import co.novu.common.base.NovuConfig;
 import co.novu.common.contracts.IRequest;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import lombok.RequiredArgsConstructor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.util.Collections;
+import java.io.IOException;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class RestHandler {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final NovuConfig novuConfig;
+
+    private Retrofit retrofit;
+
+    public Retrofit buildRetrofit() {
+        if (retrofit != null) {
+            return retrofit;
+        }
+
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.addInterceptor(chain -> {
+                    Request request = chain.request()
+                            .newBuilder()
+                            .addHeader("Authorization", "ApiKey " + novuConfig.getApiKey())
+                            .build();
+                    return chain.proceed(request);
+                }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(novuConfig.getBaseUrl())
+                .client(clientBuilder.build())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        return retrofit;
+    }
+
+    public <T> T extractResponse(Response<T> response) throws NovuNetworkException, IOException {
+        if (response.isSuccessful()) {
+            return response.body();
+        } else {
+            throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string() : "Error connecting to Novu API");
+        }
+    }
+
+    public <T, R> R extractResponse(Response<T> response, R body) throws NovuNetworkException, IOException {
+        if (response.isSuccessful()) {
+            return body;
+        } else {
+            throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string() : "Error connecting to Novu API");
+        }
+    }
 
     public <T> T handlePost(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
-
-        return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz);
+        return null;
     }
 
     public <T> T handlePost(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        return restTemplate.postForObject(novuConfig.getBaseUrl() + endPoint, requestEntity, responseClazz);
+        return null;
     }
 
     public boolean handlePostForVoid(IRequest request, NovuConfig novuConfig, String endPoint) {
-        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
-
-        ResponseEntity<Void> responseEntity = restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.POST, requestEntity, Void.class);
-        return isSuccessful(responseEntity.getStatusCodeValue());
+        return true;
     }
 
     public boolean handlePostForVoid(NovuConfig novuConfig, String endPoint) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        ResponseEntity<Void> responseEntity = restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.POST, requestEntity, Void.class);
-        return isSuccessful(responseEntity.getStatusCodeValue());
+        return true;
     }
 
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.GET, requestEntity, responseClazz).getBody();
+        return null;
     }
 
     public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint, Map<String, Object> queryParams) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        String uri = novuConfig.getBaseUrl() + endPoint;
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri);
-        queryParams.forEach(builder::queryParam);
-        UriComponents uriComponents = builder.build();
-
-        return restTemplate.exchange(uriComponents.toString(), HttpMethod.GET, requestEntity, responseClazz).getBody();
+        return null;
     }
 
     public <T> T handleDelete(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.DELETE, requestEntity, responseClazz).getBody();
+        return null;
     }
 
     public boolean handleDeleteForVoid(NovuConfig novuConfig, String endPoint) {
-        HttpHeaders headers = getHeaders(novuConfig.getApiKey());
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        ResponseEntity<Void> responseEntity = restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.DELETE, requestEntity, Void.class);
-        return isSuccessful(responseEntity.getStatusCodeValue());
+        return true;
     }
 
     public <T> T handlePut(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
-
-        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.PUT, requestEntity, responseClazz).getBody();
+        return null;
     }
 
     public <T> T handlePatch(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        HttpEntity<IRequest> requestEntity = constructHttpEntity(request, novuConfig.getApiKey());
-
-        restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-        return restTemplate.exchange(novuConfig.getBaseUrl() + endPoint, HttpMethod.PATCH, requestEntity, responseClazz).getBody();
-    }
-
-    private HttpEntity<IRequest> constructHttpEntity(IRequest request, String apiKey) {
-        HttpHeaders headers = getHeaders(apiKey);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        return new HttpEntity<>(request, headers);
-    }
-
-    private HttpHeaders getHeaders(String apiKey) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-        headers.set("Authorization", "ApiKey " + apiKey);
-        return headers;
-    }
-
-    private boolean isSuccessful(int code) {
-        return code >= 200 && code <= 299;
+        return null;
     }
 }

@@ -101,14 +101,17 @@ import co.novu.api.workflows.requests.WorkflowRequest;
 import co.novu.api.workflows.responses.BulkWorkflowResponse;
 import co.novu.api.workflows.responses.DeleteWorkflowResponse;
 import co.novu.api.workflows.responses.SingleWorkflowResponse;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.Nullable;
+
+import java.io.IOException;
 
 @Slf4j
 public class Novu {
 
     private final EventsHandler eventsHandler;
+
     private final NotificationHandler notificationHandler;
 
     private final TopicHandler topicHandler;
@@ -144,7 +147,7 @@ public class Novu {
     }
 
     public Novu(NovuConfig novuConfig) {
-        RestHandler restHandler = new RestHandler();
+        RestHandler restHandler = new RestHandler(novuConfig);
         this.eventsHandler = new EventsHandler(restHandler, novuConfig);
         this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
@@ -159,7 +162,7 @@ public class Novu {
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
-        this.blueprintsHandler = new BlueprintsHandler(restHandler, novuConfig);
+        this.blueprintsHandler = new BlueprintsHandler(restHandler);
         this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
     }
 
@@ -235,7 +238,7 @@ public class Novu {
         }
     }
 
-    public BulkSubscriberResponse getSubscribers(@Nullable Integer page, @Nullable Integer limit) {
+    public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) {
         try {
             return subscribersHandler.getSubscribers(page, limit);
         } catch (Exception e) {
@@ -821,7 +824,7 @@ public class Novu {
         }
     }
 
-    public BlueprintsByCategoryResponse getBlueprintsByCategory() {
+    public BlueprintsByCategoryResponse getBlueprintsByCategory() throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprintsByCategory();
         } catch (Exception e) {
@@ -830,7 +833,7 @@ public class Novu {
         }
     }
 
-    public Blueprint getBlueprint(String templateId) {
+    public Blueprint getBlueprint(String templateId) throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprint(templateId);
         } catch (Exception e) {
