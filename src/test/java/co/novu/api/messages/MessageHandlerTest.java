@@ -5,60 +5,82 @@ import co.novu.api.messages.requests.MessageRequest;
 import co.novu.api.messages.responses.DeleteMessageResponse;
 import co.novu.api.messages.responses.MessageResponse;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
+import com.google.gson.Gson;
 import junit.framework.TestCase;
-import org.mockito.Mockito;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
+import java.io.IOException;
 import java.util.Collections;
 
 public class MessageHandlerTest extends TestCase {
 
     private MessageHandler messageHandler;
 
-    private RestHandler restHandler;
+    private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        messageHandler = Mockito.spy(new MessageHandler(restHandler, novuConfig));
+    	mockWebServer = new MockWebServer();
+    	NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        messageHandler = new MessageHandler(restHandler);
     }
 
-    public void test_getMessagesWithNoParam() {
-        Mockito.doReturn(null).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+    public void test_getMessagesWithNoParam() throws InterruptedException, NovuNetworkException, IOException {
+    	Gson gson = new Gson();
+    	mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
 
         MessageResponse response = messageHandler.getMessages(new MessageRequest());
-        assertNull(response);
-        Mockito.verify(restHandler, Mockito.never()).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/messages/v1/messages", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals("{}", gson.toJson(response));
     }
 
-    public void test_getMessagesWithParams() {
+    public void test_getMessagesWithParams() throws NovuNetworkException, IOException, InterruptedException {
         MessageResponse messageResponse = new MessageResponse();
         messageResponse.setPage(2L);
         messageResponse.setPageSize(20L);
         messageResponse.setTotalCount(200L);
         messageResponse.setData(Collections.singletonList(new Message()));
-        Mockito.doReturn(messageResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
-
+        
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(messageResponse)));
+        
         MessageRequest messageRequest = new MessageRequest();
         messageRequest.setPage(2);
         messageRequest.setLimit(20);
 
         MessageResponse response = messageHandler.getMessages(messageRequest);
-        assertNotNull(response);
-        assertEquals(messageResponse, response);
-        Mockito.verify(restHandler, Mockito.never()).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/messages/v1/messages?limit=20&page=2", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(messageResponse), gson.toJson(response));
     }
 
-    public void test_deleteMessage() {
+    public void test_deleteMessage() throws IOException, NovuNetworkException, InterruptedException {
         DeleteMessageResponse deleteMessageResponse = new DeleteMessageResponse();
         deleteMessageResponse.setAcknowledged(true);
         deleteMessageResponse.setStatus("done");
 
-        Mockito.doReturn(deleteMessageResponse).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(deleteMessageResponse)));
 
         DeleteMessageResponse response = messageHandler.deleteMessage("id");
-        assertNotNull(response);
-        assertEquals(deleteMessageResponse, response);
+        
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/messages/v1/messages/id", request.getPath());
+        assertEquals("DELETE", request.getMethod());
+        assertEquals(gson.toJson(deleteMessageResponse), gson.toJson(response));
     }
 }
