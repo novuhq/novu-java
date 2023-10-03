@@ -2,24 +2,30 @@ package co.novu.api.blueprints;
 
 import co.novu.api.blueprints.pojos.Blueprint;
 import co.novu.api.blueprints.responses.BlueprintsByCategoryResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
-import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
 
-@RequiredArgsConstructor
+import java.io.IOException;
+
 public class BlueprintsHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
+    private final BlueprintsApi blueprintsApi;
 
-    private static final String ENDPOINT = "blueprints";
-
-    public BlueprintsByCategoryResponse getBlueprintsByCategory() {
-        return restHandler.handleGet(BlueprintsByCategoryResponse.class, novuConfig, ENDPOINT  + "/group-by-category");
+    public BlueprintsHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.blueprintsApi = restHandler.buildRetrofit().create(BlueprintsApi.class);
     }
 
-    public Blueprint getBlueprint(String templateId) {
-        return restHandler.handleGet(Blueprint.class, novuConfig, ENDPOINT  + "/" + templateId);
+    public BlueprintsByCategoryResponse getBlueprintsByCategory() throws IOException, NovuNetworkException {
+        Response<BlueprintsByCategoryResponse> response = blueprintsApi.getBlueprintsByCategory().execute();
+        return restHandler.extractResponse(response);
+    }
+
+    public Blueprint getBlueprint(String templateId) throws IOException, NovuNetworkException {
+        Response<Blueprint> response = blueprintsApi.getBlueprint(templateId).execute();
+        return restHandler.extractResponse(response);
     }
 }
