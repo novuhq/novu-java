@@ -1,14 +1,18 @@
 package co.novu.api.workflows;
 
+import co.novu.api.blueprints.pojos.Blueprint;
+import co.novu.api.workflows.pojos.workflows;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
 import co.novu.api.workflows.requests.WorkflowRequest;
 import co.novu.api.workflows.responses.BulkWorkflowResponse;
 import co.novu.api.workflows.responses.DeleteWorkflowResponse;
 import co.novu.api.workflows.responses.SingleWorkflowResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
+import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,9 +22,14 @@ public class WorkflowHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
+    private final BlueprintsApi blueprintsApi;
 
-    private static final String ENDPOINT = "workflows";
+    // private static final String ENDPOINT = "workflows";
+
+    public WorkflowHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.blueprintsApi = restHandler.buildRetrofit().create(WorkflowsApi.class);
+    }
 
     public BulkWorkflowResponse getWorkflows(Integer page, Integer limit) {
         Map<String, Object> params = new HashMap<>();
@@ -44,8 +53,9 @@ public class WorkflowHandler {
         return restHandler.handleDelete(DeleteWorkflowResponse.class, novuConfig, ENDPOINT + "/" + workflowId);
     }
 
-    public SingleWorkflowResponse getWorkflow(String workflowId) {
-        return restHandler.handleGet(SingleWorkflowResponse.class, novuConfig, ENDPOINT + "/" + workflowId);
+    public SingleWorkflowResponse getWorkflow(String workflowId)throws IOException, NovuNetworkException {
+        Response<workflows> response = WorkflowsApi.getWorkflow(templateId).execute();
+        return restHandler.extractResponse(response);
     }
 
     public SingleWorkflowResponse updateWorkflowStatus(String workflowId, UpdateWorkflowStatusRequest request) {

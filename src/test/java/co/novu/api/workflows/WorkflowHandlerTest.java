@@ -1,6 +1,7 @@
 package co.novu.api.workflows;
 
 import co.novu.api.common.Trigger;
+import co.novu.api.blueprints.pojos.Blueprint;
 import co.novu.api.common.NotificationGroup;
 import co.novu.api.common.PreferenceSettings;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
@@ -13,21 +14,29 @@ import co.novu.api.workflows.responses.WorkflowResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.RestHandler;
 import junit.framework.TestCase;
-import org.mockito.Mockito;
-
+import co.novu.common.rest.NovuNetworkException;
+import com.google.gson.Gson;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+import org.mockito.Mockito;
 
 public class WorkflowHandlerTest extends TestCase {
     private WorkflowHandler workflowHandler;
 
-    private RestHandler restHandler;
+ private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        workflowHandler = Mockito.spy(new WorkflowHandler(restHandler, novuConfig));
+        mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        workflowHandler = new WorkflowHandler(restHandler);
     }
 
     public void test_getWorkflows() {
@@ -191,7 +200,7 @@ public class WorkflowHandlerTest extends TestCase {
         assertEquals(deleteWorkflowResponse, response);
     }
 
-    public void test_getWorkflow() {
+    public void test_getWorkflow()throws IOException, NovuNetworkException, InterruptedException {
         SingleWorkflowResponse singleWorkflowResponse = new SingleWorkflowResponse();
         WorkflowResponse data = new WorkflowResponse();
         data.set_id("id");
@@ -227,11 +236,19 @@ public class WorkflowHandlerTest extends TestCase {
         data.setIsBlueprint(false);
         singleWorkflowResponse.setData(data);
 
-        Mockito.doReturn(singleWorkflowResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+       Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(blueprint)));
 
-        SingleWorkflowResponse response = workflowHandler.getWorkflow("workflowId");
-        assertNotNull(response);
-        assertEquals(singleWorkflowResponse, response);
+        String templateId = "tId";
+        Workflow response = blueprintsHandler.getBlueprint(templateId);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        // SingleWorkflowResponse response = workflowHandler.getWorkflow("workflowId");
+        // assertNotNull(response);
+        // assertEquals(singleWorkflowResponse, response);
+        assertEquals("/workflows/" + templateId, request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(blueprint), gson.toJson(response));
     }
 
     public void test_updateWorkflowStatus() {
