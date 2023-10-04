@@ -10,63 +10,73 @@ import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
 
-@RequiredArgsConstructor
 public class TopicHandler {
 
-    private static final String ENDPOINT = "topics";
     private final RestHandler restHandler;
-    private final NovuConfig novuConfig;
+    private final TopicApi topicApi;
 
-    public TopicResponse createTopic(TopicRequest request) {
-        return restHandler.handlePost(request, TopicResponse.class, novuConfig, ENDPOINT);
+    public TopicHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.topicApi = restHandler.buildRetrofit().create(TopicApi.class);
     }
 
-    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) {
+    public TopicResponse createTopic(TopicRequest request) throws IOException, NovuNetworkException {
+        Response<TopicResponse> response = topicApi.createTopic(request).execute();
+        return restHandler.extractResponse(response);
+    }
+
+    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getPageSize() != null) params.put("pageSize", request.getPageSize());
         if (request.getKey() != null) params.put("key", request.getKey());
-        if (params.isEmpty()) {
-            return restHandler.handleGet(FilterTopicsResponse.class, novuConfig, ENDPOINT);
-        }
-        return restHandler.handleGet(FilterTopicsResponse.class, novuConfig, ENDPOINT, params);
+        Response<FilterTopicsResponse> response = topicApi.filterTopics(params).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
-        return restHandler.handlePost(request, SubscriberAdditionResponse.class, novuConfig, ENDPOINT + "/" + topicKey + "/subscribers");
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
+        Response<SubscriberAdditionResponse> response = topicApi.addSubscriberToTopic(topicKey, request).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
-        return restHandler.handleGet(CheckTopicSubscriberResponse.class, novuConfig,ENDPOINT + "/" + topicKey +"/subscribers/" + externalSubscriberId);
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) throws IOException, NovuNetworkException {
+        Response<CheckTopicSubscriberResponse> response = topicApi.checkTopicSubscriber(topicKey, externalSubscriberId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
-        boolean isSuccess = restHandler.handlePostForVoid(request, novuConfig, ENDPOINT + "/" + topicKey + "/subscribers/removal");
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException {
+        Response<SubscriberRemovalResponse> response = topicApi.removeSubscriberFromTopic(topicKey, request).execute();
+        boolean isSuccess = response.isSuccessful();
         if (isSuccess) {
             return new SubscriberRemovalResponse();
         }
         return null;
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) {
-        boolean isSuccess = restHandler.handleDeleteForVoid(novuConfig, ENDPOINT + "/" + topicKey);
+    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException {
+        Response<DeleteTopicResponse> response = topicApi.deleteTopic(topicKey).execute();
+        boolean isSuccess = response.isSuccessful();
         if (isSuccess) {
             return new DeleteTopicResponse();
         }
         return null;
     }
 
-    public TopicResponse getTopic(String topicKey) {
-        return restHandler.handleGet(TopicResponse.class, novuConfig, ENDPOINT + "/" + topicKey);
+    public TopicResponse getTopic(String topicKey) throws IOException, NovuNetworkException {
+        Response<TopicResponse> response = topicApi.getTopic(topicKey).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) {
-        return restHandler.handlePatch(request, TopicResponse.class, novuConfig, ENDPOINT + "/" + topicKey);
+    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) throws IOException, NovuNetworkException {
+        Response<TopicResponse> response = topicApi.renameTopic(topicKey).execute();
+        return restHandler.extractResponse(response);
     }
 }

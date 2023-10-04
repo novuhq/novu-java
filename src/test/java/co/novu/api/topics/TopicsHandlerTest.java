@@ -1,6 +1,5 @@
 package co.novu.api.topics;
 
-
 import co.novu.api.topics.requests.FilterTopicsRequest;
 import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
@@ -15,36 +14,46 @@ import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
 import co.novu.api.topics.responses.TopicResponseData;
 import co.novu.common.base.NovuConfig;
-import co.novu.common.rest.RestHandler;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+import co.novu.common.rest.NovuNetworkException;
+import co.novu.common.rest.RestHandler;
+import com.google.gson.Gson;
 import junit.framework.TestCase;
-import org.mockito.Mockito;
+
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 public class TopicsHandlerTest extends TestCase {
     private TopicHandler topicHandler;
 
-    private RestHandler restHandler;
+    private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        topicHandler = Mockito.spy(new TopicHandler(restHandler, novuConfig));
+        mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        topicHandler = new TopicHandler(restHandler);
     }
 
-    public void test_createTopic() {
+    public void test_createTopic() throws IOException, NovuNetworkException, InterruptedException {
         TopicRequest topicRequest = new TopicRequest();
         topicRequest.setKey("key");
         topicRequest.setName("name");
 
         TopicResponse topicResponse = new TopicResponse();
         TopicResponseData data = new TopicResponseData();
-        data.set_id("id");
-        data.set_environmentId("environmentId");
-        data.set_organizationId("organizationId");
-        data.set_subscriberId("subscribeId");
-        data.set_topicId("topicId");
+        data.setId("id");
+        data.setEnvironmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setSubscriberId("subscribeId");
+        data.setTopicId("topicId");
         data.setTopicKey("topickey");
         data.setExternalSubscriberId("extSubscriberId");
         data.setKey("ky");
@@ -52,20 +61,24 @@ public class TopicsHandlerTest extends TestCase {
         data.setSubscribers(Collections.singletonList(new Object()));
         topicResponse.setData(data);
 
-        Mockito.doReturn(topicResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(topicResponse)));
 
         TopicResponse response = topicHandler.createTopic(topicRequest);
-        assertNotNull(response);
-        assertEquals(topicResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(topicResponse), gson.toJson(response));
     }
 
-    public void test_filterTopics() {
+    public void test_filterTopics() throws IOException, NovuNetworkException, InterruptedException {
         FilterTopicsResponse topicsResponse = new FilterTopicsResponse();
         topicsResponse.setData(Collections.singletonList(new TopicResponseData()));
         topicsResponse.setPage(2);
         topicsResponse.setPageSize(20);
         topicsResponse.setTotalCount(200);
-        Mockito.doReturn(topicsResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(topicsResponse)));
 
         FilterTopicsRequest topicsRequest = new FilterTopicsRequest();
         topicsRequest.setPage(2);
@@ -73,12 +86,13 @@ public class TopicsHandlerTest extends TestCase {
         topicsRequest.setKey("key");
 
         FilterTopicsResponse response = topicHandler.filterTopics(topicsRequest);
-        assertNotNull(response);
-        assertEquals(topicsResponse, response);
-        Mockito.verify(restHandler, Mockito.never()).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics?pageSize=20&page=2&key=key", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(topicsResponse), gson.toJson(response));
     }
 
-    public void test_addSubscriberToTopic() {
+    public void test_addSubscriberToTopic() throws IOException, NovuNetworkException, InterruptedException {
         SubscriberAdditionResponse additionResponse = new SubscriberAdditionResponse();
         SubscriberAdditionResponseData additionResponseData = new SubscriberAdditionResponseData();
         Failed failed = new Failed();
@@ -90,71 +104,93 @@ public class TopicsHandlerTest extends TestCase {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
         additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
-        Mockito.doReturn(additionResponse).when(restHandler).handlePost(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(additionResponse)));
 
         SubscriberAdditionResponse response = topicHandler.addSubscriberToTopic(additionRequest,"id");
-        assertNotNull(response);
-        assertEquals(additionResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/id/subscribers", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(additionResponse), gson.toJson(response));
     }
 
-    public void test_checkTopicSubscriber() {
+    public void test_checkTopicSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         CheckTopicSubscriberResponse responseData = new CheckTopicSubscriberResponse();
-        responseData.set_environmentId("environmentId");
-        responseData.set_organizationId("organizationId");
-        responseData.set_subscriberId("subscribeId");
-        responseData.set_topicId("topicId");
+        responseData.setEnvironmentId("environmentId");
+        responseData.setOrganizationId("organizationId");
+        responseData.setSubscriberId("subscribeId");
+        responseData.setTopicId("topicId");
         responseData.setTopicKey("topickey");
         responseData.setExternalSubscriberId("extSubscriberId");
 
-        Mockito.doReturn(responseData).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(responseData)));
 
         CheckTopicSubscriberResponse response = topicHandler.checkTopicSubscriber("topicKey","externalSubscriberId");
-        assertNotNull(response);
-        assertEquals(responseData, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey/subscribers/externalSubscriberId", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(responseData), gson.toJson(response));
     }
 
-    public void test_removeSubscriberFromTopicFailure() {
+    public void test_removeSubscriberFromTopicFailure() throws IOException, InterruptedException {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
         additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
-        Mockito.doReturn(false).when(restHandler).handlePostForVoid(Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody("{}"));
 
         SubscriberRemovalResponse response = topicHandler.removeSubscriberFromTopic(additionRequest,"topicKey");
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey/subscribers/removal", request.getPath());
+        assertEquals("POST", request.getMethod());
         assertNull(response);
     }
-    public void test_removeSubscriberFromTopicSuccess() {
+    public void test_removeSubscriberFromTopicSuccess() throws IOException, InterruptedException {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
         additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
-        Mockito.doReturn(true).when(restHandler).handlePostForVoid(Mockito.any(), Mockito.any(), Mockito.any());
+
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody("{}"));
 
         SubscriberRemovalResponse response = topicHandler.removeSubscriberFromTopic(additionRequest,"topicKey");
-        assertNotNull(response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey/subscribers/removal", request.getPath());
+        assertEquals("POST", request.getMethod());
         assertTrue(response.getAcknowledged());
     }
 
-    public void test_deleteTopicFailure() {
-        Mockito.doReturn(false).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+    public void test_deleteTopicFailure() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody(gson.toJson("{}")));
 
         DeleteTopicResponse response = topicHandler.deleteTopic("topicKey");
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey", request.getPath());
+        assertEquals("DELETE", request.getMethod());
         assertNull(response);
     }
 
-    public void test_deleteTopicSuccess() {
-        Mockito.doReturn(true).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+    public void test_deleteTopicSuccess() throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody("{}"));
 
         DeleteTopicResponse response = topicHandler.deleteTopic("topicKey");
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey", request.getPath());
+        assertEquals("DELETE", request.getMethod());
         assertNotNull(response);
         assertTrue(response.getAcknowledged());
     }
-    public void test_getTopic() {
+    public void test_getTopic() throws IOException, NovuNetworkException, InterruptedException {
         TopicResponse topicResponse = new TopicResponse();
         TopicResponseData data = new TopicResponseData();
-        data.set_id("id");
-        data.set_environmentId("environmentId");
-        data.set_organizationId("organizationId");
-        data.set_subscriberId("subscribeId");
-        data.set_topicId("topicId");
+        data.setId("id");
+        data.setEnvironmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setSubscriberId("subscribeId");
+        data.setTopicId("topicId");
         data.setTopicKey("topicKey");
         data.setTopicKey("topickey");
         data.setExternalSubscriberId("extSubscriberId");
@@ -163,21 +199,24 @@ public class TopicsHandlerTest extends TestCase {
         data.setSubscribers(Collections.singletonList(new Object()));
         topicResponse.setData(data);
 
-        Mockito.doReturn(topicResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody(gson.toJson(topicResponse)));
 
         TopicResponse response = topicHandler.getTopic("topicKey");
-        assertNotNull(response);
-        assertEquals(topicResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(topicResponse), gson.toJson(response));
     }
 
-    public void test_renameTopic() {
+    public void test_renameTopic() throws IOException, NovuNetworkException, InterruptedException {
         TopicResponse topicResponse = new TopicResponse();
         TopicResponseData data = new TopicResponseData();
-        data.set_id("id");
-        data.set_environmentId("environmentId");
-        data.set_organizationId("organizationId");
-        data.set_subscriberId("subscribeId");
-        data.set_topicId("topicId");
+        data.setId("id");
+        data.setEnvironmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setSubscriberId("subscribeId");
+        data.setTopicId("topicId");
         data.setTopicKey("topickey");
         data.setExternalSubscriberId("extSubscriberId");
         data.setKey("ky");
@@ -188,11 +227,14 @@ public class TopicsHandlerTest extends TestCase {
         RenameTopicRequest renameTopicRequest = new RenameTopicRequest();
         renameTopicRequest.setName("name");
 
-        Mockito.doReturn(topicResponse).when(restHandler).handlePatch(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody(gson.toJson(topicResponse)));
 
         TopicResponse response = topicHandler.renameTopic(renameTopicRequest,"topicKey");
-        assertNotNull(response);
-        assertEquals(topicResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/topics/topicKey", request.getPath());
+        assertEquals("PATCH", request.getMethod());
+        assertEquals(gson.toJson(topicResponse), gson.toJson(response));
     }
 
 
