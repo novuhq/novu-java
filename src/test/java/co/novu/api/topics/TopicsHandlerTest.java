@@ -28,6 +28,8 @@ import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
+import static org.junit.Assert.assertThrows;
+
 public class TopicsHandlerTest extends TestCase {
     private TopicHandler topicHandler;
 
@@ -133,20 +135,20 @@ public class TopicsHandlerTest extends TestCase {
         assertEquals(gson.toJson(responseData), gson.toJson(response));
     }
 
-    public void test_removeSubscriberFromTopicFailure() throws IOException, InterruptedException {
+    public void test_removeSubscriberFromTopicFailure() throws InterruptedException {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
         additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody("{}"));
 
-        SubscriberRemovalResponse response = topicHandler.removeSubscriberFromTopic(additionRequest,"topicKey");
+        NovuNetworkException networkException = assertThrows(NovuNetworkException.class,
+                () -> topicHandler.removeSubscriberFromTopic(additionRequest,"topicKey"));
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/topics/topicKey/subscribers/removal", request.getPath());
         assertEquals("POST", request.getMethod());
-        assertNull(response);
     }
-    public void test_removeSubscriberFromTopicSuccess() throws IOException, InterruptedException {
+    public void test_removeSubscriberFromTopicSuccess() throws IOException, InterruptedException, NovuNetworkException {
         SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
         additionRequest.setSubscribers(Collections.singletonList("aSubscriberId"));
 
@@ -161,18 +163,18 @@ public class TopicsHandlerTest extends TestCase {
         assertTrue(response.getAcknowledged());
     }
 
-    public void test_deleteTopicFailure() throws IOException, InterruptedException {
+    public void test_deleteTopicFailure() throws InterruptedException {
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody(gson.toJson("{}")));
 
-        DeleteTopicResponse response = topicHandler.deleteTopic("topicKey");
+        NovuNetworkException networkException = assertThrows(NovuNetworkException.class,
+                () -> topicHandler.deleteTopic("topicKey"));
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/topics/topicKey", request.getPath());
         assertEquals("DELETE", request.getMethod());
-        assertNull(response);
     }
 
-    public void test_deleteTopicSuccess() throws IOException, InterruptedException {
+    public void test_deleteTopicSuccess() throws IOException, InterruptedException, NovuNetworkException {
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody("{}"));
 

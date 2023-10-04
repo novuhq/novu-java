@@ -418,7 +418,7 @@ public class Novu {
         }
     }
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException {
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.removeSubscriberFromTopic(request, topicKey);
         } catch (Exception e) {
@@ -427,7 +427,7 @@ public class Novu {
         }
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException {
+    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.deleteTopic(topicKey);
         } catch (Exception e) {

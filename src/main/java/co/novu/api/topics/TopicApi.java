@@ -2,9 +2,20 @@ package co.novu.api.topics;
 
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
-import co.novu.api.topics.responses.*;
+import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
+import co.novu.api.topics.responses.DeleteTopicResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
+import co.novu.api.topics.responses.SubscriberRemovalResponse;
+import co.novu.api.topics.responses.TopicResponse;
 import retrofit2.Call;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 import java.util.Map;
 

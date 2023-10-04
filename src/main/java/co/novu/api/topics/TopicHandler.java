@@ -52,22 +52,14 @@ public class TopicHandler {
         return restHandler.extractResponse(response);
     }
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException {
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         Response<SubscriberRemovalResponse> response = topicApi.removeSubscriberFromTopic(topicKey, request).execute();
-        boolean isSuccess = response.isSuccessful();
-        if (isSuccess) {
-            return new SubscriberRemovalResponse();
-        }
-        return null;
+        return restHandler.extractResponse(response, new SubscriberRemovalResponse());
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException {
+    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException, NovuNetworkException {
         Response<DeleteTopicResponse> response = topicApi.deleteTopic(topicKey).execute();
-        boolean isSuccess = response.isSuccessful();
-        if (isSuccess) {
-            return new DeleteTopicResponse();
-        }
-        return null;
+        return restHandler.extractResponse(response, new DeleteTopicResponse());
     }
 
     public TopicResponse getTopic(String topicKey) throws IOException, NovuNetworkException {
