@@ -7,102 +7,131 @@ import co.novu.api.tenants.responses.BulkTenantResponse;
 import co.novu.api.tenants.responses.DeleteTenantResponse;
 import co.novu.api.tenants.responses.TenantResponse;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
+import com.google.gson.Gson;
 import junit.framework.TestCase;
-import org.mockito.Mockito;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
+import java.io.IOException;
 import java.util.List;
 
 public class TenantsHandlerTest extends TestCase {
 
     private TenantsHandler tenantsHandler;
-
-    private RestHandler restHandler;
+    private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        tenantsHandler = Mockito.spy(new TenantsHandler(restHandler, novuConfig));
+        mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        tenantsHandler = new TenantsHandler(restHandler);
     }
 
-    public void test_getTenantsNoParams() {
-        GetTenantRequest request = new GetTenantRequest();
+    public void test_getTenantsNoParams() throws IOException, NovuNetworkException, InterruptedException {
+        BulkTenantResponse bulkTenantResponse = new BulkTenantResponse();
+        GetTenantRequest getTenantRequest = new GetTenantRequest();
 
-        tenantsHandler.getTenants(request);
-        Mockito.verify(restHandler, Mockito.atLeastOnce()).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
-        Mockito.verify(restHandler, Mockito.never()).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(bulkTenantResponse)));
+
+        final var response = tenantsHandler.getTenants(getTenantRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/tenants", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(bulkTenantResponse), gson.toJson(response));
     }
 
-    public void test_getTenantsWithParams() {
-        GetTenantRequest request = new GetTenantRequest();
-        request.setPage(1);
-        request.setLimit(20);
+    public void test_getTenantsWithParams() throws IOException, NovuNetworkException, InterruptedException {
+        GetTenantRequest getTenantRequest = new GetTenantRequest();
+        getTenantRequest.setPage(1);
+        getTenantRequest.setLimit(20);
 
         BulkTenantResponse bulkTenantResponse = new BulkTenantResponse();
         bulkTenantResponse.setPage(1);
         bulkTenantResponse.setData(List.of(new Tenant()));
 
-        Mockito.doReturn(bulkTenantResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(bulkTenantResponse)));
 
-        BulkTenantResponse response = tenantsHandler.getTenants(request);
-        assertNotNull(response);
-        assertEquals(bulkTenantResponse, response);
+        final var response = tenantsHandler.getTenants(getTenantRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/tenants?limit=20&page=1", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(bulkTenantResponse), gson.toJson(response));
     }
 
-    public void test_createTenant() {
-        TenantRequest request = new TenantRequest();
-        request.setName("name");
-        request.setIdentifier("id");
+    public void test_createTenant() throws IOException, NovuNetworkException, InterruptedException {
+        TenantRequest tenantRequest = new TenantRequest();
+        tenantRequest.setName("name");
+        tenantRequest.setIdentifier("id");
 
         TenantResponse tenantResponse = new TenantResponse();
         tenantResponse.setData(new Tenant());
 
-        Mockito.doReturn(tenantResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(tenantResponse)));
 
-        TenantResponse response = tenantsHandler.createTenant(request);
-        assertNotNull(response);
-        assertEquals(tenantResponse, response);
+        TenantResponse response = tenantsHandler.createTenant(tenantRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/tenants", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(tenantResponse), gson.toJson(response));
     }
 
-    public void test_getTenant() {
+    public void test_getTenant() throws IOException, NovuNetworkException, InterruptedException {
         TenantResponse tenantResponse = new TenantResponse();
         tenantResponse.setData(new Tenant());
 
-        Mockito.doReturn(tenantResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(tenantResponse)));
 
         TenantResponse response = tenantsHandler.getTenant("id");
-        assertNotNull(response);
-        assertEquals(tenantResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/tenants/id", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(tenantResponse), gson.toJson(response));
     }
 
-    public void test_updateTenant() {
-        TenantRequest request = new TenantRequest();
-        request.setName("name");
-        request.setIdentifier("id");
+    public void test_updateTenant() throws IOException, NovuNetworkException, InterruptedException {
+        TenantRequest tenantRequest = new TenantRequest();
+        tenantRequest.setName("name");
+        tenantRequest.setIdentifier("id");
 
         TenantResponse tenantResponse = new TenantResponse();
         tenantResponse.setData(new Tenant());
 
-        Mockito.doReturn(tenantResponse).when(restHandler).handlePatch(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(tenantResponse)));
 
-        TenantResponse response = tenantsHandler.updateTenant(request, "id");
-        assertNotNull(response);
-        assertEquals(tenantResponse, response);
+        TenantResponse response = tenantsHandler.updateTenant(tenantRequest, "id");
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/tenants/id", request.getPath());
+        assertEquals("PATCH", request.getMethod());
+        assertEquals(gson.toJson(tenantResponse), gson.toJson(response));
     }
 
-    public void test_deleteTenantFailure() {
-        Mockito.doReturn(false).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+    public void test_deleteTenant() throws IOException, InterruptedException {
+        DeleteTenantResponse defaultTenantResponse = new DeleteTenantResponse();
+        defaultTenantResponse.setStatus("Done");
+        defaultTenantResponse.setAcknowledged(true);
 
-        DeleteTenantResponse response = tenantsHandler.deleteTenant("id");
-        assertNull(response);
-    }
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(defaultTenantResponse)));
 
-    public void test_deleteTenantSuccess() {
-        Mockito.doReturn(true).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+        tenantsHandler.deleteTenant("id");
+        RecordedRequest request = mockWebServer.takeRequest();
 
-        DeleteTenantResponse response = tenantsHandler.deleteTenant("id");
-        assertNotNull(response);
-        assertTrue(response.getAcknowledged());
+        assertEquals("/tenants/id", request.getPath());
+        assertEquals("DELETE", request.getMethod());
     }
 }
