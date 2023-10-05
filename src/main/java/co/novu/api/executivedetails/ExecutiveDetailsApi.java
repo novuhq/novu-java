@@ -9,7 +9,9 @@ import retrofit2.http.QueryMap;
 
 public interface ExecutiveDetailsApi {
 	
-	@GET("execution-details")
+	String ENDPOINT = "execution-details";
+	
+	@GET(ENDPOINT)
     Call<ExecutiveDetailsResponse> getExecutionDetails(@QueryMap Map<String, Object> params);
 
 }
