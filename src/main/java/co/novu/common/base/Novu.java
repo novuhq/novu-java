@@ -153,7 +153,7 @@ public class Novu {
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
         this.topicHandler = new TopicHandler(restHandler);
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
-        this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
+        this.layoutHandler = new LayoutHandler(restHandler);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
@@ -517,7 +517,7 @@ public class Novu {
         }
     }
 
-    public CreateLayoutResponse createLayout(LayoutRequest request) {
+    public CreateLayoutResponse createLayout(LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.createLayout(request);
         } catch (Exception e) {
@@ -526,7 +526,7 @@ public class Novu {
         }
     }
 
-    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) {
+    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.filterLayouts(request);
         } catch (Exception e) {
@@ -535,7 +535,7 @@ public class Novu {
         }
     }
 
-    public GetLayoutResponse getLayout(String layoutId) {
+    public GetLayoutResponse getLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
@@ -544,7 +544,7 @@ public class Novu {
         }
     }
 
-    public DeleteLayoutResponse deleteLayout(String layoutId) {
+    public DeleteLayoutResponse deleteLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.deleteLayout(layoutId);
         } catch (Exception e) {
@@ -553,7 +553,7 @@ public class Novu {
         }
     }
 
-    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) {
+    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.updateLayout(layoutId, request);
         } catch (Exception e) {
@@ -562,7 +562,7 @@ public class Novu {
         }
     }
 
-    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) {
+    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
         } catch (Exception e) {
