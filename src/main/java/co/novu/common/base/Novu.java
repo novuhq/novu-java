@@ -157,7 +157,7 @@ public class Novu {
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
-        this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
+        this.environmentHandler = new EnvironmentHandler(restHandler);
         this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
@@ -707,7 +707,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse getCurrentEnvironment() {
+    public SingleEnvironmentResponse getCurrentEnvironment() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getCurrentEnvironment();
         } catch (Exception e) {
@@ -716,7 +716,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) {
+    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) throws IOException, NovuNetworkException {
         try {
             return environmentHandler.createEnvironment(request);
         } catch (Exception e) {
@@ -725,7 +725,7 @@ public class Novu {
         }
     }
 
-    public BulkEnvironmentResponse getEnvironments() {
+    public BulkEnvironmentResponse getEnvironments() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getEnvironments();
         } catch (Exception e) {
@@ -734,7 +734,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) {
+    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) throws IOException, NovuNetworkException {
         try {
             return environmentHandler.updateEnvironmentById(environmentId, request);
         } catch (Exception e) {
@@ -743,7 +743,7 @@ public class Novu {
         }
     }
 
-    public ApiKeyResponse getApiKeys() {
+    public ApiKeyResponse getApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getApiKeys();
         } catch (Exception e) {
@@ -752,7 +752,7 @@ public class Novu {
         }
     }
 
-    public ApiKeyResponse regenerateApiKeys() {
+    public ApiKeyResponse regenerateApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.regenerateApiKeys();
         } catch (Exception e) {
