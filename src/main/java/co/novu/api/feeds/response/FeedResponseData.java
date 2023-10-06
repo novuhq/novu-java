@@ -1,12 +1,17 @@
 package co.novu.api.feeds.response;
 
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Data;
 
 @Data
 public class FeedResponseData {
-    private String _id;
+	@SerializedName("_id")
+    private String id;
     private String name;
     private String identifier;
-    private String _environmentId;
-    private String _organizationId;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_organizationId")
+    private String organizationId;
 }
