@@ -1,5 +1,6 @@
 package co.novu.api.topics;
 
+import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
@@ -36,14 +37,14 @@ public interface TopicApi {
     Call<CheckTopicSubscriberResponse> checkTopicSubscriber(@Path("topicKey") String topicKey, @Path("externalSubscriberId") String externalSubscriberId);
 
     @POST(ENDPOINT + "/{topicKey}/subscribers/removal")
-    Call<SubscriberRemovalResponse> removeSubscriberFromTopic(@Path("topicKey") String topicKey, @Body SubscriberAdditionRequest subscriberAdditionRequest);
+    Call<Void> removeSubscriberFromTopic(@Path("topicKey") String topicKey, @Body SubscriberAdditionRequest subscriberAdditionRequest);
 
     @DELETE(ENDPOINT + "/{topicKey}")
-    Call<DeleteTopicResponse> deleteTopic(@Path("topicKey") String topicKey);
+    Call<Void> deleteTopic(@Path("topicKey") String topicKey);
 
     @GET(ENDPOINT + "/{topicKey}")
     Call<TopicResponse> getTopic(@Path("topicKey") String topicKey);
 
     @PATCH(ENDPOINT + "/{topicKey}")
-    Call<TopicResponse> renameTopic(@Path("topicKey") String topicKey);
+    Call<TopicResponse> renameTopic(@Path("topicKey") String topicKey, @Body RenameTopicRequest request);
 }

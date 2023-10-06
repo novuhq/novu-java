@@ -53,12 +53,12 @@ public class TopicHandler {
     }
 
     public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
-        Response<SubscriberRemovalResponse> response = topicApi.removeSubscriberFromTopic(topicKey, request).execute();
+        Response<Void> response = topicApi.removeSubscriberFromTopic(topicKey, request).execute();
         return restHandler.extractResponse(response, new SubscriberRemovalResponse());
     }
 
     public DeleteTopicResponse deleteTopic(String topicKey) throws IOException, NovuNetworkException {
-        Response<DeleteTopicResponse> response = topicApi.deleteTopic(topicKey).execute();
+        Response<Void> response = topicApi.deleteTopic(topicKey).execute();
         return restHandler.extractResponse(response, new DeleteTopicResponse());
     }
 
@@ -68,7 +68,7 @@ public class TopicHandler {
     }
 
     public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) throws IOException, NovuNetworkException {
-        Response<TopicResponse> response = topicApi.renameTopic(topicKey).execute();
+        Response<TopicResponse> response = topicApi.renameTopic(topicKey, request).execute();
         return restHandler.extractResponse(response);
     }
 }
