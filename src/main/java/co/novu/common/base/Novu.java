@@ -151,7 +151,7 @@ public class Novu {
         this.eventsHandler = new EventsHandler(restHandler, novuConfig);
         this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
-        this.topicHandler = new TopicHandler(restHandler, novuConfig);
+        this.topicHandler = new TopicHandler(restHandler);
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
         this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
@@ -382,7 +382,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse createTopic(TopicRequest request) {
+    public TopicResponse createTopic(TopicRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.createTopic(request);
         } catch (Exception e) {
@@ -391,7 +391,7 @@ public class Novu {
         }
     }
 
-    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) {
+    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.filterTopics(request);
         } catch (Exception e) {
@@ -400,7 +400,7 @@ public class Novu {
         }
     }
 
-    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.addSubscriberToTopic(request, topicKey);
         } catch (Exception e) {
@@ -409,7 +409,7 @@ public class Novu {
         }
     }
 
-    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) throws IOException, NovuNetworkException {
         try {
             return topicHandler.checkTopicSubscriber(topicKey, externalSubscriberId);
         } catch (Exception e) {
@@ -418,7 +418,7 @@ public class Novu {
         }
     }
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.removeSubscriberFromTopic(request, topicKey);
         } catch (Exception e) {
@@ -427,7 +427,7 @@ public class Novu {
         }
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) {
+    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.deleteTopic(topicKey);
         } catch (Exception e) {
@@ -436,7 +436,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse getTopic(String topicKey) {
+    public TopicResponse getTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.getTopic(topicKey);
         } catch (Exception e) {
@@ -445,7 +445,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) {
+    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.renameTopic(request, topicKey);
         } catch (Exception e) {
