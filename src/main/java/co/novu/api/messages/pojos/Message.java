@@ -1,17 +1,22 @@
 package co.novu.api.messages.pojos;
 
+import java.util.List;
+
+
 import co.novu.api.common.Template;
 import co.novu.api.notifications.pojos.Job;
 import co.novu.api.notifications.pojos.Subscriber;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class Message {
-    private String _id;
-    private String _environmentId;
-    private String _organizationId;
+	@SerializedName("_id")
+    private String id;
+	@SerializedName("_environmentId")
+    private String environmentId;
+	@SerializedName("_organizationId")
+    private String organizationId;
     private String transactionId;
     private String createdAt;
     private String channels;
