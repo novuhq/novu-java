@@ -159,7 +159,7 @@ public class Novu {
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
         this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
         this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
-        this.feedsHandler = new FeedsHandler(restHandler);
+        this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
         this.blueprintsHandler = new BlueprintsHandler(restHandler);
@@ -797,7 +797,7 @@ public class Novu {
         }
     }
 
-    public MessageResponse getMessages(MessageRequest request) {
+    public MessageResponse getMessages(MessageRequest request) throws IOException, NovuNetworkException {
         try {
             return messageHandler.getMessages(request);
         } catch (Exception e) {
@@ -806,7 +806,7 @@ public class Novu {
         }
     }
 
-    public DeleteMessageResponse deleteMessage(String messageId) {
+    public DeleteMessageResponse deleteMessage(String messageId) throws IOException, NovuNetworkException {
         try {
             return messageHandler.deleteMessage(messageId);
         } catch (Exception e) {
