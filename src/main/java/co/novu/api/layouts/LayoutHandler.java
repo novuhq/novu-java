@@ -50,7 +50,7 @@ public class LayoutHandler {
     }
 
     public DeleteLayoutResponse deleteLayout(String layoutId) throws IOException, NovuNetworkException {
-        Response<DeleteLayoutResponse> response = layoutApi.deleteLayout(layoutId).execute();
+        Response<Void> response = layoutApi.deleteLayout(layoutId).execute();
         return restHandler.extractResponse(response, new DeleteLayoutResponse());
     }
 
@@ -60,7 +60,7 @@ public class LayoutHandler {
     }
 
     public SetDefaultLayoutResponse setDefaultLayout(String layoutId) throws IOException, NovuNetworkException {
-        Response<SetDefaultLayoutResponse> response = layoutApi.setDefaultLayout(layoutId).execute();
+        Response<Void> response = layoutApi.setDefaultLayout(layoutId).execute();
         return restHandler.extractResponse(response, new SetDefaultLayoutResponse());
     }
 }

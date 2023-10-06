@@ -31,11 +31,11 @@ public interface LayoutApi {
     Call<GetLayoutResponse> getLayout(@Path("layoutId") String layoutId);
 
     @DELETE(ENDPOINT + "/{layoutId}")
-    Call<DeleteLayoutResponse> deleteLayout(@Path("layoutId") String layoutId);
+    Call<Void> deleteLayout(@Path("layoutId") String layoutId);
 
     @PATCH(ENDPOINT + "/{layoutId}")
     Call<GetLayoutResponse> updateLayout(@Path("layoutId") String layoutId, @Body LayoutRequest request);
 
     @POST(ENDPOINT + "/{layoutId}/default")
-    Call<SetDefaultLayoutResponse> setDefaultLayout(@Path("layoutId") String layoutId);
+    Call<Void> setDefaultLayout(@Path("layoutId") String layoutId);
 }
