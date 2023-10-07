@@ -156,11 +156,11 @@ public class Novu {
         this.layoutHandler = new LayoutHandler(restHandler);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
-        this.changeHandler = new ChangeHandler(restHandler, novuConfig);
+        this.changeHandler = new ChangeHandler(restHandler);
         this.environmentHandler = new EnvironmentHandler(restHandler);
         this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
-        this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
-        this.messageHandler = new MessageHandler(restHandler, novuConfig);
+        this.feedsHandler = new FeedsHandler(restHandler);
+        this.messageHandler = new MessageHandler(restHandler);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler);
         this.blueprintsHandler = new BlueprintsHandler(restHandler);
         this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
@@ -670,7 +670,7 @@ public class Novu {
         }
     }
 
-    public GetChangesResponse getChanges(GetChangesRequest request) {
+    public GetChangesResponse getChanges(GetChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChanges(request);
         } catch (Exception e) {
@@ -679,7 +679,7 @@ public class Novu {
         }
     }
 
-    public ChangeCountResponse getChangesCount() {
+    public ChangeCountResponse getChangesCount() throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChangesCount();
         } catch (Exception e) {
@@ -689,7 +689,7 @@ public class Novu {
     }
 
 
-    public ApplyChangesResponse applyChanges(ApplyChangesRequest request) {
+    public ApplyChangesResponse applyChanges(ApplyChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChanges(request);
         } catch (Exception e) {
@@ -698,7 +698,7 @@ public class Novu {
         }
     }
 
-    public ApplyChangesResponse applyChange(String changeId) {
+    public ApplyChangesResponse applyChange(String changeId) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChange(changeId);
         } catch (Exception e) {
