@@ -1,5 +1,7 @@
 package co.novu.common.base;
 
+import java.io.IOException;
+
 import co.novu.api.blueprints.BlueprintsHandler;
 import co.novu.api.blueprints.pojos.Blueprint;
 import co.novu.api.blueprints.responses.BlueprintsByCategoryResponse;
@@ -9,6 +11,7 @@ import co.novu.api.changes.request.GetChangesRequest;
 import co.novu.api.changes.responses.ApplyChangesResponse;
 import co.novu.api.changes.responses.ChangeCountResponse;
 import co.novu.api.changes.responses.GetChangesResponse;
+import co.novu.api.common.SubscriberRequest;
 import co.novu.api.environments.EnvironmentHandler;
 import co.novu.api.environments.requests.CreateEnvironmentRequest;
 import co.novu.api.environments.requests.UpdateEnvironmentRequest;
@@ -25,8 +28,8 @@ import co.novu.api.executivedetails.ExecutiveDetailsHandler;
 import co.novu.api.executivedetails.responses.ExecutiveDetailsResponse;
 import co.novu.api.feeds.FeedsHandler;
 import co.novu.api.feeds.request.FeedRequest;
-import co.novu.api.feeds.response.FeedResponse;
 import co.novu.api.feeds.response.BulkFeedsResponse;
+import co.novu.api.feeds.response.FeedResponse;
 import co.novu.api.inboundparse.InboundParseHandler;
 import co.novu.api.inboundparse.responses.ValidateMxRecordResponse;
 import co.novu.api.integrations.IntegrationsHandler;
@@ -37,10 +40,10 @@ import co.novu.api.integrations.responses.SingleIntegrationResponse;
 import co.novu.api.layouts.LayoutHandler;
 import co.novu.api.layouts.requests.FilterLayoutRequest;
 import co.novu.api.layouts.requests.LayoutRequest;
+import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.layouts.responses.DeleteLayoutResponse;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
 import co.novu.api.layouts.responses.GetLayoutResponse;
-import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.layouts.responses.SetDefaultLayoutResponse;
 import co.novu.api.messages.MessageHandler;
 import co.novu.api.messages.requests.MessageRequest;
@@ -52,11 +55,25 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.subscribers.SubscribersHandler;
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
+import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
+import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
+import co.novu.api.subscribers.responses.BulkSubscriberResponse;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+import co.novu.api.subscribers.responses.CreateSubscriberResponse;
 import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
 import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberResponse;
+import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
+import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
+import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
+import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.api.tenants.TenantsHandler;
 import co.novu.api.tenants.requests.GetTenantRequest;
 import co.novu.api.tenants.requests.TenantRequest;
@@ -70,25 +87,10 @@ import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
 import co.novu.api.topics.responses.DeleteTopicResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
-import co.novu.api.topics.responses.SubscriberAdditionResponse;
-import co.novu.api.topics.responses.FilterTopicsResponse;
-import co.novu.api.subscribers.SubscribersHandler;
-import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
-import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
-import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
-import co.novu.api.common.SubscriberRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
-import co.novu.api.subscribers.responses.BulkSubscriberResponse;
-import co.novu.api.subscribers.responses.CreateSubscriberResponse;
-import co.novu.api.subscribers.responses.SingleSubscriberResponse;
-import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
-import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
-import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.api.workflowgroups.WorkflowGroupHandler;
 import co.novu.api.workflowgroups.request.WorkflowGroupRequest;
 import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
@@ -104,8 +106,6 @@ import co.novu.api.workflows.responses.SingleWorkflowResponse;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
 
 @Slf4j
 public class Novu {
@@ -158,7 +158,7 @@ public class Novu {
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
         this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
-        this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
+        this.inboundParseHandler = new InboundParseHandler(restHandler);
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
@@ -761,7 +761,7 @@ public class Novu {
         }
     }
 
-    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() {
+    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
         try {
             return inboundParseHandler.validateMxRecordSetupForInboundParse();
         } catch (Exception e) {
