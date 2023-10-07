@@ -160,7 +160,7 @@ public class Novu {
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
         this.blueprintsHandler = new BlueprintsHandler(restHandler, novuConfig);
-        this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
+        this.tenantsHandler = new TenantsHandler(restHandler);
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
