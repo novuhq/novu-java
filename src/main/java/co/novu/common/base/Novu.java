@@ -151,17 +151,17 @@ public class Novu {
         this.eventsHandler = new EventsHandler(restHandler, novuConfig);
         this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
-        this.topicHandler = new TopicHandler(restHandler, novuConfig);
+        this.topicHandler = new TopicHandler(restHandler);
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
-        this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
+        this.layoutHandler = new LayoutHandler(restHandler);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler, novuConfig);
-        this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
+        this.environmentHandler = new EnvironmentHandler(restHandler);
         this.inboundParseHandler = new InboundParseHandler(restHandler);
         this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
         this.messageHandler = new MessageHandler(restHandler, novuConfig);
-        this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
+        this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler);
         this.blueprintsHandler = new BlueprintsHandler(restHandler);
         this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
     }
@@ -382,7 +382,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse createTopic(TopicRequest request) {
+    public TopicResponse createTopic(TopicRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.createTopic(request);
         } catch (Exception e) {
@@ -391,7 +391,7 @@ public class Novu {
         }
     }
 
-    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) {
+    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.filterTopics(request);
         } catch (Exception e) {
@@ -400,7 +400,7 @@ public class Novu {
         }
     }
 
-    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.addSubscriberToTopic(request, topicKey);
         } catch (Exception e) {
@@ -409,7 +409,7 @@ public class Novu {
         }
     }
 
-    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) throws IOException, NovuNetworkException {
         try {
             return topicHandler.checkTopicSubscriber(topicKey, externalSubscriberId);
         } catch (Exception e) {
@@ -418,7 +418,7 @@ public class Novu {
         }
     }
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.removeSubscriberFromTopic(request, topicKey);
         } catch (Exception e) {
@@ -427,7 +427,7 @@ public class Novu {
         }
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) {
+    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.deleteTopic(topicKey);
         } catch (Exception e) {
@@ -436,7 +436,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse getTopic(String topicKey) {
+    public TopicResponse getTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.getTopic(topicKey);
         } catch (Exception e) {
@@ -445,7 +445,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) {
+    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.renameTopic(request, topicKey);
         } catch (Exception e) {
@@ -517,7 +517,7 @@ public class Novu {
         }
     }
 
-    public CreateLayoutResponse createLayout(LayoutRequest request) {
+    public CreateLayoutResponse createLayout(LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.createLayout(request);
         } catch (Exception e) {
@@ -526,7 +526,7 @@ public class Novu {
         }
     }
 
-    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) {
+    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.filterLayouts(request);
         } catch (Exception e) {
@@ -535,7 +535,7 @@ public class Novu {
         }
     }
 
-    public GetLayoutResponse getLayout(String layoutId) {
+    public GetLayoutResponse getLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
@@ -544,7 +544,7 @@ public class Novu {
         }
     }
 
-    public DeleteLayoutResponse deleteLayout(String layoutId) {
+    public DeleteLayoutResponse deleteLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.deleteLayout(layoutId);
         } catch (Exception e) {
@@ -553,7 +553,7 @@ public class Novu {
         }
     }
 
-    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) {
+    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.updateLayout(layoutId, request);
         } catch (Exception e) {
@@ -562,7 +562,7 @@ public class Novu {
         }
     }
 
-    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) {
+    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
         } catch (Exception e) {
@@ -707,7 +707,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse getCurrentEnvironment() {
+    public SingleEnvironmentResponse getCurrentEnvironment() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getCurrentEnvironment();
         } catch (Exception e) {
@@ -716,7 +716,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) {
+    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) throws IOException, NovuNetworkException {
         try {
             return environmentHandler.createEnvironment(request);
         } catch (Exception e) {
@@ -725,7 +725,7 @@ public class Novu {
         }
     }
 
-    public BulkEnvironmentResponse getEnvironments() {
+    public BulkEnvironmentResponse getEnvironments() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getEnvironments();
         } catch (Exception e) {
@@ -734,7 +734,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) {
+    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) throws IOException, NovuNetworkException {
         try {
             return environmentHandler.updateEnvironmentById(environmentId, request);
         } catch (Exception e) {
@@ -743,7 +743,7 @@ public class Novu {
         }
     }
 
-    public ApiKeyResponse getApiKeys() {
+    public ApiKeyResponse getApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getApiKeys();
         } catch (Exception e) {
@@ -752,7 +752,7 @@ public class Novu {
         }
     }
 
-    public ApiKeyResponse regenerateApiKeys() {
+    public ApiKeyResponse regenerateApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.regenerateApiKeys();
         } catch (Exception e) {
@@ -770,7 +770,7 @@ public class Novu {
         }
     }
 
-    public FeedResponse createFeed(FeedRequest request) {
+    public FeedResponse createFeed(FeedRequest request) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.createFeed(request);
         } catch (Exception e) {
@@ -779,7 +779,7 @@ public class Novu {
         }
     }
 
-    public BulkFeedsResponse getFeeds() {
+    public BulkFeedsResponse getFeeds() throws IOException, NovuNetworkException {
         try {
             return feedsHandler.getFeeds();
         } catch (Exception e) {
@@ -788,7 +788,7 @@ public class Novu {
         }
     }
 
-    public BulkFeedsResponse deleteFeed(String feedId) {
+    public BulkFeedsResponse deleteFeed(String feedId) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.deleteFeed(feedId);
         } catch (Exception e) {
@@ -797,7 +797,7 @@ public class Novu {
         }
     }
 
-    public MessageResponse getMessages(MessageRequest request) {
+    public MessageResponse getMessages(MessageRequest request) throws IOException, NovuNetworkException {
         try {
             return messageHandler.getMessages(request);
         } catch (Exception e) {
@@ -806,7 +806,7 @@ public class Novu {
         }
     }
 
-    public DeleteMessageResponse deleteMessage(String messageId) {
+    public DeleteMessageResponse deleteMessage(String messageId) throws IOException, NovuNetworkException {
         try {
             return messageHandler.deleteMessage(messageId);
         } catch (Exception e) {
@@ -815,7 +815,7 @@ public class Novu {
         }
     }
 
-    public ExecutiveDetailsResponse getExecutionDetails(String notificationId, String subscriberId) {
+    public ExecutiveDetailsResponse getExecutionDetails(String notificationId, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return executiveDetailsHandler.getExecutionDetails(notificationId, subscriberId);
         } catch (Exception e) {
