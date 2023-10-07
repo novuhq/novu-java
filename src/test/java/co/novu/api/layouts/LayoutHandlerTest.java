@@ -106,7 +106,7 @@ public class LayoutHandlerTest extends TestCase {
 
         DeleteLayoutResponse response = layoutHandler.deleteLayout("id");
         assertNotNull(response);
-        assertFalse(response.getAcknowledged());
+        assertTrue(response.getAcknowledged());
     }
 
     public void test_updateLayout() {
