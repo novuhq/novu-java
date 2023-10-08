@@ -158,7 +158,7 @@ public class Novu {
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
         this.changeHandler = new ChangeHandler(restHandler);
         this.environmentHandler = new EnvironmentHandler(restHandler);
-        this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
+        this.inboundParseHandler = new InboundParseHandler(restHandler);
         this.feedsHandler = new FeedsHandler(restHandler);
         this.messageHandler = new MessageHandler(restHandler);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler);
@@ -761,7 +761,7 @@ public class Novu {
         }
     }
 
-    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() {
+    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
         try {
             return inboundParseHandler.validateMxRecordSetupForInboundParse();
         } catch (Exception e) {
