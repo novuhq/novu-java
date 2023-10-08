@@ -1,19 +1,32 @@
 package co.novu.api.changes.responses;
 
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 
 @Data
 public class ChangesData {
-    private String _id;
-    private String _creatorId;
-    private String _environmentId;
-    private String _organizationId;
-    private String _entityId;
+    @SerializedName("_id")
+    private String id;
+
+    @SerializedName("_creatorId")
+    private String creatorId;
+
+    @SerializedName("_environmentId")
+    private String environmentId;
+
+    @SerializedName("_organizationId")
+    private String organizationId;
+
+    @SerializedName("_entityId")
+    private String entityId;
+
     private Boolean enabled;
     private String type;
     private Object change;
     private String createdAt;
-    private String _parentId;
+
+    @SerializedName("_parentId")
+    private String parentId;
 }
