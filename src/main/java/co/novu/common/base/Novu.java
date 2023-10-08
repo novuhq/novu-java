@@ -878,9 +878,9 @@ public class Novu {
         }
     }
 
-    public void deleteTenant(String identifier) throws IOException, NovuNetworkException {
+    public DeleteTenantResponse deleteTenant(String identifier) throws IOException, NovuNetworkException {
         try {
-            tenantsHandler.deleteTenant(identifier);
+            return tenantsHandler.deleteTenant(identifier);
         } catch (Exception e) {
             log.error("Error deleting Tenant", e);
             throw e;

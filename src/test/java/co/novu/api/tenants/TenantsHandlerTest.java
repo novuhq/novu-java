@@ -128,10 +128,12 @@ public class TenantsHandlerTest extends TestCase {
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(defaultTenantResponse)));
 
-        tenantsHandler.deleteTenant("id");
+        DeleteTenantResponse response = tenantsHandler.deleteTenant("id");
         RecordedRequest request = mockWebServer.takeRequest();
 
         assertEquals("/tenants/id", request.getPath());
         assertEquals("DELETE", request.getMethod());
+        assertEquals(gson.toJson(defaultTenantResponse), gson.toJson(response));
     }
+
 }
