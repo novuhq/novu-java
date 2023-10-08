@@ -7,6 +7,7 @@ import java.util.Map;
 import co.novu.api.tenants.requests.GetTenantRequest;
 import co.novu.api.tenants.requests.TenantRequest;
 import co.novu.api.tenants.responses.BulkTenantResponse;
+import co.novu.api.tenants.responses.DeleteTenantResponse;
 import co.novu.api.tenants.responses.TenantResponse;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
@@ -45,7 +46,9 @@ public class TenantsHandler {
         return restHandler.extractResponse(response);
     }
 
-    public void deleteTenant(String tenantId) throws IOException {
-        tenantsApi.deleteTenant(tenantId).execute();
+    public DeleteTenantResponse deleteTenant(String tenantId) throws IOException, NovuNetworkException {
+        Response<Void> response = tenantsApi.deleteTenant(tenantId).execute();
+        return restHandler.extractResponse(response, new DeleteTenantResponse());
     }
+
 }

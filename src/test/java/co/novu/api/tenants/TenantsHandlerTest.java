@@ -120,7 +120,7 @@ public class TenantsHandlerTest extends TestCase {
         assertEquals(gson.toJson(tenantResponse), gson.toJson(response));
     }
 
-    public void test_deleteTenant() throws IOException, InterruptedException {
+    public void test_deleteTenant() throws IOException, InterruptedException, NovuNetworkException {
         DeleteTenantResponse defaultTenantResponse = new DeleteTenantResponse();
         defaultTenantResponse.setStatus("Done");
         defaultTenantResponse.setAcknowledged(true);
