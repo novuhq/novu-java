@@ -163,7 +163,7 @@ public class Novu {
         this.messageHandler = new MessageHandler(restHandler);
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler);
         this.blueprintsHandler = new BlueprintsHandler(restHandler);
-        this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
+        this.tenantsHandler = new TenantsHandler(restHandler);
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
@@ -842,7 +842,7 @@ public class Novu {
         }
     }
 
-    public BulkTenantResponse getTenants(GetTenantRequest request) {
+    public BulkTenantResponse getTenants(GetTenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenants(request);
         } catch (Exception e) {
@@ -851,7 +851,7 @@ public class Novu {
         }
     }
 
-    public TenantResponse createTenant(TenantRequest request) {
+    public TenantResponse createTenant(TenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.createTenant(request);
         } catch (Exception e) {
@@ -860,7 +860,7 @@ public class Novu {
         }
     }
 
-    public TenantResponse getTenant(String identifier) {
+    public TenantResponse getTenant(String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenant(identifier);
         } catch (Exception e) {
@@ -869,7 +869,7 @@ public class Novu {
         }
     }
 
-    public TenantResponse updateTenant(TenantRequest request, String identifier) {
+    public TenantResponse updateTenant(TenantRequest request, String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.updateTenant(request, identifier);
         } catch (Exception e) {
@@ -878,7 +878,7 @@ public class Novu {
         }
     }
 
-    public DeleteTenantResponse deleteTenant(String identifier) {
+    public DeleteTenantResponse deleteTenant(String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.deleteTenant(identifier);
         } catch (Exception e) {
