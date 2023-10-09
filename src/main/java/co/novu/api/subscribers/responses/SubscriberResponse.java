@@ -1,6 +1,7 @@
 package co.novu.api.subscribers.responses;
 
 import co.novu.api.subscribers.pojos.Channel;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
@@ -13,15 +14,19 @@ public class SubscriberResponse {
     private String email;
     private String phone;
     private String avatar;
-    private String _id;
-    private String _organizationId;
-    private String _environmentId;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("_organizationId")
+    private String organizationId;
+    @SerializedName("_environmentId")
+    private String environmentId;
     private Boolean deleted;
     private Boolean isOnline;
     private String createdAt;
     private String updatedAt;
     private String lastOnlineAt;
-    private Long __v;
+    @SerializedName("__v")
+    private Long v;
     private Object locale;
     private List<Channel> channels;
 }
