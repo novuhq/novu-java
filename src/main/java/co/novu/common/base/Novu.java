@@ -149,7 +149,7 @@ public class Novu {
     public Novu(NovuConfig novuConfig) {
         RestHandler restHandler = new RestHandler(novuConfig);
         this.eventsHandler = new EventsHandler(restHandler, novuConfig);
-        this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
+        this.notificationHandler = new NotificationHandler(restHandler);
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
         this.topicHandler = new TopicHandler(restHandler);
         this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
@@ -202,7 +202,7 @@ public class Novu {
         }
     }
 
-    public NotificationsResponse getNotifications(NotificationRequest request) {
+    public NotificationsResponse getNotifications(NotificationRequest request) throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotifications(request);
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class Novu {
         }
     }
 
-    public NotificationStatsResponse getNotificationsStats() {
+    public NotificationStatsResponse getNotificationsStats() throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotificationsStats();
         } catch (Exception e) {
@@ -220,7 +220,7 @@ public class Novu {
         }
     }
 
-    public NotificationGraphStatsResponse getNotificationGraphStats() {
+    public NotificationGraphStatsResponse getNotificationGraphStats() throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotificationGraphStats();
         } catch (Exception e) {
@@ -229,7 +229,7 @@ public class Novu {
         }
     }
 
-    public NotificationResponse getNotification(String notificationId) {
+    public NotificationResponse getNotification(String notificationId) throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotification(notificationId);
         } catch (Exception e) {
