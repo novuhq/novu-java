@@ -152,7 +152,7 @@ public class Novu {
         this.notificationHandler = new NotificationHandler(restHandler);
         this.subscribersHandler = new SubscribersHandler(restHandler);
         this.topicHandler = new TopicHandler(restHandler);
-        this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
+        this.integrationsHandler = new IntegrationsHandler(restHandler);
         this.layoutHandler = new LayoutHandler(restHandler);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
@@ -454,7 +454,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse getIntegrations() {
+    public BulkIntegrationResponse getIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getIntegrations();
         } catch (Exception e) {
@@ -463,7 +463,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse createIntegration(IntegrationRequest request) {
+    public SingleIntegrationResponse createIntegration(IntegrationRequest request) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.createIntegration(request);
         } catch (Exception e) {
@@ -472,7 +472,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse getActiveIntegrations() {
+    public BulkIntegrationResponse getActiveIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getActiveIntegrations();
         } catch (Exception e) {
@@ -481,7 +481,7 @@ public class Novu {
         }
     }
 
-    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) {
+    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getProviderWebhookStatus(providerId);
         } catch (Exception e) {
@@ -490,7 +490,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) {
+    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.updateIntegration(integrationId, request);
         } catch (Exception e) {
@@ -499,7 +499,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse deleteIntegration(String integrationId) {
+    public BulkIntegrationResponse deleteIntegration(String integrationId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.deleteIntegration(integrationId);
         } catch (Exception e) {
@@ -508,7 +508,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) {
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NoveNetworkException {
         try {
             return integrationsHandler.setIntegrationAsPrimary(integrationId);
         } catch (Exception e) {
