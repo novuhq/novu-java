@@ -1,30 +1,38 @@
 package co.novu.api.workflowgroups;
 
+import java.io.IOException;
+import java.util.Collections;
+
+import com.google.gson.Gson;
+
 import co.novu.api.workflowgroups.request.WorkflowGroupRequest;
 import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
 import co.novu.api.workflowgroups.responses.GetWorkflowGroupsResponse;
 import co.novu.api.workflowgroups.responses.WorkflowGroupResponse;
 import co.novu.api.workflowgroups.responses.WorkflowGroupResponseData;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import junit.framework.TestCase;
-import org.mockito.Mockito;
-
-import java.util.Collections;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 public class WorkflowGroupHandlerTest extends TestCase {
     private WorkflowGroupHandler workflowGroupHandler;
 
-    private RestHandler restHandler;
+    private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        workflowGroupHandler = Mockito.spy(new WorkflowGroupHandler(restHandler, novuConfig));
+        mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        workflowGroupHandler = new WorkflowGroupHandler(restHandler);
     }
 
-    public void test_createWorkflowGroup() {
+    public void test_createWorkflowGroup() throws InterruptedException, NovuNetworkException, IOException {
         WorkflowGroupRequest workflowGroupRequest = new WorkflowGroupRequest();
         workflowGroupRequest.setName("fname");
 
@@ -37,24 +45,33 @@ public class WorkflowGroupHandlerTest extends TestCase {
         data.set_parentId("parentId");
         workflowGroupResponse.setData(data);
 
-        Mockito.doReturn(workflowGroupResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+         Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowGroupResponse)));
 
         WorkflowGroupResponse response = workflowGroupHandler.createWorkflowGroup(workflowGroupRequest);
-        assertNotNull(response);
-        assertEquals(workflowGroupResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/notification-groups/create-workflow-group", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(workflowGroupResponse), gson.toJson(response));
     }
 
-    public void test_getWorkflowGroups() {
+    public void test_getWorkflowGroups() throws InterruptedException, NovuNetworkException, IOException {
         GetWorkflowGroupsResponse getWorkflowGroupsResponse = new GetWorkflowGroupsResponse();
         getWorkflowGroupsResponse.setData(Collections.singletonList(new WorkflowGroupResponseData()));
-        Mockito.doReturn(getWorkflowGroupsResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(getWorkflowGroupsResponse)));
 
         GetWorkflowGroupsResponse response = workflowGroupHandler.getWorkflowGroups();
-        assertNotNull(response);
-        assertEquals(getWorkflowGroupsResponse, response);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/notification-groups/get-workflow-groups", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(getWorkflowGroupsResponse), gson.toJson(response));
     }
 
-    public void test_getWorkflowGroup() {
+    public void test_getWorkflowGroup() throws NovuNetworkException, IOException, InterruptedException {
 
         WorkflowGroupResponse workflowGroupResponse = new WorkflowGroupResponse();
         WorkflowGroupResponseData data = new WorkflowGroupResponseData();
@@ -64,14 +81,19 @@ public class WorkflowGroupHandlerTest extends TestCase {
         data.set_environmentId("environmentId");
         data.set_parentId("parentId");
         workflowGroupResponse.setData(data);
-        Mockito.doReturn(workflowGroupResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+       
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowGroupResponse)));
 
-        WorkflowGroupResponse response = workflowGroupHandler.getWorkflowGroup("12");
-        assertNotNull(response);
-        assertEquals(workflowGroupResponse, response);
+        WorkflowGroupResponse response = workflowGroupHandler.getWorkflowGroup(data.get_id());
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/notification-groups/get-workflow-group/id", request.getPath());
+        assertEquals("GET", request.getMethod());
+        assertEquals(gson.toJson(workflowGroupResponse), gson.toJson(response));
     }
 
-    public void test_updateWorkflowGroup() {
+    public void test_updateWorkflowGroup() throws NovuNetworkException, IOException, InterruptedException {
 
         WorkflowGroupRequest workflowGroupRequest = new WorkflowGroupRequest();
         workflowGroupRequest.setName("fname");
@@ -84,22 +106,32 @@ public class WorkflowGroupHandlerTest extends TestCase {
         data.set_environmentId("environmentId");
         data.set_parentId("parentId");
         workflowGroupResponse.setData(data);
-        Mockito.doReturn(workflowGroupResponse).when(restHandler).handlePatch(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
+        
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowGroupResponse)));
 
-        WorkflowGroupResponse response = workflowGroupHandler.updateWorkflowGroup("12",workflowGroupRequest);
-        assertNotNull(response);
-        assertEquals(workflowGroupResponse, response);
+        WorkflowGroupResponse response = workflowGroupHandler.updateWorkflowGroup(data.get_id(), workflowGroupRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/notification-groups/update-workflow-group/id", request.getPath());
+        assertEquals("PUT", request.getMethod());
+        assertEquals(gson.toJson(workflowGroupResponse), gson.toJson(response));
     }
 
-    public void test_deleteWorkflowGroup() {
+    public void test_deleteWorkflowGroup() throws NovuNetworkException, IOException, InterruptedException {
         DeleteWorkflowGroup deleteWorkflowGroup = new DeleteWorkflowGroup();
         deleteWorkflowGroup.setAcknowledged(false);
         deleteWorkflowGroup.setStatus("success");
-        Mockito.doReturn(deleteWorkflowGroup).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
+        
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(deleteWorkflowGroup)));
 
-        DeleteWorkflowGroup response = workflowGroupHandler.deleteWorkflowGroup("12");
-        assertNotNull(response);
-        assertEquals(deleteWorkflowGroup, response);
+        DeleteWorkflowGroup response = workflowGroupHandler.deleteWorkflowGroup("id");
+        RecordedRequest request = mockWebServer.takeRequest();
+
+        assertEquals("/notification-groups/delete-workflow-group/id", request.getPath());
+        assertEquals("DELETE", request.getMethod());
+        assertEquals(gson.toJson(deleteWorkflowGroup), gson.toJson(response));
     }
 
 }
