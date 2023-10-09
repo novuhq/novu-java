@@ -38,6 +38,8 @@ import org.mockito.Mockito;
 import java.io.IOException;
 import java.util.List;
 
+import static org.junit.Assert.assertThrows;
+
 public class SubscribersHandlerTest extends TestCase {
 
     private SubscribersHandler subscribersHandler;
@@ -51,7 +53,7 @@ public class SubscribersHandlerTest extends TestCase {
         NovuConfig novuConfig = new NovuConfig("1234");
         novuConfig.setBaseUrl(mockWebServer.url("").toString());
         RestHandler restHandler = new RestHandler(novuConfig);
-        subscribersHandler = Mockito.spy(new SubscribersHandler(restHandler));
+        subscribersHandler = new SubscribersHandler(restHandler);
     }
 
     public void test_getSubscribersWithValidParams() throws IOException, NovuNetworkException, InterruptedException {
@@ -206,17 +208,18 @@ public class SubscribersHandlerTest extends TestCase {
         assertEquals(singleSubscriberResponse, response);
     }
 
-    public void test_deleteSubscriberCredentialsFailure() throws IOException, InterruptedException {
+    public void test_deleteSubscriberCredentialsFailure() throws IOException, InterruptedException, NovuNetworkException {
         mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody("{}"));
 
-        DeleteCredentialsResponse response = subscribersHandler.deleteSubscriberCredentials("sId", "pId");
-        assertNull(response);
+        assertThrows(NovuNetworkException.class,
+            () -> subscribersHandler.deleteSubscriberCredentials("sId", "pId"));
+        
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/subscribers/sId/credentials/pId", request.getPath());
         assertEquals("DELETE", request.getMethod());
     }
 
-    public void test_deleteSubscriberCredentialsSuccess() throws IOException, InterruptedException {
+    public void test_deleteSubscriberCredentialsSuccess() throws IOException, InterruptedException, NovuNetworkException {
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
 
         DeleteCredentialsResponse response = subscribersHandler.deleteSubscriberCredentials("sId", "pId");

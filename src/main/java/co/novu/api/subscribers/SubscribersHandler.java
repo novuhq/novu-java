@@ -75,13 +75,8 @@ public class SubscribersHandler {
         return restHandler.extractResponse(subscribersApi.updateSubscriberCredentials(request, subscriberId).execute());
     }
 
-    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException {
-        Response<Void> deleteSubscriberCredentialsResponse = subscribersApi.deleteSubscriberCredentials(subscriberId, providerId).execute();
-        if (deleteSubscriberCredentialsResponse.isSuccessful()) {
-            return new DeleteCredentialsResponse();
-        } else {
-            return null;
-        }
+    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException, NovuNetworkException {
+        return restHandler.extractResponse(subscribersApi.deleteSubscriberCredentials(subscriberId, providerId).execute(), new DeleteCredentialsResponse());
     }
 
     public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) throws IOException, NovuNetworkException {

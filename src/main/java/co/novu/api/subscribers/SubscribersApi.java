@@ -1,10 +1,33 @@
 package co.novu.api.subscribers;
 
 import co.novu.api.common.SubscriberRequest;
-import co.novu.api.subscribers.requests.*;
-import co.novu.api.subscribers.responses.*;
+
+import co.novu.api.subscribers.requests.BulkSubscriberRequest;
+import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
+import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
+import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
+import co.novu.api.subscribers.responses.BulkSubscriberResponse;
+import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+import co.novu.api.subscribers.responses.CreateSubscriberResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
+import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
+import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
+import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
+import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
 import retrofit2.Call;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 import java.util.Map;
 

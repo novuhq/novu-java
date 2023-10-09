@@ -301,7 +301,7 @@ public class Novu {
         }
     }
 
-    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException {
+    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.deleteSubscriberCredentials(subscriberId, providerId);
         } catch (Exception e) {
