@@ -9,9 +9,12 @@ import lombok.Data;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 @Data
 public class WorkflowResponse {
-    private String _id;
+	@SerializedName("_id")
+    private String id;
     private String description;
     private Boolean active;
     private String name;
@@ -20,9 +23,12 @@ public class WorkflowResponse {
     private Boolean critical;
     private List<String> tags;
     private List<Step> steps;
-    private String _organizationId;
-    private String _creatorId;
-    private String _environmentId;
+    @SerializedName("_organizationId")
+    private String organizationId;
+    @SerializedName("_creatorId")
+    private String creatorId;
+    @SerializedName("_environmentId")
+    private String environmentId;
     private List<Trigger> triggers;
     private String notificationGroupId;
     private Boolean deleted;
