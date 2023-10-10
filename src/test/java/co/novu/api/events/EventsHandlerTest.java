@@ -9,26 +9,33 @@ import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.api.events.responses.TriggerEventResponseData;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
+import com.google.gson.Gson;
 import junit.framework.TestCase;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.util.Collections;
 
 public class EventsHandlerTest extends TestCase {
 
     private EventsHandler eventsHandler;
-
-    private RestHandler restHandler;
+    private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        eventsHandler = Mockito.spy(new EventsHandler(restHandler, novuConfig));
+        mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        eventsHandler = new EventsHandler(restHandler);
     }
 
-    public void test_triggerEventToSubscriber() {
+    public void test_triggerEventToSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
         triggerEventRequest.setName("name");
 
@@ -48,14 +55,18 @@ public class EventsHandlerTest extends TestCase {
         data.setTransactionId("id");
         triggerEventResponse.setData(data);
 
-        Mockito.doReturn(triggerEventResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(triggerEventResponse)));
 
         TriggerEventResponse response = eventsHandler.triggerEvent(triggerEventRequest);
-        assertNotNull(response);
-        assertEquals(triggerEventResponse, response);
+
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/events/trigger", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(triggerEventResponse), gson.toJson(response));
     }
 
-    public void test_triggerEventToTopic() {
+    public void test_triggerEventToTopic() throws IOException, NovuNetworkException, InterruptedException {
         TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
         triggerEventRequest.setName("name");
 
@@ -73,14 +84,18 @@ public class EventsHandlerTest extends TestCase {
         data.setTransactionId("id");
         triggerEventResponse.setData(data);
 
-        Mockito.doReturn(triggerEventResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(triggerEventResponse)));
 
         TriggerEventResponse response = eventsHandler.triggerEvent(triggerEventRequest);
-        assertNotNull(response);
-        assertEquals(triggerEventResponse, response);
+
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/events/trigger", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(triggerEventResponse), gson.toJson(response));
     }
 
-    public void test_bulkTriggerEventToSubscriber() {
+    public void test_bulkTriggerEventToSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         BulkTriggerEventRequest bulkTriggerEventRequest = new BulkTriggerEventRequest();
 
         TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
@@ -105,14 +120,18 @@ public class EventsHandlerTest extends TestCase {
 
         bulkTriggerEventRequest.setEvents(Collections.singletonList(triggerEventRequest));
 
-        Mockito.doReturn(bulkTriggerEventResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(bulkTriggerEventResponse)));
 
         BulkTriggerEventResponse response = eventsHandler.bulkTriggerEvent(bulkTriggerEventRequest);
-        assertNotNull(response);
-        assertEquals(bulkTriggerEventResponse, response);
+
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/events/trigger/bulk", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(bulkTriggerEventResponse), gson.toJson(response));
     }
 
-    public void test_broadcastEventToSubscriber() {
+    public void test_broadcastEventToSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
         triggerEventRequest.setName("name");
 
@@ -132,21 +151,30 @@ public class EventsHandlerTest extends TestCase {
         data.setTransactionId("id");
         triggerEventResponse.setData(data);
 
-        Mockito.doReturn(triggerEventResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(triggerEventResponse)));
 
         TriggerEventResponse response = eventsHandler.broadcastEvent(new TriggerEventRequest());
-        assertNotNull(response);
-        assertEquals(triggerEventResponse, response);
+
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/events/trigger/broadcast", request.getPath());
+        assertEquals("POST", request.getMethod());
+        assertEquals(gson.toJson(triggerEventResponse), gson.toJson(response));
     }
 
-    public void test_cancelTriggeredEvent() {
+    public void test_cancelTriggeredEvent() throws IOException, NovuNetworkException, InterruptedException {
         CancelEventResponse cancelEventResponse = new CancelEventResponse();
         cancelEventResponse.setData(true);
 
-        Mockito.doReturn(cancelEventResponse).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(cancelEventResponse)));
 
-        CancelEventResponse response = eventsHandler.cancelTriggeredEvent("id");
-        assertNotNull(response);
-        assertEquals(cancelEventResponse, response);
+        String eventId = "id";
+        CancelEventResponse response = eventsHandler.cancelTriggeredEvent(eventId);
+
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/events/trigger/"+eventId, request.getPath());
+        assertEquals("DELETE", request.getMethod());
+        assertEquals(gson.toJson(cancelEventResponse), gson.toJson(response));
     }
 }
