@@ -155,7 +155,7 @@ public class Novu {
         this.integrationsHandler = new IntegrationsHandler(restHandler);
         this.layoutHandler = new LayoutHandler(restHandler);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
-        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
+        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler);
         this.changeHandler = new ChangeHandler(restHandler);
         this.environmentHandler = new EnvironmentHandler(restHandler);
         this.inboundParseHandler = new InboundParseHandler(restHandler);
@@ -508,7 +508,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NoveNetworkException {
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.setIntegrationAsPrimary(integrationId);
         } catch (Exception e) {
@@ -625,7 +625,7 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) {
+    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) throws IOException, NovuNetworkException  {
         try {
             return workflowGroupHandler.createWorkflowGroup(request);
         } catch (Exception e) {
@@ -634,7 +634,7 @@ public class Novu {
         }
     }
 
-    public GetWorkflowGroupsResponse getWorkflowGroups() {
+    public GetWorkflowGroupsResponse getWorkflowGroups() throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroups();
         } catch (Exception e) {
@@ -643,7 +643,7 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse getWorkflowGroup(String id) {
+    public WorkflowGroupResponse getWorkflowGroup(String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroup(id);
         } catch (Exception e) {
@@ -652,7 +652,7 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) {
+    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.updateWorkflowGroup(id,request);
         } catch (Exception e) {
@@ -661,7 +661,7 @@ public class Novu {
         }
     }
 
-    public DeleteWorkflowGroup deleteWorkflowGroup(String id) {
+    public DeleteWorkflowGroup deleteWorkflowGroup(String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.deleteWorkflowGroup(id);
         } catch (Exception e) {
