@@ -1,14 +1,19 @@
 package co.novu.api.notifications;
 
+import co.novu.api.layouts.LayoutApi;
+import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.notifications.requests.NotificationRequest;
 import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,31 +21,33 @@ import java.util.Map;
 public class NotificationHandler {
 
     private final RestHandler restHandler;
+    private final NotificationApi notificationApi;
 
-    private final NovuConfig novuConfig;
+    public NotificationHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.notificationApi = restHandler.buildRetrofit().create(NotificationApi.class);
+    }
 
-    private static final String ENDPOINT = "notifications";
-
-    public NotificationsResponse getNotifications(NotificationRequest request) {
+    public NotificationsResponse getNotifications(NotificationRequest request) throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
-        params.put("channels", request.getChannels());
-        params.put("templates", request.getTemplates());
-        params.put("emails", request.getEmails());
-        params.put("search", request.getSearch());
+        if (request.getChannels() != null) params.put("channels", request.getChannels());
+        if (request.getTemplates() != null)params.put("templates", request.getTemplates());
+        if (request.getEmails() != null)params.put("emails", request.getEmails());
+        if (request.getSearch() != null)params.put("search", request.getSearch());
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getTransactionId() != null) params.put("transactionId", request.getTransactionId());
-        return restHandler.handleGet(NotificationsResponse.class, novuConfig, ENDPOINT, params);
+        return restHandler.extractResponse(notificationApi.getNotifications(params).execute());
     }
 
-    public NotificationStatsResponse getNotificationsStats() {
-        return restHandler.handleGet(NotificationStatsResponse.class, novuConfig, ENDPOINT + "/stats");
+    public NotificationStatsResponse getNotificationsStats() throws IOException, NovuNetworkException {
+        return restHandler.extractResponse(notificationApi.getNotificationsStats().execute());
     }
 
-    public NotificationGraphStatsResponse getNotificationGraphStats() {
-        return restHandler.handleGet(NotificationGraphStatsResponse.class, novuConfig, ENDPOINT + "/graph/stats");
+    public NotificationGraphStatsResponse getNotificationGraphStats() throws IOException, NovuNetworkException {
+        return restHandler.extractResponse(notificationApi.getNotificationGraphStats().execute());
     }
 
-    public NotificationResponse getNotification(String notificationId) {
-        return restHandler.handleGet(NotificationResponse.class, novuConfig, ENDPOINT + "/" + notificationId);
+    public NotificationResponse getNotification(String notificationId) throws IOException, NovuNetworkException {
+        return restHandler.extractResponse(notificationApi.getNotification(notificationId).execute());
     }
 }

@@ -1,23 +1,31 @@
 package co.novu.api.subscribers.pojos;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class SubscriberNotification {
-    private String _id;
-    private String _templateId;
-    private String _environmentId;
-    private String _organizationId;
-    private String _subscriberId;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("_templateId")
+    private String templateId;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_organizationId")
+    private String organizationId;
+    @SerializedName("_subscriberId")
+    private String subscriberId;
     private String transactionId;
     private String createdAt;
     private String updatedAt;
     private Object payload;
     private String channel;
-    private String _messageTemplateId;
-    private String _notificationId;
+    @SerializedName("_messageTemplateId")
+    private String messageTemplateId;
+    @SerializedName("_notificationId")
+    private String notificationId;
     private Object subscriber;
     private Object template;
     private String templateIdentifier;
@@ -31,7 +39,8 @@ public class SubscriberNotification {
     private String title;
     private String lastSeenDate;
     private Object cta;
-    private String _feedId;
+    @SerializedName("_feedId")
+    private String feedId;
     private String status;
     private String errorId;
     private String errorText;

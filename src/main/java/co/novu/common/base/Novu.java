@@ -149,10 +149,10 @@ public class Novu {
     public Novu(NovuConfig novuConfig) {
         RestHandler restHandler = new RestHandler(novuConfig);
         this.eventsHandler = new EventsHandler(restHandler);
-        this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
-        this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
+        this.notificationHandler = new NotificationHandler(restHandler);
+        this.subscribersHandler = new SubscribersHandler(restHandler);
         this.topicHandler = new TopicHandler(restHandler);
-        this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
+        this.integrationsHandler = new IntegrationsHandler(restHandler);
         this.layoutHandler = new LayoutHandler(restHandler);
         this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
         this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
@@ -202,7 +202,7 @@ public class Novu {
         }
     }
 
-    public NotificationsResponse getNotifications(NotificationRequest request) {
+    public NotificationsResponse getNotifications(NotificationRequest request) throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotifications(request);
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class Novu {
         }
     }
 
-    public NotificationStatsResponse getNotificationsStats() {
+    public NotificationStatsResponse getNotificationsStats() throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotificationsStats();
         } catch (Exception e) {
@@ -220,7 +220,7 @@ public class Novu {
         }
     }
 
-    public NotificationGraphStatsResponse getNotificationGraphStats() {
+    public NotificationGraphStatsResponse getNotificationGraphStats() throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotificationGraphStats();
         } catch (Exception e) {
@@ -229,7 +229,7 @@ public class Novu {
         }
     }
 
-    public NotificationResponse getNotification(String notificationId) {
+    public NotificationResponse getNotification(String notificationId) throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotification(notificationId);
         } catch (Exception e) {
@@ -238,7 +238,7 @@ public class Novu {
         }
     }
 
-    public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) {
+    public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscribers(page, limit);
         } catch (Exception e) {
@@ -247,7 +247,7 @@ public class Novu {
         }
     }
 
-    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) {
+    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.createSubscriber(request);
         } catch (Exception e) {
@@ -256,7 +256,7 @@ public class Novu {
         }
     }
 
-    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) {
+    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.createSubscriberBulk(request);
         } catch (Exception e) {
@@ -265,7 +265,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse getSubscriber(String subscriberId) {
+    public SingleSubscriberResponse getSubscriber(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriber(subscriberId);
         } catch (Exception e) {
@@ -274,7 +274,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) {
+    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriber(request, subscriberId);
         } catch (Exception e) {
@@ -283,7 +283,7 @@ public class Novu {
         }
     }
 
-    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) {
+    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.deleteSubscriber(subscriberId);
         } catch (Exception e) {
@@ -292,7 +292,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) {
+    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriberCredentials(request, subscriberId);
         } catch (Exception e) {
@@ -301,7 +301,7 @@ public class Novu {
         }
     }
 
-    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) {
+    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.deleteSubscriberCredentials(subscriberId, providerId);
         } catch (Exception e) {
@@ -310,7 +310,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) {
+    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriberOnlineStatus(request, subscriberId);
         } catch (Exception e) {
@@ -319,7 +319,7 @@ public class Novu {
         }
     }
 
-    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) {
+    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriberPreferences(subscriberId);
         } catch (Exception e) {
@@ -328,7 +328,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
+    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriberPreferences(request, subscriberId, templateId);
         } catch (Exception e) {
@@ -337,7 +337,7 @@ public class Novu {
         }
     }
 
-    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) {
+    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriberNotificationsFeed(subscriberId);
         } catch (Exception e) {
@@ -346,7 +346,7 @@ public class Novu {
         }
     }
 
-    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) {
+    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriberUnseenNotificationsCount(subscriberId);
         } catch (Exception e) {
@@ -355,7 +355,7 @@ public class Novu {
         }
     }
 
-    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) {
+    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.markSubscriberMessageFeedAs(request, subscriberId);
         } catch (Exception e) {
@@ -364,7 +364,7 @@ public class Novu {
         }
     }
 
-    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) {
+    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.markAllSubscriberMessagesFeedAs(request, subscriberId);
         } catch (Exception e) {
@@ -373,7 +373,7 @@ public class Novu {
         }
     }
 
-    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) {
+    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.markMessageActionAsSeen(request, subscriberId, messageId, type);
         } catch (Exception e) {
@@ -454,7 +454,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse getIntegrations() {
+    public BulkIntegrationResponse getIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getIntegrations();
         } catch (Exception e) {
@@ -463,7 +463,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse createIntegration(IntegrationRequest request) {
+    public SingleIntegrationResponse createIntegration(IntegrationRequest request) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.createIntegration(request);
         } catch (Exception e) {
@@ -472,7 +472,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse getActiveIntegrations() {
+    public BulkIntegrationResponse getActiveIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getActiveIntegrations();
         } catch (Exception e) {
@@ -481,7 +481,7 @@ public class Novu {
         }
     }
 
-    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) {
+    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getProviderWebhookStatus(providerId);
         } catch (Exception e) {
@@ -490,7 +490,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) {
+    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.updateIntegration(integrationId, request);
         } catch (Exception e) {
@@ -499,7 +499,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse deleteIntegration(String integrationId) {
+    public BulkIntegrationResponse deleteIntegration(String integrationId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.deleteIntegration(integrationId);
         } catch (Exception e) {
@@ -508,7 +508,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) {
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NoveNetworkException {
         try {
             return integrationsHandler.setIntegrationAsPrimary(integrationId);
         } catch (Exception e) {
