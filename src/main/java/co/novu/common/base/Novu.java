@@ -148,7 +148,7 @@ public class Novu {
 
     public Novu(NovuConfig novuConfig) {
         RestHandler restHandler = new RestHandler(novuConfig);
-        this.eventsHandler = new EventsHandler(restHandler, novuConfig);
+        this.eventsHandler = new EventsHandler(restHandler);
         this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
         this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
         this.topicHandler = new TopicHandler(restHandler);
@@ -166,7 +166,7 @@ public class Novu {
         this.tenantsHandler = new TenantsHandler(restHandler);
     }
 
-    public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
+    public TriggerEventResponse triggerEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.triggerEvent(request);
         }catch (Exception e){
@@ -175,7 +175,7 @@ public class Novu {
         }
     }
 
-    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) {
+    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.bulkTriggerEvent(request);
         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class Novu {
         }
     }
 
-    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) {
+    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.broadcastEvent(request);
         } catch (Exception e) {
@@ -193,7 +193,7 @@ public class Novu {
         }
     }
 
-    public CancelEventResponse cancelTriggeredEvent(String transactionId) {
+    public CancelEventResponse cancelTriggeredEvent(String transactionId) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.cancelTriggeredEvent(transactionId);
         } catch (Exception e) {
