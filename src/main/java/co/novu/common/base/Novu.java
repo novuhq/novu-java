@@ -508,7 +508,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NoveNetworkException {
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.setIntegrationAsPrimary(integrationId);
         } catch (Exception e) {
