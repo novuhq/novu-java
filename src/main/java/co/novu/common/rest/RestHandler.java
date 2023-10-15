@@ -1,9 +1,13 @@
 package co.novu.common.rest;
 
-import co.novu.common.base.NovuConfig;
-import co.novu.common.contracts.IRequest;
+import java.io.IOException;
+import java.util.Map;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import co.novu.common.base.NovuConfig;
+import co.novu.common.contracts.IRequest;
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -11,9 +15,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import java.io.IOException;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class RestHandler {
@@ -35,6 +36,14 @@ public class RestHandler {
                             .build();
                     return chain.proceed(request);
                 }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
+        
+        if(novuConfig.isEnableRetry()) {
+        	clientBuilder.addInterceptor(new RetryInterceptor(novuConfig.getMaxRetries(), novuConfig.getMinRetryDelayMillis() , novuConfig.getMaxRetryDelayMillis() , novuConfig.getInitialRetryDelayMillis()));
+        }
+        
+        if(novuConfig.isEnableIdempotencyKey()) {
+        	clientBuilder.addInterceptor(new IdempotencyKeyInterceptor());
+        }
 
         Gson gson = new GsonBuilder()
                 .setLenient()
