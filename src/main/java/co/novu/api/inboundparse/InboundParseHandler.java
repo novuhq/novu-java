@@ -1,18 +1,25 @@
 package co.novu.api.inboundparse;
 
-import co.novu.api.inboundparse.responses.ValidateMxRecordResponse;
-import co.novu.common.base.NovuConfig;
-import co.novu.common.rest.RestHandler;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
 
-@RequiredArgsConstructor
+import co.novu.api.inboundparse.responses.ValidateMxRecordResponse;
+import co.novu.common.rest.NovuNetworkException;
+import co.novu.common.rest.RestHandler;
+import retrofit2.Response;
+
 public class InboundParseHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
+    private final InboundParseApi inboundParseApi;
 
-    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() {
-        return restHandler.handleGet(ValidateMxRecordResponse.class, novuConfig, "inbound-parse/mx/status");
+    public InboundParseHandler(RestHandler restHandler) {
+		this.restHandler = restHandler;
+		this.inboundParseApi = restHandler.buildRetrofit().create(InboundParseApi.class);
+	}
+
+	public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
+		Response<ValidateMxRecordResponse> response = inboundParseApi.validateMxRecordSetupForInboundParse().execute();
+        return restHandler.extractResponse(response);
     }
 }

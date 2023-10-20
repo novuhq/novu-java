@@ -1,8 +1,14 @@
 package co.novu.api.workflows;
 
-import co.novu.api.common.Trigger;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import com.google.gson.Gson;
+
 import co.novu.api.common.NotificationGroup;
 import co.novu.api.common.PreferenceSettings;
+import co.novu.api.common.Trigger;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
 import co.novu.api.workflows.requests.WorkflowRequest;
@@ -11,42 +17,48 @@ import co.novu.api.workflows.responses.DeleteWorkflowResponse;
 import co.novu.api.workflows.responses.SingleWorkflowResponse;
 import co.novu.api.workflows.responses.WorkflowResponse;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import junit.framework.TestCase;
-import org.mockito.Mockito;
-
-import java.util.Collections;
-import java.util.List;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 public class WorkflowHandlerTest extends TestCase {
+	
     private WorkflowHandler workflowHandler;
-
-    private RestHandler restHandler;
+    private MockWebServer mockWebServer;
 
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        workflowHandler = Mockito.spy(new WorkflowHandler(restHandler, novuConfig));
+    	mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        workflowHandler = new WorkflowHandler(restHandler);
     }
 
-    public void test_getWorkflows() {
+    public void test_getWorkflows() throws IOException, NovuNetworkException, InterruptedException {
         BulkWorkflowResponse workflowResponse = new BulkWorkflowResponse();
         workflowResponse.setPage(2L);
         workflowResponse.setPageSize(20L);
         workflowResponse.setTotalCount(200L);
         workflowResponse.setData(Collections.singletonList(new WorkflowResponse()));
-        Mockito.doReturn(workflowResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
-
-
+        
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowResponse)));
+        
         BulkWorkflowResponse response = workflowHandler.getWorkflows(12,13);
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/workflows?limit=13&page=12", request.getPath());
+        assertEquals("GET", request.getMethod());
         assertNotNull(response);
-        assertEquals(workflowResponse, response);
-        Mockito.verify(restHandler, Mockito.never()).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        assertEquals(gson.toJson(workflowResponse), gson.toJson(response));
     }
 
 
-    public void test_createWorkflow() {
+    public void test_createWorkflow() throws IOException, NovuNetworkException, InterruptedException {
         WorkflowRequest workflowRequest = new WorkflowRequest();
         workflowRequest.setDescription("Desc");
         workflowRequest.setActive(false);
@@ -64,17 +76,17 @@ public class WorkflowHandlerTest extends TestCase {
         workflowRequest.setSteps(List.of());
         workflowRequest.setNotificationGroupId("notificationId");
         NotificationGroup notificationGroup1 = new NotificationGroup();
-        notificationGroup1.set_id("id");
+        notificationGroup1.setId("id");
         notificationGroup1.setName("name");
-        notificationGroup1.set_environmentId("environmentId");
-        notificationGroup1.set_organizationId("organizationId");
-        notificationGroup1.set_parentId("parentId");
+        notificationGroup1.setEnvironmentId("environmentId");
+        notificationGroup1.setOrganizationId("organizationId");
+        notificationGroup1.setParentId("parentId");
 
 
 
         SingleWorkflowResponse singleWorkflowResponse = new SingleWorkflowResponse();
         WorkflowResponse data = new WorkflowResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setDescription("Desc");
         data.setActive(false);
         data.setName("name");
@@ -89,32 +101,37 @@ public class WorkflowHandlerTest extends TestCase {
         data.setCritical(false);
         data.setTags(List.of());
         data.setSteps(List.of());
-        data.set_organizationId("organizationId");
-        data.set_creatorId("creatorId");
-        data.set_environmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setCreatorId("creatorId");
+        data.setEnvironmentId("environmentId");
         data.setTriggers(Collections.singletonList(new Trigger()));
         data.setNotificationGroupId("notificationId");
         data.setDeleted(false);
         data.setDeletedAt("deletedAt");
         data.setDeletedBy("deletedBy");
         NotificationGroup notificationGroup2 = new NotificationGroup();
-        notificationGroup2.set_id("id");
+        notificationGroup2.setId("id");
         notificationGroup2.setName("name");
-        notificationGroup2.set_environmentId("environmentId");
-        notificationGroup2.set_organizationId("organizationId");
-        notificationGroup2.set_parentId("parentId");
+        notificationGroup2.setEnvironmentId("environmentId");
+        notificationGroup2.setOrganizationId("organizationId");
+        notificationGroup2.setParentId("parentId");
         data.setNotificationGroup(notificationGroup2);
         data.setIsBlueprint(false);
         singleWorkflowResponse.setData(data);
 
-        Mockito.doReturn(singleWorkflowResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
-
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleWorkflowResponse)));
+        
         SingleWorkflowResponse response = workflowHandler.createWorkflow(workflowRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/workflows", request.getPath());
+        assertEquals("POST", request.getMethod());
         assertNotNull(response);
         assertEquals(singleWorkflowResponse, response);
     }
 
-    public void test_updateWorkflow() {
+    public void test_updateWorkflow() throws IOException, NovuNetworkException, InterruptedException {
         UpdateWorkflowRequest workflowRequest = new UpdateWorkflowRequest();
         workflowRequest.setDescription("Desc");
         workflowRequest.setActive(false);
@@ -132,15 +149,15 @@ public class WorkflowHandlerTest extends TestCase {
         workflowRequest.setSteps(List.of());
         workflowRequest.setNotificationGroupId("notificationId");
         NotificationGroup notificationGroup1 = new NotificationGroup();
-        notificationGroup1.set_id("id");
+        notificationGroup1.setId("id");
         notificationGroup1.setName("name");
-        notificationGroup1.set_environmentId("environmentId");
-        notificationGroup1.set_organizationId("organizationId");
-        notificationGroup1.set_parentId("parentId");
+        notificationGroup1.setEnvironmentId("environmentId");
+        notificationGroup1.setOrganizationId("organizationId");
+        notificationGroup1.setParentId("parentId");
 
         SingleWorkflowResponse singleWorkflowResponse = new SingleWorkflowResponse();
         WorkflowResponse data = new WorkflowResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setDescription("Desc");
         data.setActive(false);
         data.setName("name");
@@ -155,46 +172,56 @@ public class WorkflowHandlerTest extends TestCase {
         data.setCritical(false);
         data.setTags(List.of());
         data.setSteps(List.of());
-        data.set_organizationId("organizationId");
-        data.set_creatorId("creatorId");
-        data.set_environmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setCreatorId("creatorId");
+        data.setEnvironmentId("environmentId");
         data.setTriggers(Collections.singletonList(new Trigger()));
         data.setNotificationGroupId("notificationId");
         data.setDeleted(false);
         data.setDeletedAt("deletedAt");
         data.setDeletedBy("deletedBy");
         NotificationGroup notificationGroup2 = new NotificationGroup();
-        notificationGroup2.set_id("id");
+        notificationGroup2.setId("id");
         notificationGroup2.setName("name");
-        notificationGroup2.set_environmentId("environmentId");
-        notificationGroup2.set_organizationId("organizationId");
-        notificationGroup2.set_parentId("parentId");
+        notificationGroup2.setEnvironmentId("environmentId");
+        notificationGroup2.setOrganizationId("organizationId");
+        notificationGroup2.setParentId("parentId");
         data.setNotificationGroup(notificationGroup2);
         data.setIsBlueprint(false);
         singleWorkflowResponse.setData(data);
 
-        Mockito.doReturn(singleWorkflowResponse).when(restHandler).handlePut(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleWorkflowResponse)));
 
-        SingleWorkflowResponse response = workflowHandler.updateWorkflow("workflowid",workflowRequest);
+        SingleWorkflowResponse response = workflowHandler.updateWorkflow("workflowId", workflowRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/workflows/workflowId", request.getPath());
+        assertEquals("PUT", request.getMethod());
         assertNotNull(response);
         assertEquals(singleWorkflowResponse, response);
     }
 
-    public void test_deleteWorkflow() {
+    public void test_deleteWorkflow() throws IOException, NovuNetworkException, InterruptedException {
         DeleteWorkflowResponse deleteWorkflowResponse = new DeleteWorkflowResponse();
         deleteWorkflowResponse.setData(false);
 
-        Mockito.doReturn(deleteWorkflowResponse).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
-
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(deleteWorkflowResponse)));
+        
         DeleteWorkflowResponse response = workflowHandler.deleteWorkflow("workflowId");
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/workflows/workflowId", request.getPath());
+        assertEquals("DELETE", request.getMethod());
         assertNotNull(response);
         assertEquals(deleteWorkflowResponse, response);
     }
 
-    public void test_getWorkflow() {
+    public void test_getWorkflow() throws IOException, NovuNetworkException, InterruptedException {
         SingleWorkflowResponse singleWorkflowResponse = new SingleWorkflowResponse();
         WorkflowResponse data = new WorkflowResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setDescription("Desc");
         data.setActive(false);
         data.setName("name");
@@ -209,35 +236,40 @@ public class WorkflowHandlerTest extends TestCase {
         data.setCritical(false);
         data.setTags(List.of());
         data.setSteps(List.of());
-        data.set_organizationId("organizationId");
-        data.set_creatorId("creatorId");
-        data.set_environmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setCreatorId("creatorId");
+        data.setEnvironmentId("environmentId");
         data.setTriggers(Collections.singletonList(new Trigger()));
         data.setNotificationGroupId("notificationId");
         data.setDeleted(false);
         data.setDeletedAt("deletedAt");
         data.setDeletedBy("deletedBy");
         NotificationGroup notificationGroup2 = new NotificationGroup();
-        notificationGroup2.set_id("id");
+        notificationGroup2.setId("id");
         notificationGroup2.setName("name");
-        notificationGroup2.set_environmentId("environmentId");
-        notificationGroup2.set_organizationId("organizationId");
-        notificationGroup2.set_parentId("parentId");
+        notificationGroup2.setEnvironmentId("environmentId");
+        notificationGroup2.setOrganizationId("organizationId");
+        notificationGroup2.setParentId("parentId");
         data.setNotificationGroup(notificationGroup2);
         data.setIsBlueprint(false);
         singleWorkflowResponse.setData(data);
 
-        Mockito.doReturn(singleWorkflowResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
-
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleWorkflowResponse)));
+        
         SingleWorkflowResponse response = workflowHandler.getWorkflow("workflowId");
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/workflows/workflowId", request.getPath());
+        assertEquals("GET", request.getMethod());
         assertNotNull(response);
         assertEquals(singleWorkflowResponse, response);
     }
 
-    public void test_updateWorkflowStatus() {
+    public void test_updateWorkflowStatus() throws IOException, NovuNetworkException, InterruptedException {
         SingleWorkflowResponse singleWorkflowResponse = new SingleWorkflowResponse();
         WorkflowResponse data = new WorkflowResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setDescription("Desc");
         data.setActive(false);
         data.setName("name");
@@ -252,29 +284,35 @@ public class WorkflowHandlerTest extends TestCase {
         data.setCritical(false);
         data.setTags(List.of());
         data.setSteps(List.of());
-        data.set_organizationId("organizationId");
-        data.set_creatorId("creatorId");
-        data.set_environmentId("environmentId");
+        data.setOrganizationId("organizationId");
+        data.setCreatorId("creatorId");
+        data.setEnvironmentId("environmentId");
         data.setTriggers(Collections.singletonList(new Trigger()));
         data.setNotificationGroupId("notificationId");
         data.setDeleted(false);
         data.setDeletedAt("deletedAt");
         data.setDeletedBy("deletedBy");
         NotificationGroup notificationGroup2 = new NotificationGroup();
-        notificationGroup2.set_id("id");
+        notificationGroup2.setId("id");
         notificationGroup2.setName("name");
-        notificationGroup2.set_environmentId("environmentId");
-        notificationGroup2.set_organizationId("organizationId");
-        notificationGroup2.set_parentId("parentId");
+        notificationGroup2.setEnvironmentId("environmentId");
+        notificationGroup2.setOrganizationId("organizationId");
+        notificationGroup2.setParentId("parentId");
         data.setNotificationGroup(notificationGroup2);
         data.setIsBlueprint(false);
         singleWorkflowResponse.setData(data);
 
-        Mockito.doReturn(singleWorkflowResponse).when(restHandler).handlePut(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
         UpdateWorkflowStatusRequest updateWorkflowStatusRequest = new UpdateWorkflowStatusRequest();
         updateWorkflowStatusRequest.setActive(false);
+        
+        Gson gson = new Gson();
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleWorkflowResponse)));
 
         SingleWorkflowResponse response = workflowHandler.updateWorkflowStatus("workflowId",updateWorkflowStatusRequest);
+        RecordedRequest request = mockWebServer.takeRequest();
+        
+        assertEquals("/workflows/workflowId/status", request.getPath());
+        assertEquals("PUT", request.getMethod());
         assertNotNull(response);
         assertEquals(singleWorkflowResponse, response);
     }

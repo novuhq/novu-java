@@ -1,5 +1,7 @@
 package co.novu.common.base;
 
+import java.io.IOException;
+
 import co.novu.api.blueprints.BlueprintsHandler;
 import co.novu.api.blueprints.pojos.Blueprint;
 import co.novu.api.blueprints.responses.BlueprintsByCategoryResponse;
@@ -9,6 +11,7 @@ import co.novu.api.changes.request.GetChangesRequest;
 import co.novu.api.changes.responses.ApplyChangesResponse;
 import co.novu.api.changes.responses.ChangeCountResponse;
 import co.novu.api.changes.responses.GetChangesResponse;
+import co.novu.api.common.SubscriberRequest;
 import co.novu.api.environments.EnvironmentHandler;
 import co.novu.api.environments.requests.CreateEnvironmentRequest;
 import co.novu.api.environments.requests.UpdateEnvironmentRequest;
@@ -25,8 +28,8 @@ import co.novu.api.executivedetails.ExecutiveDetailsHandler;
 import co.novu.api.executivedetails.responses.ExecutiveDetailsResponse;
 import co.novu.api.feeds.FeedsHandler;
 import co.novu.api.feeds.request.FeedRequest;
-import co.novu.api.feeds.response.FeedResponse;
 import co.novu.api.feeds.response.BulkFeedsResponse;
+import co.novu.api.feeds.response.FeedResponse;
 import co.novu.api.inboundparse.InboundParseHandler;
 import co.novu.api.inboundparse.responses.ValidateMxRecordResponse;
 import co.novu.api.integrations.IntegrationsHandler;
@@ -37,10 +40,10 @@ import co.novu.api.integrations.responses.SingleIntegrationResponse;
 import co.novu.api.layouts.LayoutHandler;
 import co.novu.api.layouts.requests.FilterLayoutRequest;
 import co.novu.api.layouts.requests.LayoutRequest;
+import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.layouts.responses.DeleteLayoutResponse;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
 import co.novu.api.layouts.responses.GetLayoutResponse;
-import co.novu.api.layouts.responses.CreateLayoutResponse;
 import co.novu.api.layouts.responses.SetDefaultLayoutResponse;
 import co.novu.api.messages.MessageHandler;
 import co.novu.api.messages.requests.MessageRequest;
@@ -52,11 +55,25 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.subscribers.SubscribersHandler;
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
+import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
+import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
+import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
+import co.novu.api.subscribers.responses.BulkSubscriberResponse;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+import co.novu.api.subscribers.responses.CreateSubscriberResponse;
 import co.novu.api.subscribers.responses.DeleteCredentialsResponse;
 import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
+import co.novu.api.subscribers.responses.SingleSubscriberResponse;
+import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
+import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
+import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
+import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.api.tenants.TenantsHandler;
 import co.novu.api.tenants.requests.GetTenantRequest;
 import co.novu.api.tenants.requests.TenantRequest;
@@ -70,25 +87,10 @@ import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
 import co.novu.api.topics.responses.DeleteTopicResponse;
+import co.novu.api.topics.responses.FilterTopicsResponse;
+import co.novu.api.topics.responses.SubscriberAdditionResponse;
 import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
-import co.novu.api.topics.responses.SubscriberAdditionResponse;
-import co.novu.api.topics.responses.FilterTopicsResponse;
-import co.novu.api.subscribers.SubscribersHandler;
-import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
-import co.novu.api.subscribers.requests.MarkSubscriberFeedAsRequest;
-import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
-import co.novu.api.common.SubscriberRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberCredentialsRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
-import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
-import co.novu.api.subscribers.responses.BulkSubscriberResponse;
-import co.novu.api.subscribers.responses.CreateSubscriberResponse;
-import co.novu.api.subscribers.responses.SingleSubscriberResponse;
-import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
-import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
-import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.api.workflowgroups.WorkflowGroupHandler;
 import co.novu.api.workflowgroups.request.WorkflowGroupRequest;
 import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
@@ -101,14 +103,15 @@ import co.novu.api.workflows.requests.WorkflowRequest;
 import co.novu.api.workflows.responses.BulkWorkflowResponse;
 import co.novu.api.workflows.responses.DeleteWorkflowResponse;
 import co.novu.api.workflows.responses.SingleWorkflowResponse;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.lang.Nullable;
 
 @Slf4j
 public class Novu {
 
     private final EventsHandler eventsHandler;
+
     private final NotificationHandler notificationHandler;
 
     private final TopicHandler topicHandler;
@@ -144,26 +147,26 @@ public class Novu {
     }
 
     public Novu(NovuConfig novuConfig) {
-        RestHandler restHandler = new RestHandler();
-        this.eventsHandler = new EventsHandler(restHandler, novuConfig);
-        this.notificationHandler = new NotificationHandler(restHandler, novuConfig);
-        this.subscribersHandler = new SubscribersHandler(restHandler, novuConfig);
-        this.topicHandler = new TopicHandler(restHandler, novuConfig);
-        this.integrationsHandler = new IntegrationsHandler(restHandler, novuConfig);
-        this.layoutHandler = new LayoutHandler(restHandler, novuConfig);
-        this.workflowHandler = new WorkflowHandler(restHandler, novuConfig);
-        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler, novuConfig);
-        this.changeHandler = new ChangeHandler(restHandler, novuConfig);
-        this.environmentHandler = new EnvironmentHandler(restHandler, novuConfig);
-        this.inboundParseHandler = new InboundParseHandler(restHandler, novuConfig);
-        this.feedsHandler = new FeedsHandler(restHandler, novuConfig);
-        this.messageHandler = new MessageHandler(restHandler, novuConfig);
-        this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
-        this.blueprintsHandler = new BlueprintsHandler(restHandler, novuConfig);
-        this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
+        RestHandler restHandler = new RestHandler(novuConfig);
+        this.eventsHandler = new EventsHandler(restHandler);
+        this.notificationHandler = new NotificationHandler(restHandler);
+        this.subscribersHandler = new SubscribersHandler(restHandler);
+        this.topicHandler = new TopicHandler(restHandler);
+        this.integrationsHandler = new IntegrationsHandler(restHandler);
+        this.layoutHandler = new LayoutHandler(restHandler);
+        this.workflowHandler = new WorkflowHandler(restHandler);
+        this.workflowGroupHandler = new WorkflowGroupHandler(restHandler);
+        this.changeHandler = new ChangeHandler(restHandler);
+        this.environmentHandler = new EnvironmentHandler(restHandler);
+        this.inboundParseHandler = new InboundParseHandler(restHandler);
+        this.feedsHandler = new FeedsHandler(restHandler);
+        this.messageHandler = new MessageHandler(restHandler);
+        this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler);
+        this.blueprintsHandler = new BlueprintsHandler(restHandler);
+        this.tenantsHandler = new TenantsHandler(restHandler);
     }
 
-    public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
+    public TriggerEventResponse triggerEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.triggerEvent(request);
         }catch (Exception e){
@@ -172,7 +175,7 @@ public class Novu {
         }
     }
 
-    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) {
+    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.bulkTriggerEvent(request);
         } catch (Exception e) {
@@ -181,7 +184,7 @@ public class Novu {
         }
     }
 
-    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) {
+    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.broadcastEvent(request);
         } catch (Exception e) {
@@ -190,7 +193,7 @@ public class Novu {
         }
     }
 
-    public CancelEventResponse cancelTriggeredEvent(String transactionId) {
+    public CancelEventResponse cancelTriggeredEvent(String transactionId) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.cancelTriggeredEvent(transactionId);
         } catch (Exception e) {
@@ -199,7 +202,7 @@ public class Novu {
         }
     }
 
-    public NotificationsResponse getNotifications(NotificationRequest request) {
+    public NotificationsResponse getNotifications(NotificationRequest request) throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotifications(request);
         } catch (Exception e) {
@@ -208,7 +211,7 @@ public class Novu {
         }
     }
 
-    public NotificationStatsResponse getNotificationsStats() {
+    public NotificationStatsResponse getNotificationsStats() throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotificationsStats();
         } catch (Exception e) {
@@ -217,7 +220,7 @@ public class Novu {
         }
     }
 
-    public NotificationGraphStatsResponse getNotificationGraphStats() {
+    public NotificationGraphStatsResponse getNotificationGraphStats() throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotificationGraphStats();
         } catch (Exception e) {
@@ -226,7 +229,7 @@ public class Novu {
         }
     }
 
-    public NotificationResponse getNotification(String notificationId) {
+    public NotificationResponse getNotification(String notificationId) throws IOException, NovuNetworkException {
         try {
             return notificationHandler.getNotification(notificationId);
         } catch (Exception e) {
@@ -235,7 +238,7 @@ public class Novu {
         }
     }
 
-    public BulkSubscriberResponse getSubscribers(@Nullable Integer page, @Nullable Integer limit) {
+    public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscribers(page, limit);
         } catch (Exception e) {
@@ -244,7 +247,7 @@ public class Novu {
         }
     }
 
-    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) {
+    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.createSubscriber(request);
         } catch (Exception e) {
@@ -253,7 +256,7 @@ public class Novu {
         }
     }
 
-    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) {
+    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.createSubscriberBulk(request);
         } catch (Exception e) {
@@ -262,7 +265,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse getSubscriber(String subscriberId) {
+    public SingleSubscriberResponse getSubscriber(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriber(subscriberId);
         } catch (Exception e) {
@@ -271,7 +274,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) {
+    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriber(request, subscriberId);
         } catch (Exception e) {
@@ -280,7 +283,7 @@ public class Novu {
         }
     }
 
-    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) {
+    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.deleteSubscriber(subscriberId);
         } catch (Exception e) {
@@ -289,7 +292,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) {
+    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriberCredentials(request, subscriberId);
         } catch (Exception e) {
@@ -298,7 +301,7 @@ public class Novu {
         }
     }
 
-    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) {
+    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.deleteSubscriberCredentials(subscriberId, providerId);
         } catch (Exception e) {
@@ -307,7 +310,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) {
+    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriberOnlineStatus(request, subscriberId);
         } catch (Exception e) {
@@ -316,7 +319,7 @@ public class Novu {
         }
     }
 
-    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) {
+    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriberPreferences(subscriberId);
         } catch (Exception e) {
@@ -325,7 +328,7 @@ public class Novu {
         }
     }
 
-    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) {
+    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.updateSubscriberPreferences(request, subscriberId, templateId);
         } catch (Exception e) {
@@ -334,7 +337,7 @@ public class Novu {
         }
     }
 
-    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) {
+    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriberNotificationsFeed(subscriberId);
         } catch (Exception e) {
@@ -343,7 +346,7 @@ public class Novu {
         }
     }
 
-    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) {
+    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.getSubscriberUnseenNotificationsCount(subscriberId);
         } catch (Exception e) {
@@ -352,7 +355,7 @@ public class Novu {
         }
     }
 
-    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) {
+    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.markSubscriberMessageFeedAs(request, subscriberId);
         } catch (Exception e) {
@@ -361,7 +364,7 @@ public class Novu {
         }
     }
 
-    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) {
+    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.markAllSubscriberMessagesFeedAs(request, subscriberId);
         } catch (Exception e) {
@@ -370,7 +373,7 @@ public class Novu {
         }
     }
 
-    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) {
+    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) throws IOException, NovuNetworkException {
         try {
             return subscribersHandler.markMessageActionAsSeen(request, subscriberId, messageId, type);
         } catch (Exception e) {
@@ -379,7 +382,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse createTopic(TopicRequest request) {
+    public TopicResponse createTopic(TopicRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.createTopic(request);
         } catch (Exception e) {
@@ -388,7 +391,7 @@ public class Novu {
         }
     }
 
-    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) {
+    public FilterTopicsResponse filterTopics(FilterTopicsRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.filterTopics(request);
         } catch (Exception e) {
@@ -397,7 +400,7 @@ public class Novu {
         }
     }
 
-    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberAdditionResponse addSubscriberToTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.addSubscriberToTopic(request, topicKey);
         } catch (Exception e) {
@@ -406,7 +409,7 @@ public class Novu {
         }
     }
 
-    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) {
+    public CheckTopicSubscriberResponse checkTopicSubscriber(String topicKey, String externalSubscriberId) throws IOException, NovuNetworkException {
         try {
             return topicHandler.checkTopicSubscriber(topicKey, externalSubscriberId);
         } catch (Exception e) {
@@ -415,7 +418,7 @@ public class Novu {
         }
     }
 
-    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) {
+    public SubscriberRemovalResponse removeSubscriberFromTopic(SubscriberAdditionRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.removeSubscriberFromTopic(request, topicKey);
         } catch (Exception e) {
@@ -424,7 +427,7 @@ public class Novu {
         }
     }
 
-    public DeleteTopicResponse deleteTopic(String topicKey) {
+    public DeleteTopicResponse deleteTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.deleteTopic(topicKey);
         } catch (Exception e) {
@@ -433,7 +436,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse getTopic(String topicKey) {
+    public TopicResponse getTopic(String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.getTopic(topicKey);
         } catch (Exception e) {
@@ -442,7 +445,7 @@ public class Novu {
         }
     }
 
-    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) {
+    public TopicResponse renameTopic(RenameTopicRequest request, String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.renameTopic(request, topicKey);
         } catch (Exception e) {
@@ -451,7 +454,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse getIntegrations() {
+    public BulkIntegrationResponse getIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getIntegrations();
         } catch (Exception e) {
@@ -460,7 +463,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse createIntegration(IntegrationRequest request) {
+    public SingleIntegrationResponse createIntegration(IntegrationRequest request) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.createIntegration(request);
         } catch (Exception e) {
@@ -469,7 +472,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse getActiveIntegrations() {
+    public BulkIntegrationResponse getActiveIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getActiveIntegrations();
         } catch (Exception e) {
@@ -478,7 +481,7 @@ public class Novu {
         }
     }
 
-    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) {
+    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getProviderWebhookStatus(providerId);
         } catch (Exception e) {
@@ -487,7 +490,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) {
+    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.updateIntegration(integrationId, request);
         } catch (Exception e) {
@@ -496,7 +499,7 @@ public class Novu {
         }
     }
 
-    public BulkIntegrationResponse deleteIntegration(String integrationId) {
+    public BulkIntegrationResponse deleteIntegration(String integrationId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.deleteIntegration(integrationId);
         } catch (Exception e) {
@@ -505,7 +508,7 @@ public class Novu {
         }
     }
 
-    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) {
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.setIntegrationAsPrimary(integrationId);
         } catch (Exception e) {
@@ -514,7 +517,7 @@ public class Novu {
         }
     }
 
-    public CreateLayoutResponse createLayout(LayoutRequest request) {
+    public CreateLayoutResponse createLayout(LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.createLayout(request);
         } catch (Exception e) {
@@ -523,7 +526,7 @@ public class Novu {
         }
     }
 
-    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) {
+    public FilterLayoutResponse filterLayout(FilterLayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.filterLayouts(request);
         } catch (Exception e) {
@@ -532,7 +535,7 @@ public class Novu {
         }
     }
 
-    public GetLayoutResponse getLayout(String layoutId) {
+    public GetLayoutResponse getLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
@@ -541,7 +544,7 @@ public class Novu {
         }
     }
 
-    public DeleteLayoutResponse deleteLayout(String layoutId) {
+    public DeleteLayoutResponse deleteLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.deleteLayout(layoutId);
         } catch (Exception e) {
@@ -550,7 +553,7 @@ public class Novu {
         }
     }
 
-    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) {
+    public GetLayoutResponse updateIntegration(String layoutId, LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.updateLayout(layoutId, request);
         } catch (Exception e) {
@@ -559,7 +562,7 @@ public class Novu {
         }
     }
 
-    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) {
+    public SetDefaultLayoutResponse setDefaultLayout(String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
         } catch (Exception e) {
@@ -568,7 +571,7 @@ public class Novu {
         }
     }
 
-    public BulkWorkflowResponse getWorkflows(Integer page, Integer limit) {
+    public BulkWorkflowResponse getWorkflows(Integer page, Integer limit) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.getWorkflows(page, limit);
         } catch (Exception e) {
@@ -577,7 +580,7 @@ public class Novu {
         }
     }
 
-    public SingleWorkflowResponse createWorkflow(WorkflowRequest request) {
+    public SingleWorkflowResponse createWorkflow(WorkflowRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.createWorkflow(request);
         } catch (Exception e) {
@@ -586,7 +589,7 @@ public class Novu {
         }
     }
 
-    public SingleWorkflowResponse updateWorkflow(String workflowId, UpdateWorkflowRequest request) {
+    public SingleWorkflowResponse updateWorkflow(String workflowId, UpdateWorkflowRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.updateWorkflow(workflowId, request);
         } catch (Exception e) {
@@ -595,7 +598,7 @@ public class Novu {
         }
     }
 
-    public DeleteWorkflowResponse deleteWorkflow(String workflowId) {
+    public DeleteWorkflowResponse deleteWorkflow(String workflowId) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.deleteWorkflow(workflowId);
         } catch (Exception e) {
@@ -604,7 +607,7 @@ public class Novu {
         }
     }
 
-    public SingleWorkflowResponse getWorkflow(String workflowId) {
+    public SingleWorkflowResponse getWorkflow(String workflowId) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.getWorkflow(workflowId);
         } catch (Exception e) {
@@ -613,7 +616,7 @@ public class Novu {
         }
     }
 
-    public SingleWorkflowResponse updateWorkflowStatus(String workflowId, UpdateWorkflowStatusRequest request) {
+    public SingleWorkflowResponse updateWorkflowStatus(String workflowId, UpdateWorkflowStatusRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.updateWorkflowStatus(workflowId, request);
         } catch (Exception e) {
@@ -622,7 +625,7 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) {
+    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) throws IOException, NovuNetworkException  {
         try {
             return workflowGroupHandler.createWorkflowGroup(request);
         } catch (Exception e) {
@@ -631,7 +634,7 @@ public class Novu {
         }
     }
 
-    public GetWorkflowGroupsResponse getWorkflowGroups() {
+    public GetWorkflowGroupsResponse getWorkflowGroups() throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroups();
         } catch (Exception e) {
@@ -640,7 +643,7 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse getWorkflowGroup(String id) {
+    public WorkflowGroupResponse getWorkflowGroup(String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroup(id);
         } catch (Exception e) {
@@ -649,7 +652,7 @@ public class Novu {
         }
     }
 
-    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) {
+    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.updateWorkflowGroup(id,request);
         } catch (Exception e) {
@@ -658,7 +661,7 @@ public class Novu {
         }
     }
 
-    public DeleteWorkflowGroup deleteWorkflowGroup(String id) {
+    public DeleteWorkflowGroup deleteWorkflowGroup(String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.deleteWorkflowGroup(id);
         } catch (Exception e) {
@@ -667,7 +670,7 @@ public class Novu {
         }
     }
 
-    public GetChangesResponse getChanges(GetChangesRequest request) {
+    public GetChangesResponse getChanges(GetChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChanges(request);
         } catch (Exception e) {
@@ -676,7 +679,7 @@ public class Novu {
         }
     }
 
-    public ChangeCountResponse getChangesCount() {
+    public ChangeCountResponse getChangesCount() throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChangesCount();
         } catch (Exception e) {
@@ -686,7 +689,7 @@ public class Novu {
     }
 
 
-    public ApplyChangesResponse applyChanges(ApplyChangesRequest request) {
+    public ApplyChangesResponse applyChanges(ApplyChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChanges(request);
         } catch (Exception e) {
@@ -695,7 +698,7 @@ public class Novu {
         }
     }
 
-    public ApplyChangesResponse applyChange(String changeId) {
+    public ApplyChangesResponse applyChange(String changeId) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChange(changeId);
         } catch (Exception e) {
@@ -704,7 +707,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse getCurrentEnvironment() {
+    public SingleEnvironmentResponse getCurrentEnvironment() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getCurrentEnvironment();
         } catch (Exception e) {
@@ -713,7 +716,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) {
+    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) throws IOException, NovuNetworkException {
         try {
             return environmentHandler.createEnvironment(request);
         } catch (Exception e) {
@@ -722,7 +725,7 @@ public class Novu {
         }
     }
 
-    public BulkEnvironmentResponse getEnvironments() {
+    public BulkEnvironmentResponse getEnvironments() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getEnvironments();
         } catch (Exception e) {
@@ -731,7 +734,7 @@ public class Novu {
         }
     }
 
-    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) {
+    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) throws IOException, NovuNetworkException {
         try {
             return environmentHandler.updateEnvironmentById(environmentId, request);
         } catch (Exception e) {
@@ -740,7 +743,7 @@ public class Novu {
         }
     }
 
-    public ApiKeyResponse getApiKeys() {
+    public ApiKeyResponse getApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getApiKeys();
         } catch (Exception e) {
@@ -749,7 +752,7 @@ public class Novu {
         }
     }
 
-    public ApiKeyResponse regenerateApiKeys() {
+    public ApiKeyResponse regenerateApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.regenerateApiKeys();
         } catch (Exception e) {
@@ -758,7 +761,7 @@ public class Novu {
         }
     }
 
-    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() {
+    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
         try {
             return inboundParseHandler.validateMxRecordSetupForInboundParse();
         } catch (Exception e) {
@@ -767,7 +770,7 @@ public class Novu {
         }
     }
 
-    public FeedResponse createFeed(FeedRequest request) {
+    public FeedResponse createFeed(FeedRequest request) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.createFeed(request);
         } catch (Exception e) {
@@ -776,7 +779,7 @@ public class Novu {
         }
     }
 
-    public BulkFeedsResponse getFeeds() {
+    public BulkFeedsResponse getFeeds() throws IOException, NovuNetworkException {
         try {
             return feedsHandler.getFeeds();
         } catch (Exception e) {
@@ -785,7 +788,7 @@ public class Novu {
         }
     }
 
-    public BulkFeedsResponse deleteFeed(String feedId) {
+    public BulkFeedsResponse deleteFeed(String feedId) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.deleteFeed(feedId);
         } catch (Exception e) {
@@ -794,7 +797,7 @@ public class Novu {
         }
     }
 
-    public MessageResponse getMessages(MessageRequest request) {
+    public MessageResponse getMessages(MessageRequest request) throws IOException, NovuNetworkException {
         try {
             return messageHandler.getMessages(request);
         } catch (Exception e) {
@@ -803,7 +806,7 @@ public class Novu {
         }
     }
 
-    public DeleteMessageResponse deleteMessage(String messageId) {
+    public DeleteMessageResponse deleteMessage(String messageId) throws IOException, NovuNetworkException {
         try {
             return messageHandler.deleteMessage(messageId);
         } catch (Exception e) {
@@ -812,7 +815,7 @@ public class Novu {
         }
     }
 
-    public ExecutiveDetailsResponse getExecutionDetails(String notificationId, String subscriberId) {
+    public ExecutiveDetailsResponse getExecutionDetails(String notificationId, String subscriberId) throws IOException, NovuNetworkException {
         try {
             return executiveDetailsHandler.getExecutionDetails(notificationId, subscriberId);
         } catch (Exception e) {
@@ -821,7 +824,7 @@ public class Novu {
         }
     }
 
-    public BlueprintsByCategoryResponse getBlueprintsByCategory() {
+    public BlueprintsByCategoryResponse getBlueprintsByCategory() throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprintsByCategory();
         } catch (Exception e) {
@@ -830,7 +833,7 @@ public class Novu {
         }
     }
 
-    public Blueprint getBlueprint(String templateId) {
+    public Blueprint getBlueprint(String templateId) throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprint(templateId);
         } catch (Exception e) {
@@ -839,7 +842,7 @@ public class Novu {
         }
     }
 
-    public BulkTenantResponse getTenants(GetTenantRequest request) {
+    public BulkTenantResponse getTenants(GetTenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenants(request);
         } catch (Exception e) {
@@ -848,7 +851,7 @@ public class Novu {
         }
     }
 
-    public TenantResponse createTenant(TenantRequest request) {
+    public TenantResponse createTenant(TenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.createTenant(request);
         } catch (Exception e) {
@@ -857,7 +860,7 @@ public class Novu {
         }
     }
 
-    public TenantResponse getTenant(String identifier) {
+    public TenantResponse getTenant(String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenant(identifier);
         } catch (Exception e) {
@@ -866,7 +869,7 @@ public class Novu {
         }
     }
 
-    public TenantResponse updateTenant(TenantRequest request, String identifier) {
+    public TenantResponse updateTenant(TenantRequest request, String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.updateTenant(request, identifier);
         } catch (Exception e) {
@@ -875,7 +878,7 @@ public class Novu {
         }
     }
 
-    public DeleteTenantResponse deleteTenant(String identifier) {
+    public DeleteTenantResponse deleteTenant(String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.deleteTenant(identifier);
         } catch (Exception e) {

@@ -26,44 +26,61 @@ import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
 import co.novu.api.subscribers.responses.SubscriberResponse;
 import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
 import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
+import com.google.gson.Gson;
 import junit.framework.TestCase;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.mockito.Mockito;
 
+import java.io.IOException;
 import java.util.List;
+
+import static org.junit.Assert.assertThrows;
 
 public class SubscribersHandlerTest extends TestCase {
 
-    private RestHandler restHandler;
-
     private SubscribersHandler subscribersHandler;
+
+    private MockWebServer mockWebServer;
+    Gson gson = new Gson();
+
     @Override
     protected void setUp() {
-        restHandler = Mockito.mock(RestHandler.class);
-        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
-        subscribersHandler = Mockito.spy(new SubscribersHandler(restHandler, novuConfig));
+        mockWebServer = new MockWebServer();
+        NovuConfig novuConfig = new NovuConfig("1234");
+        novuConfig.setBaseUrl(mockWebServer.url("").toString());
+        RestHandler restHandler = new RestHandler(novuConfig);
+        subscribersHandler = new SubscribersHandler(restHandler);
     }
 
-    public void test_getSubscribersWithValidParams() {
+    public void test_getSubscribersWithValidParams() throws IOException, NovuNetworkException, InterruptedException {
         BulkSubscriberResponse bulkSubscriberResponse = new BulkSubscriberResponse();
         bulkSubscriberResponse.setPage(1L);
         bulkSubscriberResponse.setPageSize(10L);
         bulkSubscriberResponse.setTotalCount(100L);
         bulkSubscriberResponse.setData(List.of(new SubscriberResponse()));
 
-        Mockito.doReturn(bulkSubscriberResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
 
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(bulkSubscriberResponse)));
         BulkSubscriberResponse response = subscribersHandler.getSubscribers(1, 10);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers?limit=10&page=1", request.getPath());
+        assertEquals("GET", request.getMethod());
         assertEquals(bulkSubscriberResponse, response);
-        Mockito.verify(restHandler, Mockito.atLeastOnce()).handleGet(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
     }
 
-    public void test_getSubscribersWithNullParams() {
+    public void test_getSubscribersWithNullParams() throws IOException, NovuNetworkException, InterruptedException {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(new SubscriberResponse())));
         subscribersHandler.getSubscribers(null, null);
-        Mockito.verify(restHandler, Mockito.atLeastOnce()).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers", request.getPath());
+        assertEquals("GET", request.getMethod());
     }
 
-    public void test_createSubscriber() {
+    public void test_createSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         SubscriberRequest subscriberRequest = new SubscriberRequest();
         subscriberRequest.setFirstName("fName");
         subscriberRequest.setLastName("lName");
@@ -77,14 +94,16 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberResponse.setIsOnline(true);
         createSubscriberResponse.setData(subscriberResponse);
 
-        Mockito.doReturn(createSubscriberResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
-
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(createSubscriberResponse)));
         CreateSubscriberResponse response = subscribersHandler.createSubscriber(subscriberRequest);
         assertNotNull(response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers", request.getPath());
+        assertEquals("POST", request.getMethod());
         assertEquals(createSubscriberResponse, response);
     }
 
-    public void test_createSubscriberBulk() {
+    public void test_createSubscriberBulk() throws IOException, NovuNetworkException, InterruptedException {
         SubscriberRequest subscriberRequest = new SubscriberRequest();
         subscriberRequest.setFirstName("fName");
         subscriberRequest.setLastName("lName");
@@ -96,16 +115,18 @@ public class SubscribersHandlerTest extends TestCase {
 
         CreateBulkSubscriberResponse createSubscriberResponse = new CreateBulkSubscriberResponse();
         createSubscriberResponse.setCreated(List.of("sId"));
-
-        Mockito.doReturn(createSubscriberResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(createSubscriberResponse)));
 
         CreateBulkSubscriberResponse response = subscribersHandler.createSubscriberBulk(bulkSubscriberRequest);
         assertNotNull(response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers/bulk", request.getPath());
+        assertEquals("POST", request.getMethod());
         assertEquals(createSubscriberResponse, response);
         assertFalse(response.getCreated().isEmpty());
     }
 
-    public void test_getSubscriber() {
+    public void test_getSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         SingleSubscriberResponse singleSubscriberResponse = new SingleSubscriberResponse();
         SubscriberResponse subscriberResponse = new SubscriberResponse();
         subscriberResponse.setSubscriberId("12345");
@@ -114,14 +135,17 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberResponse.setIsOnline(true);
         singleSubscriberResponse.setData(subscriberResponse);
 
-        Mockito.doReturn(singleSubscriberResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleSubscriberResponse)));
 
         SingleSubscriberResponse response = subscribersHandler.getSubscriber("id");
         assertNotNull(response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id", request.getPath());
+        assertEquals("GET", request.getMethod());
         assertEquals(singleSubscriberResponse, response);
     }
 
-    public void test_updateSubscriber() {
+    public void test_updateSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         UpdateSubscriberRequest request = new UpdateSubscriberRequest();
         request.setFirstName("name");
         request.setLastName("lName");
@@ -134,28 +158,35 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberResponse.setIsOnline(true);
         singleSubscriberResponse.setData(subscriberResponse);
 
-        Mockito.doReturn(singleSubscriberResponse).when(restHandler).handlePut(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleSubscriberResponse)));
 
-        SingleSubscriberResponse response = subscribersHandler.updateSubscriber(request, "id");
+        SingleSubscriberResponse response = subscribersHandler.updateSubscriber(request, "up-id");
         assertNotNull(response);
+        RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/up-id", recordedRequest.getPath());
+        assertEquals("PUT", recordedRequest.getMethod());
         assertEquals(singleSubscriberResponse, response);
     }
 
-    public void test_deleteSubscriber() {
+    public void test_deleteSubscriber() throws IOException, NovuNetworkException, InterruptedException {
         SubscriberDeleteResponse subscriberDeleteResponse = new SubscriberDeleteResponse();
         DeleteResponse deleteResponse = new DeleteResponse();
         deleteResponse.setAcknowledged(true);
         deleteResponse.setStatus("done");
         subscriberDeleteResponse.setData(deleteResponse);
 
-        Mockito.doReturn(subscriberDeleteResponse).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(subscriberDeleteResponse)));
 
-        SubscriberDeleteResponse response = subscribersHandler.deleteSubscriber("id");
+        SubscriberDeleteResponse response = subscribersHandler.deleteSubscriber("del-id");
         assertNotNull(response);
+
+        RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/del-id", recordedRequest.getPath());
+        assertEquals("DELETE", recordedRequest.getMethod());
         assertEquals(subscriberDeleteResponse, response);
     }
 
-    public void test_updateSubscriberCredentials() {
+    public void test_updateSubscriberCredentials() throws IOException, NovuNetworkException, InterruptedException {
         UpdateSubscriberCredentialsRequest request = new UpdateSubscriberCredentialsRequest();
         request.setProviderId("pId");
 
@@ -167,29 +198,39 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberResponse.setIsOnline(true);
         singleSubscriberResponse.setData(subscriberResponse);
 
-        Mockito.doReturn(singleSubscriberResponse).when(restHandler).handlePut(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleSubscriberResponse)));
 
         SingleSubscriberResponse response = subscribersHandler.updateSubscriberCredentials(request, "id");
         assertNotNull(response);
+        RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/credentials", recordedRequest.getPath());
+        assertEquals("PUT", recordedRequest.getMethod());
         assertEquals(singleSubscriberResponse, response);
     }
 
-    public void test_deleteSubscriberCredentialsFailure() {
-        Mockito.doReturn(false).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+    public void test_deleteSubscriberCredentialsFailure() throws IOException, InterruptedException, NovuNetworkException {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(400).setBody("{}"));
 
-        DeleteCredentialsResponse response = subscribersHandler.deleteSubscriberCredentials("sId", "pId");
-        assertNull(response);
+        assertThrows(NovuNetworkException.class,
+            () -> subscribersHandler.deleteSubscriberCredentials("sId", "pId"));
+        
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers/sId/credentials/pId", request.getPath());
+        assertEquals("DELETE", request.getMethod());
     }
 
-    public void test_deleteSubscriberCredentialsSuccess() {
-        Mockito.doReturn(true).when(restHandler).handleDeleteForVoid(Mockito.any(), Mockito.any());
+    public void test_deleteSubscriberCredentialsSuccess() throws IOException, InterruptedException, NovuNetworkException {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody("{}"));
 
         DeleteCredentialsResponse response = subscribersHandler.deleteSubscriberCredentials("sId", "pId");
         assertNotNull(response);
+        RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers/sId/credentials/pId", request.getPath());
+        assertEquals("DELETE", request.getMethod());
         assertTrue(response.getAcknowledged());
     }
 
-    public void test_updateSubscriberOnlineStatus() {
+    public void test_updateSubscriberOnlineStatus() throws IOException, NovuNetworkException, InterruptedException {
         UpdateSubscriberOnlineStatusRequest request = new UpdateSubscriberOnlineStatusRequest();
         request.setIsOnline(true);
 
@@ -201,14 +242,17 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberResponse.setIsOnline(true);
         singleSubscriberResponse.setData(subscriberResponse);
 
-        Mockito.doReturn(singleSubscriberResponse).when(restHandler).handlePatch(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(singleSubscriberResponse)));
 
         SingleSubscriberResponse response = subscribersHandler.updateSubscriberOnlineStatus(request, "id");
         assertNotNull(response);
+        RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/online-status", recordedRequest.getPath());
+        assertEquals("PATCH", recordedRequest.getMethod());
         assertEquals(singleSubscriberResponse, response);
     }
 
-    public void test_getSubscriberPreferences() {
+    public void test_getSubscriberPreferences() throws IOException, NovuNetworkException, InterruptedException {
         SubscriberPreferenceResponse preferenceResponse = new SubscriberPreferenceResponse();
         SubscriberPreference subscriberPreference = new SubscriberPreference();
         Preference preference = new Preference();
@@ -216,14 +260,17 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberPreference.setPreference(preference);
         preferenceResponse.setData(List.of(subscriberPreference));
 
-        Mockito.doReturn(preferenceResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(preferenceResponse)));
 
         SubscriberPreferenceResponse response = subscribersHandler.getSubscriberPreferences("id");
         assertNotNull(response);
+        final RecordedRequest request = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/preferences", request.getPath());
+        assertEquals("GET", request.getMethod());
         assertEquals(preferenceResponse, response);
     }
 
-    public void test_updateSubscriberPreferences() {
+    public void test_updateSubscriberPreferences() throws IOException, NovuNetworkException, InterruptedException {
         UpdateSubscriberPreferenceRequest request = new UpdateSubscriberPreferenceRequest();
         request.setEnabled(false);
 
@@ -234,14 +281,17 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberPreference.setPreference(preference);
         preferenceResponse.setData(subscriberPreference);
 
-        Mockito.doReturn(preferenceResponse).when(restHandler).handlePatch(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(preferenceResponse)));
 
         SingleSubscriberPrefResponse response = subscribersHandler.updateSubscriberPreferences(request, "sId", "tId");
         assertNotNull(response);
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/sId/preferences/tId", recordedRequest.getPath());
+        assertEquals("PATCH", recordedRequest.getMethod());
         assertEquals(preferenceResponse, response);
     }
 
-    public void test_getSubscriberNotificationsFeed() {
+    public void test_getSubscriberNotificationsFeed() throws InterruptedException, IOException, NovuNetworkException {
         SubscriberNotificationResponse notificationResponse = new SubscriberNotificationResponse();
         notificationResponse.setPage(1L);
         notificationResponse.setPageSize(10L);
@@ -251,25 +301,31 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberNotification.setChannel("PUSH");
         notificationResponse.setData(List.of(subscriberNotification));
 
-        Mockito.doReturn(notificationResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(notificationResponse)));
 
         SubscriberNotificationResponse response = subscribersHandler.getSubscriberNotificationsFeed("id");
         assertNotNull(response);
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/notifications/feed", recordedRequest.getPath());
+        assertEquals("GET", recordedRequest.getMethod());
         assertEquals(notificationResponse, response);
     }
 
-    public void test_getSubscriberUnseenNotificationsCount() {
+    public void test_getSubscriberUnseenNotificationsCount() throws IOException, NovuNetworkException, InterruptedException {
         UnseenNotificationsCountResponse notificationsCountResponse = new UnseenNotificationsCountResponse();
         notificationsCountResponse.setData(20L);
 
-        Mockito.doReturn(notificationsCountResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(notificationsCountResponse)));
 
         UnseenNotificationsCountResponse response = subscribersHandler.getSubscriberUnseenNotificationsCount("id");
         assertNotNull(response);
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/notifications/unseen", recordedRequest.getPath());
+        assertEquals("GET", recordedRequest.getMethod());
         assertEquals(notificationsCountResponse, response);
     }
 
-    public void test_markSubscriberMessageFeedAs() {
+    public void test_markSubscriberMessageFeedAs() throws IOException, NovuNetworkException, InterruptedException {
         MarkSubscriberFeedAsRequest request = new MarkSubscriberFeedAsRequest();
         Mark mark = new Mark();
         mark.setRead(true);
@@ -285,26 +341,32 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberNotification.setChannel("PUSH");
         notificationResponse.setData(List.of(subscriberNotification));
 
-        Mockito.doReturn(notificationResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(notificationResponse)));
 
         SubscriberNotificationResponse response = subscribersHandler.markSubscriberMessageFeedAs(request, "id");
         assertNotNull(response);
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/messages/markAs", recordedRequest.getPath());
+        assertEquals("POST", recordedRequest.getMethod());
         assertEquals(notificationResponse, response);
     }
 
-    public void test_markAllSubscriberMessagesFeedAs() {
+    public void test_markAllSubscriberMessagesFeedAs() throws IOException, NovuNetworkException, InterruptedException {
         MarkAllMessagesRequest request = new MarkAllMessagesRequest();
         request.setFeedIdentifier("fId");
         request.setMarkAs("read");
 
-        Mockito.doReturn(20L).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(20L)));
 
         Long response = subscribersHandler.markAllSubscriberMessagesFeedAs(request, "id");
         assertNotNull(response);
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/id/messages/mark-all", recordedRequest.getPath());
+        assertEquals("POST", recordedRequest.getMethod());
         assertEquals((Long) 20L, response);
     }
 
-    public void test_markMessageActionAsSeen() {
+    public void test_markMessageActionAsSeen() throws IOException, NovuNetworkException, InterruptedException {
         MarkMessageActionAsSeenRequest request = new MarkMessageActionAsSeenRequest();
         request.setStatus("read");
 
@@ -317,10 +379,13 @@ public class SubscribersHandlerTest extends TestCase {
         subscriberNotification.setChannel("PUSH");
         notificationResponse.setData(List.of(subscriberNotification));
 
-        Mockito.doReturn(notificationResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(notificationResponse)));
 
         SubscriberNotificationResponse response = subscribersHandler.markMessageActionAsSeen(new MarkMessageActionAsSeenRequest(), "sId", "mId", "type");
         assertNotNull(response);
+        final RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("/subscribers/sId/messages/mId/actions/type", recordedRequest.getPath());
+        assertEquals("POST", recordedRequest.getMethod());
         assertEquals(notificationResponse, response);
     }
 }

@@ -1,25 +1,28 @@
 package co.novu.api.messages;
 
-import co.novu.api.messages.requests.MessageRequest;
-import co.novu.api.messages.responses.DeleteMessageResponse;
-import co.novu.api.messages.responses.MessageResponse;
-import co.novu.common.base.NovuConfig;
-import co.novu.common.rest.RestHandler;
-import lombok.RequiredArgsConstructor;
-
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequiredArgsConstructor
+import co.novu.api.messages.requests.MessageRequest;
+import co.novu.api.messages.responses.DeleteMessageResponse;
+import co.novu.api.messages.responses.MessageResponse;
+import co.novu.common.rest.NovuNetworkException;
+import co.novu.common.rest.RestHandler;
+import retrofit2.Response;
+
 public class MessageHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
+    private final MessageApi messageApi;
 
-    private static final String ENDPOINT = "messages";
+    public MessageHandler(RestHandler restHandler) {
+    	this.restHandler = restHandler;
+    	this.messageApi = restHandler.buildRetrofit().create(MessageApi.class);
+    }
 
-    public MessageResponse getMessages(MessageRequest request) {
+    public MessageResponse getMessages(MessageRequest request) throws NovuNetworkException, IOException {
         Map<String, Object> params = new HashMap<>();
         if (request.getChannel() != null) params.put("channel", request.getChannel());
         if (request.getSubscriberId() != null) params.put("subscriberId", request.getSubscriberId());
@@ -27,13 +30,12 @@ public class MessageHandler {
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getLimit() != null) params.put("limit", request.getLimit());
 
-        if (params.isEmpty()) {
-            return restHandler.handleGet(MessageResponse.class, novuConfig, ENDPOINT);
-        }
-        return restHandler.handleGet(MessageResponse.class, novuConfig, ENDPOINT, params);
+        Response<MessageResponse> response = messageApi.getMessages(params).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public DeleteMessageResponse deleteMessage(String messageId) {
-        return restHandler.handleDelete(DeleteMessageResponse.class, novuConfig, ENDPOINT + "/" + messageId);
+    public DeleteMessageResponse deleteMessage(String messageId) throws IOException, NovuNetworkException {
+    	Response<DeleteMessageResponse> response = messageApi.deleteMessage(messageId).execute();
+        return restHandler.extractResponse(response);
     }
 }
