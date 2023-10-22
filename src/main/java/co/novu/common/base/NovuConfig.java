@@ -14,10 +14,10 @@ public class NovuConfig {
 	private String apiKey;
     private String baseUrl = "https://api.novu.co/v1/";
     
-    private int maxRetries = 3;
-    private int minRetryDelayMillis = 500; // 500 milli seconds
-    private int maxRetryDelayMillis = 60000; // 60 seconds
-    private int initialRetryDelayMillis = 1000; // 1 second
-    private boolean enableRetry = true; // To enable/disable retry logic
-    private boolean enableIdempotencyKey = true; // To enable/disable idempotency key
+    private int maxRetries = 0;
+    private int minRetryDelayMillis = 1000; // 1 second
+    private int maxRetryDelayMillis = 2000; // 2 second
+    private int initialRetryDelayMillis = 500; // 500 milli second
+    private boolean enableRetry = false; // To enable/disable retry logic
+    private boolean enableIdempotencyKey = false; // To enable/disable idempotency key
 }
