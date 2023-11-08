@@ -52,6 +52,17 @@ import co.novu.api.notifications.responses.NotificationGraphStatsResponse;
 import co.novu.api.notifications.responses.NotificationResponse;
 import co.novu.api.notifications.responses.NotificationStatsResponse;
 import co.novu.api.notifications.responses.NotificationsResponse;
+import co.novu.api.organizations.OrganizationHandler;
+import co.novu.api.organizations.requests.CreateOrganizationRequest;
+import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
+import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
+import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
+import co.novu.api.organizations.responses.FetchMembersResponse;
+import co.novu.api.organizations.responses.UpdateOrganizationBrandResponse;
+import co.novu.api.organizations.responses.MemberResponse;
+import co.novu.api.organizations.responses.OrganizationResponse;
+import co.novu.api.organizations.responses.FetchOrganizationResponse;
+import co.novu.api.organizations.responses.UpdateOrganizationNameResponse;
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
@@ -139,6 +150,8 @@ public class Novu {
 
     private final TenantsHandler tenantsHandler;
 
+    private final OrganizationHandler organizationHandler;
+
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
     }
@@ -161,6 +174,7 @@ public class Novu {
         this.executiveDetailsHandler = new ExecutiveDetailsHandler(restHandler, novuConfig);
         this.blueprintsHandler = new BlueprintsHandler(restHandler, novuConfig);
         this.tenantsHandler = new TenantsHandler(restHandler, novuConfig);
+        this.organizationHandler = new OrganizationHandler(restHandler, novuConfig);
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
@@ -883,4 +897,80 @@ public class Novu {
             throw e;
         }
     }
+
+    public OrganizationResponse createOrganization(CreateOrganizationRequest request) {
+        try {
+            return organizationHandler.createOrganization(request);
+        } catch (Exception e) {
+            log.error("Error creating Organization", e);
+            throw e;
+        }
+    }
+
+    public FetchOrganizationResponse fetchAllOrganizations() {
+        try {
+            return organizationHandler.fetchAllOrganizations();
+        } catch (Exception e) {
+            log.error("Error fetching Organizations", e);
+            throw e;
+        }
+    }
+
+    public UpdateOrganizationNameResponse updateOrganizationName(UpdateOrganizationNameRequest request) {
+        try {
+            return organizationHandler.updateOrganizationName(request);
+        } catch (Exception e) {
+            log.error("Error Updating Organization Name", e);
+            throw e;
+        }
+    }
+
+    public OrganizationResponse fetchCurrentOrganization() {
+        try {
+            return organizationHandler.fetchCurrentOrganization();
+        } catch (Exception e) {
+            log.error("Error Fetching Current Organization", e);
+            throw e;
+        }
+    }
+
+    public MemberResponse removeMemberWithId(String memberId) {
+        try {
+            return organizationHandler.removeMemberWithId(memberId);
+        } catch (Exception e) {
+            log.error("Error Removing Member With MemberId", e);
+            throw e;
+        }
+    }
+
+    public MemberResponse updateMemberRole(UpdateMemberRoleRequest request,String memberId) {
+        try {
+            return organizationHandler.updateMemberRole(request,memberId);
+        } catch (Exception e) {
+            log.error("Error Updating Member Role", e);
+            throw e;
+        }
+    }
+
+    public FetchMembersResponse fetchMembersOfOrganization() {
+        try {
+            return organizationHandler.fetchMembersOfOrganization();
+        } catch (Exception e) {
+            log.error("Error Fetching Organization Members", e);
+            throw e;
+        }
+    }
+
+    public UpdateOrganizationBrandResponse UpdateOrganizationBrand(UpdateOrganizationBrandRequest request) {
+        try {
+            return organizationHandler.updateOrganizationBrand(request);
+        } catch (Exception e) {
+            log.error("Error Updating Organization Brand", e);
+            throw e;
+        }
+    }
+
+
+
+
 }

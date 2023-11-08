@@ -1,0 +1,270 @@
+package co.novu.api.organizations;
+
+
+import co.novu.api.organizations.pojos.Branding;
+import co.novu.api.organizations.pojos.InviteDetails;
+import co.novu.api.organizations.pojos.PartnerConfigurations;
+import co.novu.api.organizations.pojos.UserDetails;
+import co.novu.api.organizations.requests.CreateOrganizationRequest;
+import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
+import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
+import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
+import co.novu.api.organizations.responses.FetchMembersResponse;
+import co.novu.api.organizations.responses.UpdateOrganizationBrandResponse;
+import co.novu.api.organizations.responses.MemberResponse;
+import co.novu.api.organizations.responses.OrganizationResponseData;
+import co.novu.api.organizations.responses.UpdateOrganizationNameResponseData;
+import co.novu.api.organizations.responses.MemberResponseData;
+import co.novu.api.organizations.responses.OrganizationResponse;
+import co.novu.api.organizations.responses.FetchOrganizationResponse;
+import co.novu.api.organizations.responses.UpdateOrganizationNameResponse;
+import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.RestHandler;
+import junit.framework.TestCase;
+import org.mockito.Mockito;
+
+import java.util.List;
+
+public class OrganizationHandlerTest extends TestCase {
+
+    private RestHandler restHandler;
+
+    private OrganizationHandler organizationHandler;
+
+    @Override
+    protected void setUp() {
+        restHandler = Mockito.mock(RestHandler.class);
+        NovuConfig novuConfig = Mockito.mock(NovuConfig.class);
+        organizationHandler = Mockito.spy(new OrganizationHandler(restHandler, novuConfig));
+    }
+
+    public void test_createOrganization() {
+        CreateOrganizationRequest request = new CreateOrganizationRequest();
+        request.setName("name");
+        request.setLogo("logo");
+
+
+        OrganizationResponse organizationResponse = new OrganizationResponse();
+        OrganizationResponseData data = new OrganizationResponseData();
+        data.setName("id");
+        data.setLogo("name");
+        Branding branding = new Branding();
+        branding.setDirection("direction");
+        branding.setLogo("logo");
+        branding.setColor("color");
+        branding.setFontColor("fontColor");
+        branding.setContentBackground("contentBackground");
+        branding.setFontFamily("fontFamily");
+        data.setBranding(branding);
+        PartnerConfigurations partnerConfigurations = new PartnerConfigurations();
+        partnerConfigurations.setProjectIds(List.of());
+        partnerConfigurations.setAccessToken("accessToken");
+        partnerConfigurations.setConfigurationId("configurationId");
+        partnerConfigurations.setTeamId("teamId");
+        partnerConfigurations.setPartnerType("partnerType");
+        data.setPartnerConfigurations(List.of(partnerConfigurations));
+        organizationResponse.setData(data);
+
+        Mockito.doReturn(organizationResponse).when(restHandler).handlePost(Mockito.any(), Mockito.any(), Mockito.any(), Mockito.any());
+
+        OrganizationResponse response = organizationHandler.createOrganization(request);
+        assertNotNull(response);
+        assertEquals(organizationResponse, response);
+    }
+
+    public void test_fetchAllOrganizations() {
+        FetchOrganizationResponse fetchOrganizationResponse = new FetchOrganizationResponse();
+        OrganizationResponseData data = new OrganizationResponseData();
+        data.setName("id");
+        data.setLogo("name");
+        Branding branding = new Branding();
+        branding.setDirection("direction");
+        branding.setLogo("logo");
+        branding.setColor("color");
+        branding.setFontColor("fontColor");
+        branding.setContentBackground("contentBackground");
+        branding.setFontFamily("fontFamily");
+        data.setBranding(branding);
+        PartnerConfigurations partnerConfigurations = new PartnerConfigurations();
+        partnerConfigurations.setProjectIds(List.of());
+        partnerConfigurations.setAccessToken("accessToken");
+        partnerConfigurations.setConfigurationId("configurationId");
+        partnerConfigurations.setTeamId("teamId");
+        partnerConfigurations.setPartnerType("partnerType");
+        data.setPartnerConfigurations(List.of(partnerConfigurations));
+        fetchOrganizationResponse.setData(List.of(data));
+
+        Mockito.doReturn(fetchOrganizationResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+
+        FetchOrganizationResponse response = organizationHandler.fetchAllOrganizations();
+        assertNotNull(response);
+        assertEquals(fetchOrganizationResponse, response);
+    }
+
+    public void test_updateOrganizationName() {
+        UpdateOrganizationNameRequest updateOrganizationNameRequest = new UpdateOrganizationNameRequest();
+        updateOrganizationNameRequest.setName("name");
+
+        UpdateOrganizationNameResponse updateOrganizationNameResponse = new UpdateOrganizationNameResponse();
+        UpdateOrganizationNameResponseData data = new UpdateOrganizationNameResponseData();
+        data.setName("name");
+        updateOrganizationNameResponse.setData(data);
+        Mockito.doReturn(updateOrganizationNameResponse).when(restHandler).handlePatch(Mockito.any(),Mockito.any(), Mockito.any(), Mockito.any());
+
+        UpdateOrganizationNameResponse response = organizationHandler.updateOrganizationName(updateOrganizationNameRequest);
+        assertNotNull(response);
+        assertEquals(updateOrganizationNameResponse, response);
+    }
+
+    public void test_fetchCurrentOrganization() {
+        OrganizationResponse organizationResponse = new OrganizationResponse();
+        OrganizationResponseData data = new OrganizationResponseData();
+        data.setName("id");
+        data.setLogo("name");
+        Branding branding = new Branding();
+        branding.setDirection("direction");
+        branding.setLogo("logo");
+        branding.setColor("color");
+        branding.setFontColor("fontColor");
+        branding.setContentBackground("contentBackground");
+        branding.setFontFamily("fontFamily");
+        data.setBranding(branding);
+        PartnerConfigurations partnerConfigurations = new PartnerConfigurations();
+        partnerConfigurations.setProjectIds(List.of());
+        partnerConfigurations.setAccessToken("accessToken");
+        partnerConfigurations.setConfigurationId("configurationId");
+        partnerConfigurations.setTeamId("teamId");
+        partnerConfigurations.setPartnerType("partnerType");
+        data.setPartnerConfigurations(List.of(partnerConfigurations));
+        organizationResponse.setData(data);
+
+        Mockito.doReturn(organizationResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+
+        OrganizationResponse response = organizationHandler.fetchCurrentOrganization();
+        assertNotNull(response);
+        assertEquals(organizationResponse, response);
+    }
+
+    public void test_removeMemberWithId() {
+        MemberResponse memberResponse = new MemberResponse();
+        MemberResponseData data = new MemberResponseData();
+        data.set_id("id");
+        data.set_userId("userId");
+        UserDetails user = new UserDetails();
+        user.set_id("id");
+        user.setFirstName("firstName");
+        user.setLastName("lastname");
+        user.setEmail("email");
+        data.setUser(user);
+        data.setRoles(List.of());
+        InviteDetails invite = new InviteDetails();
+        invite.setEmail("email");
+        invite.setToken("token");
+        invite.setInvitationDate("invitationDate");
+        invite.setAnswerDate("answerDate");
+        invite.set_inviterId("InviterId");
+        data.setInvite(invite);
+        data.setMemberStatus("memberStatus");
+        data.set_organizationId("organizationId");
+        memberResponse.setData(data);
+
+        Mockito.doReturn(memberResponse).when(restHandler).handleDelete(Mockito.any(), Mockito.any(), Mockito.any());
+
+        MemberResponse response = organizationHandler.removeMemberWithId("memberId");
+        assertNotNull(response);
+        assertEquals(memberResponse, response);
+    }
+
+    public void test_updateMemberRole() {
+        UpdateMemberRoleRequest memberRoleRequest = new UpdateMemberRoleRequest();
+        memberRoleRequest.setRole("admin");
+
+        MemberResponse memberResponse = new MemberResponse();
+        MemberResponseData data = new MemberResponseData();
+        data.set_id("id");
+        data.set_userId("userId");
+        UserDetails user = new UserDetails();
+        user.set_id("id");
+        user.setFirstName("firstName");
+        user.setLastName("lastname");
+        user.setEmail("email");
+        data.setUser(user);
+        data.setRoles(List.of());
+        InviteDetails invite = new InviteDetails();
+        invite.setEmail("email");
+        invite.setToken("token");
+        invite.setInvitationDate("invitationDate");
+        invite.setAnswerDate("answerDate");
+        invite.set_inviterId("InviterId");
+        data.setInvite(invite);
+        data.setMemberStatus("memberStatus");
+        data.set_organizationId("organizationId");
+        memberResponse.setData(data);
+
+        Mockito.doReturn(memberResponse).when(restHandler).handlePut(Mockito.any(), Mockito.any(), Mockito.any(),Mockito.any());
+
+        MemberResponse response = organizationHandler.updateMemberRole(memberRoleRequest, "memberId");
+        assertNotNull(response);
+        assertEquals(memberResponse, response);
+    }
+
+    public void test_fetchMembersOfOrganization() {
+        FetchMembersResponse membersResponse = new FetchMembersResponse();
+        MemberResponseData data = new MemberResponseData();
+        data.set_id("id");
+        data.set_userId("userId");
+        UserDetails user = new UserDetails();
+        user.set_id("id");
+        user.setFirstName("firstName");
+        user.setLastName("lastname");
+        user.setEmail("email");
+        data.setUser(user);
+        data.setRoles(List.of());
+        InviteDetails invite = new InviteDetails();
+        invite.setEmail("email");
+        invite.setToken("token");
+        invite.setInvitationDate("invitationDate");
+        invite.setAnswerDate("answerDate");
+        invite.set_inviterId("InviterId");
+        data.setInvite(invite);
+        data.setMemberStatus("memberStatus");
+        data.set_organizationId("organizationId");
+        membersResponse.setData(List.of(data));
+
+        Mockito.doReturn(membersResponse).when(restHandler).handleGet(Mockito.any(), Mockito.any(), Mockito.any());
+
+        FetchMembersResponse response = organizationHandler.fetchMembersOfOrganization();
+        assertNotNull(response);
+        assertEquals(membersResponse, response);
+    }
+
+    public void test_updateOrganizationBrand() {
+        UpdateOrganizationBrandRequest brandRequest = new UpdateOrganizationBrandRequest();
+        brandRequest.setLogo("logo");
+        brandRequest.setColor("color");
+        brandRequest.setFontColor("fontColor");
+        brandRequest.setContentBackground("contentBackground");
+        brandRequest.setFontFamily("fontFamily");
+
+        UpdateOrganizationBrandResponse brandResponse = new UpdateOrganizationBrandResponse();
+        Branding data = new Branding();
+        data.setDirection("direction");
+        data.setLogo("logo");
+        data.setColor("color");
+        data.setFontColor("fontColor");
+        data.setContentBackground("contentBackground");
+        data.setFontFamily("fontFamily");
+        brandResponse.setData(data);
+
+        Mockito.doReturn(brandResponse).when(restHandler).handlePut(Mockito.any(), Mockito.any(), Mockito.any(),Mockito.any());
+
+        UpdateOrganizationBrandResponse response = organizationHandler.updateOrganizationBrand(brandRequest);
+        assertNotNull(response);
+        assertEquals(brandResponse, response);
+    }
+
+
+
+
+
+}
