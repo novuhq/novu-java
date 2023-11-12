@@ -2,19 +2,23 @@ package co.novu.api.organizations.responses;
 
 import co.novu.api.organizations.pojos.InviteDetails;
 import co.novu.api.organizations.pojos.UserDetails;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class MemberResponseData {
-    private String _id;
-    private String _userId;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("_userId")
+    private String userId;
     private UserDetails user;
     private List<String> roles;
     private InviteDetails invite;
     private String memberStatus;
-    private String _organizationId;
+    @SerializedName("_organizationId")
+    private String organizationId;
 
 }
 

@@ -6,6 +6,6 @@ import lombok.Data;
 
 
 @Data
-public class UpdateOrganizationBrandResponse {
+public class updateOrganizationBrand {
     private Branding data;
 }

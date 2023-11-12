@@ -5,13 +5,19 @@ import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
 import co.novu.api.organizations.responses.FetchMembersResponse;
-import co.novu.api.organizations.responses.UpdateOrganizationBrandResponse;
+import co.novu.api.organizations.responses.updateOrganizationBrand;
 import co.novu.api.organizations.responses.MemberResponse;
 import co.novu.api.organizations.responses.OrganizationResponse;
 import co.novu.api.organizations.responses.FetchOrganizationResponse;
 import co.novu.api.organizations.responses.UpdateOrganizationNameResponse;
 import retrofit2.Call;
-import retrofit2.http.*;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
+import retrofit2.http.PATCH;
 
 
 
@@ -40,6 +46,6 @@ public interface OrganizationApi {
     @GET(ENDPOINT + "/members")
     Call<FetchMembersResponse> fetchMembersOfOrganization();
     @PUT(ENDPOINT + "/branding")
-    Call<UpdateOrganizationBrandResponse> updateOrganizationBrand(@Body UpdateOrganizationBrandRequest request);
+    Call<updateOrganizationBrand> updateOrganizationBrand(@Body UpdateOrganizationBrandRequest request);
 
 }

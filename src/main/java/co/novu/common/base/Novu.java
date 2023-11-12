@@ -61,7 +61,7 @@ import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
 import co.novu.api.organizations.responses.FetchMembersResponse;
-import co.novu.api.organizations.responses.UpdateOrganizationBrandResponse;
+import co.novu.api.organizations.responses.updateOrganizationBrand;
 import co.novu.api.organizations.responses.MemberResponse;
 import co.novu.api.organizations.responses.OrganizationResponse;
 import co.novu.api.organizations.responses.FetchOrganizationResponse;
@@ -964,7 +964,7 @@ public class Novu {
         }
     }
 
-    public UpdateOrganizationBrandResponse UpdateOrganizationBrand(UpdateOrganizationBrandRequest request) throws IOException, NovuNetworkException {
+    public updateOrganizationBrand UpdateOrganizationBrand(UpdateOrganizationBrandRequest request) throws IOException, NovuNetworkException {
         try {
             return organizationHandler.updateOrganizationBrand(request);
         } catch (Exception e) {

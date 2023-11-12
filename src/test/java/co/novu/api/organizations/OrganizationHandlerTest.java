@@ -11,7 +11,7 @@ import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
 import co.novu.api.organizations.responses.FetchMembersResponse;
-import co.novu.api.organizations.responses.UpdateOrganizationBrandResponse;
+import co.novu.api.organizations.responses.updateOrganizationBrand;
 import co.novu.api.organizations.responses.MemberResponse;
 import co.novu.api.organizations.responses.OrganizationResponseData;
 import co.novu.api.organizations.responses.UpdateOrganizationNameResponseData;
@@ -170,8 +170,8 @@ public class OrganizationHandlerTest extends TestCase {
     public void test_removeMemberWithId() throws IOException, NovuNetworkException, InterruptedException{
         MemberResponse memberResponse = new MemberResponse();
         MemberResponseData data = new MemberResponseData();
-        data.set_id("id");
-        data.set_userId("userId");
+        data.setId("id");
+        data.setUserId("userId");
         UserDetails user = new UserDetails();
         user.set_id("id");
         user.setFirstName("firstName");
@@ -187,7 +187,7 @@ public class OrganizationHandlerTest extends TestCase {
         invite.set_inviterId("InviterId");
         data.setInvite(invite);
         data.setMemberStatus("memberStatus");
-        data.set_organizationId("organizationId");
+        data.setOrganizationId("organizationId");
         memberResponse.setData(data);
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(memberResponse)));
@@ -206,8 +206,8 @@ public class OrganizationHandlerTest extends TestCase {
 
         MemberResponse memberResponse = new MemberResponse();
         MemberResponseData data = new MemberResponseData();
-        data.set_id("id");
-        data.set_userId("userId");
+        data.setId("id");
+        data.setUserId("userId");
         UserDetails user = new UserDetails();
         user.set_id("id");
         user.setFirstName("firstName");
@@ -223,7 +223,7 @@ public class OrganizationHandlerTest extends TestCase {
         invite.set_inviterId("InviterId");
         data.setInvite(invite);
         data.setMemberStatus("memberStatus");
-        data.set_organizationId("organizationId");
+        data.setOrganizationId("organizationId");
         memberResponse.setData(data);
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(memberResponse)));
@@ -239,8 +239,8 @@ public class OrganizationHandlerTest extends TestCase {
     public void test_fetchMembersOfOrganization()throws IOException, NovuNetworkException, InterruptedException {
         FetchMembersResponse membersResponse = new FetchMembersResponse();
         MemberResponseData data = new MemberResponseData();
-        data.set_id("id");
-        data.set_userId("userId");
+        data.setId("id");
+        data.setUserId("userId");
         UserDetails user = new UserDetails();
         user.set_id("id");
         user.setFirstName("firstName");
@@ -256,7 +256,7 @@ public class OrganizationHandlerTest extends TestCase {
         invite.set_inviterId("InviterId");
         data.setInvite(invite);
         data.setMemberStatus("memberStatus");
-        data.set_organizationId("organizationId");
+        data.setOrganizationId("organizationId");
         membersResponse.setData(List.of(data));
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(membersResponse)));
@@ -277,7 +277,7 @@ public class OrganizationHandlerTest extends TestCase {
         brandRequest.setContentBackground("contentBackground");
         brandRequest.setFontFamily("fontFamily");
 
-        UpdateOrganizationBrandResponse brandResponse = new UpdateOrganizationBrandResponse();
+        updateOrganizationBrand brandResponse = new updateOrganizationBrand();
         Branding data = new Branding();
         data.setDirection("direction");
         data.setLogo("logo");
@@ -289,7 +289,7 @@ public class OrganizationHandlerTest extends TestCase {
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(brandResponse)));
 
-        UpdateOrganizationBrandResponse response = organizationHandler.updateOrganizationBrand(brandRequest);
+        updateOrganizationBrand response = organizationHandler.updateOrganizationBrand(brandRequest);
         assertNotNull(response);
         final RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("/organizations/branding", recordedRequest.getPath());
