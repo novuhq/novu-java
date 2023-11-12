@@ -10,6 +10,9 @@
 # Novu Java SDK
 
 [![License](https://poser.pugx.org/unicodeveloper/novu/license.svg)](LICENSE.md)
+[![GitHub release (with filter)](https://img.shields.io/github/v/release/novuhq/novu-java?label=SDK&link=https%3A%2F%2Fgithub.com%2Fnovuhq%2Fnovu-java%2Freleases%2Flatest)](https://github.com/novuhq/novu-java/releases/latest)
+
+
 
 Novu's API exposes the entire Novu features via a standardized programmatic interface. Please refer to the full [documentation](https://docs.novu.co/docs/overview/introduction) to learn more.
 
@@ -18,7 +21,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 
 * [Installation](#installation)
 * [Usage](#usage)
-    * [Novu API Reference](https://docs.novu.co/api/overview/)
+    * [Novu API Reference](https://docs.novu.co/api-reference/events/trigger-event)
     * [Events](#events)
     * [Subscribers](#subscribers)
     * [Topics](#topics)
