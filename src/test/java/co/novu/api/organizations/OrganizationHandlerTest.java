@@ -11,7 +11,7 @@ import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
 import co.novu.api.organizations.responses.FetchMembersResponse;
-import co.novu.api.organizations.responses.updateOrganizationBrand;
+import co.novu.api.organizations.responses.updateOrganizationBrandResponse;
 import co.novu.api.organizations.responses.MemberResponse;
 import co.novu.api.organizations.responses.OrganizationResponseData;
 import co.novu.api.organizations.responses.UpdateOrganizationNameResponseData;
@@ -173,7 +173,7 @@ public class OrganizationHandlerTest extends TestCase {
         data.setId("id");
         data.setUserId("userId");
         UserDetails user = new UserDetails();
-        user.set_id("id");
+        user.setId("id");
         user.setFirstName("firstName");
         user.setLastName("lastname");
         user.setEmail("email");
@@ -184,7 +184,7 @@ public class OrganizationHandlerTest extends TestCase {
         invite.setToken("token");
         invite.setInvitationDate("invitationDate");
         invite.setAnswerDate("answerDate");
-        invite.set_inviterId("InviterId");
+        invite.setInviterId("InviterId");
         data.setInvite(invite);
         data.setMemberStatus("memberStatus");
         data.setOrganizationId("organizationId");
@@ -209,7 +209,7 @@ public class OrganizationHandlerTest extends TestCase {
         data.setId("id");
         data.setUserId("userId");
         UserDetails user = new UserDetails();
-        user.set_id("id");
+        user.setId("id");
         user.setFirstName("firstName");
         user.setLastName("lastname");
         user.setEmail("email");
@@ -220,7 +220,7 @@ public class OrganizationHandlerTest extends TestCase {
         invite.setToken("token");
         invite.setInvitationDate("invitationDate");
         invite.setAnswerDate("answerDate");
-        invite.set_inviterId("InviterId");
+        invite.setInviterId("InviterId");
         data.setInvite(invite);
         data.setMemberStatus("memberStatus");
         data.setOrganizationId("organizationId");
@@ -242,7 +242,7 @@ public class OrganizationHandlerTest extends TestCase {
         data.setId("id");
         data.setUserId("userId");
         UserDetails user = new UserDetails();
-        user.set_id("id");
+        user.setId("id");
         user.setFirstName("firstName");
         user.setLastName("lastname");
         user.setEmail("email");
@@ -253,7 +253,7 @@ public class OrganizationHandlerTest extends TestCase {
         invite.setToken("token");
         invite.setInvitationDate("invitationDate");
         invite.setAnswerDate("answerDate");
-        invite.set_inviterId("InviterId");
+        invite.setInviterId("InviterId");
         data.setInvite(invite);
         data.setMemberStatus("memberStatus");
         data.setOrganizationId("organizationId");
@@ -277,7 +277,7 @@ public class OrganizationHandlerTest extends TestCase {
         brandRequest.setContentBackground("contentBackground");
         brandRequest.setFontFamily("fontFamily");
 
-        updateOrganizationBrand brandResponse = new updateOrganizationBrand();
+        updateOrganizationBrandResponse brandResponse = new updateOrganizationBrandResponse();
         Branding data = new Branding();
         data.setDirection("direction");
         data.setLogo("logo");
@@ -289,7 +289,7 @@ public class OrganizationHandlerTest extends TestCase {
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(brandResponse)));
 
-        updateOrganizationBrand response = organizationHandler.updateOrganizationBrand(brandRequest);
+        updateOrganizationBrandResponse response = organizationHandler.updateOrganizationBrand(brandRequest);
         assertNotNull(response);
         final RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("/organizations/branding", recordedRequest.getPath());

@@ -1,5 +1,6 @@
 package co.novu.api.organizations.pojos;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
@@ -8,7 +9,8 @@ public class InviteDetails {
     private String token;
     private String invitationDate;
     private String answerDate;
-    private String _inviterId;
+    @SerializedName("_inviterId")
+    private String inviterId;
 }
 
 
