@@ -11,7 +11,7 @@ import co.novu.api.organizations.requests.UpdateMemberRoleRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationBrandRequest;
 import co.novu.api.organizations.requests.UpdateOrganizationNameRequest;
 import co.novu.api.organizations.responses.FetchMembersResponse;
-import co.novu.api.organizations.responses.updateOrganizationBrandResponse;
+import co.novu.api.organizations.responses.UpdateOrganizationBrandResponse;
 import co.novu.api.organizations.responses.MemberResponse;
 import co.novu.api.organizations.responses.OrganizationResponseData;
 import co.novu.api.organizations.responses.UpdateOrganizationNameResponseData;
@@ -277,7 +277,7 @@ public class OrganizationHandlerTest extends TestCase {
         brandRequest.setContentBackground("contentBackground");
         brandRequest.setFontFamily("fontFamily");
 
-        updateOrganizationBrandResponse brandResponse = new updateOrganizationBrandResponse();
+        UpdateOrganizationBrandResponse brandResponse = new UpdateOrganizationBrandResponse();
         Branding data = new Branding();
         data.setDirection("direction");
         data.setLogo("logo");
@@ -289,7 +289,7 @@ public class OrganizationHandlerTest extends TestCase {
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(brandResponse)));
 
-        updateOrganizationBrandResponse response = organizationHandler.updateOrganizationBrand(brandRequest);
+        UpdateOrganizationBrandResponse response = organizationHandler.updateOrganizationBrand(brandRequest);
         assertNotNull(response);
         final RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("/organizations/branding", recordedRequest.getPath());
