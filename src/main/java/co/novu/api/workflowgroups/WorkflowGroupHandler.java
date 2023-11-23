@@ -1,10 +1,12 @@
 package co.novu.api.workflowgroups;
 
+import java.io.IOException;
+
 import co.novu.api.workflowgroups.request.WorkflowGroupRequest;
 import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
 import co.novu.api.workflowgroups.responses.GetWorkflowGroupsResponse;
 import co.novu.api.workflowgroups.responses.WorkflowGroupResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
 
@@ -13,27 +15,31 @@ public class WorkflowGroupHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
-    private static final String ENDPOINT = "notification-groups";
+    private final WorkflowGroupApi workflowGroupApi;
 
-
-    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) {
-        return restHandler.handlePost(request, WorkflowGroupResponse.class, novuConfig, ENDPOINT);
+    public WorkflowGroupHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.workflowGroupApi = restHandler.buildRetrofit().create(WorkflowGroupApi.class);
     }
 
-    public GetWorkflowGroupsResponse getWorkflowGroups() {
-        return restHandler.handleGet(GetWorkflowGroupsResponse.class, novuConfig, ENDPOINT);
+
+    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.workflowGroupApi.createWorkflowGroup(request).execute());
     }
 
-    public WorkflowGroupResponse getWorkflowGroup(String id) {
-        return restHandler.handleGet(WorkflowGroupResponse.class, novuConfig, ENDPOINT+ "/" +id);
+    public GetWorkflowGroupsResponse getWorkflowGroups() throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.workflowGroupApi.getWorkflowGroups().execute());
     }
 
-    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) {
-        return restHandler.handlePatch(request,WorkflowGroupResponse.class, novuConfig, ENDPOINT+ "/" +id);
+    public WorkflowGroupResponse getWorkflowGroup(String id) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.workflowGroupApi.getWorkflowGroup(id).execute());
     }
 
-    public DeleteWorkflowGroup deleteWorkflowGroup(String id) {
-        return restHandler.handleDelete(DeleteWorkflowGroup.class, novuConfig, ENDPOINT+ "/" +id);
+    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.workflowGroupApi.updateWorkflowGroup(id, request).execute());
+    }
+
+    public DeleteWorkflowGroup deleteWorkflowGroup(String id) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.workflowGroupApi.deleteWorkflowGroup(id).execute());
     }
 }

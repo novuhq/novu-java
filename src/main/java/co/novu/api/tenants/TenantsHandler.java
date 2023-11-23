@@ -1,53 +1,54 @@
 package co.novu.api.tenants;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import co.novu.api.tenants.requests.GetTenantRequest;
 import co.novu.api.tenants.requests.TenantRequest;
 import co.novu.api.tenants.responses.BulkTenantResponse;
 import co.novu.api.tenants.responses.DeleteTenantResponse;
 import co.novu.api.tenants.responses.TenantResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
-import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@RequiredArgsConstructor
 public class TenantsHandler {
 
     private final RestHandler restHandler;
+    private final TenantsApi tenantsApi;
 
-    private final NovuConfig novuConfig;
+    public TenantsHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.tenantsApi = restHandler.buildRetrofit().create(TenantsApi.class);
+    }
 
-    private static final String ENDPOINT = "tenants";
-
-    public BulkTenantResponse getTenants(GetTenantRequest request) {
+    public BulkTenantResponse getTenants(GetTenantRequest request) throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getLimit() != null) params.put("limit", request.getLimit());
-        if (params.isEmpty()) {
-            return restHandler.handleGet(BulkTenantResponse.class, novuConfig, ENDPOINT);
-        }
-        return restHandler.handleGet(BulkTenantResponse.class, novuConfig, ENDPOINT, params);
+        Response<BulkTenantResponse> response = tenantsApi.getTenants(params).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public TenantResponse createTenant(TenantRequest request) {
-        return restHandler.handlePost(request, TenantResponse.class, novuConfig, ENDPOINT);
+    public TenantResponse createTenant(TenantRequest request) throws IOException, NovuNetworkException {
+        Response<TenantResponse> response = tenantsApi.createTenant(request).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public TenantResponse getTenant(String identifier) {
-        return restHandler.handleGet(TenantResponse.class, novuConfig, ENDPOINT + "/" + identifier);
+    public TenantResponse getTenant(String tenantId) throws IOException, NovuNetworkException {
+        Response<TenantResponse> response = tenantsApi.getTenant(tenantId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public TenantResponse updateTenant(TenantRequest request, String identifier) {
-        return restHandler.handlePatch(request, TenantResponse.class, novuConfig, ENDPOINT + "/" + identifier);
+    public TenantResponse updateTenant(TenantRequest request, String tenantId) throws IOException, NovuNetworkException {
+        Response<TenantResponse> response = tenantsApi.updateTenant(request, tenantId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public DeleteTenantResponse deleteTenant(String identifier) {
-        boolean isSuccess = restHandler.handleDeleteForVoid(novuConfig, ENDPOINT + "/" + identifier);
-        if (isSuccess) {
-            return new DeleteTenantResponse();
-        }
-        return null;
+    public DeleteTenantResponse deleteTenant(String tenantId) throws IOException, NovuNetworkException {
+        Response<Void> response = tenantsApi.deleteTenant(tenantId).execute();
+        return restHandler.extractResponse(response, new DeleteTenantResponse());
     }
+
 }

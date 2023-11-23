@@ -1,10 +1,12 @@
 package co.novu.api.integrations;
 
+import java.io.IOException;
+
 import co.novu.api.integrations.requests.IntegrationRequest;
 import co.novu.api.integrations.responses.BulkIntegrationResponse;
 import co.novu.api.integrations.responses.ProviderWebhookStatusResponse;
 import co.novu.api.integrations.responses.SingleIntegrationResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
 
@@ -13,35 +15,38 @@ public class IntegrationsHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
+    private final IntegrationsApi integrationsApi;
 
-    private static final String ENDPOINT = "integrations";
-
-    public BulkIntegrationResponse getIntegrations() {
-        return restHandler.handleGet(BulkIntegrationResponse.class, novuConfig, ENDPOINT);
+     public IntegrationsHandler(RestHandler restHandler) {
+        this.restHandler = restHandler;
+        this.integrationsApi = restHandler.buildRetrofit().create(IntegrationsApi.class);
     }
 
-    public SingleIntegrationResponse createIntegration(IntegrationRequest request) {
-        return restHandler.handlePost(request, SingleIntegrationResponse.class, novuConfig, ENDPOINT);
+    public BulkIntegrationResponse getIntegrations() throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.getIntegrations().execute());
+    }
+    
+    public SingleIntegrationResponse createIntegration(IntegrationRequest request) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.createIntegration(request).execute());
     }
 
-    public BulkIntegrationResponse getActiveIntegrations() {
-        return restHandler.handleGet(BulkIntegrationResponse.class, novuConfig, ENDPOINT + "/active");
+    public BulkIntegrationResponse getActiveIntegrations() throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.getActiveIntegrations().execute());
     }
 
-    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) {
-        return restHandler.handleGet(ProviderWebhookStatusResponse.class, novuConfig, ENDPOINT + "/webhook/provider/" + providerId + "/status");
+    public ProviderWebhookStatusResponse getProviderWebhookStatus(String providerId) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.getProviderWebhookStatus(providerId).execute());
     }
 
-    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) {
-        return restHandler.handlePut(request, SingleIntegrationResponse.class, novuConfig, ENDPOINT + "/" + integrationId);
+    public SingleIntegrationResponse updateIntegration(String integrationId, IntegrationRequest request) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.updateIntegration(integrationId, request).execute());
     }
 
-    public BulkIntegrationResponse deleteIntegration(String integrationId) {
-        return restHandler.handleDelete(BulkIntegrationResponse.class, novuConfig, ENDPOINT + "/" + integrationId);
+    public BulkIntegrationResponse deleteIntegration(String integrationId) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.deleteIntegration(integrationId).execute());
     }
 
-    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) {
-        return restHandler.handlePost(SingleIntegrationResponse.class, novuConfig, ENDPOINT + "/" + integrationId + "/set-primary");
+    public SingleIntegrationResponse setIntegrationAsPrimary(String integrationId) throws NovuNetworkException, IOException {
+        return restHandler.extractResponse(this.integrationsApi.setIntegrationAsPrimary(integrationId).execute());
     }
 }

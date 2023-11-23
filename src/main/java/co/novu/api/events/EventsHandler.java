@@ -5,32 +5,41 @@ import co.novu.api.events.requests.TriggerEventRequest;
 import co.novu.api.events.responses.BulkTriggerEventResponse;
 import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 public class EventsHandler {
 
     private final RestHandler restHandler;
+    private final EventsApi eventsApi;
 
-    private final NovuConfig novuConfig;
-
-    private static final String ENDPOINT = "events/trigger";
-
-    public TriggerEventResponse triggerEvent(TriggerEventRequest request) {
-        return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig, ENDPOINT);
+    public EventsHandler(RestHandler restHandler){
+        this.restHandler = restHandler;
+        this.eventsApi = restHandler.buildRetrofit().create(EventsApi.class);
     }
 
-    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) {
-        return restHandler.handlePost(request, BulkTriggerEventResponse.class, novuConfig, ENDPOINT + "/bulk");
+    public TriggerEventResponse triggerEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
+        Response<TriggerEventResponse> response = eventsApi.triggerEvent(request).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) {
-        return restHandler.handlePost(request, TriggerEventResponse.class, novuConfig, ENDPOINT + "/broadcast");
+    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) throws IOException, NovuNetworkException {
+        Response<BulkTriggerEventResponse> response = eventsApi.bulkTriggerEvent(request).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public CancelEventResponse cancelTriggeredEvent(String transactionId ) {
-        return restHandler.handleDelete(CancelEventResponse.class, novuConfig, ENDPOINT + "/" + transactionId);
+    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
+        Response<TriggerEventResponse> response = eventsApi.broadcastEvent(request).execute();
+        return restHandler.extractResponse(response);
+    }
+
+    public CancelEventResponse cancelTriggeredEvent(String transactionId) throws IOException, NovuNetworkException {
+        Response<CancelEventResponse> response = eventsApi.cancelTriggeredEvent(transactionId).execute();
+        return restHandler.extractResponse(response);
     }
 }

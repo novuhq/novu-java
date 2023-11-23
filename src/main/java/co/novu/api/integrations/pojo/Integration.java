@@ -1,12 +1,17 @@
 package co.novu.api.integrations.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 import lombok.Data;
 
 @Data
 public class Integration {
-    private String _id;
-    private String _environmentId;
-    private String _organizationId;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_organizationId")
+    private String organizationId;
     private String providerId;
     private String channel;
     private Credentials credentials;
