@@ -77,7 +77,6 @@ public class OrganizationHandlerTest extends TestCase {
         data.setPartnerConfigurations(List.of(partnerConfigurations));
         data.setCreatedAt("createdAt");
         data.setUpdatedAt("updatedAt");
-        data.setV(0);
         organizationResponse.setData(data);
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(organizationResponse)));
@@ -113,7 +112,6 @@ public class OrganizationHandlerTest extends TestCase {
         data.setPartnerConfigurations(List.of(partnerConfigurations));
         data.setCreatedAt("createdAt");
         data.setUpdatedAt("updatedAt");
-        data.setV(0);
         fetchOrganizationResponse.setData(List.of(data));
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(fetchOrganizationResponse)));
 
@@ -166,7 +164,6 @@ public class OrganizationHandlerTest extends TestCase {
         data.setPartnerConfigurations(List.of(partnerConfigurations));
         data.setCreatedAt("createdAt");
         data.setUpdatedAt("updatedAt");
-        data.setV(0);
         organizationResponse.setData(data);
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(organizationResponse)));

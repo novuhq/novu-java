@@ -17,7 +17,6 @@ public class OrganizationResponseData {
     private List<PartnerConfigurations> partnerConfigurations;
     private String createdAt;
     private String updatedAt;
-    @SerializedName("_v")
-    private Integer v;
+
 
 }
