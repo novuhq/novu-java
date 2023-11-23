@@ -57,8 +57,9 @@ public class OrganizationHandlerTest extends TestCase {
 
         OrganizationResponse organizationResponse = new OrganizationResponse();
         OrganizationResponseData data = new OrganizationResponseData();
-        data.setName("id");
-        data.setLogo("name");
+        data.setId("id");
+        data.setName("name");
+        data.setLogo("logo");
         Branding branding = new Branding();
         branding.setDirection("direction");
         branding.setLogo("logo");
@@ -74,6 +75,9 @@ public class OrganizationHandlerTest extends TestCase {
         partnerConfigurations.setTeamId("teamId");
         partnerConfigurations.setPartnerType("partnerType");
         data.setPartnerConfigurations(List.of(partnerConfigurations));
+        data.setCreatedAt("createdAt");
+        data.setUpdatedAt("updatedAt");
+        data.setV(0);
         organizationResponse.setData(data);
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(organizationResponse)));
@@ -89,8 +93,9 @@ public class OrganizationHandlerTest extends TestCase {
     public void test_fetchAllOrganizations() throws IOException, NovuNetworkException, InterruptedException {
         FetchOrganizationResponse fetchOrganizationResponse = new FetchOrganizationResponse();
         OrganizationResponseData data = new OrganizationResponseData();
-        data.setName("id");
-        data.setLogo("name");
+        data.setId("id");
+        data.setName("name");
+        data.setLogo("logo");
         Branding branding = new Branding();
         branding.setDirection("direction");
         branding.setLogo("logo");
@@ -106,6 +111,9 @@ public class OrganizationHandlerTest extends TestCase {
         partnerConfigurations.setTeamId("teamId");
         partnerConfigurations.setPartnerType("partnerType");
         data.setPartnerConfigurations(List.of(partnerConfigurations));
+        data.setCreatedAt("createdAt");
+        data.setUpdatedAt("updatedAt");
+        data.setV(0);
         fetchOrganizationResponse.setData(List.of(data));
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(fetchOrganizationResponse)));
 
@@ -138,8 +146,9 @@ public class OrganizationHandlerTest extends TestCase {
     public void test_fetchCurrentOrganization() throws IOException, NovuNetworkException, InterruptedException {
         OrganizationResponse organizationResponse = new OrganizationResponse();
         OrganizationResponseData data = new OrganizationResponseData();
-        data.setName("id");
-        data.setLogo("name");
+        data.setId("id");
+        data.setName("name");
+        data.setLogo("logo");
         Branding branding = new Branding();
         branding.setDirection("direction");
         branding.setLogo("logo");
@@ -155,6 +164,9 @@ public class OrganizationHandlerTest extends TestCase {
         partnerConfigurations.setTeamId("teamId");
         partnerConfigurations.setPartnerType("partnerType");
         data.setPartnerConfigurations(List.of(partnerConfigurations));
+        data.setCreatedAt("createdAt");
+        data.setUpdatedAt("updatedAt");
+        data.setV(0);
         organizationResponse.setData(data);
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(organizationResponse)));
