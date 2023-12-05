@@ -207,7 +207,7 @@ public class OrganizationHandlerTest extends TestCase {
         MemberResponse response = organizationHandler.removeMemberWithId("memberId");
         assertNotNull(response);
         final RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertEquals("/organizations/memberId", recordedRequest.getPath());
+        assertEquals("/organizations/members/memberId", recordedRequest.getPath());
         assertEquals("DELETE", recordedRequest.getMethod());
         assertEquals(memberResponse, response);
     }
