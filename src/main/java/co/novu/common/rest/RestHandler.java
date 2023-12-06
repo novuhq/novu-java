@@ -1,7 +1,6 @@
 package co.novu.common.rest;
 
 import co.novu.common.base.NovuConfig;
-import co.novu.common.contracts.IRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class RestHandler {
@@ -62,45 +60,5 @@ public class RestHandler {
         } else {
             throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string() : "Error connecting to Novu API");
         }
-    }
-
-    public <T> T handlePost(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return null;
-    }
-
-    public <T> T handlePost(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return null;
-    }
-
-    public boolean handlePostForVoid(IRequest request, NovuConfig novuConfig, String endPoint) {
-        return true;
-    }
-
-    public boolean handlePostForVoid(NovuConfig novuConfig, String endPoint) {
-        return true;
-    }
-
-    public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return null;
-    }
-
-    public <T> T handleGet(Class<T> responseClazz, NovuConfig novuConfig, String endPoint, Map<String, Object> queryParams) {
-        return null;
-    }
-
-    public <T> T handleDelete(Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return null;
-    }
-
-    public boolean handleDeleteForVoid(NovuConfig novuConfig, String endPoint) {
-        return true;
-    }
-
-    public <T> T handlePut(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return null;
-    }
-
-    public <T> T handlePatch(IRequest request, Class<T> responseClazz, NovuConfig novuConfig, String endPoint) {
-        return null;
     }
 }
