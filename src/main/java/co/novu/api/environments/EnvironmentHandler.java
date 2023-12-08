@@ -1,44 +1,54 @@
 package co.novu.api.environments;
 
+import java.io.IOException;
+
 import co.novu.api.environments.requests.CreateEnvironmentRequest;
 import co.novu.api.environments.requests.UpdateEnvironmentRequest;
 import co.novu.api.environments.responses.ApiKeyResponse;
 import co.novu.api.environments.responses.BulkEnvironmentResponse;
 import co.novu.api.environments.responses.SingleEnvironmentResponse;
-import co.novu.common.base.NovuConfig;
+import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
-import lombok.RequiredArgsConstructor;
+import retrofit2.Response;
 
-@RequiredArgsConstructor
 public class EnvironmentHandler {
 
     private final RestHandler restHandler;
 
-    private final NovuConfig novuConfig;
-
-    private static final String ENDPOINT = "environments";
-
-    public SingleEnvironmentResponse getCurrentEnvironment() {
-        return restHandler.handleGet(SingleEnvironmentResponse.class, novuConfig, ENDPOINT + "/me");
+    private final EnvironmentApi environmentApi;
+    
+    public EnvironmentHandler(RestHandler restHandler) {
+    	this.restHandler = restHandler;
+    	this.environmentApi = restHandler.buildRetrofit().create(EnvironmentApi.class);
     }
 
-    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) {
-        return restHandler.handlePost(request, SingleEnvironmentResponse.class, novuConfig, ENDPOINT);
+    public SingleEnvironmentResponse getCurrentEnvironment() throws IOException, NovuNetworkException {
+    	Response<SingleEnvironmentResponse> response = environmentApi.getCurrentEnvironment().execute();
+        return restHandler.extractResponse(response);
     }
 
-    public BulkEnvironmentResponse getEnvironments() {
-        return restHandler.handleGet(BulkEnvironmentResponse.class, novuConfig, ENDPOINT);
+    public SingleEnvironmentResponse createEnvironment(CreateEnvironmentRequest request) throws IOException, NovuNetworkException {
+    	Response<SingleEnvironmentResponse> response = environmentApi.createEnvironment(request).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) {
-        return restHandler.handlePut(request, SingleEnvironmentResponse.class, novuConfig, ENDPOINT + "/" + environmentId);
+    public BulkEnvironmentResponse getEnvironments() throws IOException, NovuNetworkException {
+    	Response<BulkEnvironmentResponse> response = environmentApi.getEnvironments().execute();
+        return restHandler.extractResponse(response);
     }
 
-    public ApiKeyResponse getApiKeys() {
-        return restHandler.handleGet(ApiKeyResponse.class, novuConfig, ENDPOINT + "/api-keys");
+    public SingleEnvironmentResponse updateEnvironmentById(String environmentId, UpdateEnvironmentRequest request) throws IOException, NovuNetworkException {
+    	Response<SingleEnvironmentResponse> response = environmentApi.updateEnvironmentById(environmentId, request).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public ApiKeyResponse regenerateApiKeys() {
-        return restHandler.handlePost(ApiKeyResponse.class, novuConfig, ENDPOINT + "/api-keys/regenerate");
+    public ApiKeyResponse getApiKeys() throws IOException, NovuNetworkException {
+    	Response<ApiKeyResponse> response = environmentApi.getApiKeys().execute();
+        return restHandler.extractResponse(response);
+    }
+
+    public ApiKeyResponse regenerateApiKeys() throws IOException, NovuNetworkException {
+    	Response<ApiKeyResponse> response = environmentApi.regenerateApiKeys().execute();
+        return restHandler.extractResponse(response);
     }
 }
