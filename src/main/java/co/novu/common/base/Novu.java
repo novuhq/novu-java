@@ -107,6 +107,12 @@ import co.novu.api.workflowgroups.request.WorkflowGroupRequest;
 import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
 import co.novu.api.workflowgroups.responses.GetWorkflowGroupsResponse;
 import co.novu.api.workflowgroups.responses.WorkflowGroupResponse;
+import co.novu.api.workflowoverrides.WorkflowOverrideHandler;
+import co.novu.api.workflowoverrides.pojos.WorkflowOverride;
+import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
+import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
+import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
+import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflows.WorkflowHandler;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
@@ -116,6 +122,7 @@ import co.novu.api.workflows.responses.DeleteWorkflowResponse;
 import co.novu.api.workflows.responses.SingleWorkflowResponse;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -155,6 +162,8 @@ public class Novu {
 
     private final OrganizationHandler organizationHandler;
 
+    private final WorkflowOverrideHandler workflowOverrideHandler;
+
 
     public Novu(String apiKey) {
         this(new NovuConfig(apiKey));
@@ -179,6 +188,7 @@ public class Novu {
         this.blueprintsHandler = new BlueprintsHandler(restHandler);
         this.tenantsHandler = new TenantsHandler(restHandler);
         this.organizationHandler = new OrganizationHandler(restHandler);
+        this.workflowOverrideHandler = new WorkflowOverrideHandler(restHandler);
     }
 
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
@@ -970,6 +980,69 @@ public class Novu {
             return organizationHandler.updateOrganizationBrand(request);
         } catch (Exception e) {
             log.error("Error Updating Organization Brand", e);
+            throw e;
+        }
+    }
+
+    public WorkflowOverride createWorkflowOverride(CreateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.createWorkflowOverride(request);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
+            throw e;
+        }
+    }
+
+    public BulkWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.getWorkflowOverrides(request);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
+            throw e;
+        }
+    }
+
+    public WorkflowOverride getWorkflowOverride(String workflowId, String tenantId) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.getWorkflowOverride(workflowId, tenantId);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
+            throw e;
+        }
+    }
+
+    public WorkflowOverride getWorkflowOverrideById(String overrideId) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.getWorkflowOverrideById(overrideId);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
+            throw e;
+        }
+    }
+
+    public WorkflowOverride updateWorkflowOverrideById(String overrideId, UpdateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.updateWorkflowOverrideById(overrideId, request);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
+            throw e;
+        }
+    }
+
+    public WorkflowOverride updateWorkflowOverride(String workflowId, String tenantId, UpdateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.updateWorkflowOverride(workflowId, tenantId, request);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
+            throw e;
+        }
+    }
+
+    public WorkflowOverride deleteWorkflowOverride(String overrideId) throws IOException, NovuNetworkException {
+        try {
+            return workflowOverrideHandler.deleteWorkflowOverride(overrideId);
+        } catch (Exception e) {
+            log.error("Error Creating Workflow-Override", e);
             throw e;
         }
     }
