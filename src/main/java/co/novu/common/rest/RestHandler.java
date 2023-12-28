@@ -30,6 +30,7 @@ public class RestHandler {
                     Request request = chain.request()
                             .newBuilder()
                             .addHeader("Authorization", "ApiKey " + novuConfig.getApiKey())
+                            .addHeader("User-Agent", "novu/" + novuConfig.getSdkName() + "@" + novuConfig.getSdkVersion())
                             .build();
                     return chain.proceed(request);
                 }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
