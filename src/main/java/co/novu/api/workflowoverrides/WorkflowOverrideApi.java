@@ -42,6 +42,6 @@ public interface WorkflowOverrideApi {
     Call<WorkflowOverride> updateWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId,
         @Body UpdateWorkflowOverrideRequest request);
 
-    @DELETE(ENDPOINT + "/{override}")
+    @DELETE(ENDPOINT + "/{overrideId}")
     Call<WorkflowOverride> deleteWorkflowOverride(@Path("overrideId") String overrideId);
 }
