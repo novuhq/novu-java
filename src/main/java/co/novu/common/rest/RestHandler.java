@@ -11,7 +11,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 public class RestHandler {
@@ -30,7 +36,7 @@ public class RestHandler {
                     Request request = chain.request()
                             .newBuilder()
                             .addHeader("Authorization", "ApiKey " + novuConfig.getApiKey())
-                            .addHeader("User-Agent", "novu/" + novuConfig.getSdkName() + "@" + novuConfig.getSdkVersion())
+                            .addHeader("User-Agent", "novu/JAVA" + "@" + loadSdkVersionFromPom())
                             .build();
                     return chain.proceed(request);
                 }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
@@ -61,5 +67,17 @@ public class RestHandler {
         } else {
             throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string() : "Error connecting to Novu API");
         }
+    }
+
+    private String loadSdkVersionFromPom(){
+        try {
+            MavenXpp3Reader reader = new MavenXpp3Reader();
+            Model model = reader.read(
+                new InputStreamReader(Objects.requireNonNull(this.getClass().getResourceAsStream("/META-INF/maven/co.novu/novu-java/pom.xml"))));
+            return model.getVersion();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
