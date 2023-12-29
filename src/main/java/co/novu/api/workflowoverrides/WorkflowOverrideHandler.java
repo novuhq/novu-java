@@ -25,8 +25,8 @@ public class WorkflowOverrideHandler {
         this.workflowOverrideApi = restHandler.buildRetrofit().create(WorkflowOverrideApi.class);
     }
 
-    public WorkflowOverride createWorkflowOverride(CreateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
-        Response<WorkflowOverride> response = workflowOverrideApi.createWorkflowOverride(request).execute();
+    public WorkflowOverrideResponse createWorkflowOverride(CreateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+        Response<WorkflowOverrideResponse> response = workflowOverrideApi.createWorkflowOverride(request).execute();
         return restHandler.extractResponse(response);
     }
 

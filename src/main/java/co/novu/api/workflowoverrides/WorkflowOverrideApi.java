@@ -22,7 +22,7 @@ public interface WorkflowOverrideApi {
     String ENDPOINT = "workflow-overrides";
 
     @POST(ENDPOINT)
-    Call<WorkflowOverride> createWorkflowOverride(@Body CreateWorkflowOverrideRequest request);
+    Call<WorkflowOverrideResponse> createWorkflowOverride(@Body CreateWorkflowOverrideRequest request);
 
     @GET(ENDPOINT)
     Call<BulkWorkflowOverridesResponse> getWorkflowOverrides(@QueryMap Map<String, Object> params);

@@ -38,11 +38,11 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_createWorkflowOverrideHandler() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
+        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody(gson.toJson(workflowOverrideResponse)));
         CreateWorkflowOverrideRequest createWorkflowOverrideRequest = getCreateWorkflowOverrideRequest();
-        WorkflowOverride response = workflowOverrideHandler.createWorkflowOverride(createWorkflowOverrideRequest);
+        WorkflowOverrideResponse response = workflowOverrideHandler.createWorkflowOverride(createWorkflowOverrideRequest);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides", request.getPath());
         assertEquals("POST", request.getMethod());

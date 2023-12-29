@@ -985,7 +985,7 @@ public class Novu {
         }
     }
 
-    public WorkflowOverride createWorkflowOverride(CreateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse createWorkflowOverride(CreateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.createWorkflowOverride(request);
         } catch (Exception e) {
