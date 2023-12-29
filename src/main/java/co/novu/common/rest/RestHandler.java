@@ -74,8 +74,11 @@ public class RestHandler {
     private String loadSdkVersionFromPom() {
         try {
             MavenXpp3Reader reader = new MavenXpp3Reader();
-            Model model = reader.read(
-                new InputStreamReader(Objects.requireNonNull(this.getClass().getResourceAsStream("/META-INF/maven/co.novu/novu-java/pom.xml"))));
+            InputStream inputStream = this.getClass().getResourceAsStream("/META-INF/maven/co.novu/novu-java/pom.xml");
+            if (inputStream == null) {
+                return "";
+            }
+            Model model = reader.read(new InputStreamReader(inputStream));
             return model.getVersion();
         } catch (Exception e) {
             log.error("Could not retrieve the sdk version", e);
