@@ -1,13 +1,13 @@
 package co.novu.api.workflowoverride;
 
 import co.novu.api.common.PreferenceSettings;
-import co.novu.api.workflowgroups.WorkflowGroupHandler;
 import co.novu.api.workflowoverrides.WorkflowOverrideHandler;
 import co.novu.api.workflowoverrides.pojos.WorkflowOverride;
 import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
+import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
@@ -17,8 +17,6 @@ import okhttp3.mockwebserver.RecordedRequest;
 
 import java.io.IOException;
 import java.util.List;
-
-import org.junit.Test;
 
 import junit.framework.TestCase;
 
@@ -41,15 +39,11 @@ public class WorkflowOverrideHandlerTest extends TestCase {
 
     public void test_createWorkflowOverrideHandler() throws IOException, NovuNetworkException, InterruptedException {
         WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
-
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(201).setBody(gson.toJson(workflowOverrideResponse)));
-
         CreateWorkflowOverrideRequest createWorkflowOverrideRequest = getCreateWorkflowOverrideRequest();
-
         WorkflowOverride response = workflowOverrideHandler.createWorkflowOverride(createWorkflowOverrideRequest);
         RecordedRequest request = mockWebServer.takeRequest();
-
         assertEquals("/workflow-overrides", request.getPath());
         assertEquals("POST", request.getMethod());
         assertEquals(gson.toJson(workflowOverrideResponse), gson.toJson(response));
@@ -71,10 +65,10 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_getWorkflowOverrideById() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
+        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverrideResponse)));
-        WorkflowOverride response = workflowOverrideHandler.getWorkflowOverrideById("8329rufivdsnvs9u334");
+        WorkflowOverrideResponse response = workflowOverrideHandler.getWorkflowOverrideById("8329rufivdsnvs9u334");
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides/8329rufivdsnvs9u334", request.getPath());
@@ -83,10 +77,10 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_getWorkflowOverride() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
+        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverrideResponse)));
-        WorkflowOverride response = workflowOverrideHandler.getWorkflowOverride("8329rufivdsnvs9u334", "wvnq340i2jfwqv392");
+        WorkflowOverrideResponse response = workflowOverrideHandler.getWorkflowOverride("8329rufivdsnvs9u334", "wvnq340i2jfwqv392");
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides/workflows/8329rufivdsnvs9u334/tenants/wvnq340i2jfwqv392", request.getPath());
@@ -95,11 +89,11 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_updateWorkflowOverrideById() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
+        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverrideResponse)));
         UpdateWorkflowOverrideRequest updateRequest = getUpdateWorkflowOverrideRequest();
-        WorkflowOverride response = workflowOverrideHandler.updateWorkflowOverrideById("8329rufivdsnvs9u334", updateRequest);
+        WorkflowOverrideResponse response = workflowOverrideHandler.updateWorkflowOverrideById("8329rufivdsnvs9u334", updateRequest);
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides/8329rufivdsnvs9u334", request.getPath());
@@ -108,11 +102,11 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_updateWorkflowOverride() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
+        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverrideResponse)));
         UpdateWorkflowOverrideRequest updateRequest = getUpdateWorkflowOverrideRequest();
-        WorkflowOverride response = workflowOverrideHandler.updateWorkflowOverride("8329rufivdsnvs9u334", "wvnq340i2jfwqv392",
+        WorkflowOverrideResponse response = workflowOverrideHandler.updateWorkflowOverride("8329rufivdsnvs9u334", "wvnq340i2jfwqv392",
             updateRequest);
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
@@ -122,10 +116,10 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_deleteWorkflowOverride() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverride workflowOverrideResponse = getWorkflowOverride();
+        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverrideResponse)));
-        WorkflowOverride response = workflowOverrideHandler.deleteWorkflowOverride("8329rufivdsnvs9u334");
+        WorkflowOverrideResponse response = workflowOverrideHandler.deleteWorkflowOverride("8329rufivdsnvs9u334");
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides/8329rufivdsnvs9u334", request.getPath());
@@ -143,13 +137,19 @@ public class WorkflowOverrideHandlerTest extends TestCase {
         return preferenceSettings;
     }
 
+    private WorkflowOverrideResponse getWorkflowOverrideResponse(){
+        WorkflowOverrideResponse workflowOverrideResponse = new WorkflowOverrideResponse();
+        workflowOverrideResponse.setData(getWorkflowOverride());
+        return workflowOverrideResponse;
+    }
+
     private WorkflowOverride getWorkflowOverride() {
         WorkflowOverride workflowOverride = new WorkflowOverride();
-        workflowOverride.set_id("_id");
-        workflowOverride.set_workflowId("workflowId(_id");
-        workflowOverride.set_environmentId("environmentId_id");
-        workflowOverride.set_tenantId("tenantId_id");
-        workflowOverride.set_tenantId("tenantId_id");
+        workflowOverride.setId("_id");
+        workflowOverride.setWorkflowId("workflowId(_id");
+        workflowOverride.setEnvironmentId("environmentId_id");
+        workflowOverride.setTenantId("tenantId_id");
+        workflowOverride.setTenantId("tenantId_id");
         workflowOverride.setPreferenceSettings(getPreferenceSettings());
         return workflowOverride;
     }

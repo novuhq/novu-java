@@ -5,6 +5,7 @@ import co.novu.api.workflowoverrides.pojos.WorkflowOverride;
 import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
+import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -26,22 +27,22 @@ public interface WorkflowOverrideApi {
     @GET(ENDPOINT)
     Call<BulkWorkflowOverridesResponse> getWorkflowOverrides(@QueryMap Map<String, Object> params);
 
-    @GET(ENDPOINT + "/workflows/" + "{workflowId}" + "/tenants/" + "{tenantId}")
-    Call<WorkflowOverride> getWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId);
+    @GET(ENDPOINT + "/workflows/{workflowId}/tenants/{tenantId}")
+    Call<WorkflowOverrideResponse> getWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId);
 
 
     @GET(ENDPOINT + "/{overrideId}")
-    Call<WorkflowOverride> getWorkflowOverrideById(@Path("overrideId") String overrideId);
+    Call<WorkflowOverrideResponse> getWorkflowOverrideById(@Path("overrideId") String overrideId);
 
 
     @PUT(ENDPOINT + "/{overrideId}")
-    Call<WorkflowOverride> updateWorkflowOverrideById(@Path("overrideId") String OverrideId, @Body UpdateWorkflowOverrideRequest request);
+    Call<WorkflowOverrideResponse> updateWorkflowOverrideById(@Path("overrideId") String OverrideId, @Body UpdateWorkflowOverrideRequest request);
 
 
-    @PUT(ENDPOINT + "/workflows/" + "{workflowId}" + "/tenants/" + "{tenantId}")
-    Call<WorkflowOverride> updateWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId,
+    @PUT(ENDPOINT + "/workflows/{workflowId}/tenants/{tenantId}")
+    Call<WorkflowOverrideResponse> updateWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId,
         @Body UpdateWorkflowOverrideRequest request);
 
     @DELETE(ENDPOINT + "/{overrideId}")
-    Call<WorkflowOverride> deleteWorkflowOverride(@Path("overrideId") String overrideId);
+    Call<WorkflowOverrideResponse> deleteWorkflowOverride(@Path("overrideId") String overrideId);
 }

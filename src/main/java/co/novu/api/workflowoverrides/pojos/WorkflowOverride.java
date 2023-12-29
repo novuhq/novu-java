@@ -8,27 +8,28 @@ import lombok.Data;
 
 @Data
 public class WorkflowOverride {
-    @SerializedName("_environmentId")
-    private String _environmentId;
 
     @SerializedName("_id")
-    private String _id;
+    public String id;
 
     @SerializedName("_organizationId")
-    private String _organizationId;
+    public String organizationId;
 
-    @SerializedName("_tenantId")
-    private String _tenantId;
+    @SerializedName("_environmentId")
+    public String environmentId;
 
     @SerializedName("_workflowId")
-    private String _workflowId;
+    public String workflowId;
 
-    private boolean active;
-    private String createdAt;
-    private boolean deleted;
-    private String deletedAt;
-    private String deletedBy;
-    private PreferenceSettings preferenceSettings;
-    private String updatedAt;
+    @SerializedName("_tenantId")
+    public String tenantId;
+
+    public boolean active;
+    public PreferenceSettings preferenceSettings;
+    public boolean deleted;
+    public String deletedAt;
+    public String deletedBy;
+    public String createdAt;
+    public String updatedAt;
 
 }

@@ -113,6 +113,7 @@ import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
+import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.api.workflows.WorkflowHandler;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
 import co.novu.api.workflows.requests.UpdateWorkflowStatusRequest;
@@ -988,7 +989,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.createWorkflowOverride(request);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error creating Workflow-Override", e);
             throw e;
         }
     }
@@ -997,52 +998,52 @@ public class Novu {
         try {
             return workflowOverrideHandler.getWorkflowOverrides(request);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error fetching Workflow-Override", e);
             throw e;
         }
     }
 
-    public WorkflowOverride getWorkflowOverride(String workflowId, String tenantId) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse getWorkflowOverride(String workflowId, String tenantId) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.getWorkflowOverride(workflowId, tenantId);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error fetching Workflow-Override", e);
             throw e;
         }
     }
 
-    public WorkflowOverride getWorkflowOverrideById(String overrideId) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse getWorkflowOverrideById(String overrideId) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.getWorkflowOverrideById(overrideId);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error fetching Workflow-Override", e);
             throw e;
         }
     }
 
-    public WorkflowOverride updateWorkflowOverrideById(String overrideId, UpdateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse updateWorkflowOverrideById(String overrideId, UpdateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.updateWorkflowOverrideById(overrideId, request);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error updating Workflow-Override", e);
             throw e;
         }
     }
 
-    public WorkflowOverride updateWorkflowOverride(String workflowId, String tenantId, UpdateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse updateWorkflowOverride(String workflowId, String tenantId, UpdateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.updateWorkflowOverride(workflowId, tenantId, request);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error updating Workflow-Override", e);
             throw e;
         }
     }
 
-    public WorkflowOverride deleteWorkflowOverride(String overrideId) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse deleteWorkflowOverride(String overrideId) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.deleteWorkflowOverride(overrideId);
         } catch (Exception e) {
-            log.error("Error Creating Workflow-Override", e);
+            log.error("Error deleting Workflow-Override", e);
             throw e;
         }
     }
