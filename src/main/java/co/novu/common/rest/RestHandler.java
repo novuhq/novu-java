@@ -4,6 +4,8 @@ import co.novu.common.base.NovuConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -20,6 +22,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@Slf4j
 public class RestHandler {
 
     private final NovuConfig novuConfig;
@@ -36,7 +39,7 @@ public class RestHandler {
                     Request request = chain.request()
                             .newBuilder()
                             .addHeader("Authorization", "ApiKey " + novuConfig.getApiKey())
-                            .addHeader("User-Agent", "novu/JAVA" + "@" + loadSdkVersionFromPom())
+                            .addHeader("User-Agent", "novu/JAVA@" + loadSdkVersionFromPom())
                             .build();
                     return chain.proceed(request);
                 }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
@@ -69,14 +72,14 @@ public class RestHandler {
         }
     }
 
-    private String loadSdkVersionFromPom(){
+    private String loadSdkVersionFromPom() {
         try {
             MavenXpp3Reader reader = new MavenXpp3Reader();
             Model model = reader.read(
                 new InputStreamReader(Objects.requireNonNull(this.getClass().getResourceAsStream("/META-INF/maven/co.novu/novu-java/pom.xml"))));
             return model.getVersion();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Could not retrieve the sdk version", e);
         }
         return "";
     }
