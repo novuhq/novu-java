@@ -5,6 +5,7 @@ import co.novu.api.workflowoverrides.pojos.WorkflowOverride;
 import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
+import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -44,5 +45,5 @@ public interface WorkflowOverrideApi {
         @Body UpdateWorkflowOverrideRequest request);
 
     @DELETE(ENDPOINT + "/{overrideId}")
-    Call<WorkflowOverrideResponse> deleteWorkflowOverride(@Path("overrideId") String overrideId);
+    Call<DeleteWorkflowOverrideResponse> deleteWorkflowOverride(@Path("overrideId") String overrideId);
 }

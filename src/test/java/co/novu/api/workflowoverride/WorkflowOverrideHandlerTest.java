@@ -7,6 +7,7 @@ import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
+import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.NovuNetworkException;
@@ -116,15 +117,16 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_deleteWorkflowOverride() throws IOException, NovuNetworkException, InterruptedException {
-        WorkflowOverrideResponse workflowOverrideResponse = getWorkflowOverrideResponse();
+        DeleteWorkflowOverrideResponse deleteResponse = new DeleteWorkflowOverrideResponse();
+        deleteResponse.setData(true);
         Gson gson = new Gson();
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverrideResponse)));
-        WorkflowOverrideResponse response = workflowOverrideHandler.deleteWorkflowOverride("8329rufivdsnvs9u334");
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(deleteResponse)));
+        DeleteWorkflowOverrideResponse response = workflowOverrideHandler.deleteWorkflowOverride("8329rufivdsnvs9u334");
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides/8329rufivdsnvs9u334", request.getPath());
         assertEquals("DELETE", request.getMethod());
-        assertEquals(gson.toJson(workflowOverrideResponse), gson.toJson(response));
+        assertEquals(gson.toJson(deleteResponse), gson.toJson(response));
     }
 
     private PreferenceSettings getPreferenceSettings() {

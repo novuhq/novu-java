@@ -5,6 +5,7 @@ import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
+import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
@@ -60,8 +61,8 @@ public class WorkflowOverrideHandler {
         return restHandler.extractResponse(response);
     }
 
-    public WorkflowOverrideResponse deleteWorkflowOverride(String overrideId) throws IOException, NovuNetworkException {
-        Response<WorkflowOverrideResponse> response = workflowOverrideApi.deleteWorkflowOverride(overrideId).execute();
+    public DeleteWorkflowOverrideResponse deleteWorkflowOverride(String overrideId) throws IOException, NovuNetworkException {
+        Response<DeleteWorkflowOverrideResponse> response = workflowOverrideApi.deleteWorkflowOverride(overrideId).execute();
         return restHandler.extractResponse(response);
     }
 }
