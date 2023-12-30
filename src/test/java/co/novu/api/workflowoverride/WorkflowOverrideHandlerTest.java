@@ -8,6 +8,7 @@ import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
+import co.novu.api.workflowoverrides.response.GetWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.NovuNetworkException;
@@ -51,18 +52,18 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_getWorkflowOverrides() throws IOException, NovuNetworkException, InterruptedException {
-        BulkWorkflowOverridesResponse bulkWorkflowOverridesResponse = getBulkWorkflowOverridesResponse();
+        GetWorkflowOverridesResponse workflowOverridesResponse = getWorkflowOverridesResponse();
         Gson gson = new Gson();
-        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(bulkWorkflowOverridesResponse)));
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverridesResponse)));
         GetWorkflowOverrideRequest getWorkflowOverrideRequest = new GetWorkflowOverrideRequest();
         getWorkflowOverrideRequest.setPage(1);
         getWorkflowOverrideRequest.setLimit(10);
-        BulkWorkflowOverridesResponse response = workflowOverrideHandler.getWorkflowOverrides(getWorkflowOverrideRequest);
+        GetWorkflowOverridesResponse response = workflowOverrideHandler.getWorkflowOverrides(getWorkflowOverrideRequest);
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides?limit=10&page=1", request.getPath());
         assertEquals("GET", request.getMethod());
-        assertEquals(gson.toJson(bulkWorkflowOverridesResponse), gson.toJson(response));
+        assertEquals(gson.toJson(workflowOverridesResponse), gson.toJson(response));
     }
 
     public void test_getWorkflowOverrideById() throws IOException, NovuNetworkException, InterruptedException {
@@ -139,7 +140,7 @@ public class WorkflowOverrideHandlerTest extends TestCase {
         return preferenceSettings;
     }
 
-    private WorkflowOverrideResponse getWorkflowOverrideResponse(){
+    private WorkflowOverrideResponse getWorkflowOverrideResponse() {
         WorkflowOverrideResponse workflowOverrideResponse = new WorkflowOverrideResponse();
         workflowOverrideResponse.setData(getWorkflowOverride());
         return workflowOverrideResponse;
@@ -156,7 +157,7 @@ public class WorkflowOverrideHandlerTest extends TestCase {
         return workflowOverride;
     }
 
-    private CreateWorkflowOverrideRequest getCreateWorkflowOverrideRequest(){
+    private CreateWorkflowOverrideRequest getCreateWorkflowOverrideRequest() {
         CreateWorkflowOverrideRequest createWorkflowOverrideRequest = new CreateWorkflowOverrideRequest();
         createWorkflowOverrideRequest.setPreferenceSettings(getPreferenceSettings());
         createWorkflowOverrideRequest.setActive(true);
@@ -165,16 +166,18 @@ public class WorkflowOverrideHandlerTest extends TestCase {
         return createWorkflowOverrideRequest;
     }
 
-    private BulkWorkflowOverridesResponse getBulkWorkflowOverridesResponse(){
+    private GetWorkflowOverridesResponse getWorkflowOverridesResponse() {
         BulkWorkflowOverridesResponse bulkWorkflowOverridesResponse = new BulkWorkflowOverridesResponse();
         bulkWorkflowOverridesResponse.setData(List.of(getWorkflowOverride(), getWorkflowOverride()));
         bulkWorkflowOverridesResponse.setHasMore(true);
         bulkWorkflowOverridesResponse.setPageSize(10L);
         bulkWorkflowOverridesResponse.setPage(1L);
-        return bulkWorkflowOverridesResponse;
+        GetWorkflowOverridesResponse getWorkflowOverridesResponse = new GetWorkflowOverridesResponse();
+        getWorkflowOverridesResponse.setData(bulkWorkflowOverridesResponse);
+        return getWorkflowOverridesResponse;
     }
 
-    private UpdateWorkflowOverrideRequest getUpdateWorkflowOverrideRequest(){
+    private UpdateWorkflowOverrideRequest getUpdateWorkflowOverrideRequest() {
         UpdateWorkflowOverrideRequest updateWorkflowOverrideRequest = new UpdateWorkflowOverrideRequest();
         updateWorkflowOverrideRequest.setActive(true);
         updateWorkflowOverrideRequest.setData(getPreferenceSettings());

@@ -114,6 +114,7 @@ import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
+import co.novu.api.workflowoverrides.response.GetWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.api.workflows.WorkflowHandler;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
@@ -995,7 +996,7 @@ public class Novu {
         }
     }
 
-    public BulkWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public GetWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.getWorkflowOverrides(request);
         } catch (Exception e) {
