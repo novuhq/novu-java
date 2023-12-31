@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class UpdateWorkflowOverrideRequest {
-    private boolean active;
+    private Boolean active;
     private PreferenceSettings data;
 }

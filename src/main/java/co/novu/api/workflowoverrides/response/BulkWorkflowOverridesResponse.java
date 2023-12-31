@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class BulkWorkflowOverridesResponse {
     private List<WorkflowOverride> data;
-    private boolean hasMore;
+    private Boolean hasMore;
     private Long page;
     private Long pageSize;
 }

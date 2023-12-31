@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class DeleteWorkflowOverrideResponse {
-    private boolean data;
+    private Boolean data;
 }

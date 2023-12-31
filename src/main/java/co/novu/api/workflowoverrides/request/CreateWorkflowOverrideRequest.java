@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CreateWorkflowOverrideRequest implements IRequest {
     private PreferenceSettings preferenceSettings;
-    private boolean active;
+    private Boolean active;
     private String tenantId;
     private String workflowId;
 }

@@ -24,9 +24,9 @@ public class WorkflowOverride {
     @SerializedName("_tenantId")
     private String tenantId;
 
-    private boolean active;
+    private Boolean active;
     private PreferenceSettings preferenceSettings;
-    private boolean deleted;
+    private Boolean deleted;
     private String deletedAt;
     private String deletedBy;
     private String createdAt;
