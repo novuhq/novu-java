@@ -28,6 +28,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
     * [Integrations](#integrations)
     * [Notifications](#notification)
     * [Workflow](#workflow)
+    * [Workflow Override](#workflow-override)
     * [Workflow Groups](#workflow-groups)
     * [Changes](#changes)
     * [Environments](#environments)
@@ -427,6 +428,16 @@ public class Main {
 - `deleteWorkflow(WorkflowId)`
 - `Workflow(WorkflowId)`
 - `updateWorkflowStatus(WorkflowId, body)`
+
+### Workflow Override
+
+- `createWorkflowOverride(createWorkflowOverrideRequest)`
+- `getWorkflowOverrides(getWorkflowOverrideRequest)`
+- `getWorkflowOverride(workflowId, tenantId)`
+- `getWorkflowOverrideById(overrideId)`
+- `updateWorkflowOverride(workflowId, tenantId)`
+- `updateWorkflowOverrideById(overrideId)`
+- `deleteWorkflow(overrideId)`
 
 ### Notification
 
