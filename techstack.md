@@ -34,7 +34,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [novuhq/novu-java](https://github.com/novuhq/novu-java)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|16<br/>Tools used|01/05/24 <br/>Report generated|
+|17<br/>Tools used|01/11/24 <br/>Report generated|
 |------|------|
 </div>
 
@@ -110,9 +110,9 @@ Full tech stack [here](/techstack.md)
 </table>
 
 
-## <img src='https://img.stackshare.io/group.svg' /> Open source packages (9)</h2>
+## <img src='https://img.stackshare.io/group.svg' /> Open source packages (10)</h2>
 
-## <img width='24' height='24' src='https://img.stackshare.io/package_manager/977/default_9833f2ef0bbc2a946b4cc5e9307264033361076b.png'/> Apache Maven (9)
+## <img width='24' height='24' src='https://img.stackshare.io/package_manager/977/default_9833f2ef0bbc2a946b4cc5e9307264033361076b.png'/> Apache Maven (10)
 
 |NAME|VERSION|LAST UPDATED|LAST UPDATED BY|LICENSE|VULNERABILITIES|
 |:------|:------|:------|:------|:------|:------|
@@ -122,9 +122,10 @@ Full tech stack [here](/techstack.md)
 |[com.squareup.retrofit2:converter-gson]()|v2.9.0|10/03/23|mayorjay |N/A|N/A|
 |[com.squareup.retrofit2:retrofit]()|v2.9.0|10/03/23|mayorjay |N/A|N/A|
 |[junit:junit](http://junit.org)|v4.13.2|07/12/23|mayorjay |EPL-1.0|N/A|
-|[org.mockito:mockito-all](http://www.mockito.org)|v1.10.19|10/07/23|mayorjay |MIT|N/A|
-|[org.projectlombok:lombok](https://projectlombok.org)|v1.18.26|10/07/23|mayorjay |MIT|N/A|
-|[org.slf4j:slf4j-api](http://www.slf4j.org)|v2.0.5|10/07/23|mayorjay |MIT|N/A|
+|[org.apache.maven:maven-model]()|v3.9.6|12/29/23|VishalMCF |Apache-2.0|N/A|
+|[org.mockito:mockito-all](http://www.mockito.org)|v1.10.19|12/29/23|VishalMCF |MIT|N/A|
+|[org.projectlombok:lombok](https://projectlombok.org)|v1.18.26|12/29/23|VishalMCF |MIT|N/A|
+|[org.slf4j:slf4j-api](http://www.slf4j.org)|v2.0.5|12/29/23|VishalMCF |MIT|N/A|
 
 <br/>
 <div align='center'>
