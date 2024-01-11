@@ -2,11 +2,11 @@ repo_name: novuhq/novu-java
 report_id: 3944fd66dddb6b65ed88e0dd7a9e726a
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T09:22:24+00:00'
+timestamp: '2024-01-11T12:18:26+00:00'
 requested_by: unicodeveloper
 provider: github
 branch: main
-detected_tools_count: 16
+detected_tools_count: 17
 tools:
 - name: Java
   description: A concurrent, class-based, object-oriented, language specifically designed
@@ -167,6 +167,19 @@ tools:
   detection_source: pom.xml
   last_updated_by: mayorjay
   last_updated_on: 2023-07-12 20:27:41.000000000 Z
+- name: org.apache.maven:maven-model
+  description: Model for Maven POM
+  version: 3.9.6
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/novuhq/novu-java/blob/main/pom.xml
+  detection_source: pom.xml
+  last_updated_by: VishalMCF
+  last_updated_on: 2023-12-29 16:52:12.000000000 Z
 - name: org.mockito:mockito-all
   description: Mock objects library for java
   version: 1.10.19
@@ -178,8 +191,8 @@ tools:
   image_url: https://img.stackshare.io/package/maven/image.png
   detection_source_url: https://github.com/novuhq/novu-java/blob/main/pom.xml
   detection_source: pom.xml
-  last_updated_by: mayorjay
-  last_updated_on: 2023-10-07 09:40:27.000000000 Z
+  last_updated_by: VishalMCF
+  last_updated_on: 2023-12-29 16:52:12.000000000 Z
 - name: org.projectlombok:lombok
   description: 'Spice up your java: Automatic Resource Management'
   version: 1.18.26
@@ -191,8 +204,8 @@ tools:
   image_url: https://img.stackshare.io/package/maven/image.png
   detection_source_url: https://github.com/novuhq/novu-java/blob/main/pom.xml
   detection_source: pom.xml
-  last_updated_by: mayorjay
-  last_updated_on: 2023-10-07 09:40:27.000000000 Z
+  last_updated_by: VishalMCF
+  last_updated_on: 2023-12-29 16:52:12.000000000 Z
 - name: org.slf4j:slf4j-api
   description: The slf4j API
   version: 2.0.5
@@ -204,5 +217,5 @@ tools:
   image_url: https://img.stackshare.io/package/maven/image.png
   detection_source_url: https://github.com/novuhq/novu-java/blob/main/pom.xml
   detection_source: pom.xml
-  last_updated_by: mayorjay
-  last_updated_on: 2023-10-07 09:40:27.000000000 Z
+  last_updated_by: VishalMCF
+  last_updated_on: 2023-12-29 16:52:12.000000000 Z
