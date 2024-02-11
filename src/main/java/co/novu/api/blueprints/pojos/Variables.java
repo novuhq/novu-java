@@ -7,5 +7,5 @@ public class Variables {
     private String name;
     private String type;
     private Boolean required;
-    private String Id;
+    private String id;
 }

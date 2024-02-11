@@ -48,7 +48,7 @@ public class LayoutHandlerTest extends TestCase {
 
         CreateLayoutResponse createLayoutResponse = new CreateLayoutResponse();
         CreateLayoutResponseData createLayoutResponseData = new CreateLayoutResponseData();
-        createLayoutResponseData.set_id("id");
+        createLayoutResponseData.setId("id");
         createLayoutResponse.setData(createLayoutResponseData);
 
         Gson gson = new Gson();

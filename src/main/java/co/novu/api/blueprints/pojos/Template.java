@@ -1,23 +1,32 @@
 package co.novu.api.blueprints.pojos;
+
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class Template {
-    private String _id;
+    @SerializedName("_id")
+    private String id;
     private String type;
     private Boolean active;
     private String subject;
     private List<Content> content;
     private String contentType;
-    private String _environmentId;
-    private String _organizationId;
-    private String _creatorId;
-    private String _parentId;
-    private String _layoutId;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_organizationId")
+    private String organizationId;
+    @SerializedName("_creatorId")
+    private String creatorId;
+    @SerializedName("_parentId")
+    private String parentId;
+    @SerializedName("_layoutId")
+    private String layoutId;
     private List<Variables> variables;
     private String createdAt;
     private String updatedAt;
-    private Long __v;
+    @SerializedName("__v")
+    private Long version;
 }

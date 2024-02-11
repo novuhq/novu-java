@@ -1,4 +1,6 @@
 package co.novu.api.blueprints.pojos;
+
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
@@ -6,5 +8,6 @@ import java.util.List;
 @Data
 public class Filters {
    private List<String> children;
-   private String _id;
+   @SerializedName("_id")
+   private String id;
 }

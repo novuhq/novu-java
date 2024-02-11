@@ -1,15 +1,20 @@
 package co.novu.api.layouts.responses;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class LayoutResponse {
-    private String _id;
-    private String _organizationId;
-    private String _environmentId;
-    private String _creatorId;
+    @SerializedName("_id")
+    private String id;
+    @SerializedName("_organizationId")
+    private String organizationId;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_creatorId")
+    private String creatorId;
     private String name;
     private String description;
     private String channel;
@@ -20,5 +25,6 @@ public class LayoutResponse {
     private Boolean isDeleted;
     private String createdAt;
     private String updatedAt;
-    private String _parentId;
+    @SerializedName("_parentId")
+    private String parentId;
 }

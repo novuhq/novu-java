@@ -1,4 +1,5 @@
 package co.novu.api.blueprints.pojos;
+
 import lombok.Data;
 
 import java.util.List;

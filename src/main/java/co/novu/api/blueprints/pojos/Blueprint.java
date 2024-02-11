@@ -1,4 +1,5 @@
 package co.novu.api.blueprints.pojos;
+
 import co.novu.api.common.PreferenceSettings;
 import co.novu.api.common.Step;
 import co.novu.api.common.Trigger;
