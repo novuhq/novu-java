@@ -3,8 +3,8 @@ package co.novu.api.workflowoverrides;
 import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
+import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
-import co.novu.api.workflowoverrides.response.GetWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
@@ -30,11 +30,11 @@ public class WorkflowOverrideHandler {
         return restHandler.extractResponse(response);
     }
 
-    public GetWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public BulkWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
         if (request.getPage() != null) params.put("page", request.getPage());
         if (request.getLimit() != null) params.put("limit", request.getLimit());
-        Response<GetWorkflowOverridesResponse> response = workflowOverrideApi.getWorkflowOverrides(params).execute();
+        Response<BulkWorkflowOverridesResponse> response = workflowOverrideApi.getWorkflowOverrides(params).execute();
         return restHandler.extractResponse(response);
     }
 

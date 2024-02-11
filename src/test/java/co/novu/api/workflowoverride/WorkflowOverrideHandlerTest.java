@@ -8,7 +8,6 @@ import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
-import co.novu.api.workflowoverrides.response.GetWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.NovuNetworkException;
@@ -52,13 +51,13 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     }
 
     public void test_getWorkflowOverrides() throws IOException, NovuNetworkException, InterruptedException {
-        GetWorkflowOverridesResponse workflowOverridesResponse = getWorkflowOverridesResponse();
+        BulkWorkflowOverridesResponse workflowOverridesResponse = getWorkflowOverridesResponse();
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowOverridesResponse)));
         GetWorkflowOverrideRequest getWorkflowOverrideRequest = new GetWorkflowOverrideRequest();
         getWorkflowOverrideRequest.setPage(1);
         getWorkflowOverrideRequest.setLimit(10);
-        GetWorkflowOverridesResponse response = workflowOverrideHandler.getWorkflowOverrides(getWorkflowOverrideRequest);
+        BulkWorkflowOverridesResponse response = workflowOverrideHandler.getWorkflowOverrides(getWorkflowOverrideRequest);
         assertNotNull(response);
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/workflow-overrides?limit=10&page=1", request.getPath());
@@ -166,15 +165,13 @@ public class WorkflowOverrideHandlerTest extends TestCase {
         return createWorkflowOverrideRequest;
     }
 
-    private GetWorkflowOverridesResponse getWorkflowOverridesResponse() {
+    private BulkWorkflowOverridesResponse getWorkflowOverridesResponse() {
         BulkWorkflowOverridesResponse bulkWorkflowOverridesResponse = new BulkWorkflowOverridesResponse();
         bulkWorkflowOverridesResponse.setData(List.of(getWorkflowOverride(), getWorkflowOverride()));
         bulkWorkflowOverridesResponse.setHasMore(true);
         bulkWorkflowOverridesResponse.setPageSize(10L);
         bulkWorkflowOverridesResponse.setPage(1L);
-        GetWorkflowOverridesResponse getWorkflowOverridesResponse = new GetWorkflowOverridesResponse();
-        getWorkflowOverridesResponse.setData(bulkWorkflowOverridesResponse);
-        return getWorkflowOverridesResponse;
+        return bulkWorkflowOverridesResponse;
     }
 
     private UpdateWorkflowOverrideRequest getUpdateWorkflowOverrideRequest() {
