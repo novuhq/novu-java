@@ -437,7 +437,7 @@ public class Main {
 - `getWorkflowOverrideById(overrideId)`
 - `updateWorkflowOverride(workflowId, tenantId)`
 - `updateWorkflowOverrideById(overrideId)`
-- `deleteWorkflow(overrideId)`
+- `deleteWorkflowOverride(overrideId)`
 
 ### Notification
 
