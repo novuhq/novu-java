@@ -67,7 +67,7 @@ public class WorkflowHandlerTest extends TestCase {
         PreferenceSettings preferenceSettings = new PreferenceSettings();
         preferenceSettings.setEmail(true);
         preferenceSettings.setSms(true);
-        preferenceSettings.setIn_app(true);
+        preferenceSettings.setInApp(true);
         preferenceSettings.setPush(true);
         preferenceSettings.setChat(true);
         workflowRequest.setPreferenceSettings(preferenceSettings);
@@ -94,7 +94,7 @@ public class WorkflowHandlerTest extends TestCase {
         PreferenceSettings preferenceSettings1 = new PreferenceSettings();
         preferenceSettings1.setEmail(true);
         preferenceSettings1.setSms(true);
-        preferenceSettings1.setIn_app(true);
+        preferenceSettings1.setInApp(true);
         preferenceSettings1.setPush(true);
         preferenceSettings1.setChat(true);
         data.setPreferenceSettings(preferenceSettings1);
@@ -140,7 +140,7 @@ public class WorkflowHandlerTest extends TestCase {
         PreferenceSettings preferenceSettings = new PreferenceSettings();
         preferenceSettings.setEmail(true);
         preferenceSettings.setSms(true);
-        preferenceSettings.setIn_app(true);
+        preferenceSettings.setInApp(true);
         preferenceSettings.setPush(true);
         preferenceSettings.setChat(true);
         workflowRequest.setPreferenceSettings(preferenceSettings);
@@ -165,7 +165,7 @@ public class WorkflowHandlerTest extends TestCase {
         PreferenceSettings preferenceSettings1 = new PreferenceSettings();
         preferenceSettings1.setEmail(true);
         preferenceSettings1.setSms(true);
-        preferenceSettings1.setIn_app(true);
+        preferenceSettings1.setInApp(true);
         preferenceSettings1.setPush(true);
         preferenceSettings1.setChat(true);
         data.setPreferenceSettings(preferenceSettings1);
@@ -229,7 +229,7 @@ public class WorkflowHandlerTest extends TestCase {
         PreferenceSettings preferenceSettings1 = new PreferenceSettings();
         preferenceSettings1.setEmail(true);
         preferenceSettings1.setSms(true);
-        preferenceSettings1.setIn_app(true);
+        preferenceSettings1.setInApp(true);
         preferenceSettings1.setPush(true);
         preferenceSettings1.setChat(true);
         data.setPreferenceSettings(preferenceSettings1);
@@ -277,7 +277,7 @@ public class WorkflowHandlerTest extends TestCase {
         PreferenceSettings preferenceSettings1 = new PreferenceSettings();
         preferenceSettings1.setEmail(true);
         preferenceSettings1.setSms(true);
-        preferenceSettings1.setIn_app(true);
+        preferenceSettings1.setInApp(true);
         preferenceSettings1.setPush(true);
         preferenceSettings1.setChat(true);
         data.setPreferenceSettings(preferenceSettings1);

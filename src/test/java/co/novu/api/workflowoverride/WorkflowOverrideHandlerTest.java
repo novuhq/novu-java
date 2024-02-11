@@ -136,7 +136,7 @@ public class WorkflowOverrideHandlerTest extends TestCase {
         preferenceSettings.setSms(true);
         preferenceSettings.setPush(true);
         preferenceSettings.setEmail(true);
-        preferenceSettings.setIn_app(true);
+        preferenceSettings.setInApp(true);
         return preferenceSettings;
     }
 
@@ -180,7 +180,7 @@ public class WorkflowOverrideHandlerTest extends TestCase {
     private UpdateWorkflowOverrideRequest getUpdateWorkflowOverrideRequest() {
         UpdateWorkflowOverrideRequest updateWorkflowOverrideRequest = new UpdateWorkflowOverrideRequest();
         updateWorkflowOverrideRequest.setActive(true);
-        updateWorkflowOverrideRequest.setData(getPreferenceSettings());
+        updateWorkflowOverrideRequest.setPreferenceSettings(getPreferenceSettings());
         return updateWorkflowOverrideRequest;
     }
 

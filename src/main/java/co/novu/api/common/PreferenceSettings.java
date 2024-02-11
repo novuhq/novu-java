@@ -1,12 +1,14 @@
 package co.novu.api.common;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
 public class PreferenceSettings {
     private Boolean email;
     private Boolean sms;
-    private Boolean in_app;
+    @SerializedName("in_app")
+    private Boolean inApp;
     private Boolean chat;
     private Boolean push;
 }
