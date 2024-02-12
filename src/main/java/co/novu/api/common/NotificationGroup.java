@@ -18,5 +18,5 @@ public class NotificationGroup {
     private String createdAt;
     private String updatedAt;
     @SerializedName("__v")
-    private String v;
+    private String version;
 }

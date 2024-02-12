@@ -108,13 +108,11 @@ import co.novu.api.workflowgroups.responses.DeleteWorkflowGroup;
 import co.novu.api.workflowgroups.responses.GetWorkflowGroupsResponse;
 import co.novu.api.workflowgroups.responses.WorkflowGroupResponse;
 import co.novu.api.workflowoverrides.WorkflowOverrideHandler;
-import co.novu.api.workflowoverrides.pojos.WorkflowOverride;
 import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.GetWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
-import co.novu.api.workflowoverrides.response.GetWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import co.novu.api.workflows.WorkflowHandler;
 import co.novu.api.workflows.requests.UpdateWorkflowRequest;
@@ -996,11 +994,11 @@ public class Novu {
         }
     }
 
-    public GetWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public BulkWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowOverrideHandler.getWorkflowOverrides(request);
         } catch (Exception e) {
-            log.error("Error fetching Workflow-Override", e);
+            log.error("Error fetching bulk Workflow-Override", e);
             throw e;
         }
     }
@@ -1018,7 +1016,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.getWorkflowOverrideById(overrideId);
         } catch (Exception e) {
-            log.error("Error fetching Workflow-Override", e);
+            log.error("Error fetching Workflow-Override by id", e);
             throw e;
         }
     }
@@ -1027,7 +1025,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.updateWorkflowOverrideById(overrideId, request);
         } catch (Exception e) {
-            log.error("Error updating Workflow-Override", e);
+            log.error("Error updating Workflow-Override by id", e);
             throw e;
         }
     }

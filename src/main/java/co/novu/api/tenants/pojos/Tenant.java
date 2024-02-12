@@ -1,11 +1,14 @@
 package co.novu.api.tenants.pojos;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
 public class Tenant {
-    private String _environmentId;
-    private String _id;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_id")
+    private String id;
     private String createdAt;
     private Object data;
     private String identifier;

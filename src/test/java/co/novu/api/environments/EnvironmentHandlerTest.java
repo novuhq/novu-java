@@ -40,17 +40,17 @@ public class EnvironmentHandlerTest extends TestCase {
 
         SingleEnvironmentResponse singleEnvironmentResponse = new SingleEnvironmentResponse();
         EnvironmentResponse data = new EnvironmentResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setName("name");
         data.setIdentifier("identifier");
-        data.set_organizationId("organizationId");
+        data.setOrganizationId("organizationId");
         data.setApiKeys(Collections.singletonList(new ApiKey()));
         Widget widget = new Widget();
         widget.setNotificationCenterEncryption(false);
         data.setWidget(widget);
         data.setCreatedAt("createdAt");
         data.setUpdatedAt("updatedAt");
-        data.set_parentId("parentId");
+        data.setParentId("parentId");
         singleEnvironmentResponse.setData(data);
         
         Gson gson = new Gson();
@@ -72,17 +72,17 @@ public class EnvironmentHandlerTest extends TestCase {
 
         SingleEnvironmentResponse singleEnvironmentResponse = new SingleEnvironmentResponse();
         EnvironmentResponse data = new EnvironmentResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setName("name");
         data.setIdentifier("identifier");
-        data.set_organizationId("organizationId");
+        data.setOrganizationId("organizationId");
         data.setApiKeys(Collections.singletonList(new ApiKey()));
         Widget widget = new Widget();
         widget.setNotificationCenterEncryption(false);
         data.setWidget(widget);
         data.setCreatedAt("createdAt");
         data.setUpdatedAt("updatedAt");
-        data.set_parentId("parentId");
+        data.setParentId("parentId");
         singleEnvironmentResponse.setData(data);
         
         Gson gson = new Gson();
@@ -124,17 +124,17 @@ public class EnvironmentHandlerTest extends TestCase {
 
         SingleEnvironmentResponse singleEnvironmentResponse = new SingleEnvironmentResponse();
         EnvironmentResponse data = new EnvironmentResponse();
-        data.set_id("id");
+        data.setId("id");
         data.setName("name");
         data.setIdentifier("identifier");
-        data.set_organizationId("organizationId");
+        data.setOrganizationId("organizationId");
         data.setApiKeys(Collections.singletonList(new ApiKey()));
         Widget widget = new Widget();
         widget.setNotificationCenterEncryption(false);
         data.setWidget(widget);
         data.setCreatedAt("createdAt");
         data.setUpdatedAt("updatedAt");
-        data.set_parentId("parentId");
+        data.setParentId("parentId");
         singleEnvironmentResponse.setData(data);
         
         Gson gson = new Gson();

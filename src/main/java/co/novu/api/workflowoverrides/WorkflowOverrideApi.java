@@ -1,12 +1,9 @@
 package co.novu.api.workflowoverrides;
 
-import co.novu.api.workflowoverrides.pojos.WorkflowOverride;
-
 import co.novu.api.workflowoverrides.request.CreateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.request.UpdateWorkflowOverrideRequest;
 import co.novu.api.workflowoverrides.response.BulkWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.DeleteWorkflowOverrideResponse;
-import co.novu.api.workflowoverrides.response.GetWorkflowOverridesResponse;
 import co.novu.api.workflowoverrides.response.WorkflowOverrideResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -27,7 +24,7 @@ public interface WorkflowOverrideApi {
     Call<WorkflowOverrideResponse> createWorkflowOverride(@Body CreateWorkflowOverrideRequest request);
 
     @GET(ENDPOINT)
-    Call<GetWorkflowOverridesResponse> getWorkflowOverrides(@QueryMap Map<String, Object> params);
+    Call<BulkWorkflowOverridesResponse> getWorkflowOverrides(@QueryMap Map<String, Object> params);
 
     @GET(ENDPOINT + "/workflows/{workflowId}/tenants/{tenantId}")
     Call<WorkflowOverrideResponse> getWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId);
