@@ -49,7 +49,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -57,7 +57,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 ```gradle
 // add dependency
 dependencies {
-    implementation 'co.novu:novu-java:1.4.0'
+    implementation 'co.novu:novu-java:1.5.0'
 }
 ```
 Sync your project, and you should have the artifacts downloaded.
