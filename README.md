@@ -12,10 +12,7 @@
 [![License](https://poser.pugx.org/unicodeveloper/novu/license.svg)](LICENSE.md)
 [![GitHub release (with filter)](https://img.shields.io/github/v/release/novuhq/novu-java?label=SDK&link=https%3A%2F%2Fgithub.com%2Fnovuhq%2Fnovu-java%2Freleases%2Flatest)](https://github.com/novuhq/novu-java/releases/latest)
 
-
-
-Novu's API exposes the entire Novu features via a standardized programmatic interface. Please refer to the full [documentation](https://docs.novu.co/docs/overview/introduction) to learn more.
-
+The [Novu Java](https://novu.co) SDK provides a fluent and expressive interface for interacting with [Novu's API](https://docs.novu.co/api-reference/overview) and managing notifications. Please refer to the full [documentation](https://docs.novu.co/docs/overview/introduction) to learn more.
 
 ## Contents
 
@@ -49,7 +46,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
 </dependency>
 ```
 
@@ -57,7 +54,7 @@ Novu's API exposes the entire Novu features via a standardized programmatic inte
 ```gradle
 // add dependency
 dependencies {
-    implementation 'co.novu:novu-java:1.4.0'
+    implementation 'co.novu:novu-java:1.5.0'
 }
 ```
 Sync your project, and you should have the artifacts downloaded.
