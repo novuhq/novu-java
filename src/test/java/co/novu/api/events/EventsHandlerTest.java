@@ -8,6 +8,7 @@ import co.novu.api.events.responses.BulkTriggerEventResponse;
 import co.novu.api.events.responses.CancelEventResponse;
 import co.novu.api.events.responses.TriggerEventResponse;
 import co.novu.api.events.responses.TriggerEventResponseData;
+import co.novu.api.tenants.pojos.Tenant;
 import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
@@ -16,10 +17,11 @@ import junit.framework.TestCase;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventsHandlerTest extends TestCase {
 
@@ -47,6 +49,8 @@ public class EventsHandlerTest extends TestCase {
 
         triggerEventRequest.setTo(subscriberRequest);
         triggerEventRequest.setPayload(Collections.singletonMap("customVariables", "Hello"));
+        triggerEventRequest.setActor("actor");
+        triggerEventRequest.setTenant("tenant");
 
         TriggerEventResponse triggerEventResponse = new TriggerEventResponse();
         TriggerEventResponseData data = new TriggerEventResponseData();
@@ -76,6 +80,23 @@ public class EventsHandlerTest extends TestCase {
 
         triggerEventRequest.setTo(topic);
         triggerEventRequest.setPayload(Collections.singletonMap("customVariables", "Hello"));
+
+        Map<String, Object> actorMap = new HashMap<>();
+        actorMap.put("subscriberId", "sId");
+        actorMap.put("email", "email@mail.com");
+        actorMap.put("firstName", "fName");
+        actorMap.put("lastName", "lName");
+        actorMap.put("phone", "phoneNo");
+        actorMap.put("avatar", "avatarUrl");
+        actorMap.put("locale", "locale");
+        actorMap.put("data", new Object());
+        triggerEventRequest.setActor(actorMap);
+
+        Tenant tenant = new Tenant();
+        tenant.setIdentifier("identifier");
+        tenant.setName("name");
+        tenant.setData(new Object());
+        triggerEventRequest.setTenant(tenant);
 
         TriggerEventResponse triggerEventResponse = new TriggerEventResponse();
         TriggerEventResponseData data = new TriggerEventResponseData();
