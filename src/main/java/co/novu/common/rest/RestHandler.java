@@ -41,14 +41,17 @@ public class RestHandler {
                             .addHeader("User-Agent", "novu/Java@" + loadSdkVersionFromPom())
                             .build();
                     return chain.proceed(request);
-                }).addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC));
+                });
+        if (novuConfig.isEnableLogging()) {
+            clientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(novuConfig.getApiLogLevel()));
+        }
 
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(novuConfig.getBaseUrl())
+                .baseUrl(novuConfig.isEnableEuVersion() ? novuConfig.getEuBaseUrl() : novuConfig.getBaseUrl())
                 .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -81,7 +84,9 @@ public class RestHandler {
             Model model = reader.read(new InputStreamReader(inputStream));
             return model.getVersion();
         } catch (Exception e) {
-            log.error("Could not retrieve the sdk version", e);
+            if (novuConfig.isEnableLogging()) {
+                log.error("Could not retrieve the sdk version", e);
+            }
         }
         return "";
     }

@@ -129,6 +129,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Novu {
 
+    private final NovuConfig novuConfig;
+
     private final EventsHandler eventsHandler;
 
     private final NotificationHandler notificationHandler;
@@ -172,6 +174,7 @@ public class Novu {
 
     public Novu(NovuConfig novuConfig) {
         RestHandler restHandler = new RestHandler(novuConfig);
+        this.novuConfig = novuConfig;
         this.eventsHandler = new EventsHandler(restHandler);
         this.notificationHandler = new NotificationHandler(restHandler);
         this.subscribersHandler = new SubscribersHandler(restHandler);
@@ -195,8 +198,8 @@ public class Novu {
     public TriggerEventResponse triggerEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
         try {
             return eventsHandler.triggerEvent(request);
-        }catch (Exception e){
-            log.error("Error triggering event", e);
+        } catch (Exception e) {
+            logException("Error triggering event", e);
             throw e;
         }
     }
@@ -205,7 +208,7 @@ public class Novu {
         try {
             return eventsHandler.bulkTriggerEvent(request);
         } catch (Exception e) {
-            log.error("Error Triggering Event", e);
+            logException("Error Triggering Event", e);
             throw e;
         }
     }
@@ -214,7 +217,7 @@ public class Novu {
         try {
             return eventsHandler.broadcastEvent(request);
         } catch (Exception e) {
-            log.error("Error BroadCasting Event", e);
+            logException("Error BroadCasting Event", e);
             throw e;
         }
     }
@@ -223,7 +226,7 @@ public class Novu {
         try {
             return eventsHandler.cancelTriggeredEvent(transactionId);
         } catch (Exception e) {
-            log.error("Error Canceling Event", e);
+            logException("Error Canceling Event", e);
             throw e;
         }
     }
@@ -232,7 +235,7 @@ public class Novu {
         try {
             return notificationHandler.getNotifications(request);
         } catch (Exception e) {
-            log.error("Error Getting Notification", e);
+            logException("Error Getting Notification", e);
             throw e;
         }
     }
@@ -241,7 +244,7 @@ public class Novu {
         try {
             return notificationHandler.getNotificationsStats();
         } catch (Exception e) {
-            log.error("Error Getting Notifications Stats", e);
+            logException("Error Getting Notifications Stats", e);
             throw e;
         }
     }
@@ -250,7 +253,7 @@ public class Novu {
         try {
             return notificationHandler.getNotificationGraphStats();
         } catch (Exception e) {
-            log.error("Error Getting Notifications Graph Stats", e);
+            logException("Error Getting Notifications Graph Stats", e);
             throw e;
         }
     }
@@ -259,7 +262,7 @@ public class Novu {
         try {
             return notificationHandler.getNotification(notificationId);
         } catch (Exception e) {
-            log.error("Error Getting Notification", e);
+            logException("Error Getting Notification", e);
             throw e;
         }
     }
@@ -268,7 +271,7 @@ public class Novu {
         try {
             return subscribersHandler.getSubscribers(page, limit);
         } catch (Exception e) {
-            log.error("Error getting Subscribers", e);
+            logException("Error getting Subscribers", e);
             throw e;
         }
     }
@@ -277,7 +280,7 @@ public class Novu {
         try {
             return subscribersHandler.createSubscriber(request);
         } catch (Exception e) {
-            log.error("Error creating Subscriber", e);
+            logException("Error creating Subscriber", e);
             throw e;
         }
     }
@@ -286,7 +289,7 @@ public class Novu {
         try {
             return subscribersHandler.createSubscriberBulk(request);
         } catch (Exception e) {
-            log.error("Error creating bulk Subscribers", e);
+            logException("Error creating bulk Subscribers", e);
             throw e;
         }
     }
@@ -295,7 +298,7 @@ public class Novu {
         try {
             return subscribersHandler.getSubscriber(subscriberId);
         } catch (Exception e) {
-            log.error("Error getting Subscriber", e);
+            logException("Error getting Subscriber", e);
             throw e;
         }
     }
@@ -304,7 +307,7 @@ public class Novu {
         try {
             return subscribersHandler.updateSubscriber(request, subscriberId);
         } catch (Exception e) {
-            log.error("Error updating Subscriber", e);
+            logException("Error updating Subscriber", e);
             throw e;
         }
     }
@@ -313,7 +316,7 @@ public class Novu {
         try {
             return subscribersHandler.deleteSubscriber(subscriberId);
         } catch (Exception e) {
-            log.error("Error deleting Subscriber", e);
+            logException("Error deleting Subscriber", e);
             throw e;
         }
     }
@@ -322,7 +325,7 @@ public class Novu {
         try {
             return subscribersHandler.updateSubscriberCredentials(request, subscriberId);
         } catch (Exception e) {
-            log.error("Error updating Subscriber Credentials", e);
+            logException("Error updating Subscriber Credentials", e);
             throw e;
         }
     }
@@ -331,7 +334,7 @@ public class Novu {
         try {
             return subscribersHandler.deleteSubscriberCredentials(subscriberId, providerId);
         } catch (Exception e) {
-            log.error("Error deleting Subscriber Credentials", e);
+            logException("Error deleting Subscriber Credentials", e);
             throw e;
         }
     }
@@ -340,7 +343,7 @@ public class Novu {
         try {
             return subscribersHandler.updateSubscriberOnlineStatus(request, subscriberId);
         } catch (Exception e) {
-            log.error("Error updating Subscriber Online Status", e);
+            logException("Error updating Subscriber Online Status", e);
             throw e;
         }
     }
@@ -349,7 +352,7 @@ public class Novu {
         try {
             return subscribersHandler.getSubscriberPreferences(subscriberId);
         } catch (Exception e) {
-            log.error("Error getting Subscriber Preferences", e);
+            logException("Error getting Subscriber Preferences", e);
             throw e;
         }
     }
@@ -358,7 +361,7 @@ public class Novu {
         try {
             return subscribersHandler.updateSubscriberPreferences(request, subscriberId, templateId);
         } catch (Exception e) {
-            log.error("Error updating Subscriber Preferences", e);
+            logException("Error updating Subscriber Preferences", e);
             throw e;
         }
     }
@@ -367,7 +370,7 @@ public class Novu {
         try {
             return subscribersHandler.getSubscriberNotificationsFeed(subscriberId);
         } catch (Exception e) {
-            log.error("Error getting Subscriber Notifications Feed", e);
+            logException("Error getting Subscriber Notifications Feed", e);
             throw e;
         }
     }
@@ -376,7 +379,7 @@ public class Novu {
         try {
             return subscribersHandler.getSubscriberUnseenNotificationsCount(subscriberId);
         } catch (Exception e) {
-            log.error("Error getting Subscriber unseen Notifications Count", e);
+            logException("Error getting Subscriber unseen Notifications Count", e);
             throw e;
         }
     }
@@ -385,7 +388,7 @@ public class Novu {
         try {
             return subscribersHandler.markSubscriberMessageFeedAs(request, subscriberId);
         } catch (Exception e) {
-            log.error("Error marking Subscriber Message Feed", e);
+            logException("Error marking Subscriber Message Feed", e);
             throw e;
         }
     }
@@ -394,7 +397,7 @@ public class Novu {
         try {
             return subscribersHandler.markAllSubscriberMessagesFeedAs(request, subscriberId);
         } catch (Exception e) {
-            log.error("Error marking all Subscriber Messages Feed", e);
+            logException("Error marking all Subscriber Messages Feed", e);
             throw e;
         }
     }
@@ -403,7 +406,7 @@ public class Novu {
         try {
             return subscribersHandler.markMessageActionAsSeen(request, subscriberId, messageId, type);
         } catch (Exception e) {
-            log.error("Error marking Message Action as seen", e);
+            logException("Error marking Message Action as seen", e);
             throw e;
         }
     }
@@ -412,7 +415,7 @@ public class Novu {
         try {
             return topicHandler.createTopic(request);
         } catch (Exception e) {
-            log.error("Error Creating Topic", e);
+            logException("Error Creating Topic", e);
             throw e;
         }
     }
@@ -421,7 +424,7 @@ public class Novu {
         try {
             return topicHandler.filterTopics(request);
         } catch (Exception e) {
-            log.error("Error filtering Topic", e);
+            logException("Error filtering Topic", e);
             throw e;
         }
     }
@@ -430,7 +433,7 @@ public class Novu {
         try {
             return topicHandler.addSubscriberToTopic(request, topicKey);
         } catch (Exception e) {
-            log.error("Error adding subscriber to Topic", e);
+            logException("Error adding subscriber to Topic", e);
             throw e;
         }
     }
@@ -439,7 +442,7 @@ public class Novu {
         try {
             return topicHandler.checkTopicSubscriber(topicKey, externalSubscriberId);
         } catch (Exception e) {
-            log.error("Error checking topic subscriber", e);
+            logException("Error checking topic subscriber", e);
             throw e;
         }
     }
@@ -448,7 +451,7 @@ public class Novu {
         try {
             return topicHandler.removeSubscriberFromTopic(request, topicKey);
         } catch (Exception e) {
-            log.error("Error removing subscriber from Topic", e);
+            logException("Error removing subscriber from Topic", e);
             throw e;
         }
     }
@@ -457,7 +460,7 @@ public class Novu {
         try {
             return topicHandler.deleteTopic(topicKey);
         } catch (Exception e) {
-            log.error("Error Deleting Topic", e);
+            logException("Error Deleting Topic", e);
             throw e;
         }
     }
@@ -466,7 +469,7 @@ public class Novu {
         try {
             return topicHandler.getTopic(topicKey);
         } catch (Exception e) {
-            log.error("Error Getting Topic", e);
+            logException("Error Getting Topic", e);
             throw e;
         }
     }
@@ -475,7 +478,7 @@ public class Novu {
         try {
             return topicHandler.renameTopic(request, topicKey);
         } catch (Exception e) {
-            log.error("Error renaming Topic", e);
+            logException("Error renaming Topic", e);
             throw e;
         }
     }
@@ -484,7 +487,7 @@ public class Novu {
         try {
             return integrationsHandler.getIntegrations();
         } catch (Exception e) {
-            log.error("Error getting Integrations", e);
+            logException("Error getting Integrations", e);
             throw e;
         }
     }
@@ -493,7 +496,7 @@ public class Novu {
         try {
             return integrationsHandler.createIntegration(request);
         } catch (Exception e) {
-            log.error("Error creating Integrations", e);
+            logException("Error creating Integrations", e);
             throw e;
         }
     }
@@ -502,7 +505,7 @@ public class Novu {
         try {
             return integrationsHandler.getActiveIntegrations();
         } catch (Exception e) {
-            log.error("Error getting active Integrations", e);
+            logException("Error getting active Integrations", e);
             throw e;
         }
     }
@@ -511,7 +514,7 @@ public class Novu {
         try {
             return integrationsHandler.getProviderWebhookStatus(providerId);
         } catch (Exception e) {
-            log.error("Error getting Provider Webhook Status", e);
+            logException("Error getting Provider Webhook Status", e);
             throw e;
         }
     }
@@ -520,7 +523,7 @@ public class Novu {
         try {
             return integrationsHandler.updateIntegration(integrationId, request);
         } catch (Exception e) {
-            log.error("Error updating Integration", e);
+            logException("Error updating Integration", e);
             throw e;
         }
     }
@@ -529,7 +532,7 @@ public class Novu {
         try {
             return integrationsHandler.deleteIntegration(integrationId);
         } catch (Exception e) {
-            log.error("Error deleting Integration", e);
+            logException("Error deleting Integration", e);
             throw e;
         }
     }
@@ -538,7 +541,7 @@ public class Novu {
         try {
             return integrationsHandler.setIntegrationAsPrimary(integrationId);
         } catch (Exception e) {
-            log.error("Error setting Integration as primary", e);
+            logException("Error setting Integration as primary", e);
             throw e;
         }
     }
@@ -547,7 +550,7 @@ public class Novu {
         try {
             return layoutHandler.createLayout(request);
         } catch (Exception e) {
-            log.error("Error creating Layout", e);
+            logException("Error creating Layout", e);
             throw e;
         }
     }
@@ -556,7 +559,7 @@ public class Novu {
         try {
             return layoutHandler.filterLayouts(request);
         } catch (Exception e) {
-            log.error("Error filtering Layout", e);
+            logException("Error filtering Layout", e);
             throw e;
         }
     }
@@ -565,7 +568,7 @@ public class Novu {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
-            log.error("Error getting Layouts", e);
+            logException("Error getting Layouts", e);
             throw e;
         }
     }
@@ -574,7 +577,7 @@ public class Novu {
         try {
             return layoutHandler.deleteLayout(layoutId);
         } catch (Exception e) {
-            log.error("Error Deleting Layout", e);
+            logException("Error Deleting Layout", e);
             throw e;
         }
     }
@@ -583,7 +586,7 @@ public class Novu {
         try {
             return layoutHandler.updateLayout(layoutId, request);
         } catch (Exception e) {
-            log.error("Error updating Layout", e);
+            logException("Error updating Layout", e);
             throw e;
         }
     }
@@ -592,7 +595,7 @@ public class Novu {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
         } catch (Exception e) {
-            log.error("Error Setting Default Layout", e);
+            logException("Error Setting Default Layout", e);
             throw e;
         }
     }
@@ -601,7 +604,7 @@ public class Novu {
         try {
             return workflowHandler.getWorkflows(page, limit);
         } catch (Exception e) {
-            log.error("Error getting Workflows", e);
+            logException("Error getting Workflows", e);
             throw e;
         }
     }
@@ -610,7 +613,7 @@ public class Novu {
         try {
             return workflowHandler.createWorkflow(request);
         } catch (Exception e) {
-            log.error("Error creating Workflow", e);
+            logException("Error creating Workflow", e);
             throw e;
         }
     }
@@ -619,7 +622,7 @@ public class Novu {
         try {
             return workflowHandler.updateWorkflow(workflowId, request);
         } catch (Exception e) {
-            log.error("Error updating Workflow", e);
+            logException("Error updating Workflow", e);
             throw e;
         }
     }
@@ -628,7 +631,7 @@ public class Novu {
         try {
             return workflowHandler.deleteWorkflow(workflowId);
         } catch (Exception e) {
-            log.error("Error deleting Workflow", e);
+            logException("Error deleting Workflow", e);
             throw e;
         }
     }
@@ -637,7 +640,7 @@ public class Novu {
         try {
             return workflowHandler.getWorkflow(workflowId);
         } catch (Exception e) {
-            log.error("Error getting Workflow", e);
+            logException("Error getting Workflow", e);
             throw e;
         }
     }
@@ -646,16 +649,16 @@ public class Novu {
         try {
             return workflowHandler.updateWorkflowStatus(workflowId, request);
         } catch (Exception e) {
-            log.error("Error updating Workflow status", e);
+            logException("Error updating Workflow status", e);
             throw e;
         }
     }
 
-    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) throws IOException, NovuNetworkException  {
+    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.createWorkflowGroup(request);
         } catch (Exception e) {
-            log.error("Error creating workflow group", e);
+            logException("Error creating workflow group", e);
             throw e;
         }
     }
@@ -664,7 +667,7 @@ public class Novu {
         try {
             return workflowGroupHandler.getWorkflowGroups();
         } catch (Exception e) {
-            log.error("Error getting workflow groups", e);
+            logException("Error getting workflow groups", e);
             throw e;
         }
     }
@@ -673,7 +676,7 @@ public class Novu {
         try {
             return workflowGroupHandler.getWorkflowGroup(id);
         } catch (Exception e) {
-            log.error("Error getting workflow group", e);
+            logException("Error getting workflow group", e);
             throw e;
         }
     }
@@ -682,7 +685,7 @@ public class Novu {
         try {
             return workflowGroupHandler.updateWorkflowGroup(id,request);
         } catch (Exception e) {
-            log.error("Error updating workflow group", e);
+            logException("Error updating workflow group", e);
             throw e;
         }
     }
@@ -691,7 +694,7 @@ public class Novu {
         try {
             return workflowGroupHandler.deleteWorkflowGroup(id);
         } catch (Exception e) {
-            log.error("Error deleting workflow group", e);
+            logException("Error deleting workflow group", e);
             throw e;
         }
     }
@@ -700,7 +703,7 @@ public class Novu {
         try {
             return changeHandler.getChanges(request);
         } catch (Exception e) {
-            log.error("Error getting changes", e);
+            logException("Error getting changes", e);
             throw e;
         }
     }
@@ -709,17 +712,16 @@ public class Novu {
         try {
             return changeHandler.getChangesCount();
         } catch (Exception e) {
-            log.error("Error getting changes count", e);
+            logException("Error getting changes count", e);
             throw e;
         }
     }
-
 
     public ApplyChangesResponse applyChanges(ApplyChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChanges(request);
         } catch (Exception e) {
-            log.error("Error applying changes", e);
+            logException("Error applying changes", e);
             throw e;
         }
     }
@@ -728,7 +730,7 @@ public class Novu {
         try {
             return changeHandler.applyChange(changeId);
         } catch (Exception e) {
-            log.error("Error applying change", e);
+            logException("Error applying change", e);
             throw e;
         }
     }
@@ -737,7 +739,7 @@ public class Novu {
         try {
             return environmentHandler.getCurrentEnvironment();
         } catch (Exception e) {
-            log.error("Error getting current Environment", e);
+            logException("Error getting current Environment", e);
             throw e;
         }
     }
@@ -746,7 +748,7 @@ public class Novu {
         try {
             return environmentHandler.createEnvironment(request);
         } catch (Exception e) {
-            log.error("Error creating Environment", e);
+            logException("Error creating Environment", e);
             throw e;
         }
     }
@@ -755,7 +757,7 @@ public class Novu {
         try {
             return environmentHandler.getEnvironments();
         } catch (Exception e) {
-            log.error("Error getting Environments", e);
+            logException("Error getting Environments", e);
             throw e;
         }
     }
@@ -764,7 +766,7 @@ public class Novu {
         try {
             return environmentHandler.updateEnvironmentById(environmentId, request);
         } catch (Exception e) {
-            log.error("Error updating Environment by ID", e);
+            logException("Error updating Environment by ID", e);
             throw e;
         }
     }
@@ -773,7 +775,7 @@ public class Novu {
         try {
             return environmentHandler.getApiKeys();
         } catch (Exception e) {
-            log.error("Error getting Api Keys", e);
+            logException("Error getting Api Keys", e);
             throw e;
         }
     }
@@ -782,7 +784,7 @@ public class Novu {
         try {
             return environmentHandler.regenerateApiKeys();
         } catch (Exception e) {
-            log.error("Error regenerating Api Keys", e);
+            logException("Error regenerating Api Keys", e);
             throw e;
         }
     }
@@ -791,7 +793,7 @@ public class Novu {
         try {
             return inboundParseHandler.validateMxRecordSetupForInboundParse();
         } catch (Exception e) {
-            log.error("Error validating Mx record setup", e);
+            logException("Error validating Mx record setup", e);
             throw e;
         }
     }
@@ -800,7 +802,7 @@ public class Novu {
         try {
             return feedsHandler.createFeed(request);
         } catch (Exception e) {
-            log.error("Error creating feed", e);
+            logException("Error creating feed", e);
             throw e;
         }
     }
@@ -809,7 +811,7 @@ public class Novu {
         try {
             return feedsHandler.getFeeds();
         } catch (Exception e) {
-            log.error("Error getting feed", e);
+            logException("Error getting feed", e);
             throw e;
         }
     }
@@ -818,7 +820,7 @@ public class Novu {
         try {
             return feedsHandler.deleteFeed(feedId);
         } catch (Exception e) {
-            log.error("Error deleting feed", e);
+            logException("Error deleting feed", e);
             throw e;
         }
     }
@@ -827,7 +829,7 @@ public class Novu {
         try {
             return messageHandler.getMessages(request);
         } catch (Exception e) {
-            log.error("Error getting Messages", e);
+            logException("Error getting Messages", e);
             throw e;
         }
     }
@@ -836,7 +838,7 @@ public class Novu {
         try {
             return messageHandler.deleteMessage(messageId);
         } catch (Exception e) {
-            log.error("Error deleting Message", e);
+            logException("Error deleting Message", e);
             throw e;
         }
     }
@@ -845,7 +847,7 @@ public class Novu {
         try {
             return executiveDetailsHandler.getExecutionDetails(notificationId, subscriberId);
         } catch (Exception e) {
-            log.error("Error getting Execution Details", e);
+            logException("Error getting Execution Details", e);
             throw e;
         }
     }
@@ -854,7 +856,7 @@ public class Novu {
         try {
             return blueprintsHandler.getBlueprintsByCategory();
         } catch (Exception e) {
-            log.error("Error getting Blueprints by Category", e);
+            logException("Error getting Blueprints by Category", e);
             throw e;
         }
     }
@@ -863,7 +865,7 @@ public class Novu {
         try {
             return blueprintsHandler.getBlueprint(templateId);
         } catch (Exception e) {
-            log.error("Error getting Blueprint", e);
+            logException("Error getting Blueprint", e);
             throw e;
         }
     }
@@ -872,7 +874,7 @@ public class Novu {
         try {
             return tenantsHandler.getTenants(request);
         } catch (Exception e) {
-            log.error("Error getting Tenants", e);
+            logException("Error getting Tenants", e);
             throw e;
         }
     }
@@ -881,7 +883,7 @@ public class Novu {
         try {
             return tenantsHandler.createTenant(request);
         } catch (Exception e) {
-            log.error("Error creating Tenant", e);
+            logException("Error creating Tenant", e);
             throw e;
         }
     }
@@ -890,7 +892,7 @@ public class Novu {
         try {
             return tenantsHandler.getTenant(identifier);
         } catch (Exception e) {
-            log.error("Error getting Tenant", e);
+            logException("Error getting Tenant", e);
             throw e;
         }
     }
@@ -899,7 +901,7 @@ public class Novu {
         try {
             return tenantsHandler.updateTenant(request, identifier);
         } catch (Exception e) {
-            log.error("Error updating Tenant", e);
+            logException("Error updating Tenant", e);
             throw e;
         }
     }
@@ -908,7 +910,7 @@ public class Novu {
         try {
             return tenantsHandler.deleteTenant(identifier);
         } catch (Exception e) {
-            log.error("Error deleting Tenant", e);
+            logException("Error deleting Tenant", e);
             throw e;
         }
     }
@@ -917,7 +919,7 @@ public class Novu {
         try {
             return organizationHandler.createOrganization(request);
         } catch (Exception e) {
-            log.error("Error creating Organization", e);
+            logException("Error creating Organization", e);
             throw e;
         }
     }
@@ -926,7 +928,7 @@ public class Novu {
         try {
             return organizationHandler.fetchAllOrganizations();
         } catch (Exception e) {
-            log.error("Error fetching Organizations", e);
+            logException("Error fetching Organizations", e);
             throw e;
         }
     }
@@ -935,7 +937,7 @@ public class Novu {
         try {
             return organizationHandler.updateOrganizationName(request);
         } catch (Exception e) {
-            log.error("Error Updating Organization Name", e);
+            logException("Error Updating Organization Name", e);
             throw e;
         }
     }
@@ -944,7 +946,7 @@ public class Novu {
         try {
             return organizationHandler.fetchCurrentOrganization();
         } catch (Exception e) {
-            log.error("Error Fetching Current Organization", e);
+            logException("Error Fetching Current Organization", e);
             throw e;
         }
     }
@@ -953,7 +955,7 @@ public class Novu {
         try {
             return organizationHandler.removeMemberWithId(memberId);
         } catch (Exception e) {
-            log.error("Error Removing Member With MemberId", e);
+            logException("Error Removing Member With MemberId", e);
             throw e;
         }
     }
@@ -962,7 +964,7 @@ public class Novu {
         try {
             return organizationHandler.updateMemberRole(memberId, request);
         } catch (Exception e) {
-            log.error("Error Updating Member Role", e);
+            logException("Error Updating Member Role", e);
             throw e;
         }
     }
@@ -971,7 +973,7 @@ public class Novu {
         try {
             return organizationHandler.fetchMembersOfOrganization();
         } catch (Exception e) {
-            log.error("Error Fetching Organization Members", e);
+            logException("Error Fetching Organization Members", e);
             throw e;
         }
     }
@@ -980,7 +982,7 @@ public class Novu {
         try {
             return organizationHandler.updateOrganizationBrand(request);
         } catch (Exception e) {
-            log.error("Error Updating Organization Brand", e);
+            logException("Error Updating Organization Brand", e);
             throw e;
         }
     }
@@ -989,7 +991,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.createWorkflowOverride(request);
         } catch (Exception e) {
-            log.error("Error creating Workflow-Override", e);
+            logException("Error creating Workflow-Override", e);
             throw e;
         }
     }
@@ -998,7 +1000,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.getWorkflowOverrides(request);
         } catch (Exception e) {
-            log.error("Error fetching bulk Workflow-Override", e);
+            logException("Error fetching bulk Workflow-Override", e);
             throw e;
         }
     }
@@ -1007,7 +1009,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.getWorkflowOverride(workflowId, tenantId);
         } catch (Exception e) {
-            log.error("Error fetching Workflow-Override", e);
+            logException("Error fetching Workflow-Override", e);
             throw e;
         }
     }
@@ -1016,7 +1018,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.getWorkflowOverrideById(overrideId);
         } catch (Exception e) {
-            log.error("Error fetching Workflow-Override by id", e);
+            logException("Error fetching Workflow-Override by id", e);
             throw e;
         }
     }
@@ -1025,7 +1027,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.updateWorkflowOverrideById(overrideId, request);
         } catch (Exception e) {
-            log.error("Error updating Workflow-Override by id", e);
+            logException("Error updating Workflow-Override by id", e);
             throw e;
         }
     }
@@ -1034,7 +1036,7 @@ public class Novu {
         try {
             return workflowOverrideHandler.updateWorkflowOverride(workflowId, tenantId, request);
         } catch (Exception e) {
-            log.error("Error updating Workflow-Override", e);
+            logException("Error updating Workflow-Override", e);
             throw e;
         }
     }
@@ -1043,8 +1045,15 @@ public class Novu {
         try {
             return workflowOverrideHandler.deleteWorkflowOverride(overrideId);
         } catch (Exception e) {
-            log.error("Error deleting Workflow-Override", e);
+            logException("Error deleting Workflow-Override", e);
             throw e;
         }
+    }
+
+    private void logException(String message, Exception e) {
+        if (!novuConfig.isEnableLogging()) {
+            return;
+        }
+        log.error(message, e);
     }
 }
