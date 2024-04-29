@@ -83,7 +83,6 @@ tools:
   category: Application Hosting
   sub_category: Platform as a Service
   image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
-  detection_source: src/main/resources/application.properties
   last_updated_by: Mukhtar
   last_updated_on: 2023-06-25 20:22:10.000000000 Z
 - name: com.squareup.okhttp3:logging-interceptor
