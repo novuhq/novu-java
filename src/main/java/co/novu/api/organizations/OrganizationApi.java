@@ -19,8 +19,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.PATCH;
 
-
-
 public interface OrganizationApi {
 
     String ENDPOINT = "organizations";
@@ -41,7 +39,7 @@ public interface OrganizationApi {
     Call<MemberResponse> removeMemberWithId(@Path("memberId") String memberId);
 
     @PUT(ENDPOINT + "/members/{memberId}/roles")
-    Call<MemberResponse> updateMemberRole(@Path("memberId") String memberId , @Body UpdateMemberRoleRequest request);
+    Call<MemberResponse> updateMemberRole(@Path("memberId") String memberId, @Body UpdateMemberRoleRequest request);
 
     @GET(ENDPOINT + "/members")
     Call<FetchMembersResponse> fetchMembersOfOrganization();

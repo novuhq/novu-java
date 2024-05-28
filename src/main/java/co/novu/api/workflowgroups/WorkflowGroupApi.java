@@ -17,17 +17,17 @@ public interface WorkflowGroupApi {
     String ENDPOINT = "notification-groups";
 
     @POST(ENDPOINT)
-    public Call<WorkflowGroupResponse> createWorkflowGroup(@Body WorkflowGroupRequest request);
+    Call<WorkflowGroupResponse> createWorkflowGroup(@Body WorkflowGroupRequest request);
 
     @GET(ENDPOINT)
-    public Call<GetWorkflowGroupsResponse> getWorkflowGroups();
+    Call<GetWorkflowGroupsResponse> getWorkflowGroups();
 
     @GET(ENDPOINT + "/{id}")
-    public Call<WorkflowGroupResponse> getWorkflowGroup(@Path("id") String id);
+    Call<WorkflowGroupResponse> getWorkflowGroup(@Path("id") String id);
 
     @PUT(ENDPOINT + "/{id}")
-    public Call<WorkflowGroupResponse> updateWorkflowGroup(@Path("id") String id, @Body WorkflowGroupRequest request);
+    Call<WorkflowGroupResponse> updateWorkflowGroup(@Path("id") String id, @Body WorkflowGroupRequest request);
 
     @DELETE(ENDPOINT + "/{id}")
-    public Call<DeleteWorkflowGroup> deleteWorkflowGroup(@Path("id") String id);
+    Call<DeleteWorkflowGroup> deleteWorkflowGroup(@Path("id") String id);
 }

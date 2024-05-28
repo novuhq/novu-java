@@ -18,19 +18,20 @@ import retrofit2.Response;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class OrganizationHandler {
+public final class OrganizationHandler {
 
     private final RestHandler restHandler;
 
     private final OrganizationApi organizationApi;
 
-    public OrganizationHandler(RestHandler restHandler) {
-        this.restHandler = restHandler;
-        this.organizationApi = restHandler.buildRetrofit().create(OrganizationApi.class);
+    public OrganizationHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.organizationApi = handler.buildRetrofit().create(OrganizationApi.class);
     }
 
 
-    public OrganizationResponse createOrganization(CreateOrganizationRequest request) throws IOException, NovuNetworkException {
+    public OrganizationResponse createOrganization(final CreateOrganizationRequest request)
+            throws IOException, NovuNetworkException {
         Response<OrganizationResponse> response = organizationApi.createOrganization(request).execute();
         return restHandler.extractResponse(response);
     }
@@ -40,23 +41,25 @@ public class OrganizationHandler {
         return restHandler.extractResponse(response);
     }
 
-    public UpdateOrganizationNameResponse updateOrganizationName(UpdateOrganizationNameRequest request) throws IOException, NovuNetworkException {
+    public UpdateOrganizationNameResponse updateOrganizationName(final UpdateOrganizationNameRequest request)
+            throws IOException, NovuNetworkException {
         Response<UpdateOrganizationNameResponse> response = organizationApi.updateOrganizationName(request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public OrganizationResponse fetchCurrentOrganization() throws IOException, NovuNetworkException{
+    public OrganizationResponse fetchCurrentOrganization() throws IOException, NovuNetworkException {
         Response<OrganizationResponse> response = organizationApi.fetchCurrentOrganization().execute();
         return restHandler.extractResponse(response);
     }
 
-    public MemberResponse removeMemberWithId(String memberId) throws IOException, NovuNetworkException {
+    public MemberResponse removeMemberWithId(final String memberId) throws IOException, NovuNetworkException {
         Response<MemberResponse> response = organizationApi.removeMemberWithId(memberId).execute();
         return restHandler.extractResponse(response);
     }
 
-    public MemberResponse updateMemberRole(String memberId, UpdateMemberRoleRequest request) throws IOException, NovuNetworkException {
-        Response<MemberResponse> response = organizationApi.updateMemberRole(memberId,request).execute();
+    public MemberResponse updateMemberRole(final String memberId, final UpdateMemberRoleRequest request)
+            throws IOException, NovuNetworkException {
+        Response<MemberResponse> response = organizationApi.updateMemberRole(memberId, request).execute();
         return restHandler.extractResponse(response);
     }
 
@@ -65,10 +68,9 @@ public class OrganizationHandler {
         return restHandler.extractResponse(response);
     }
 
-    public UpdateOrganizationBrandResponse updateOrganizationBrand(UpdateOrganizationBrandRequest request) throws IOException, NovuNetworkException {
+    public UpdateOrganizationBrandResponse updateOrganizationBrand(final UpdateOrganizationBrandRequest request)
+            throws IOException, NovuNetworkException {
         Response<UpdateOrganizationBrandResponse> response = organizationApi.updateOrganizationBrand(request).execute();
         return restHandler.extractResponse(response);
     }
-
-
 }

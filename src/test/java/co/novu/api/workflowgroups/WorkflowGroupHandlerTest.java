@@ -38,11 +38,11 @@ public class WorkflowGroupHandlerTest extends TestCase {
 
         WorkflowGroupResponse workflowGroupResponse = new WorkflowGroupResponse();
         WorkflowGroupResponseData data = new WorkflowGroupResponseData();
-        data.set_id("id");
+        data.setId("id");
         data.setName("name");
-        data.set_organizationId("organizationId");
-        data.set_environmentId("environmentId");
-        data.set_parentId("parentId");
+        data.setOrganizationId("organizationId");
+        data.setEnvironmentId("environmentId");
+        data.setParentId("parentId");
         workflowGroupResponse.setData(data);
 
          Gson gson = new Gson();
@@ -75,17 +75,17 @@ public class WorkflowGroupHandlerTest extends TestCase {
 
         WorkflowGroupResponse workflowGroupResponse = new WorkflowGroupResponse();
         WorkflowGroupResponseData data = new WorkflowGroupResponseData();
-        data.set_id("id");
+        data.setId("id");
         data.setName("name");
-        data.set_organizationId("organizationId");
-        data.set_environmentId("environmentId");
-        data.set_parentId("parentId");
+        data.setOrganizationId("organizationId");
+        data.setEnvironmentId("environmentId");
+        data.setParentId("parentId");
         workflowGroupResponse.setData(data);
        
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowGroupResponse)));
 
-        WorkflowGroupResponse response = workflowGroupHandler.getWorkflowGroup(data.get_id());
+        WorkflowGroupResponse response = workflowGroupHandler.getWorkflowGroup(data.getId());
         RecordedRequest request = mockWebServer.takeRequest();
 
         assertEquals("/notification-groups/id", request.getPath());
@@ -100,17 +100,17 @@ public class WorkflowGroupHandlerTest extends TestCase {
 
         WorkflowGroupResponse workflowGroupResponse = new WorkflowGroupResponse();
         WorkflowGroupResponseData data = new WorkflowGroupResponseData();
-        data.set_id("id");
+        data.setId("id");
         data.setName("name");
-        data.set_organizationId("organizationId");
-        data.set_environmentId("environmentId");
-        data.set_parentId("parentId");
+        data.setOrganizationId("organizationId");
+        data.setEnvironmentId("environmentId");
+        data.setParentId("parentId");
         workflowGroupResponse.setData(data);
         
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(workflowGroupResponse)));
 
-        WorkflowGroupResponse response = workflowGroupHandler.updateWorkflowGroup(data.get_id(), workflowGroupRequest);
+        WorkflowGroupResponse response = workflowGroupHandler.updateWorkflowGroup(data.getId(), workflowGroupRequest);
         RecordedRequest request = mockWebServer.takeRequest();
 
         assertEquals("/notification-groups/id", request.getPath());

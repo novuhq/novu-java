@@ -1,12 +1,17 @@
 package co.novu.api.workflowgroups.responses;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
 public class WorkflowGroupResponseData {
-    private String _id;
+    @SerializedName("_id")
+    private String id;
     private String name;
-    private String _environmentId;
-    private String _organizationId;
-    private String _parentId;
+    @SerializedName("_environmentId")
+    private String environmentId;
+    @SerializedName("_organizationId")
+    private String organizationId;
+    @SerializedName("_parentId")
+    private String parentId;
 }

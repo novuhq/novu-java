@@ -12,14 +12,14 @@ import retrofit2.http.Path;
 
 public interface FeedsApi {
 
-	String ENDPOINT = "feeds";
-	
-	@POST(ENDPOINT)
-	Call<FeedResponse> createFeed(@Body FeedRequest request);
-	
-	@GET(ENDPOINT)
-	Call<BulkFeedsResponse> getFeeds();
-	
-	@DELETE(ENDPOINT + "/{feedId}")
-	Call<BulkFeedsResponse> deleteFeed(@Path("feedId") String feedId);
+    String ENDPOINT = "feeds";
+
+    @POST(ENDPOINT)
+    Call<FeedResponse> createFeed(@Body FeedRequest request);
+
+    @GET(ENDPOINT)
+    Call<BulkFeedsResponse> getFeeds();
+
+    @DELETE(ENDPOINT + "/{feedId}")
+    Call<BulkFeedsResponse> deleteFeed(@Path("feedId") String feedId);
 }

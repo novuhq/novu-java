@@ -15,24 +15,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class ChangeHandler {
+public final class ChangeHandler {
 
     private final RestHandler restHandler;
 
     private final ChangeApi changeApi;
 
-    private static final String ENDPOINT = "changes";
-
-    public ChangeHandler(RestHandler restHandler) {
-        this.restHandler = restHandler;
-        this.changeApi = restHandler.buildRetrofit().create(ChangeApi.class);
+    public ChangeHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.changeApi = handler.buildRetrofit().create(ChangeApi.class);
     }
 
-
-    public GetChangesResponse getChanges(GetChangesRequest request) throws IOException, NovuNetworkException {
+    public GetChangesResponse getChanges(final GetChangesRequest request) throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
-        if (request.getPage() != null) params.put("page", request.getPage());
-        if (request.getLimit() != null) params.put("limit", request.getLimit());
+        if (request.getPage() != null) {
+            params.put("page", request.getPage());
+        }
+        if (request.getLimit() != null) {
+            params.put("limit", request.getLimit());
+        }
         params.put("promoted", request.getPromoted());
         Response<GetChangesResponse> response = changeApi.getChanges(params).execute();
         return restHandler.extractResponse(response);
@@ -43,15 +44,14 @@ public class ChangeHandler {
         return restHandler.extractResponse(response);
     }
 
-    public ApplyChangesResponse applyChanges(ApplyChangesRequest request) throws IOException, NovuNetworkException {
+    public ApplyChangesResponse applyChanges(final ApplyChangesRequest request)
+            throws IOException, NovuNetworkException {
         Response<ApplyChangesResponse> response = changeApi.applyChanges(request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public ApplyChangesResponse applyChange(String changeId) throws IOException, NovuNetworkException {
+    public ApplyChangesResponse applyChange(final String changeId) throws IOException, NovuNetworkException {
         Response<ApplyChangesResponse> response = changeApi.applyChange(changeId).execute();
         return restHandler.extractResponse(response);
     }
-
-
 }

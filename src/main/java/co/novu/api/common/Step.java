@@ -3,8 +3,6 @@ package co.novu.api.common;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class Step {
     @SerializedName("_id")

@@ -6,21 +6,21 @@ import lombok.Data;
 
 @Data
 public class ExecutiveDetails {
-	@SerializedName("_id")
+    @SerializedName("_id")
     private String id;
-	@SerializedName("_jobId")
+    @SerializedName("_jobId")
     private String jobId;
-	@SerializedName("_organizationId")
+    @SerializedName("_organizationId")
     private String organizationId;
-	@SerializedName("_environmentId")
+    @SerializedName("_environmentId")
     private String environmentId;
-	@SerializedName("_notificationId")
+    @SerializedName("_notificationId")
     private String notificationId;
-	@SerializedName("_subscriberId")
+    @SerializedName("_subscriberId")
     private String subscriberId;
-	@SerializedName("_notificationTemplateId")
+    @SerializedName("_notificationTemplateId")
     private String notificationTemplateId;
-	@SerializedName("_messageId")
+    @SerializedName("_messageId")
     private String messageId;
     private String transactionId;
     private String providerId;

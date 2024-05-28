@@ -4,10 +4,8 @@ import co.novu.api.topics.requests.RenameTopicRequest;
 import co.novu.api.topics.requests.SubscriberAdditionRequest;
 import co.novu.api.topics.requests.TopicRequest;
 import co.novu.api.topics.responses.CheckTopicSubscriberResponse;
-import co.novu.api.topics.responses.DeleteTopicResponse;
 import co.novu.api.topics.responses.FilterTopicsResponse;
 import co.novu.api.topics.responses.SubscriberAdditionResponse;
-import co.novu.api.topics.responses.SubscriberRemovalResponse;
 import co.novu.api.topics.responses.TopicResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,13 +29,16 @@ public interface TopicApi {
     Call<FilterTopicsResponse> filterTopics(@QueryMap Map<String, Object> options);
 
     @POST(ENDPOINT + "/{topicKey}/subscribers")
-    Call<SubscriberAdditionResponse> addSubscriberToTopic(@Path("topicKey") String topicKey, @Body SubscriberAdditionRequest subscriberAdditionRequest);
+    Call<SubscriberAdditionResponse> addSubscriberToTopic(@Path("topicKey") String topicKey,
+                                                          @Body SubscriberAdditionRequest subscriberAdditionRequest);
 
     @GET(ENDPOINT + "/{topicKey}/subscribers/{externalSubscriberId}")
-    Call<CheckTopicSubscriberResponse> checkTopicSubscriber(@Path("topicKey") String topicKey, @Path("externalSubscriberId") String externalSubscriberId);
+    Call<CheckTopicSubscriberResponse> checkTopicSubscriber(@Path("topicKey") String topicKey,
+                                                            @Path("externalSubscriberId") String externalSubscriberId);
 
     @POST(ENDPOINT + "/{topicKey}/subscribers/removal")
-    Call<Void> removeSubscriberFromTopic(@Path("topicKey") String topicKey, @Body SubscriberAdditionRequest subscriberAdditionRequest);
+    Call<Void> removeSubscriberFromTopic(@Path("topicKey") String topicKey,
+                                         @Body SubscriberAdditionRequest subscriberAdditionRequest);
 
     @DELETE(ENDPOINT + "/{topicKey}")
     Call<Void> deleteTopic(@Path("topicKey") String topicKey);

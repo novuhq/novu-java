@@ -13,32 +13,36 @@ import retrofit2.Response;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class EventsHandler {
+public final class EventsHandler {
 
     private final RestHandler restHandler;
     private final EventsApi eventsApi;
 
-    public EventsHandler(RestHandler restHandler){
-        this.restHandler = restHandler;
-        this.eventsApi = restHandler.buildRetrofit().create(EventsApi.class);
+    public EventsHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.eventsApi = handler.buildRetrofit().create(EventsApi.class);
     }
 
-    public TriggerEventResponse triggerEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
+    public TriggerEventResponse triggerEvent(final TriggerEventRequest request)
+            throws IOException, NovuNetworkException {
         Response<TriggerEventResponse> response = eventsApi.triggerEvent(request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public BulkTriggerEventResponse bulkTriggerEvent(BulkTriggerEventRequest request) throws IOException, NovuNetworkException {
+    public BulkTriggerEventResponse bulkTriggerEvent(final BulkTriggerEventRequest request)
+            throws IOException, NovuNetworkException {
         Response<BulkTriggerEventResponse> response = eventsApi.bulkTriggerEvent(request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public TriggerEventResponse broadcastEvent(TriggerEventRequest request) throws IOException, NovuNetworkException {
+    public TriggerEventResponse broadcastEvent(final TriggerEventRequest request)
+            throws IOException, NovuNetworkException {
         Response<TriggerEventResponse> response = eventsApi.broadcastEvent(request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public CancelEventResponse cancelTriggeredEvent(String transactionId) throws IOException, NovuNetworkException {
+    public CancelEventResponse cancelTriggeredEvent(final String transactionId)
+            throws IOException, NovuNetworkException {
         Response<CancelEventResponse> response = eventsApi.cancelTriggeredEvent(transactionId).execute();
         return restHandler.extractResponse(response);
     }
