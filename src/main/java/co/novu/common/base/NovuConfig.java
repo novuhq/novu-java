@@ -1,15 +1,13 @@
 package co.novu.common.base;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import okhttp3.logging.HttpLoggingInterceptor;
 
-@Getter
-@Setter
+@Data
 public class NovuConfig {
-  
-    public NovuConfig(String apiKey) {
-        this.apiKey = apiKey;
+
+    public NovuConfig(final String novuApiKey) {
+        this.apiKey = novuApiKey;
     }
 
     private String apiKey;

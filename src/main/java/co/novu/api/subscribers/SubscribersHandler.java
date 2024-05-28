@@ -1,6 +1,5 @@
 package co.novu.api.subscribers;
 
-import co.novu.api.layouts.LayoutApi;
 import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 import co.novu.api.subscribers.requests.MarkAllMessagesRequest;
 import co.novu.api.subscribers.requests.MarkMessageActionAsSeenRequest;
@@ -20,7 +19,6 @@ import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
 import co.novu.api.subscribers.responses.SubscriberPreferenceResponse;
 import co.novu.api.subscribers.responses.UnseenNotificationsCountResponse;
-import co.novu.common.base.NovuConfig;
 import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
@@ -31,83 +29,123 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class SubscribersHandler {
+public final class SubscribersHandler {
 
     private final RestHandler restHandler;
 
     private final SubscribersApi subscribersApi;
 
-    public SubscribersHandler(RestHandler restHandler){
-        this.restHandler = restHandler;
-        this.subscribersApi = restHandler.buildRetrofit().create(SubscribersApi.class);
+    public SubscribersHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.subscribersApi = handler.buildRetrofit().create(SubscribersApi.class);
     }
 
-    public BulkSubscriberResponse getSubscribers(Integer page, Integer limit) throws IOException, NovuNetworkException {
+    public BulkSubscriberResponse getSubscribers(final Integer page, final Integer limit)
+            throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
-        if (page != null) params.put("page", page);
-        if (limit != null) params.put("limit", limit);
+        if (page != null) {
+            params.put("page", page);
+        }
+        if (limit != null) {
+            params.put("limit", limit);
+        }
 
         Response<BulkSubscriberResponse> bulkSubscriberResponse = subscribersApi.getSubscribers(params).execute();
         return restHandler.extractResponse(bulkSubscriberResponse);
     }
 
-    public CreateSubscriberResponse createSubscriber(SubscriberRequest request) throws IOException, NovuNetworkException {
+    public CreateSubscriberResponse createSubscriber(final SubscriberRequest request)
+            throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.createSubscriber(request).execute());
     }
 
-    public CreateBulkSubscriberResponse createSubscriberBulk(BulkSubscriberRequest request) throws IOException, NovuNetworkException {
+    public CreateBulkSubscriberResponse createSubscriberBulk(final BulkSubscriberRequest request)
+            throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.createBulkSubscriber(request).execute());
     }
 
-    public SingleSubscriberResponse getSubscriber(String subscriberId) throws IOException, NovuNetworkException {
+    public SingleSubscriberResponse getSubscriber(final String subscriberId) throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.getSubscriber(subscriberId).execute());
     }
 
-    public SingleSubscriberResponse updateSubscriber(UpdateSubscriberRequest request, String subscriberId) throws IOException, NovuNetworkException {
+    public SingleSubscriberResponse updateSubscriber(final UpdateSubscriberRequest request, final String subscriberId)
+            throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.updateSubscriber(request, subscriberId).execute());
     }
 
-    public SubscriberDeleteResponse deleteSubscriber(String subscriberId) throws IOException, NovuNetworkException {
+    public SubscriberDeleteResponse deleteSubscriber(final String subscriberId)
+            throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.deleteSubscriber(subscriberId).execute());
     }
 
-    public SingleSubscriberResponse updateSubscriberCredentials(UpdateSubscriberCredentialsRequest request, String subscriberId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.updateSubscriberCredentials(request, subscriberId).execute());
+    public SingleSubscriberResponse updateSubscriberCredentials(final UpdateSubscriberCredentialsRequest request,
+                                                                final String subscriberId)
+            throws IOException, NovuNetworkException {
+        Response<SingleSubscriberResponse> response =
+                subscribersApi.updateSubscriberCredentials(request, subscriberId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public DeleteCredentialsResponse deleteSubscriberCredentials(String subscriberId, String providerId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.deleteSubscriberCredentials(subscriberId, providerId).execute(), new DeleteCredentialsResponse());
+    public DeleteCredentialsResponse deleteSubscriberCredentials(final String subscriberId, final String providerId)
+            throws IOException, NovuNetworkException {
+        Response<Void> response = subscribersApi.deleteSubscriberCredentials(subscriberId, providerId).execute();
+        return restHandler.extractResponse(response, new DeleteCredentialsResponse());
     }
 
-    public SingleSubscriberResponse updateSubscriberOnlineStatus(UpdateSubscriberOnlineStatusRequest request, String subscriberId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.updateSubscriberOnlineStatus(request, subscriberId).execute());
+    public SingleSubscriberResponse updateSubscriberOnlineStatus(final UpdateSubscriberOnlineStatusRequest request,
+                                                                 final String subscriberId)
+            throws IOException, NovuNetworkException {
+        Response<SingleSubscriberResponse> response =
+                subscribersApi.updateSubscriberOnlineStatus(request, subscriberId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SubscriberPreferenceResponse getSubscriberPreferences(String subscriberId) throws IOException, NovuNetworkException {
+    public SubscriberPreferenceResponse getSubscriberPreferences(final String subscriberId)
+            throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.getSubscriberPreferences(subscriberId).execute());
     }
 
-    public SingleSubscriberPrefResponse updateSubscriberPreferences(UpdateSubscriberPreferenceRequest request, String subscriberId, String templateId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.updateSubscriberPreferences(request, subscriberId, templateId).execute());
+    public SingleSubscriberPrefResponse updateSubscriberPreferences(final UpdateSubscriberPreferenceRequest request,
+                                                                    final String subscriberId,
+                                                                    final String templateId)
+            throws IOException, NovuNetworkException {
+        Response<SingleSubscriberPrefResponse> response =
+                subscribersApi.updateSubscriberPreferences(request, subscriberId, templateId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SubscriberNotificationResponse getSubscriberNotificationsFeed(String subscriberId) throws IOException, NovuNetworkException {
+    public SubscriberNotificationResponse getSubscriberNotificationsFeed(final String subscriberId)
+            throws IOException, NovuNetworkException {
         return restHandler.extractResponse(subscribersApi.getSubscriberNotificationsFeed(subscriberId).execute());
     }
 
-    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(String subscriberId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.getSubscriberUnseenNotificationsCount(subscriberId).execute());
+    public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(final String subscriberId)
+            throws IOException, NovuNetworkException {
+        Response<UnseenNotificationsCountResponse> response =
+                subscribersApi.getSubscriberUnseenNotificationsCount(subscriberId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SubscriberNotificationResponse markSubscriberMessageFeedAs(MarkSubscriberFeedAsRequest request, String subscriberId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.markSubscriberMessageFeedAs(request, subscriberId).execute());
+    public SubscriberNotificationResponse markSubscriberMessageFeedAs(final MarkSubscriberFeedAsRequest request,
+                                                                      final String subscriberId)
+            throws IOException, NovuNetworkException {
+        Response<SubscriberNotificationResponse> response =
+                subscribersApi.markSubscriberMessageFeedAs(request, subscriberId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public Long markAllSubscriberMessagesFeedAs(MarkAllMessagesRequest request, String subscriberId) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.markAllSubscriberMessagesFeedAs(request, subscriberId).execute());
+    public Long markAllSubscriberMessagesFeedAs(final MarkAllMessagesRequest request, final String subscriberId)
+            throws IOException, NovuNetworkException {
+        Response<Long> response = subscribersApi.markAllSubscriberMessagesFeedAs(request, subscriberId).execute();
+        return restHandler.extractResponse(response);
     }
 
-    public SubscriberNotificationResponse markMessageActionAsSeen(MarkMessageActionAsSeenRequest request, String subscriberId, String messageId, String type) throws IOException, NovuNetworkException {
-        return restHandler.extractResponse(subscribersApi.markMessageActionAsSeen(request, subscriberId, messageId, type).execute());
+    public SubscriberNotificationResponse markMessageActionAsSeen(final MarkMessageActionAsSeenRequest request,
+                                                                  final String subscriberId, final String messageId,
+                                                                  final String type)
+            throws IOException, NovuNetworkException {
+        Response<SubscriberNotificationResponse> response =
+                subscribersApi.markMessageActionAsSeen(request, subscriberId, messageId, type).execute();
+        return restHandler.extractResponse(response);
     }
 }

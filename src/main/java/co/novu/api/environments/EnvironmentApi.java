@@ -14,23 +14,24 @@ import retrofit2.http.Path;
 
 public interface EnvironmentApi {
 
-	String ENDPOINT = "environments";
-	
-	@GET(ENDPOINT + "/me")
-	Call<SingleEnvironmentResponse> getCurrentEnvironment();
-	
-	@POST(ENDPOINT)
-	Call<SingleEnvironmentResponse> createEnvironment(@Body CreateEnvironmentRequest request);
-	
-	@GET(ENDPOINT)
-	Call<BulkEnvironmentResponse> getEnvironments();
-	
-	@PUT(ENDPOINT + "/{environmentId}")
-	Call<SingleEnvironmentResponse> updateEnvironmentById(@Path("environmentId") String environmentId, @Body UpdateEnvironmentRequest request);
-	
-	@GET(ENDPOINT + "/api-keys")
-	Call<ApiKeyResponse> getApiKeys();
-	
-	@POST(ENDPOINT + "/api-keys/regenerate")
-	Call<ApiKeyResponse> regenerateApiKeys();
+    String ENDPOINT = "environments";
+
+    @GET(ENDPOINT + "/me")
+    Call<SingleEnvironmentResponse> getCurrentEnvironment();
+
+    @POST(ENDPOINT)
+    Call<SingleEnvironmentResponse> createEnvironment(@Body CreateEnvironmentRequest request);
+
+    @GET(ENDPOINT)
+    Call<BulkEnvironmentResponse> getEnvironments();
+
+    @PUT(ENDPOINT + "/{environmentId}")
+    Call<SingleEnvironmentResponse> updateEnvironmentById(@Path("environmentId") String environmentId,
+                                                          @Body UpdateEnvironmentRequest request);
+
+    @GET(ENDPOINT + "/api-keys")
+    Call<ApiKeyResponse> getApiKeys();
+
+    @POST(ENDPOINT + "/api-keys/regenerate")
+    Call<ApiKeyResponse> regenerateApiKeys();
 }

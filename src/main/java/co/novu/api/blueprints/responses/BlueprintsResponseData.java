@@ -1,4 +1,5 @@
 package co.novu.api.blueprints.responses;
+
 import co.novu.api.blueprints.pojos.General;
 import co.novu.api.blueprints.pojos.Popular;
 import lombok.Data;

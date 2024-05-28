@@ -1,7 +1,5 @@
 package co.novu.api.events.requests;
 
-import co.novu.api.common.SubscriberRequest;
-import co.novu.api.tenants.pojos.Tenant;
 import co.novu.common.contracts.IRequest;
 import lombok.Data;
 
@@ -12,7 +10,8 @@ public class TriggerEventRequest implements IRequest {
     private String name;
 
     /**
-     * Possible types this field accepts are; {@link SubscriberRequest}, list of {@link SubscriberRequest}, {@link Topic} or list of {@link Topic}
+     * Possible types this field accepts are; {@link SubscriberRequest}, list of {@link SubscriberRequest},
+     * {@link Topic} or list of {@link Topic}.
      *
      * <p>For example:
      *
@@ -30,7 +29,7 @@ public class TriggerEventRequest implements IRequest {
     private String transactionId;
 
     /**
-     * Possible types this field accepts are; String or {@link Map}
+     * Possible types this field accepts are; String or {@link Map}.
      *
      * <p>For example:
      *
@@ -49,7 +48,7 @@ public class TriggerEventRequest implements IRequest {
     private Object actor;
 
     /**
-     * Possible types this field accepts are; String or {@link Tenant}
+     * Possible types this field accepts are; String or {@link Tenant}.
      *
      * <p>For example:
      *

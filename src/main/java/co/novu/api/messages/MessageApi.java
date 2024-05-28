@@ -12,11 +12,11 @@ import retrofit2.http.QueryMap;
 
 public interface MessageApi {
 
-	String ENDPOINT = "messages";
-	
-	@GET(ENDPOINT)
-	Call<MessageResponse> getMessages(@QueryMap Map<String, Object> options);
-	
-	@DELETE(ENDPOINT + "/{messageId}")
-	Call<DeleteMessageResponse> deleteMessage(@Path("messageId") String messageId);
+    String ENDPOINT = "messages";
+
+    @GET(ENDPOINT)
+    Call<MessageResponse> getMessages(@QueryMap Map<String, Object> options);
+
+    @DELETE(ENDPOINT + "/{messageId}")
+    Call<DeleteMessageResponse> deleteMessage(@Path("messageId") String messageId);
 }

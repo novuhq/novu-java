@@ -18,25 +18,27 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 public interface WorkflowApi {
-	
-	String ENDPOINT = "workflows";
-	
-	@GET(ENDPOINT)
-	Call<BulkWorkflowResponse> getWorkflows(@QueryMap Map<String, Object> params);
-	
-	@POST(ENDPOINT)
-	Call<SingleWorkflowResponse> createWorkflow(@Body WorkflowRequest request);
-	
-	@PUT(ENDPOINT + "/{workflowId}")
-	Call<SingleWorkflowResponse> updateWorkflow(@Path("workflowId") String workflowId, @Body UpdateWorkflowRequest request);
-	
-	@DELETE(ENDPOINT + "/{workflowId}")
-	Call<DeleteWorkflowResponse> deleteWorkflow(@Path("workflowId") String workflowId);
-	
-	@GET(ENDPOINT + "/{workflowId}")
-	Call<SingleWorkflowResponse> getWorkflow(@Path("workflowId") String workflowId);
-	
-	@PUT(ENDPOINT + "/{workflowId}/status")
-	Call<SingleWorkflowResponse> updateWorkflowStatus(@Path("workflowId") String workflowId , @Body UpdateWorkflowStatusRequest request);
+
+    String ENDPOINT = "workflows";
+
+    @GET(ENDPOINT)
+    Call<BulkWorkflowResponse> getWorkflows(@QueryMap Map<String, Object> params);
+
+    @POST(ENDPOINT)
+    Call<SingleWorkflowResponse> createWorkflow(@Body WorkflowRequest request);
+
+    @PUT(ENDPOINT + "/{workflowId}")
+    Call<SingleWorkflowResponse> updateWorkflow(@Path("workflowId") String workflowId,
+                                                @Body UpdateWorkflowRequest request);
+
+    @DELETE(ENDPOINT + "/{workflowId}")
+    Call<DeleteWorkflowResponse> deleteWorkflow(@Path("workflowId") String workflowId);
+
+    @GET(ENDPOINT + "/{workflowId}")
+    Call<SingleWorkflowResponse> getWorkflow(@Path("workflowId") String workflowId);
+
+    @PUT(ENDPOINT + "/{workflowId}/status")
+    Call<SingleWorkflowResponse> updateWorkflowStatus(@Path("workflowId") String workflowId,
+                                                      @Body UpdateWorkflowStatusRequest request);
 
 }

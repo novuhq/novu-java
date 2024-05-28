@@ -2,10 +2,8 @@ package co.novu.api.layouts;
 
 import co.novu.api.layouts.requests.LayoutRequest;
 import co.novu.api.layouts.responses.CreateLayoutResponse;
-import co.novu.api.layouts.responses.DeleteLayoutResponse;
 import co.novu.api.layouts.responses.FilterLayoutResponse;
 import co.novu.api.layouts.responses.GetLayoutResponse;
-import co.novu.api.layouts.responses.SetDefaultLayoutResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

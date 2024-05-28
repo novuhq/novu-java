@@ -11,19 +11,20 @@ import co.novu.common.rest.RestHandler;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class WorkflowGroupHandler {
+public final class WorkflowGroupHandler {
 
     private final RestHandler restHandler;
 
     private final WorkflowGroupApi workflowGroupApi;
 
-    public WorkflowGroupHandler(RestHandler restHandler) {
-        this.restHandler = restHandler;
-        this.workflowGroupApi = restHandler.buildRetrofit().create(WorkflowGroupApi.class);
+    public WorkflowGroupHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.workflowGroupApi = handler.buildRetrofit().create(WorkflowGroupApi.class);
     }
 
 
-    public WorkflowGroupResponse createWorkflowGroup(WorkflowGroupRequest request) throws NovuNetworkException, IOException {
+    public WorkflowGroupResponse createWorkflowGroup(final WorkflowGroupRequest request)
+            throws NovuNetworkException, IOException {
         return restHandler.extractResponse(this.workflowGroupApi.createWorkflowGroup(request).execute());
     }
 
@@ -31,15 +32,16 @@ public class WorkflowGroupHandler {
         return restHandler.extractResponse(this.workflowGroupApi.getWorkflowGroups().execute());
     }
 
-    public WorkflowGroupResponse getWorkflowGroup(String id) throws NovuNetworkException, IOException {
+    public WorkflowGroupResponse getWorkflowGroup(final String id) throws NovuNetworkException, IOException {
         return restHandler.extractResponse(this.workflowGroupApi.getWorkflowGroup(id).execute());
     }
 
-    public WorkflowGroupResponse updateWorkflowGroup(String id, WorkflowGroupRequest request) throws NovuNetworkException, IOException {
+    public WorkflowGroupResponse updateWorkflowGroup(final String id, final WorkflowGroupRequest request)
+            throws NovuNetworkException, IOException {
         return restHandler.extractResponse(this.workflowGroupApi.updateWorkflowGroup(id, request).execute());
     }
 
-    public DeleteWorkflowGroup deleteWorkflowGroup(String id) throws NovuNetworkException, IOException {
+    public DeleteWorkflowGroup deleteWorkflowGroup(final String id) throws NovuNetworkException, IOException {
         return restHandler.extractResponse(this.workflowGroupApi.deleteWorkflowGroup(id).execute());
     }
 }

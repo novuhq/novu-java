@@ -14,54 +14,70 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WorkflowOverrideHandler {
+public final class WorkflowOverrideHandler {
 
     private final RestHandler restHandler;
 
     private final WorkflowOverrideApi workflowOverrideApi;
 
-    public WorkflowOverrideHandler(RestHandler restHandler) {
-        this.restHandler = restHandler;
-        this.workflowOverrideApi = restHandler.buildRetrofit().create(WorkflowOverrideApi.class);
+    public WorkflowOverrideHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.workflowOverrideApi = handler.buildRetrofit().create(WorkflowOverrideApi.class);
     }
 
-    public WorkflowOverrideResponse createWorkflowOverride(CreateWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public WorkflowOverrideResponse createWorkflowOverride(final CreateWorkflowOverrideRequest request)
+            throws IOException, NovuNetworkException {
         Response<WorkflowOverrideResponse> response = workflowOverrideApi.createWorkflowOverride(request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public BulkWorkflowOverridesResponse getWorkflowOverrides(GetWorkflowOverrideRequest request) throws IOException, NovuNetworkException {
+    public BulkWorkflowOverridesResponse getWorkflowOverrides(final GetWorkflowOverrideRequest request)
+            throws IOException, NovuNetworkException {
         Map<String, Object> params = new HashMap<>();
-        if (request.getPage() != null) params.put("page", request.getPage());
-        if (request.getLimit() != null) params.put("limit", request.getLimit());
+        if (request.getPage() != null) {
+            params.put("page", request.getPage());
+        }
+        if (request.getLimit() != null) {
+            params.put("limit", request.getLimit());
+        }
         Response<BulkWorkflowOverridesResponse> response = workflowOverrideApi.getWorkflowOverrides(params).execute();
         return restHandler.extractResponse(response);
     }
 
-    public WorkflowOverrideResponse getWorkflowOverride(String workflowId, String tenantId) throws IOException, NovuNetworkException {
-        Response<WorkflowOverrideResponse> response = workflowOverrideApi.getWorkflowOverride(workflowId, tenantId).execute();
+    public WorkflowOverrideResponse getWorkflowOverride(final String workflowId, final String tenantId)
+            throws IOException, NovuNetworkException {
+        Response<WorkflowOverrideResponse> response =
+                workflowOverrideApi.getWorkflowOverride(workflowId, tenantId).execute();
         return restHandler.extractResponse(response);
     }
 
-    public WorkflowOverrideResponse getWorkflowOverrideById(String overrideId) throws IOException, NovuNetworkException {
-        Response<WorkflowOverrideResponse> response = workflowOverrideApi.getWorkflowOverrideById(overrideId).execute();
+    public WorkflowOverrideResponse getWorkflowOverrideById(final String overrideId)
+            throws IOException, NovuNetworkException {
+        Response<WorkflowOverrideResponse> response =
+                workflowOverrideApi.getWorkflowOverrideById(overrideId).execute();
         return restHandler.extractResponse(response);
     }
 
-    public WorkflowOverrideResponse updateWorkflowOverrideById(String overrideId, UpdateWorkflowOverrideRequest request) throws IOException,
-        NovuNetworkException {
-        Response<WorkflowOverrideResponse> response = workflowOverrideApi.updateWorkflowOverrideById(overrideId, request).execute();
+    public WorkflowOverrideResponse updateWorkflowOverrideById(final String overrideId,
+                                                               final UpdateWorkflowOverrideRequest request)
+            throws IOException, NovuNetworkException {
+        Response<WorkflowOverrideResponse> response =
+                workflowOverrideApi.updateWorkflowOverrideById(overrideId, request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public WorkflowOverrideResponse updateWorkflowOverride(String workflowId, String tenantId, UpdateWorkflowOverrideRequest request)
+    public WorkflowOverrideResponse updateWorkflowOverride(final String workflowId, final String tenantId,
+                                                           final UpdateWorkflowOverrideRequest request)
         throws IOException, NovuNetworkException {
-        Response<WorkflowOverrideResponse> response = workflowOverrideApi.updateWorkflowOverride(workflowId, tenantId, request).execute();
+        Response<WorkflowOverrideResponse> response =
+                workflowOverrideApi.updateWorkflowOverride(workflowId, tenantId, request).execute();
         return restHandler.extractResponse(response);
     }
 
-    public DeleteWorkflowOverrideResponse deleteWorkflowOverride(String overrideId) throws IOException, NovuNetworkException {
-        Response<DeleteWorkflowOverrideResponse> response = workflowOverrideApi.deleteWorkflowOverride(overrideId).execute();
+    public DeleteWorkflowOverrideResponse deleteWorkflowOverride(final String overrideId)
+            throws IOException, NovuNetworkException {
+        Response<DeleteWorkflowOverrideResponse> response =
+                workflowOverrideApi.deleteWorkflowOverride(overrideId).execute();
         return restHandler.extractResponse(response);
     }
 }

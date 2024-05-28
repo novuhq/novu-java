@@ -27,7 +27,8 @@ public interface WorkflowOverrideApi {
     Call<BulkWorkflowOverridesResponse> getWorkflowOverrides(@QueryMap Map<String, Object> params);
 
     @GET(ENDPOINT + "/workflows/{workflowId}/tenants/{tenantId}")
-    Call<WorkflowOverrideResponse> getWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId);
+    Call<WorkflowOverrideResponse> getWorkflowOverride(@Path("workflowId") String workflowId,
+                                                       @Path("tenantId") String tenantId);
 
 
     @GET(ENDPOINT + "/{overrideId}")
@@ -35,12 +36,14 @@ public interface WorkflowOverrideApi {
 
 
     @PUT(ENDPOINT + "/{overrideId}")
-    Call<WorkflowOverrideResponse> updateWorkflowOverrideById(@Path("overrideId") String OverrideId, @Body UpdateWorkflowOverrideRequest request);
+    Call<WorkflowOverrideResponse> updateWorkflowOverrideById(@Path("overrideId") String overrideId,
+                                                              @Body UpdateWorkflowOverrideRequest request);
 
 
     @PUT(ENDPOINT + "/workflows/{workflowId}/tenants/{tenantId}")
-    Call<WorkflowOverrideResponse> updateWorkflowOverride(@Path("workflowId") String workflowId, @Path("tenantId") String tenantId,
-        @Body UpdateWorkflowOverrideRequest request);
+    Call<WorkflowOverrideResponse> updateWorkflowOverride(@Path("workflowId") String workflowId,
+                                                          @Path("tenantId") String tenantId,
+                                                          @Body UpdateWorkflowOverrideRequest request);
 
     @DELETE(ENDPOINT + "/{overrideId}")
     Call<DeleteWorkflowOverrideResponse> deleteWorkflowOverride(@Path("overrideId") String overrideId);

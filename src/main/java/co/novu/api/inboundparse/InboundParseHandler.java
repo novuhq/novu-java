@@ -7,19 +7,19 @@ import co.novu.common.rest.NovuNetworkException;
 import co.novu.common.rest.RestHandler;
 import retrofit2.Response;
 
-public class InboundParseHandler {
+public final class InboundParseHandler {
 
     private final RestHandler restHandler;
 
     private final InboundParseApi inboundParseApi;
 
-    public InboundParseHandler(RestHandler restHandler) {
-		this.restHandler = restHandler;
-		this.inboundParseApi = restHandler.buildRetrofit().create(InboundParseApi.class);
-	}
+    public InboundParseHandler(final RestHandler handler) {
+        this.restHandler = handler;
+        this.inboundParseApi = handler.buildRetrofit().create(InboundParseApi.class);
+    }
 
-	public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
-		Response<ValidateMxRecordResponse> response = inboundParseApi.validateMxRecordSetupForInboundParse().execute();
+    public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
+        Response<ValidateMxRecordResponse> response = inboundParseApi.validateMxRecordSetupForInboundParse().execute();
         return restHandler.extractResponse(response);
     }
 }

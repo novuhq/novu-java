@@ -30,7 +30,7 @@ public interface TenantsApi {
     @PATCH(ENDPOINT + "/{tenantId}")
     Call<TenantResponse> updateTenant(@Body TenantRequest request, @Path("tenantId") String tenantId);
 
-    @DELETE(ENDPOINT+ "/{tenantId}")
+    @DELETE(ENDPOINT + "/{tenantId}")
     Call<Void> deleteTenant(@Path("tenantId") String tenantId);
 
 }

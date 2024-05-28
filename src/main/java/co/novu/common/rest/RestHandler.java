@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 
 @RequiredArgsConstructor
 @Slf4j
-public class RestHandler {
+public final class RestHandler {
 
     private final NovuConfig novuConfig;
 
@@ -58,19 +58,21 @@ public class RestHandler {
         return retrofit;
     }
 
-    public <T> T extractResponse(Response<T> response) throws NovuNetworkException, IOException {
+    public <T> T extractResponse(final Response<T> response) throws NovuNetworkException, IOException {
         if (response.isSuccessful()) {
             return response.body();
         } else {
-            throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string() : "Error connecting to Novu API");
+            throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string()
+                    : "Error connecting to Novu API");
         }
     }
 
-    public <T, R> R extractResponse(Response<T> response, R body) throws NovuNetworkException, IOException {
+    public <T, R> R extractResponse(final Response<T> response, final R body) throws NovuNetworkException, IOException {
         if (response.isSuccessful()) {
             return body;
         } else {
-            throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string() : "Error connecting to Novu API");
+            throw new NovuNetworkException(response.errorBody() != null ? response.errorBody().string()
+                    : "Error connecting to Novu API");
         }
     }
 

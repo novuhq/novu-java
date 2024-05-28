@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FeedResponseData {
-	@SerializedName("_id")
+    @SerializedName("_id")
     private String id;
     private String name;
     private String identifier;

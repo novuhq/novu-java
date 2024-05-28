@@ -15,25 +15,26 @@ import retrofit2.http.Path;
 public interface IntegrationsApi {
 
     String ENDPOINT = "integrations";
-    
+
     @GET(ENDPOINT + "/get-integrations")
-    public Call<BulkIntegrationResponse> getIntegrations();
+    Call<BulkIntegrationResponse> getIntegrations();
 
     @POST(ENDPOINT + "/create-integrations")
-    public Call<SingleIntegrationResponse> createIntegration(@Body IntegrationRequest request);
+    Call<SingleIntegrationResponse> createIntegration(@Body IntegrationRequest request);
 
     @GET(ENDPOINT + "/active")
-    public Call<BulkIntegrationResponse> getActiveIntegrations();
+    Call<BulkIntegrationResponse> getActiveIntegrations();
 
     @GET(ENDPOINT + "/webhook/provider/{providerId}/status")
-    public Call<ProviderWebhookStatusResponse> getProviderWebhookStatus(@Path("providerId") String providerId);
+    Call<ProviderWebhookStatusResponse> getProviderWebhookStatus(@Path("providerId") String providerId);
 
     @PUT(ENDPOINT + "/{integrationId}")
-    public Call<SingleIntegrationResponse> updateIntegration(@Path("integrationId") String integrationId, @Body  IntegrationRequest request);
+    Call<SingleIntegrationResponse> updateIntegration(@Path("integrationId") String integrationId,
+                                                      @Body IntegrationRequest request);
 
     @DELETE(ENDPOINT + "/{integrationId}")
-    public Call<BulkIntegrationResponse> deleteIntegration(@Path("integrationId")  String integrationId);
+    Call<BulkIntegrationResponse> deleteIntegration(@Path("integrationId") String integrationId);
 
     @PUT(ENDPOINT + "/{integrationId}/set-primary")
-    public Call<SingleIntegrationResponse> setIntegrationAsPrimary(@Path("integrationId") String integrationId);
+    Call<SingleIntegrationResponse> setIntegrationAsPrimary(@Path("integrationId") String integrationId);
 }

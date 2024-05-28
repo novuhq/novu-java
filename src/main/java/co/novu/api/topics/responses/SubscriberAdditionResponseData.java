@@ -8,4 +8,3 @@ public class SubscriberAdditionResponseData {
     private List<String> succeeded;
     private Failed failed;
 }
-

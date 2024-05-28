@@ -28,6 +28,6 @@ public interface NotificationApi {
     @GET(ENDPOINT + "/graph/stats")
     Call<NotificationGraphStatsResponse> getNotificationGraphStats();
 
-    @GET(ENDPOINT +"/{notificationId}")
+    @GET(ENDPOINT + "/{notificationId}")
     Call<NotificationResponse> getNotification(@Path("notificationId") String notificationId);
 }
