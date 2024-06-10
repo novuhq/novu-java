@@ -46,7 +46,7 @@ The [Novu Java](https://novu.co) SDK provides a fluent and expressive interface 
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
 </dependency>
 ```
 
@@ -54,7 +54,7 @@ The [Novu Java](https://novu.co) SDK provides a fluent and expressive interface 
 ```gradle
 // add dependency
 dependencies {
-    implementation 'co.novu:novu-java:1.5.0'
+    implementation 'co.novu:novu-java:1.6.0'
 }
 ```
 Sync your project, and you should have the artifacts downloaded.
