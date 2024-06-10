@@ -381,7 +381,7 @@ public class SubscribersHandlerTest extends TestCase {
 
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(notificationResponse)));
 
-        SubscriberNotificationResponse response = subscribersHandler.markMessageActionAsSeen(new MarkMessageActionAsSeenRequest(), "sId", "mId", "type");
+        SubscriberNotificationResponse response = subscribersHandler.markMessageActionAsSeen(request, "sId", "mId", "type");
         assertNotNull(response);
         final RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("/subscribers/sId/messages/mId/actions/type", recordedRequest.getPath());
