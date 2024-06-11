@@ -650,6 +650,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Topic.
+     * @param request an instance of {@link TopicRequest}
+     * @return {@link TopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TopicResponse createTopic(final TopicRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.createTopic(request);
@@ -659,6 +666,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Topics filtered by a Topic key. This function supports pagination.
+     * @param request an instance of {@link FilterTopicsRequest}
+     * @return {@link FilterTopicsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FilterTopicsResponse filterTopics(final FilterTopicsRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -669,6 +683,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Add a Subscriber to a Topic.
+     * @param request an instance of {@link SubscriberAdditionRequest}
+     * @param topicKey the key of the Topic which the Subscriber should be added to
+     * @return {@link SubscriberAdditionResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberAdditionResponse addSubscriberToTopic(final SubscriberAdditionRequest request,
                                                            final String topicKey)
             throws IOException, NovuNetworkException {
@@ -680,6 +702,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Check if a Subscriber belongs to a Topic.
+     * @param topicKey the key of the Topic to be checked
+     * @param externalSubscriberId the ID of the Subscriber
+     * @return {@link CheckTopicSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CheckTopicSubscriberResponse checkTopicSubscriber(final String topicKey, final String externalSubscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -690,6 +720,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Remove a Subscriber from a Topic.
+     * @param request an instance of {@link SubscriberAdditionRequest}
+     * @param topicKey the key of the Topic which the Subscriber should be removed from
+     * @return {@link SubscriberRemovalResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberRemovalResponse removeSubscriberFromTopic(final SubscriberAdditionRequest request,
                                                                final String topicKey)
             throws IOException, NovuNetworkException {
@@ -701,6 +739,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Topic.
+     * @param topicKey the key of the Topic to be deleted
+     * @return {@link DeleteTopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteTopicResponse deleteTopic(final String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.deleteTopic(topicKey);
@@ -710,6 +755,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Topic.
+     * @param topicKey the key of the Topic to be retrieved
+     * @return {@link TopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TopicResponse getTopic(final String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.getTopic(topicKey);
@@ -719,6 +771,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Rename a Topic.
+     * @param request an instance of {@link RenameTopicRequest}
+     * @param topicKey the key of the Topic to be renamed
+     * @return {@link TopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TopicResponse renameTopic(final RenameTopicRequest request, final String topicKey)
             throws IOException, NovuNetworkException {
         try {
