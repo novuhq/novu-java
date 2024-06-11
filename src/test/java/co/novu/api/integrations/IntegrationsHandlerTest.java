@@ -46,7 +46,7 @@ public class IntegrationsHandlerTest extends TestCase {
         BulkIntegrationResponse response = integrationsHandler.getIntegrations();
         RecordedRequest request = mockWebServer.takeRequest();
 
-        assertEquals("/integrations/get-integrations", request.getPath());
+        assertEquals("/integrations", request.getPath());
         assertEquals("GET", request.getMethod());
         assertEquals(gson.toJson(bulkIntegrationResponse), gson.toJson(response));
     }
@@ -69,7 +69,7 @@ public class IntegrationsHandlerTest extends TestCase {
         SingleIntegrationResponse response = integrationsHandler.createIntegration(integrationRequest);
         RecordedRequest request = mockWebServer.takeRequest();
 
-        assertEquals("/integrations/create-integrations", request.getPath());
+        assertEquals("/integrations", request.getPath());
         assertEquals("POST", request.getMethod());
         assertEquals(gson.toJson(singleIntegrationResponse), gson.toJson(response));
     }

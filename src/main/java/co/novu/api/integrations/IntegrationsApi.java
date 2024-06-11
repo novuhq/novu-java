@@ -16,10 +16,10 @@ public interface IntegrationsApi {
 
     String ENDPOINT = "integrations";
 
-    @GET(ENDPOINT + "/get-integrations")
+    @GET(ENDPOINT)
     Call<BulkIntegrationResponse> getIntegrations();
 
-    @POST(ENDPOINT + "/create-integrations")
+    @POST(ENDPOINT)
     Call<SingleIntegrationResponse> createIntegration(@Body IntegrationRequest request);
 
     @GET(ENDPOINT + "/active")
