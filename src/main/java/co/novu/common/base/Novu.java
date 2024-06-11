@@ -360,6 +360,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve all Subscribers associated with the API key provided. This function supports pagination.
+     * @param page the page number to be retrieved
+     * @param limit the number of items to be retrieved
+     * @return {@link BulkSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkSubscriberResponse getSubscribers(final Integer page, final Integer limit)
             throws IOException, NovuNetworkException {
         try {
@@ -370,6 +378,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Subscriber.
+     * @param request an instance of {@link SubscriberRequest}
+     * @return {@link CreateSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CreateSubscriberResponse createSubscriber(final SubscriberRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -380,6 +395,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create multiple Subscribers in a single transaction.
+     * @param request an instance of {@link BulkSubscriberRequest}
+     * @return {@link CreateBulkSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CreateBulkSubscriberResponse createSubscriberBulk(final BulkSubscriberRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -390,6 +412,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a particular Subscriber.
+     * @param subscriberId the ID of the Subscriber to be retrieved
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse getSubscriber(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -400,6 +429,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber.
+     * @param request an instance of {@link UpdateSubscriberRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse updateSubscriber(final UpdateSubscriberRequest request, final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -410,6 +447,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Subscriber.
+     * @param subscriberId the ID of the Subscriber to be deleted
+     * @return {@link SubscriberDeleteResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberDeleteResponse deleteSubscriber(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -420,6 +464,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber's credentials.
+     * @param request an instance of {@link UpdateSubscriberCredentialsRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse updateSubscriberCredentials(final UpdateSubscriberCredentialsRequest request,
                                                                 final String subscriberId)
             throws IOException, NovuNetworkException {
@@ -431,6 +483,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Subscriber's credentials.
+     * @param subscriberId the ID of the Subscriber to be deleted
+     * @param providerId the ID of the Provider linked to the Subscriber
+     * @return {@link DeleteCredentialsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteCredentialsResponse deleteSubscriberCredentials(final String subscriberId, final String providerId)
             throws IOException, NovuNetworkException {
         try {
@@ -441,6 +501,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber's online status.
+     * @param request an instance of {@link UpdateSubscriberOnlineStatusRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse updateSubscriberOnlineStatus(final UpdateSubscriberOnlineStatusRequest request,
                                                                  final String subscriberId)
             throws IOException, NovuNetworkException {
@@ -452,6 +520,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Subscriber's preferences.
+     * @param subscriberId the ID of the Subscriber whose preference is to be retrieved
+     * @return {@link SubscriberPreferenceResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberPreferenceResponse getSubscriberPreferences(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -462,6 +537,15 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber's preferences.
+     * @param request an instance of {@link UpdateSubscriberPreferenceRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @param templateId the ID of the Template linked to the Subscriber
+     * @return {@link SingleSubscriberPrefResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberPrefResponse updateSubscriberPreferences(final UpdateSubscriberPreferenceRequest request,
                                                                     final String subscriberId, final String templateId)
             throws IOException, NovuNetworkException {
@@ -473,6 +557,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve all Notifications feed associated with a Subscriber. This function supports pagination.
+     * @param subscriberId the ID of the Subscriber whose Notifications feed is to be retrieved
+     * @return {@link SubscriberNotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberNotificationResponse getSubscriberNotificationsFeed(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -483,6 +574,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Subscriber's unseen Notifications count.
+     * @param subscriberId the ID of the Subscriber whose count is to be retrieved
+     * @return {@link UnseenNotificationsCountResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -493,6 +591,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a particular Subscriber's Message feed (either read or seen).
+     * @param request an instance of {@link MarkSubscriberFeedAsRequest}
+     * @param subscriberId the ID of the Subscriber whose Message feed is to be updated
+     * @return {@link SubscriberNotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberNotificationResponse markSubscriberMessageFeedAs(final MarkSubscriberFeedAsRequest request,
                                                                       final String subscriberId)
             throws IOException, NovuNetworkException {
@@ -504,6 +610,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update all the Message feeds associated to a Subscriber.
+     * @param request an instance of {@link MarkAllMessagesRequest}
+     * @param subscriberId the ID of the Subscriber whose Message feeds is to be updated
+     * @return {@link Long}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public Long markAllSubscriberMessagesFeedAs(final MarkAllMessagesRequest request, final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -514,6 +628,16 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the action of a Message associated to a Subscriber.
+     * @param request an instance of {@link MarkMessageActionAsSeenRequest}
+     * @param subscriberId the ID of the Subscriber whose Message action is to be updated
+     * @param messageId the ID of the Message to be updated
+     * @param type the type of action to be performed
+     * @return {@link SubscriberNotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberNotificationResponse markMessageActionAsSeen(final MarkMessageActionAsSeenRequest request,
                                                                   final String subscriberId, final String messageId,
                                                                   final String type)
