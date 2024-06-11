@@ -126,6 +126,28 @@ import co.novu.common.rest.RestHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Main entry point for initialising and accessing the functionalities provided in the SDK.
+ * This class provides two constructors. It can be constructed either by providing an API key
+ * (gotten from <a href="https://web.novu.co/settings">the web portal</a>) or by providing
+ * an instance of {@link NovuConfig}.
+ *
+ * <p>
+ * For example:
+ * <pre><code>
+ * // Using an API key only
+ * Novu novu = new Novu("apiKey");
+ * </code></pre>
+ *
+ * <pre><code>
+ * // Using NovuConfig
+ * NovuConfig novuConfig = new NovuConfig("apiKey");
+ * Novu novu = new Novu(novuConfig);
+ * </code></pre>
+ *
+ * @author Joseph Olugbohunmi <a href="https://github.com/mayorJAY">link</a>
+ * @author Mukhtar Onifade <a href="https://github.com/Basfar">link</a>
+ */
 @Slf4j
 public final class Novu {
 
@@ -168,10 +190,18 @@ public final class Novu {
     private final WorkflowOverrideHandler workflowOverrideHandler;
 
 
+    /**
+     * Primary constructor for initialising Novu.
+     * @param apiKey API Key gotten from <a href="https://web.novu.co/settings">Settings</a>
+     */
     public Novu(final String apiKey) {
         this(new NovuConfig(apiKey));
     }
 
+    /**
+     * Secondary constructor for initialising Novu.
+     * @param config an instance of {@link NovuConfig}, used to provide configurations to the SDK.
+     */
     public Novu(final NovuConfig config) {
         RestHandler restHandler = new RestHandler(config);
         this.novuConfig = config;
