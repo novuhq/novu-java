@@ -905,6 +905,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Layout.
+     * @param request an instance of {@link LayoutRequest}
+     * @return {@link CreateLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CreateLayoutResponse createLayout(final LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.createLayout(request);
@@ -914,6 +921,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Layouts. This function supports pagination.
+     * @param request an instance of {@link FilterLayoutRequest}
+     * @return {@link FilterLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FilterLayoutResponse filterLayout(final FilterLayoutRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -924,15 +938,29 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Layout.
+     * @param layoutId the ID of the Layout to be retrieved
+     * @return {@link GetLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public GetLayoutResponse getLayout(final String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
-            logException("Error getting Layouts", e);
+            logException("Error getting Layout", e);
             throw e;
         }
     }
 
+    /**
+     * Delete a Layout.
+     * @param layoutId the ID of the Layout to be deleted
+     * @return {@link DeleteLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteLayoutResponse deleteLayout(final String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.deleteLayout(layoutId);
@@ -942,7 +970,15 @@ public final class Novu {
         }
     }
 
-    public GetLayoutResponse updateIntegration(final String layoutId, final LayoutRequest request)
+    /**
+     * Update a Layout.
+     * @param layoutId the ID of the Layout to be updated
+     * @param request an instance of {@link LayoutRequest}
+     * @return {@link GetLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
+    public GetLayoutResponse updateLayout(final String layoutId, final LayoutRequest request)
             throws IOException, NovuNetworkException {
         try {
             return layoutHandler.updateLayout(layoutId, request);
@@ -952,6 +988,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Set a Layout as the default Layout.
+     * @param layoutId the ID of the Layout to be set as default
+     * @return {@link SetDefaultLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SetDefaultLayoutResponse setDefaultLayout(final String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
