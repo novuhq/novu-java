@@ -293,6 +293,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve all notifications ever sent with the API key provided. This function supports
+     * pagination.
+     * @param request an instance of {@link NotificationRequest}
+     * @return {@link NotificationsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationsResponse getNotifications(final NotificationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -303,6 +311,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the statistics of all notifications ever sent with the API key provided.
+     * @return {@link NotificationStatsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationStatsResponse getNotificationsStats()
             throws IOException, NovuNetworkException {
         try {
@@ -313,6 +327,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the statistics of notifications graph associated with the API key provided.
+     * @return {@link NotificationGraphStatsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationGraphStatsResponse getNotificationGraphStats()
             throws IOException, NovuNetworkException {
         try {
@@ -323,6 +343,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a particular Notification.
+     * @param notificationId the ID of the Notification to be retrieved
+     * @return {@link NotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationResponse getNotification(final String notificationId)
             throws IOException, NovuNetworkException {
         try {
