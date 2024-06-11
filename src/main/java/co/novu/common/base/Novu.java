@@ -789,6 +789,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Integrations associated with the API key provided.
+     * @return {@link BulkIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkIntegrationResponse getIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getIntegrations();
@@ -798,6 +804,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create an Integration.
+     * @param request an instance of {@link IntegrationRequest}
+     * @return {@link SingleIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleIntegrationResponse createIntegration(final IntegrationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -808,6 +821,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of active Integrations associated with the API key provided.
+     * @return {@link BulkIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkIntegrationResponse getActiveIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getActiveIntegrations();
@@ -817,6 +836,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the status of a Provider's Webhook.
+     * @param providerId the ID of the Provider whose status is to be retrieved
+     * @return {@link ProviderWebhookStatusResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ProviderWebhookStatusResponse getProviderWebhookStatus(final String providerId)
             throws IOException, NovuNetworkException {
         try {
@@ -827,6 +853,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update an Integration.
+     * @param integrationId the ID of the Integration to be updated
+     * @param request an instance of {@link IntegrationRequest}
+     * @return {@link SingleIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleIntegrationResponse updateIntegration(final String integrationId, final IntegrationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -837,6 +871,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete an Integration.
+     * @param integrationId the ID of the Integration to be deleted
+     * @return {@link BulkIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkIntegrationResponse deleteIntegration(final String integrationId)
             throws IOException, NovuNetworkException {
         try {
@@ -847,6 +888,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Set a particular Integration as the primary Integration.
+     * @param integrationId the ID of the Integration to be set as primary
+     * @return {@link SingleIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleIntegrationResponse setIntegrationAsPrimary(final String integrationId)
             throws IOException, NovuNetworkException {
         try {
