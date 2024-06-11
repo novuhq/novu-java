@@ -1004,6 +1004,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Workflows. This function supports pagination.
+     * @param page the page number to be retrieved
+     * @param limit the number of items to be retrieved
+     * @return {@link BulkWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkWorkflowResponse getWorkflows(final Integer page, final Integer limit)
             throws IOException, NovuNetworkException {
         try {
@@ -1014,6 +1022,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Workflow.
+     * @param request an instance of {@link WorkflowRequest}
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse createWorkflow(final WorkflowRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1024,6 +1039,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow.
+     * @param workflowId the ID of the Workflow to be updated
+     * @param request an instance of {@link UpdateWorkflowRequest}
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse updateWorkflow(final String workflowId, final UpdateWorkflowRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1034,6 +1057,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Workflow.
+     * @param workflowId the ID of the Workflow to be deleted
+     * @return {@link DeleteWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteWorkflowResponse deleteWorkflow(final String workflowId) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.deleteWorkflow(workflowId);
@@ -1043,6 +1073,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow.
+     * @param workflowId the ID of the Workflow to be retrieved
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse getWorkflow(final String workflowId) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.getWorkflow(workflowId);
@@ -1052,6 +1089,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the status of a Workflow.
+     * @param workflowId the ID of the Workflow to be updated
+     * @param request an instance of {@link UpdateWorkflowStatusRequest}
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse updateWorkflowStatus(final String workflowId,
                                                        final UpdateWorkflowStatusRequest request)
             throws IOException, NovuNetworkException {
