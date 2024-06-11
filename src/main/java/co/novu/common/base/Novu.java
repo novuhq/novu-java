@@ -225,6 +225,13 @@ public final class Novu {
         this.workflowOverrideHandler = new WorkflowOverrideHandler(restHandler);
     }
 
+    /**
+     * Trigger an event such as sending notification to subscribers.
+     * @param request an instance of {@link TriggerEventRequest}
+     * @return {@link TriggerEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TriggerEventResponse triggerEvent(final TriggerEventRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -235,6 +242,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Trigger multiple events in a single transaction.
+     * @param request an instance of {@link BulkTriggerEventRequest}
+     * @return {@link BulkTriggerEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkTriggerEventResponse bulkTriggerEvent(final BulkTriggerEventRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -245,6 +259,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Broadcast an event to all existing subscribers.
+     * @param request an instance of {@link TriggerEventRequest}
+     * @return {@link TriggerEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TriggerEventResponse broadcastEvent(final TriggerEventRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -255,6 +276,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Cancel a running event.
+     * @param transactionId the transaction ID of the running event
+     * @return {@link CancelEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CancelEventResponse cancelTriggeredEvent(final String transactionId)
             throws IOException, NovuNetworkException {
         try {
