@@ -1190,6 +1190,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Changes. This function supports pagination.
+     * @param request an instance of {@link GetChangesRequest}
+     * @return {@link GetChangesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public GetChangesResponse getChanges(final GetChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChanges(request);
@@ -1199,6 +1206,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the count of all available Changes.
+     * @return {@link ChangeCountResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ChangeCountResponse getChangesCount() throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChangesCount();
@@ -1208,6 +1221,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Apply a list of Changes.
+     * @param request an instance of {@link ApplyChangesRequest}
+     * @return {@link ApplyChangesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApplyChangesResponse applyChanges(final ApplyChangesRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1218,6 +1238,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Apply a particular Change.
+     * @param changeId the ID of the Change to be applied
+     * @return {@link ApplyChangesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApplyChangesResponse applyChange(final String changeId) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChange(changeId);
