@@ -1108,6 +1108,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Workflow group.
+     * @param request an instance of {@link WorkflowGroupRequest}
+     * @return {@link WorkflowGroupResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowGroupResponse createWorkflowGroup(final WorkflowGroupRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1118,6 +1125,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Workflow groups.
+     * @return {@link GetWorkflowGroupsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public GetWorkflowGroupsResponse getWorkflowGroups() throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroups();
@@ -1127,6 +1140,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow group.
+     * @param id the ID of the Workflow group to be retrieved
+     * @return {@link WorkflowGroupResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowGroupResponse getWorkflowGroup(final String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroup(id);
@@ -1136,6 +1156,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow group.
+     * @param id the ID of the Workflow group to be updated
+     * @param request an instance of {@link WorkflowGroupRequest}
+     * @return {@link WorkflowGroupResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowGroupResponse updateWorkflowGroup(final String id, final WorkflowGroupRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1146,6 +1174,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Workflow group.
+     * @param id the ID of the Workflow group to be deleted
+     * @return {@link DeleteWorkflowGroup}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteWorkflowGroup deleteWorkflowGroup(final String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.deleteWorkflowGroup(id);
