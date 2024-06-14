@@ -1254,6 +1254,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the data of the current Environment.
+     * @return {@link SingleEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleEnvironmentResponse getCurrentEnvironment() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getCurrentEnvironment();
@@ -1263,6 +1269,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create an Environment.
+     * @param request an instance of {@link CreateEnvironmentRequest}
+     * @return {@link SingleEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleEnvironmentResponse createEnvironment(final CreateEnvironmentRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1273,6 +1286,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Environments.
+     * @return {@link BulkEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkEnvironmentResponse getEnvironments() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getEnvironments();
@@ -1282,6 +1301,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update an Environment.
+     * @param environmentId the ID of the Environment to be updated
+     * @param request an instance of {@link UpdateEnvironmentRequest}
+     * @return {@link SingleEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleEnvironmentResponse updateEnvironmentById(final String environmentId,
                                                            final UpdateEnvironmentRequest request)
             throws IOException, NovuNetworkException {
@@ -1293,6 +1320,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of API Keys.
+     * @return {@link ApiKeyResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApiKeyResponse getApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getApiKeys();
@@ -1302,6 +1335,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Regenerate API Keys.
+     * @return {@link ApiKeyResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApiKeyResponse regenerateApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.regenerateApiKeys();
