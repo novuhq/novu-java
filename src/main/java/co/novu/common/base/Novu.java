@@ -1412,6 +1412,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Messages. This function supports pagination.
+     * @param request an instance of {@link MessageRequest}
+     * @return {@link MessageResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public MessageResponse getMessages(final MessageRequest request) throws IOException, NovuNetworkException {
         try {
             return messageHandler.getMessages(request);
@@ -1421,6 +1428,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Message.
+     * @param messageId the ID of the Message to be deleted
+     * @return {@link DeleteMessageResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteMessageResponse deleteMessage(final String messageId) throws IOException, NovuNetworkException {
         try {
             return messageHandler.deleteMessage(messageId);
