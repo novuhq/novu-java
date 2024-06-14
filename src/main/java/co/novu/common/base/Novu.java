@@ -1462,6 +1462,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Blueprints grouped by Category.
+     * @return {@link BlueprintsByCategoryResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BlueprintsByCategoryResponse getBlueprintsByCategory() throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprintsByCategory();
@@ -1471,6 +1477,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Blueprint.
+     * @param templateId the ID of a Template
+     * @return {@link Blueprint}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public Blueprint getBlueprint(final String templateId) throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprint(templateId);
