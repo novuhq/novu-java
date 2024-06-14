@@ -1444,6 +1444,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Execution Details.
+     * @param notificationId the ID of a Notification
+     * @param subscriberId the ID of a Subscriber
+     * @return {@link ExecutiveDetailsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ExecutiveDetailsResponse getExecutionDetails(final String notificationId, final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
