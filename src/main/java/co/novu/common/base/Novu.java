@@ -1365,6 +1365,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Feed.
+     * @param request an instance of {@link FeedRequest}
+     * @return {@link FeedResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FeedResponse createFeed(final FeedRequest request) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.createFeed(request);
@@ -1374,6 +1381,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Feeds.
+     * @return {@link BulkFeedsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkFeedsResponse getFeeds() throws IOException, NovuNetworkException {
         try {
             return feedsHandler.getFeeds();
@@ -1383,6 +1396,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Feed.
+     * @param feedId the ID of the Feed to be deleted
+     * @return {@link BulkFeedsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkFeedsResponse deleteFeed(final String feedId) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.deleteFeed(feedId);
