@@ -1575,6 +1575,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create an Organization.
+     * @param request an instance of {@link CreateOrganizationRequest}
+     * @return {@link OrganizationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public OrganizationResponse createOrganization(final CreateOrganizationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1585,6 +1592,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of all Organizations.
+     * @return {@link FetchOrganizationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FetchOrganizationResponse fetchAllOrganizations() throws IOException, NovuNetworkException {
         try {
             return organizationHandler.fetchAllOrganizations();
@@ -1594,6 +1607,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the name of an Organization.
+     * @param request an instance of {@link UpdateOrganizationNameRequest}
+     * @return {@link UpdateOrganizationNameResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public UpdateOrganizationNameResponse updateOrganizationName(final UpdateOrganizationNameRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1604,6 +1624,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the data of the current Organization.
+     * @return {@link OrganizationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public OrganizationResponse fetchCurrentOrganization() throws IOException, NovuNetworkException {
         try {
             return organizationHandler.fetchCurrentOrganization();
@@ -1613,6 +1639,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Remove a Member from the current Organization.
+     * @param memberId the ID of the Member to be removed
+     * @return {@link MemberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public MemberResponse removeMemberWithId(final String memberId) throws IOException, NovuNetworkException {
         try {
             return organizationHandler.removeMemberWithId(memberId);
@@ -1622,6 +1655,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Member's role in the current Organization.
+     * @param memberId the ID of the Member to be updated
+     * @param request an instance of {@link UpdateMemberRoleRequest}
+     * @return {@link MemberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public MemberResponse updateMemberRole(final String memberId, final UpdateMemberRoleRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1632,6 +1673,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of all Members in the current Organizations.
+     * @return {@link FetchMembersResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FetchMembersResponse fetchMembersOfOrganization() throws IOException, NovuNetworkException {
         try {
             return organizationHandler.fetchMembersOfOrganization();
@@ -1641,6 +1688,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the brand of the current Organization.
+     * @param request an instance of {@link UpdateOrganizationBrandRequest}
+     * @return {@link UpdateOrganizationBrandResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public UpdateOrganizationBrandResponse updateOrganizationBrand(final UpdateOrganizationBrandRequest request)
             throws IOException, NovuNetworkException {
         try {
