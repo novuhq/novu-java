@@ -1350,6 +1350,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Validate the mx record setup for the inbound parse functionality.
+     * @return {@link ValidateMxRecordResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
         try {
             return inboundParseHandler.validateMxRecordSetupForInboundParse();
