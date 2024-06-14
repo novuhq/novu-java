@@ -1493,6 +1493,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Tenants. This function supports pagination.
+     * @param request an instance of {@link GetTenantRequest}
+     * @return {@link BulkTenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkTenantResponse getTenants(final GetTenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenants(request);
@@ -1502,6 +1509,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Tenant.
+     * @param request an instance of {@link TenantRequest}
+     * @return {@link TenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TenantResponse createTenant(final TenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.createTenant(request);
@@ -1511,6 +1525,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Tenant.
+     * @param identifier the ID of the Tenant to be retrieved
+     * @return {@link TenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TenantResponse getTenant(final String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenant(identifier);
@@ -1520,6 +1541,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Tenant.
+     * @param request an instance of {@link TenantRequest}
+     * @param identifier the ID of the Tenant to be updated
+     * @return {@link TenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TenantResponse updateTenant(final TenantRequest request, final String identifier)
             throws IOException, NovuNetworkException {
         try {
@@ -1530,6 +1559,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Tenant.
+     * @param identifier the ID of the Tenant to be deleted
+     * @return {@link DeleteTenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteTenantResponse deleteTenant(final String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.deleteTenant(identifier);
