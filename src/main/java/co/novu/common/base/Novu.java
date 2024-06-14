@@ -1705,6 +1705,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Workflow override.
+     * @param request an instance of {@link CreateWorkflowOverrideRequest}
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse createWorkflowOverride(final CreateWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1715,6 +1722,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Workflow overrides. This function supports pagination.
+     * @param request an instance of {@link GetWorkflowOverrideRequest}
+     * @return {@link BulkWorkflowOverridesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkWorkflowOverridesResponse getWorkflowOverrides(final GetWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1725,6 +1739,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow override associated with a Tenant.
+     * @param workflowId the ID of the Workflow override to be retrieved
+     * @param tenantId the ID of the Tenant
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse getWorkflowOverride(final String workflowId, final String tenantId)
             throws IOException, NovuNetworkException {
         try {
@@ -1735,6 +1757,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow override.
+     * @param overrideId the ID of the Workflow override to be retrieved
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse getWorkflowOverrideById(final String overrideId)
             throws IOException, NovuNetworkException {
         try {
@@ -1745,6 +1774,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow override.
+     * @param overrideId the ID of the Workflow override to be updated
+     * @param request an instance of {@link UpdateWorkflowOverrideRequest}
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse updateWorkflowOverrideById(final String overrideId,
                                                                final UpdateWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
@@ -1756,6 +1793,15 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow override associated with a Tenant.
+     * @param workflowId the ID of the Workflow override to be updated
+     * @param tenantId the ID of the Tenant
+     * @param request an instance of {@link UpdateWorkflowOverrideRequest}
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse updateWorkflowOverride(final String workflowId, final String tenantId,
                                                            final UpdateWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
@@ -1767,6 +1813,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Workflow override.
+     * @param overrideId the ID of the Workflow override to be deleted
+     * @return {@link DeleteWorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteWorkflowOverrideResponse deleteWorkflowOverride(final String overrideId)
             throws IOException, NovuNetworkException {
         try {
