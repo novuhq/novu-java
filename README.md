@@ -51,7 +51,7 @@ The [Novu Java](https://novu.co) SDK provides a fluent and expressive interface 
 ```
 
 **Gradle users:**
-```gradle
+```groovy
 // add dependency
 dependencies {
     implementation 'co.novu:novu-java:1.6.0'
@@ -88,73 +88,98 @@ public class Main {
 **Trigger** an event - send notification to subscribers:
 
 ```java
+        TriggerEventRequest event = new TriggerEventRequest();
+        event.setName("name");
+
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setFirstName("fName");
+        subscriberRequest.setLastName("lName");
+        subscriberRequest.setEmail("mail@sample.com");
+        subscriberRequest.setSubscriberId("subId");
+        
         Map<String, Object> payload = new HashMap<>();
         payload.put("customVariables", "Hello");
 
-        Map<String, Object> to = new HashMap<>();
-        to.put("subscriberId", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
-        to.put("phone", "07983882186");
+        event.setTo(subscriberRequest);
+        event.setPayload(payload);
+        event.setActor("actor");
+        event.setTenant("tenant");
 
-        Map<String, Object> event = new HashMap<>();
-        event.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
-        event.put("payload", payload);
-        event.put("to", to);
-
-        // Call a method to perform trigger event with 'event' map
-        // Example method:
-        triggerEvent(event);
+        // Call the method to perform trigger event with 'event' request
+        novu.triggerEvent(event);
 ```
 **Bulk Trigger** events:
 
 ```java
-        List<Map<String, Object>> events = new ArrayList<>();
+        List<TriggerEventRequest> events = new ArrayList<>();
+
         // First event
-        Map<String, Object> event1 = new HashMap<>();
-        event1.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
-        event1.put("to", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
-        Map<String, Object> payload1 = new HashMap<>();
-        payload1.put("customVariables", "Hello");
-        event1.put("payload", payload1);
+        TriggerEventRequest event1 = new TriggerEventRequest();
+        event1.setName("name");
+
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setFirstName("fName");
+        subscriberRequest.setLastName("lName");
+        subscriberRequest.setEmail("mail@sample.com");
+        subscriberRequest.setSubscriberId("subId");
+
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("customVariables", "Hello");
+
+        event1.setTo(subscriberRequest);
+        event1.setPayload(payload);
+        event1.setActor("actor");
+        event1.setTenant("tenant");
         events.add(event1);
 
         // Second event
-        Map<String, Object> event2 = new HashMap<>();
-        event2.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
-        event2.put("to", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
-        Map<String, Object> payload2 = new HashMap<>();
-        payload2.put("customVariables", "World");
-        event2.put("payload", payload2);
+        TriggerEventRequest event2 = new TriggerEventRequest();
+        event2.setName("name");
+
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setFirstName("fName");
+        subscriberRequest.setLastName("lName");
+        subscriberRequest.setEmail("mail@sample.com");
+        subscriberRequest.setSubscriberId("subId");
+
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("customVariables", "Hello");
+
+        event2.setTo(subscriberRequest);
+        event2.setPayload(payload);
+        event2.setActor("actor");
+        event2.setTenant("tenant");
         events.add(event2);
 
-        // Third event
-        Map<String, Object> event3 = new HashMap<>();
-        event3.put("name", "<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>");
-        event3.put("to", "<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>");
-        Map<String, Object> payload3 = new HashMap<>();
-        payload3.put("customVariables", "Again");
-        event3.put("payload", payload3);
-        events.add(event3);
+        BulkTriggerEventRequest bulkEventRequest = new BulkTriggerEventRequest();
+        bulkTriggerEventRequest.setEvents(events);
 
-        // Call a method to perform bulk trigger with 'events' list
-
-        // Example method:
-        bulkTriggerEvent(events);
+        // Call the method to perform bulk trigger with the request body
+        novu.bulkTriggerEvent(bulkEventRequest);
 
 ```
 **Broadcast** event to all existing subscribers:
 
 ```java
+        TriggerEventRequest event = new TriggerEventRequest();
+        event.setName("name");
+
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setFirstName("fName");
+        subscriberRequest.setLastName("lName");
+        subscriberRequest.setEmail("mail@sample.com");
+        subscriberRequest.setSubscriberId("subId");
+
         Map<String, Object> payload = new HashMap<>();
         payload.put("customVariables", "Hello");
 
-        Map<String, Object> event = new HashMap<>();
-        event.put("name", "<REPLACE_WITH_EVENT_NAME_FROM_ADMIN_PANEL>");
-        event.put("payload", payload);
-        event.put("transactionId", "<REPLACE_WITH_TRANSACTION_ID>");
-        // Call a method to perform broadcast event with 'event' map
-
-        // Example method:
-        broadcastEvent(event);
+        event.setTo(subscriberRequest);
+        event.setPayload(payload);
+        event.setActor("actor");
+        event.setTenant("tenant");
+        
+        // Call the method to perform broadcast event with the request body
+        novu.broadcastEvent(event);
 ```
 
 **Cancel** triggered event. Using a previously generated transactionId during the event trigger, this action will cancel any active or pending workflows:
@@ -162,197 +187,174 @@ public class Main {
 ```java
         String transactionId = "<REPLACE_WITH_TRANSACTION_ID>";
 
-        // Call a method to cancel event using the 'transactionId'
-
-        // Example method:
-        cancelTriggeredEvent(transactionId);
+        // Call the method to cancel event using the 'transactionId'
+        novu.cancelTriggeredEvent(transactionId);
 ```
 
 ### Subscribers
 
 ```java
-        // Create subscriber & get the details of the recently created subscriber returned.
-        Map<String, Object> subscriber = new HashMap<>();
-        subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
-        subscriber.put("email", "<insert-email>");
-        subscriber.put("firstName", "<insert-firstname>");
-        subscriber.put("lastName", "<insert-lastname>");
-        subscriber.put("phone", "<insert-phone>");
-        subscriber.put("avatar", "<insert-avatar>");
+        //=== Create subscriber & get the details of the recently created subscriber returned. ===//
+        SubscriberRequest subscriber = new SubscriberRequest();
+        subscriber.setFirstName("fName");
+        subscriber.setLastName("lName");
+        subscriber.setEmail("email@sample.com");
 
-        // Call a method to create a subscriber with the 'subscriber' map
+        // Call the method to create a subscriber with the 'subscriber' request
+        novu.createSubscriber(subscriber);
 
-        // Example method:
-        createSubscriber(subscriber);
-
-        // Get subscriber
+        //=== Get subscriber ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-        // Call a method to get the subscriber using 'subscriberId'
+                
+        // Call the method to get the subscriber using 'subscriberId'
+        novu.getSubscriber(subscriberId);
 
-        // Example method:
-        getSubscriber(subscriberId);
+        //=== Update subscriber ===//
+        UpdateSubscriberRequest request = new UpdateSubscriberRequest();
+        request.setFirstName("name");
+        request.setLastName("lName");
+        // Add other fields
 
-        // Update subscriber
-        Map<String, Object> updatedFields = new HashMap<>();
-        updatedFields.put("email", "<insert-email>");
-        updatedFields.put("firstName", "<insert-firstname>");
-        updatedFields.put("lastName", "<insert-lastname>");
-        updatedFields.put("phone", "<insert-phone>");
-        updatedFields.put("avatar", "<insert-avatar>");
+        // Call the method to update the subscriber with the request body and the subscriber's ID
+        novu.updateSubscriber(request, subscriberId);
 
-        // Call a method to update the subscriber with 'subscriberId' and 'updatedFields' map
-
-        // Example method:
-        updateSubscriber(subscriberId, updatedFields);
-
-        // Delete subscriber
+        //=== Delete subscriber ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
 
-        // Call a method to delete the subscriber using 'subscriberId'
+        // Call the method to delete the subscriber using their 'subscriberId'
+        novu.deleteSubscriber(subscriberId);
 
-        // Example method:
-        deleteSubscriber(subscriberId);
-
-        // Update subscriber credentials
+        //=== Update subscriber credentials ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
 
-        Map<String, Object> credentialsUpdate = new HashMap<>();
-        credentialsUpdate.put("providerId", "<insert-providerId>");
-        credentialsUpdate.put("credentials", "<insert-credentials>");
+        UpdateSubscriberCredentialsRequest request = new UpdateSubscriberCredentialsRequest();
+        request.setProviderId("pId");
+        // Add other fields
 
-        // Call a method to update subscriber credentials with 'subscriberId' and 'credentialsUpdate' map
+        // Call the method to update subscriber credentials with the request body and the subscriber's ID
+        novu.updateSubscriberCredentials(request, subscriberId);
 
-        // Example method:
-        updateSubscriberCredentials(subscriberId, credentialsUpdate);
-
-        // Update subscriber online status
+        //=== Update subscriber online status ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-        boolean isOnlineStatus = true; // Set to true or false
-        // Call a method to update subscriber online status with 'subscriberId' and 'isOnlineStatus'
 
-        // Example method:
-        updateSubscriberOnlineStatus(subscriberId, isOnlineStatus);
+        UpdateSubscriberOnlineStatusRequest request = new UpdateSubscriberOnlineStatusRequest();
+        request.setIsOnline(true); // Set to true or false
+                
+        // Call the method to update subscriber online status with the request body and the subscriber's ID
+        novu.updateSubscriberOnlineStatus(request, subscriberId);
 
-        // Get subscriber preferences
+        //=== Get subscriber preferences ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-        // Call a method to get subscriber preferences using 'subscriberId'
+                
+        // Call the method to get a subscriber's preferences using 'subscriberId'
+        novu.getSubscriberPreferences(subscriberId);
 
-        // Example method:
-        getSubscriberPreferences(subscriberId);
-
-        // Update subscriber preference
+        //=== Update subscriber preference ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String templateId = "<INSERT_TEMPLATE_ID>"; // Replace with the actual template ID
 
-        Map<String, Object> preferenceUpdate = new HashMap<>();
-        preferenceUpdate.put("channel", "<insert-channel>");
-        preferenceUpdate.put("enabled", "<insert-boolean-value>"); // Set to true or false, optional
+        UpdateSubscriberPreferenceRequest request = new UpdateSubscriberPreferenceRequest();
+        request.setEnabled(false); // Set to true or false, optional
 
-        // Call a method to update subscriber preference using 'subscriberId', 'templateId', and 'preferenceUpdate' map
+        // Call the method to update subscriber preferences with the request body, 'subscriberId', and 'templateId'
+        novu.updateSubscriberPreference(request, subscriberId, templateId);
 
-        // Example method:
-        updateSubscriberPreference(subscriberId, templateId, preferenceUpdate);
-
-        // Get a notification feed for a particular subscriber
+        //=== Get a notification feed for a particular subscriber ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-        // Call a method to get the notification feed for subscriber using 'subscriberId'
+                
+        // Call the method to get the notification feed for a subscriber using 'subscriberId'
+        novu.getSubscriberNotificationsFeed(subscriberId);
 
-        // Example method:
-        getSubscriberNotificationsFeed(subscriberId);
-
-        // Get the unseen notification count for subscribers feed
+        //=== Get the unseen notification count for subscribers feed ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
-        // Call a method to get the unseen notification count for subscriber using 'subscriberId'
+                
+        // Call the method to get the unseen notification count for subscriber using 'subscriberId'
+        novu.getSubscriberUnseenNotificationsCount(subscriberId);
 
-        // Example method:
-        getSubscriberUnseenNotificationsCount(subscriberId);
-
-        // Mark a subscriber feed message as seen
+        //=== Mark a subscriber feed message as seen ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
 
-        Map<String, Object> request = new HashMap<>();
-        //request
+        MarkSubscriberFeedAsRequest request = new MarkSubscriberFeedAsRequest();
+        Mark mark = new Mark();
+        mark.setRead(true);
+        mark.setSeen(true);
+        request.setMark(mark);
+        request.setMessageId(messageId);
 
-        // Call a method to mark a subscriber's feed message as seen using 'subscriberId', 'messageId', and 'options' map
+        // Call the method to mark a subscriber's feed message as seen using the request body and 'subscriberId'
+        novu.markSubscriberMessageFeedAs(subscriberId, messageId, request);
 
-        // Example method:
-        markSubscriberMessageFeedAs(subscriberId, messageId, request);
-
-        // Mark message action as seen
+        //=== Mark message action as seen ===//
         String subscriberId = "<YOUR_SUBSCRIBER_ID>"; // Replace with the actual subscriber ID
         String messageId = "<YOUR_MESSAGE_ID>"; // Replace with the actual message ID
         String type = "<YOUR_ACTION_TYPE>"; // Replace with the actual action type
 
-        Map<String, Object> request = new HashMap<>();
-        //request
+        MarkMessageActionAsSeenRequest request = new MarkMessageActionAsSeenRequest();
+        request.setStatus("read");
 
-        // Call a method to mark a subscriber's message action as seen using 'subscriberId', 'messageId', 'type', and 'options' map
-
-        // Example method:
-        markMessageActionAsSeen(subscriberId, messageId, type, request);
+        // Call the method to mark a subscriber's message action as seen using the request body, 'subscriberId', 'messageId' and 'type'
+        novu.markMessageActionAsSeen(request, subscriberId, messageId, type);
 ```
 
 ### Topics
 
 ```java
-        // Create a Topic
-        Map<String, Object> topic = new HashMap<>();
-        topic.put("key", key);
-        topic.put("name", name);
+        //=== Create a Topic ===//
+        TopicRequest topicRequest = new TopicRequest();
+        topicRequest.setKey("key");
+        topicRequest.setName("name");
 
-        // Call a method to create a topic with 'key' and 'name'
+        // Call the method to create a topic with the request body
+        novu.createTopic(topicRequest);
 
-        // Example method:
-        createTopic(topic);
+        //=== Fetch all Topics ===//
+        FilterTopicsRequest topicsRequest = new FilterTopicsRequest();
+        topicsRequest.setPage(1);
+        topicsRequest.setPageSize(10);
+        topicsRequest.setKey("key");
+        
+        // Call the method to get the Topics list
+        novu.filterTopics(topicsRequest);
 
-        // Fetch all topics
-        // Call a method to get the topics list
+        //=== Get a Topic ===//
+        String topickey = "<YOUR_TOPIC_KEY>"; // Replace with the actual Topic key
 
-        // Example method:
-        filterTopics();
+        // Call the method to get a Topic using the 'topickey'
+        novu.getTopic(topickey);
 
-        // Get a topic
-        String topickey = "topicKey"; // Replace with the actual subscriber ID
-
-        // Call a method to get the topic using 'topickey'
-
-        // Example method:
-        getTopic(topickey);
-
-        // Add subscribers to a topic
-        String topicKey = "<YOUR_TOPIC_KEY>"; 
+        //=== Add subscribers to a Topic ===//
+        String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual Topic key
 
         List<String> subscribers = new ArrayList<>();
-        // subscribers request
+        subscribers.add("<SUBSCRIBER_ID>");
 
+        SubscriberAdditionRequest additionRequest = new SubscriberAdditionRequest();
+        additionRequest.setSubscribers(subscribers);
 
-        // Call a method to add subscribers to a topic using 'topicKey' and 'subscribers' list
+        // Call the method to add subscribers to a Topic using the request body and 'topicKey'
+        novu.addSubscribersToTopic(additionRequest, topicKey);
 
-        // Example method:
-        addSubscribersToTopic(topicKey, subscribers);
-
-        // Remove subscribers from a topic
+        //=== Remove subscribers from a Topic ===//
         String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
 
         List<String> subscribers = new ArrayList<>();
-        // subscribers request
+        subscribers.add("<SUBSCRIBER_ID>");
 
-        // Call a method to remove subscribers from a topic using 'topicKey' and 'subscribers' list
+        SubscriberAdditionRequest request = new SubscriberAdditionRequest();
+        request.setSubscribers(subscribers);
 
-        // Example method:
-        removeSubscribersFromTopic(topicKey, subscribers);
+        // Call the method to remove subscribers from a Topic using the request body and 'topicKey'
+        novu.removeSubscribersFromTopic(request, topicKey);
 
-        // Rename a topic
+        //=== Rename a Topic ===//
         String topicKey = "<YOUR_TOPIC_KEY>"; // Replace with the actual topic key
 
-        Map<String, Object> topic = new HashMap<>();
-        topic.put("name", name);
+        RenameTopicRequest renameTopicRequest = new RenameTopicRequest();
+        renameTopicRequest.setName("name");
 
-        // Call a method to rename a topic using 'topicKey' and 'topic'
-
-        // Example method:
-        renameTopic(topicKey, topic);
+        // Call the method to rename a Topic using the request body and 'topicKey'
+        novu.renameTopic(renameTopicRequest, topicKey);
 ```
 ### Changes
 

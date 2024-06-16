@@ -126,6 +126,28 @@ import co.novu.common.rest.RestHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Main entry point for initialising and accessing the functionalities provided in the SDK.
+ * This class provides two constructors. It can be constructed either by providing an API key
+ * (gotten from <a href="https://web.novu.co/settings">the web portal</a>) or by providing
+ * an instance of {@link NovuConfig}.
+ *
+ * <p>
+ * For example:
+ * <pre><code>
+ * // Using an API key only
+ * Novu novu = new Novu("apiKey");
+ * </code></pre>
+ *
+ * <pre><code>
+ * // Using NovuConfig
+ * NovuConfig novuConfig = new NovuConfig("apiKey");
+ * Novu novu = new Novu(novuConfig);
+ * </code></pre>
+ *
+ * @author Joseph Olugbohunmi <a href="https://github.com/mayorJAY">link</a>
+ * @author Mukhtar Onifade <a href="https://github.com/Basfar">link</a>
+ */
 @Slf4j
 public final class Novu {
 
@@ -168,10 +190,18 @@ public final class Novu {
     private final WorkflowOverrideHandler workflowOverrideHandler;
 
 
+    /**
+     * Primary constructor for initialising Novu.
+     * @param apiKey API Key gotten from <a href="https://web.novu.co/settings">Settings</a>
+     */
     public Novu(final String apiKey) {
         this(new NovuConfig(apiKey));
     }
 
+    /**
+     * Secondary constructor for initialising Novu.
+     * @param config an instance of {@link NovuConfig}, used to provide configurations to the SDK.
+     */
     public Novu(final NovuConfig config) {
         RestHandler restHandler = new RestHandler(config);
         this.novuConfig = config;
@@ -195,6 +225,13 @@ public final class Novu {
         this.workflowOverrideHandler = new WorkflowOverrideHandler(restHandler);
     }
 
+    /**
+     * Trigger an event such as sending notification to subscribers.
+     * @param request an instance of {@link TriggerEventRequest}
+     * @return {@link TriggerEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TriggerEventResponse triggerEvent(final TriggerEventRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -205,6 +242,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Trigger multiple events in a single transaction.
+     * @param request an instance of {@link BulkTriggerEventRequest}
+     * @return {@link BulkTriggerEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkTriggerEventResponse bulkTriggerEvent(final BulkTriggerEventRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -215,6 +259,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Broadcast an event to all existing subscribers.
+     * @param request an instance of {@link TriggerEventRequest}
+     * @return {@link TriggerEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TriggerEventResponse broadcastEvent(final TriggerEventRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -225,6 +276,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Cancel a running event.
+     * @param transactionId the transaction ID of the running event
+     * @return {@link CancelEventResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CancelEventResponse cancelTriggeredEvent(final String transactionId)
             throws IOException, NovuNetworkException {
         try {
@@ -235,6 +293,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve all notifications ever sent with the API key provided. This function supports
+     * pagination.
+     * @param request an instance of {@link NotificationRequest}
+     * @return {@link NotificationsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationsResponse getNotifications(final NotificationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -245,6 +311,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the statistics of all notifications ever sent with the API key provided.
+     * @return {@link NotificationStatsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationStatsResponse getNotificationsStats()
             throws IOException, NovuNetworkException {
         try {
@@ -255,6 +327,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the statistics of notifications graph associated with the API key provided.
+     * @return {@link NotificationGraphStatsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationGraphStatsResponse getNotificationGraphStats()
             throws IOException, NovuNetworkException {
         try {
@@ -265,6 +343,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a particular Notification.
+     * @param notificationId the ID of the Notification to be retrieved
+     * @return {@link NotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public NotificationResponse getNotification(final String notificationId)
             throws IOException, NovuNetworkException {
         try {
@@ -275,6 +360,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve all Subscribers associated with the API key provided. This function supports pagination.
+     * @param page the page number to be retrieved
+     * @param limit the number of items to be retrieved
+     * @return {@link BulkSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkSubscriberResponse getSubscribers(final Integer page, final Integer limit)
             throws IOException, NovuNetworkException {
         try {
@@ -285,6 +378,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Subscriber.
+     * @param request an instance of {@link SubscriberRequest}
+     * @return {@link CreateSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CreateSubscriberResponse createSubscriber(final SubscriberRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -295,6 +395,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create multiple Subscribers in a single transaction.
+     * @param request an instance of {@link BulkSubscriberRequest}
+     * @return {@link CreateBulkSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CreateBulkSubscriberResponse createSubscriberBulk(final BulkSubscriberRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -305,6 +412,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a particular Subscriber.
+     * @param subscriberId the ID of the Subscriber to be retrieved
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse getSubscriber(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -315,6 +429,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber.
+     * @param request an instance of {@link UpdateSubscriberRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse updateSubscriber(final UpdateSubscriberRequest request, final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -325,6 +447,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Subscriber.
+     * @param subscriberId the ID of the Subscriber to be deleted
+     * @return {@link SubscriberDeleteResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberDeleteResponse deleteSubscriber(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -335,6 +464,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber's credentials.
+     * @param request an instance of {@link UpdateSubscriberCredentialsRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse updateSubscriberCredentials(final UpdateSubscriberCredentialsRequest request,
                                                                 final String subscriberId)
             throws IOException, NovuNetworkException {
@@ -346,6 +483,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Subscriber's credentials.
+     * @param subscriberId the ID of the Subscriber to be deleted
+     * @param providerId the ID of the Provider linked to the Subscriber
+     * @return {@link DeleteCredentialsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteCredentialsResponse deleteSubscriberCredentials(final String subscriberId, final String providerId)
             throws IOException, NovuNetworkException {
         try {
@@ -356,6 +501,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber's online status.
+     * @param request an instance of {@link UpdateSubscriberOnlineStatusRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @return {@link SingleSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberResponse updateSubscriberOnlineStatus(final UpdateSubscriberOnlineStatusRequest request,
                                                                  final String subscriberId)
             throws IOException, NovuNetworkException {
@@ -367,6 +520,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Subscriber's preferences.
+     * @param subscriberId the ID of the Subscriber whose preference is to be retrieved
+     * @return {@link SubscriberPreferenceResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberPreferenceResponse getSubscriberPreferences(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -377,6 +537,15 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Subscriber's preferences.
+     * @param request an instance of {@link UpdateSubscriberPreferenceRequest}
+     * @param subscriberId the ID of the Subscriber to be updated
+     * @param templateId the ID of the Template linked to the Subscriber
+     * @return {@link SingleSubscriberPrefResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleSubscriberPrefResponse updateSubscriberPreferences(final UpdateSubscriberPreferenceRequest request,
                                                                     final String subscriberId, final String templateId)
             throws IOException, NovuNetworkException {
@@ -388,6 +557,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve all Notifications feed associated with a Subscriber. This function supports pagination.
+     * @param subscriberId the ID of the Subscriber whose Notifications feed is to be retrieved
+     * @return {@link SubscriberNotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberNotificationResponse getSubscriberNotificationsFeed(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -398,6 +574,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Subscriber's unseen Notifications count.
+     * @param subscriberId the ID of the Subscriber whose count is to be retrieved
+     * @return {@link UnseenNotificationsCountResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public UnseenNotificationsCountResponse getSubscriberUnseenNotificationsCount(final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -408,6 +591,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a particular Subscriber's Message feed (either read or seen).
+     * @param request an instance of {@link MarkSubscriberFeedAsRequest}
+     * @param subscriberId the ID of the Subscriber whose Message feed is to be updated
+     * @return {@link SubscriberNotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberNotificationResponse markSubscriberMessageFeedAs(final MarkSubscriberFeedAsRequest request,
                                                                       final String subscriberId)
             throws IOException, NovuNetworkException {
@@ -419,6 +610,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update all the Message feeds associated to a Subscriber.
+     * @param request an instance of {@link MarkAllMessagesRequest}
+     * @param subscriberId the ID of the Subscriber whose Message feeds is to be updated
+     * @return {@link Long}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public Long markAllSubscriberMessagesFeedAs(final MarkAllMessagesRequest request, final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -429,6 +628,16 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the action of a Message associated to a Subscriber.
+     * @param request an instance of {@link MarkMessageActionAsSeenRequest}
+     * @param subscriberId the ID of the Subscriber whose Message action is to be updated
+     * @param messageId the ID of the Message to be updated
+     * @param type the type of action to be performed
+     * @return {@link SubscriberNotificationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberNotificationResponse markMessageActionAsSeen(final MarkMessageActionAsSeenRequest request,
                                                                   final String subscriberId, final String messageId,
                                                                   final String type)
@@ -441,6 +650,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Topic.
+     * @param request an instance of {@link TopicRequest}
+     * @return {@link TopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TopicResponse createTopic(final TopicRequest request) throws IOException, NovuNetworkException {
         try {
             return topicHandler.createTopic(request);
@@ -450,6 +666,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Topics filtered by a Topic key. This function supports pagination.
+     * @param request an instance of {@link FilterTopicsRequest}
+     * @return {@link FilterTopicsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FilterTopicsResponse filterTopics(final FilterTopicsRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -460,6 +683,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Add a Subscriber to a Topic.
+     * @param request an instance of {@link SubscriberAdditionRequest}
+     * @param topicKey the key of the Topic which the Subscriber should be added to
+     * @return {@link SubscriberAdditionResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberAdditionResponse addSubscriberToTopic(final SubscriberAdditionRequest request,
                                                            final String topicKey)
             throws IOException, NovuNetworkException {
@@ -471,6 +702,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Check if a Subscriber belongs to a Topic.
+     * @param topicKey the key of the Topic to be checked
+     * @param externalSubscriberId the ID of the Subscriber
+     * @return {@link CheckTopicSubscriberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CheckTopicSubscriberResponse checkTopicSubscriber(final String topicKey, final String externalSubscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -481,6 +720,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Remove a Subscriber from a Topic.
+     * @param request an instance of {@link SubscriberAdditionRequest}
+     * @param topicKey the key of the Topic which the Subscriber should be removed from
+     * @return {@link SubscriberRemovalResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SubscriberRemovalResponse removeSubscriberFromTopic(final SubscriberAdditionRequest request,
                                                                final String topicKey)
             throws IOException, NovuNetworkException {
@@ -492,6 +739,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Topic.
+     * @param topicKey the key of the Topic to be deleted
+     * @return {@link DeleteTopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteTopicResponse deleteTopic(final String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.deleteTopic(topicKey);
@@ -501,6 +755,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Topic.
+     * @param topicKey the key of the Topic to be retrieved
+     * @return {@link TopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TopicResponse getTopic(final String topicKey) throws IOException, NovuNetworkException {
         try {
             return topicHandler.getTopic(topicKey);
@@ -510,6 +771,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Rename a Topic.
+     * @param request an instance of {@link RenameTopicRequest}
+     * @param topicKey the key of the Topic to be renamed
+     * @return {@link TopicResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TopicResponse renameTopic(final RenameTopicRequest request, final String topicKey)
             throws IOException, NovuNetworkException {
         try {
@@ -520,6 +789,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Integrations associated with the API key provided.
+     * @return {@link BulkIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkIntegrationResponse getIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getIntegrations();
@@ -529,6 +804,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create an Integration.
+     * @param request an instance of {@link IntegrationRequest}
+     * @return {@link SingleIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleIntegrationResponse createIntegration(final IntegrationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -539,6 +821,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of active Integrations associated with the API key provided.
+     * @return {@link BulkIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkIntegrationResponse getActiveIntegrations() throws IOException, NovuNetworkException {
         try {
             return integrationsHandler.getActiveIntegrations();
@@ -548,6 +836,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the status of a Provider's Webhook.
+     * @param providerId the ID of the Provider whose status is to be retrieved
+     * @return {@link ProviderWebhookStatusResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ProviderWebhookStatusResponse getProviderWebhookStatus(final String providerId)
             throws IOException, NovuNetworkException {
         try {
@@ -558,6 +853,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update an Integration.
+     * @param integrationId the ID of the Integration to be updated
+     * @param request an instance of {@link IntegrationRequest}
+     * @return {@link SingleIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleIntegrationResponse updateIntegration(final String integrationId, final IntegrationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -568,6 +871,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete an Integration.
+     * @param integrationId the ID of the Integration to be deleted
+     * @return {@link BulkIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkIntegrationResponse deleteIntegration(final String integrationId)
             throws IOException, NovuNetworkException {
         try {
@@ -578,6 +888,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Set a particular Integration as the primary Integration.
+     * @param integrationId the ID of the Integration to be set as primary
+     * @return {@link SingleIntegrationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleIntegrationResponse setIntegrationAsPrimary(final String integrationId)
             throws IOException, NovuNetworkException {
         try {
@@ -588,6 +905,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Layout.
+     * @param request an instance of {@link LayoutRequest}
+     * @return {@link CreateLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public CreateLayoutResponse createLayout(final LayoutRequest request) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.createLayout(request);
@@ -597,6 +921,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Layouts. This function supports pagination.
+     * @param request an instance of {@link FilterLayoutRequest}
+     * @return {@link FilterLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FilterLayoutResponse filterLayout(final FilterLayoutRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -607,15 +938,29 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Layout.
+     * @param layoutId the ID of the Layout to be retrieved
+     * @return {@link GetLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public GetLayoutResponse getLayout(final String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.getLayout(layoutId);
         } catch (Exception e) {
-            logException("Error getting Layouts", e);
+            logException("Error getting Layout", e);
             throw e;
         }
     }
 
+    /**
+     * Delete a Layout.
+     * @param layoutId the ID of the Layout to be deleted
+     * @return {@link DeleteLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteLayoutResponse deleteLayout(final String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.deleteLayout(layoutId);
@@ -625,7 +970,15 @@ public final class Novu {
         }
     }
 
-    public GetLayoutResponse updateIntegration(final String layoutId, final LayoutRequest request)
+    /**
+     * Update a Layout.
+     * @param layoutId the ID of the Layout to be updated
+     * @param request an instance of {@link LayoutRequest}
+     * @return {@link GetLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
+    public GetLayoutResponse updateLayout(final String layoutId, final LayoutRequest request)
             throws IOException, NovuNetworkException {
         try {
             return layoutHandler.updateLayout(layoutId, request);
@@ -635,6 +988,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Set a Layout as the default Layout.
+     * @param layoutId the ID of the Layout to be set as default
+     * @return {@link SetDefaultLayoutResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SetDefaultLayoutResponse setDefaultLayout(final String layoutId) throws IOException, NovuNetworkException {
         try {
             return layoutHandler.setDefaultLayout(layoutId);
@@ -644,6 +1004,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Workflows. This function supports pagination.
+     * @param page the page number to be retrieved
+     * @param limit the number of items to be retrieved
+     * @return {@link BulkWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkWorkflowResponse getWorkflows(final Integer page, final Integer limit)
             throws IOException, NovuNetworkException {
         try {
@@ -654,6 +1022,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Workflow.
+     * @param request an instance of {@link WorkflowRequest}
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse createWorkflow(final WorkflowRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -664,6 +1039,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow.
+     * @param workflowId the ID of the Workflow to be updated
+     * @param request an instance of {@link UpdateWorkflowRequest}
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse updateWorkflow(final String workflowId, final UpdateWorkflowRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -674,6 +1057,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Workflow.
+     * @param workflowId the ID of the Workflow to be deleted
+     * @return {@link DeleteWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteWorkflowResponse deleteWorkflow(final String workflowId) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.deleteWorkflow(workflowId);
@@ -683,6 +1073,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow.
+     * @param workflowId the ID of the Workflow to be retrieved
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse getWorkflow(final String workflowId) throws IOException, NovuNetworkException {
         try {
             return workflowHandler.getWorkflow(workflowId);
@@ -692,6 +1089,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the status of a Workflow.
+     * @param workflowId the ID of the Workflow to be updated
+     * @param request an instance of {@link UpdateWorkflowStatusRequest}
+     * @return {@link SingleWorkflowResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleWorkflowResponse updateWorkflowStatus(final String workflowId,
                                                        final UpdateWorkflowStatusRequest request)
             throws IOException, NovuNetworkException {
@@ -703,6 +1108,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Workflow group.
+     * @param request an instance of {@link WorkflowGroupRequest}
+     * @return {@link WorkflowGroupResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowGroupResponse createWorkflowGroup(final WorkflowGroupRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -713,6 +1125,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Workflow groups.
+     * @return {@link GetWorkflowGroupsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public GetWorkflowGroupsResponse getWorkflowGroups() throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroups();
@@ -722,6 +1140,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow group.
+     * @param id the ID of the Workflow group to be retrieved
+     * @return {@link WorkflowGroupResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowGroupResponse getWorkflowGroup(final String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.getWorkflowGroup(id);
@@ -731,6 +1156,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow group.
+     * @param id the ID of the Workflow group to be updated
+     * @param request an instance of {@link WorkflowGroupRequest}
+     * @return {@link WorkflowGroupResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowGroupResponse updateWorkflowGroup(final String id, final WorkflowGroupRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -741,6 +1174,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Workflow group.
+     * @param id the ID of the Workflow group to be deleted
+     * @return {@link DeleteWorkflowGroup}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteWorkflowGroup deleteWorkflowGroup(final String id) throws IOException, NovuNetworkException {
         try {
             return workflowGroupHandler.deleteWorkflowGroup(id);
@@ -750,6 +1190,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Changes. This function supports pagination.
+     * @param request an instance of {@link GetChangesRequest}
+     * @return {@link GetChangesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public GetChangesResponse getChanges(final GetChangesRequest request) throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChanges(request);
@@ -759,6 +1206,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the count of all available Changes.
+     * @return {@link ChangeCountResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ChangeCountResponse getChangesCount() throws IOException, NovuNetworkException {
         try {
             return changeHandler.getChangesCount();
@@ -768,6 +1221,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Apply a list of Changes.
+     * @param request an instance of {@link ApplyChangesRequest}
+     * @return {@link ApplyChangesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApplyChangesResponse applyChanges(final ApplyChangesRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -778,6 +1238,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Apply a particular Change.
+     * @param changeId the ID of the Change to be applied
+     * @return {@link ApplyChangesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApplyChangesResponse applyChange(final String changeId) throws IOException, NovuNetworkException {
         try {
             return changeHandler.applyChange(changeId);
@@ -787,6 +1254,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the data of the current Environment.
+     * @return {@link SingleEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleEnvironmentResponse getCurrentEnvironment() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getCurrentEnvironment();
@@ -796,6 +1269,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create an Environment.
+     * @param request an instance of {@link CreateEnvironmentRequest}
+     * @return {@link SingleEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleEnvironmentResponse createEnvironment(final CreateEnvironmentRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -806,6 +1286,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Environments.
+     * @return {@link BulkEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkEnvironmentResponse getEnvironments() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getEnvironments();
@@ -815,6 +1301,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update an Environment.
+     * @param environmentId the ID of the Environment to be updated
+     * @param request an instance of {@link UpdateEnvironmentRequest}
+     * @return {@link SingleEnvironmentResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public SingleEnvironmentResponse updateEnvironmentById(final String environmentId,
                                                            final UpdateEnvironmentRequest request)
             throws IOException, NovuNetworkException {
@@ -826,6 +1320,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of API Keys.
+     * @return {@link ApiKeyResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApiKeyResponse getApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.getApiKeys();
@@ -835,6 +1335,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Regenerate API Keys.
+     * @return {@link ApiKeyResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ApiKeyResponse regenerateApiKeys() throws IOException, NovuNetworkException {
         try {
             return environmentHandler.regenerateApiKeys();
@@ -844,6 +1350,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Validate the mx record setup for the inbound parse functionality.
+     * @return {@link ValidateMxRecordResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ValidateMxRecordResponse validateMxRecordSetupForInboundParse() throws IOException, NovuNetworkException {
         try {
             return inboundParseHandler.validateMxRecordSetupForInboundParse();
@@ -853,6 +1365,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Feed.
+     * @param request an instance of {@link FeedRequest}
+     * @return {@link FeedResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FeedResponse createFeed(final FeedRequest request) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.createFeed(request);
@@ -862,6 +1381,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Feeds.
+     * @return {@link BulkFeedsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkFeedsResponse getFeeds() throws IOException, NovuNetworkException {
         try {
             return feedsHandler.getFeeds();
@@ -871,6 +1396,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Feed.
+     * @param feedId the ID of the Feed to be deleted
+     * @return {@link BulkFeedsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkFeedsResponse deleteFeed(final String feedId) throws IOException, NovuNetworkException {
         try {
             return feedsHandler.deleteFeed(feedId);
@@ -880,6 +1412,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Messages. This function supports pagination.
+     * @param request an instance of {@link MessageRequest}
+     * @return {@link MessageResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public MessageResponse getMessages(final MessageRequest request) throws IOException, NovuNetworkException {
         try {
             return messageHandler.getMessages(request);
@@ -889,6 +1428,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Message.
+     * @param messageId the ID of the Message to be deleted
+     * @return {@link DeleteMessageResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteMessageResponse deleteMessage(final String messageId) throws IOException, NovuNetworkException {
         try {
             return messageHandler.deleteMessage(messageId);
@@ -898,6 +1444,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Execution Details.
+     * @param notificationId the ID of a Notification
+     * @param subscriberId the ID of a Subscriber
+     * @return {@link ExecutiveDetailsResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public ExecutiveDetailsResponse getExecutionDetails(final String notificationId, final String subscriberId)
             throws IOException, NovuNetworkException {
         try {
@@ -908,6 +1462,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Blueprints grouped by Category.
+     * @return {@link BlueprintsByCategoryResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BlueprintsByCategoryResponse getBlueprintsByCategory() throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprintsByCategory();
@@ -917,6 +1477,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Blueprint.
+     * @param templateId the ID of a Template
+     * @return {@link Blueprint}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public Blueprint getBlueprint(final String templateId) throws IOException, NovuNetworkException {
         try {
             return blueprintsHandler.getBlueprint(templateId);
@@ -926,6 +1493,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Tenants. This function supports pagination.
+     * @param request an instance of {@link GetTenantRequest}
+     * @return {@link BulkTenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkTenantResponse getTenants(final GetTenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenants(request);
@@ -935,6 +1509,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Tenant.
+     * @param request an instance of {@link TenantRequest}
+     * @return {@link TenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TenantResponse createTenant(final TenantRequest request) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.createTenant(request);
@@ -944,6 +1525,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Tenant.
+     * @param identifier the ID of the Tenant to be retrieved
+     * @return {@link TenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TenantResponse getTenant(final String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.getTenant(identifier);
@@ -953,6 +1541,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Tenant.
+     * @param request an instance of {@link TenantRequest}
+     * @param identifier the ID of the Tenant to be updated
+     * @return {@link TenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public TenantResponse updateTenant(final TenantRequest request, final String identifier)
             throws IOException, NovuNetworkException {
         try {
@@ -963,6 +1559,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Tenant.
+     * @param identifier the ID of the Tenant to be deleted
+     * @return {@link DeleteTenantResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteTenantResponse deleteTenant(final String identifier) throws IOException, NovuNetworkException {
         try {
             return tenantsHandler.deleteTenant(identifier);
@@ -972,6 +1575,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create an Organization.
+     * @param request an instance of {@link CreateOrganizationRequest}
+     * @return {@link OrganizationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public OrganizationResponse createOrganization(final CreateOrganizationRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -982,6 +1592,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of all Organizations.
+     * @return {@link FetchOrganizationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FetchOrganizationResponse fetchAllOrganizations() throws IOException, NovuNetworkException {
         try {
             return organizationHandler.fetchAllOrganizations();
@@ -991,6 +1607,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the name of an Organization.
+     * @param request an instance of {@link UpdateOrganizationNameRequest}
+     * @return {@link UpdateOrganizationNameResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public UpdateOrganizationNameResponse updateOrganizationName(final UpdateOrganizationNameRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1001,6 +1624,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve the data of the current Organization.
+     * @return {@link OrganizationResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public OrganizationResponse fetchCurrentOrganization() throws IOException, NovuNetworkException {
         try {
             return organizationHandler.fetchCurrentOrganization();
@@ -1010,6 +1639,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Remove a Member from the current Organization.
+     * @param memberId the ID of the Member to be removed
+     * @return {@link MemberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public MemberResponse removeMemberWithId(final String memberId) throws IOException, NovuNetworkException {
         try {
             return organizationHandler.removeMemberWithId(memberId);
@@ -1019,6 +1655,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Member's role in the current Organization.
+     * @param memberId the ID of the Member to be updated
+     * @param request an instance of {@link UpdateMemberRoleRequest}
+     * @return {@link MemberResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public MemberResponse updateMemberRole(final String memberId, final UpdateMemberRoleRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1029,6 +1673,12 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of all Members in the current Organizations.
+     * @return {@link FetchMembersResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public FetchMembersResponse fetchMembersOfOrganization() throws IOException, NovuNetworkException {
         try {
             return organizationHandler.fetchMembersOfOrganization();
@@ -1038,6 +1688,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update the brand of the current Organization.
+     * @param request an instance of {@link UpdateOrganizationBrandRequest}
+     * @return {@link UpdateOrganizationBrandResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public UpdateOrganizationBrandResponse updateOrganizationBrand(final UpdateOrganizationBrandRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1048,6 +1705,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Create a Workflow override.
+     * @param request an instance of {@link CreateWorkflowOverrideRequest}
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse createWorkflowOverride(final CreateWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1058,6 +1722,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a list of Workflow overrides. This function supports pagination.
+     * @param request an instance of {@link GetWorkflowOverrideRequest}
+     * @return {@link BulkWorkflowOverridesResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public BulkWorkflowOverridesResponse getWorkflowOverrides(final GetWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
         try {
@@ -1068,6 +1739,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow override associated with a Tenant.
+     * @param workflowId the ID of the Workflow override to be retrieved
+     * @param tenantId the ID of the Tenant
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse getWorkflowOverride(final String workflowId, final String tenantId)
             throws IOException, NovuNetworkException {
         try {
@@ -1078,6 +1757,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Retrieve a Workflow override.
+     * @param overrideId the ID of the Workflow override to be retrieved
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse getWorkflowOverrideById(final String overrideId)
             throws IOException, NovuNetworkException {
         try {
@@ -1088,6 +1774,14 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow override.
+     * @param overrideId the ID of the Workflow override to be updated
+     * @param request an instance of {@link UpdateWorkflowOverrideRequest}
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse updateWorkflowOverrideById(final String overrideId,
                                                                final UpdateWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
@@ -1099,6 +1793,15 @@ public final class Novu {
         }
     }
 
+    /**
+     * Update a Workflow override associated with a Tenant.
+     * @param workflowId the ID of the Workflow override to be updated
+     * @param tenantId the ID of the Tenant
+     * @param request an instance of {@link UpdateWorkflowOverrideRequest}
+     * @return {@link WorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public WorkflowOverrideResponse updateWorkflowOverride(final String workflowId, final String tenantId,
                                                            final UpdateWorkflowOverrideRequest request)
             throws IOException, NovuNetworkException {
@@ -1110,6 +1813,13 @@ public final class Novu {
         }
     }
 
+    /**
+     * Delete a Workflow override.
+     * @param overrideId the ID of the Workflow override to be deleted
+     * @return {@link DeleteWorkflowOverrideResponse}
+     * @throws IOException if a problem occurred talking to the server
+     * @throws NovuNetworkException if there is a connection error
+     */
     public DeleteWorkflowOverrideResponse deleteWorkflowOverride(final String overrideId)
             throws IOException, NovuNetworkException {
         try {

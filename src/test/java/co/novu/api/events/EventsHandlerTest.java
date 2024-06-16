@@ -175,7 +175,7 @@ public class EventsHandlerTest extends TestCase {
         Gson gson = new Gson();
         mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(gson.toJson(triggerEventResponse)));
 
-        TriggerEventResponse response = eventsHandler.broadcastEvent(new TriggerEventRequest());
+        TriggerEventResponse response = eventsHandler.broadcastEvent(triggerEventRequest);
 
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/events/trigger/broadcast", request.getPath());

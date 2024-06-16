@@ -7,6 +7,9 @@
     <suppress checks="JavadocPackage" files="."/>
     <suppress checks="HideUtilityClassConstructor" files="."/>
     <suppress checks="JavadocType" files="."/>
-    <suppress checks="JavadocMethod" files="."/>
+    <suppress checks="JavadocMethod" files="co[\\/]novu[\\/]api[\\/]"/>
+    <suppress checks="JavadocMethod" files="co[\\/]novu[\\/]common[\\/]rest[\\/]"/>
+    <suppress checks="MissingJavadocMethod" files="co[\\/]novu[\\/]api[\\/]"/>
+    <suppress checks="MissingJavadocMethod" files="co[\\/]novu[\\/]common[\\/]rest[\\/]"/>
     <suppress checks="JavadocVariable" files="."/>
 </suppressions>
