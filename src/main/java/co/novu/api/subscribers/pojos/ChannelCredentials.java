@@ -9,4 +9,9 @@ public class ChannelCredentials {
     private String webhookUrl;
     private String channel;
     private List<String> deviceTokens;
+    private String alertUid;
+    private String title;
+    private String imageUrl;
+    private String state;
+    private String externalUrl;
 }
