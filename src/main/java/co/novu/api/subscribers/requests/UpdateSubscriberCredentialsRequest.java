@@ -7,5 +7,6 @@ import lombok.Data;
 @Data
 public class UpdateSubscriberCredentialsRequest implements IRequest {
     private String providerId;
+    private String integrationIdentifier;
     private ChannelCredentials credentials;
 }
