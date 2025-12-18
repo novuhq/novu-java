@@ -7,6 +7,14 @@
   </a>
 </div>
 
+
+> [!NOTE]
+> **Community-maintained SDK**
+>
+> This Java SDK is maintained by the community and is **not an official Novu SDK**.
+>
+> For the official Java SDK, please reach out to **<support@novu.co>** to join the official SDK waitlist.
+
 # Novu Java SDK
 
 [![License](https://poser.pugx.org/unicodeveloper/novu/license.svg)](LICENSE.md)
