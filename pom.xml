@@ -167,17 +167,17 @@
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
-			<version>2.9.0</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>converter-gson</artifactId>
-			<version>2.9.0</version>
+			<version>3.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>logging-interceptor</artifactId>
-			<version>4.10.0</version>
+			<version>4.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -205,7 +205,7 @@
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>mockwebserver</artifactId>
-			<version>4.10.0</version>
+			<version>4.12.0</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -217,7 +217,7 @@
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
-			<version>4.10.0</version>
+			<version>4.12.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
