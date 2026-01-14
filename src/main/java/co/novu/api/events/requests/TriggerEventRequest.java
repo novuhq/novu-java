@@ -26,6 +26,7 @@ public class TriggerEventRequest implements IRequest {
     private Object to;
     private Map<String, Object> payload;
     private Map<String, Object> overrides;
+    private Map<String, Object> context;
     private String transactionId;
 
     /**
