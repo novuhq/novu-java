@@ -1,19 +1,21 @@
-speakeasyVersion: 1.685.0
+speakeasyVersion: 1.685.2
 sources:
     Novu-OAS:
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:fdf9e744011dbc6cdac3a1b54b014363e4bf71780c68b0e57d34e50a7f93678e
-        sourceBlobDigest: sha256:dd8cfd81eae54fc9bcf66dab1dad7d70c6b51e856cced6277c551b61e76bb91d
+        sourceRevisionDigest: sha256:d469b73d1950430fd9b8c4269bc6c0aa79e2518aff46bc41b70724913f535c3e
+        sourceBlobDigest: sha256:5af0f199cc7c27569ae7c033f6e6c41e6e386936de22fd21faa5c054d75ab923
         tags:
             - latest
+            - speakeasy-sdk-regen-next-1768435568
+            - 3.11.0
 targets:
     novu:
         source: Novu-OAS
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:fdf9e744011dbc6cdac3a1b54b014363e4bf71780c68b0e57d34e50a7f93678e
-        sourceBlobDigest: sha256:dd8cfd81eae54fc9bcf66dab1dad7d70c6b51e856cced6277c551b61e76bb91d
+        sourceRevisionDigest: sha256:d469b73d1950430fd9b8c4269bc6c0aa79e2518aff46bc41b70724913f535c3e
+        sourceBlobDigest: sha256:5af0f199cc7c27569ae7c033f6e6c41e6e386936de22fd21faa5c054d75ab923
         codeSamplesNamespace: novu-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:1c9d3693d14ee2801d4ec2d11df604cfe657aa6416c0d7becfcd9aae6d1b9880
+        codeSamplesRevisionDigest: sha256:5d6142427fcf57313c5faeef9eef48880a568f374cf662e1326e605185afea86
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -30,6 +32,12 @@ workflow:
         novu:
             target: java
             source: Novu-OAS
+            publish:
+                java:
+                    ossrhUsername: $ossrh_username
+                    ossrhPassword: $ossrh_password
+                    gpgSecretKey: $java_gpg_secret_key
+                    gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/novu/novu/novu-oas-java-code-samples

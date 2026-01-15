@@ -28,13 +28,13 @@ import org.openapis.openapi.utils.SpeakeasyHTTPClient;
  */
 @AutoConfiguration
 @ConditionalOnClass(Novu.class)
-@EnableConfigurationProperties(OpenapiAutoConfigProperties.class)
-public class OpenapiAutoConfig {
+@EnableConfigurationProperties(NovuJavaAutoConfigProperties.class)
+public class NovuJavaAutoConfig {
 
     /**
      * Constructor.
      */
-    public OpenapiAutoConfig() {
+    public NovuJavaAutoConfig() {
     }
 
     /**
@@ -45,12 +45,12 @@ public class OpenapiAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "openapi.retry-config", name = "strategy")
-    public RetryConfig retryConfig(OpenapiAutoConfigProperties properties) {
-        OpenapiAutoConfigProperties.RetryConfig retryProps = properties.getRetryConfig();
+    @ConditionalOnProperty(prefix = "novujava.retry-config", name = "strategy")
+    public RetryConfig retryConfig(NovuJavaAutoConfigProperties properties) {
+        NovuJavaAutoConfigProperties.RetryConfig retryProps = properties.getRetryConfig();
         
         if (RetryConfig.Strategy.BACKOFF.equals(retryProps.getStrategy())) {
-            OpenapiAutoConfigProperties.RetryConfig.Backoff backoff = retryProps.getBackoff();
+            NovuJavaAutoConfigProperties.RetryConfig.Backoff backoff = retryProps.getBackoff();
             return RetryConfig.builder()
                 .backoff(
                     BackoffStrategy.builder()
@@ -77,8 +77,8 @@ public class OpenapiAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    public HTTPClient httpClient(OpenapiAutoConfigProperties properties) {
-        OpenapiAutoConfigProperties.HttpClient httpClientProps = properties.getHttpClient();
+    public HTTPClient httpClient(NovuJavaAutoConfigProperties properties) {
+        NovuJavaAutoConfigProperties.HttpClient httpClientProps = properties.getHttpClient();
 
         if (httpClientProps != null) {
             // Configure debug logging
@@ -100,8 +100,8 @@ public class OpenapiAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnPropertyPrefix(prefix = "openapi.security")
-    public SecuritySource securitySource(OpenapiAutoConfigProperties properties) {OpenapiAutoConfigProperties.Security securityProps = properties.getSecurity();
+    @ConditionalOnPropertyPrefix(prefix = "novujava.security")
+    public SecuritySource securitySource(NovuJavaAutoConfigProperties properties) {NovuJavaAutoConfigProperties.Security securityProps = properties.getSecurity();
         org.openapis.openapi.models.components.Security.Builder securityBuilder = org.openapis.openapi.models.components.Security.builder();
         boolean hasAnySecurityConfiguration = false;
         // Build secretKey security from direct properties (primitive value)
@@ -132,7 +132,7 @@ public class OpenapiAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public SDKConfiguration sdkConfiguration(
-            OpenapiAutoConfigProperties properties,
+            NovuJavaAutoConfigProperties properties,
             HTTPClient httpClient,
             org.openapis.openapi.utils.Hooks hooks,
             org.openapis.openapi.utils.AsyncHooks asyncHooks,

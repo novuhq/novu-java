@@ -14,6 +14,8 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
+    // V2 publishing plugin (Sonatype Central Portal)
+    id 'cl.franciscosolis.sonatype-central-upload' version '1.0.3'
     id "io.spring.dependency-management" version "1.1.6" apply false
     id 'org.sonarqube' version '4.4.1.3373'
 }
@@ -37,6 +39,7 @@ group = "${groupId}"
 
 jar {
     dependsOn 'generatePomFileForMavenPublication'
+    archiveBaseName = "${artifactId}"
 
     into("META-INF/maven/co.novu/novu-java") {
         from(layout.buildDirectory.file("pom.xml")) {
@@ -91,8 +94,8 @@ ext {
 
 subprojects {
     if (name in [
-            'openapi-spring-boot-autoconfigure',
-            'openapi-spring-boot-starter'
+            'novu-java-spring-boot-autoconfigure',
+            'novu-java-spring-boot-starter'
     ]) {
         // Ensure subprojects use the same group and version as root project
         group = rootProject.group
@@ -103,6 +106,7 @@ subprojects {
             plugin "io.spring.dependency-management"
             plugin "maven-publish"
             plugin "signing"
+            plugin "cl.franciscosolis.sonatype-central-upload"
         }
         dependencyManagement {
             imports {
@@ -130,8 +134,8 @@ ext {
         groupId: group,
         artifactId: artifactId,
         version: version,
-        name: "My Company Java SDK",
-        description: "SDK enabling Java developers to easily integrate with the My Company API.",
+        name: "Novu Java SDK",
+        description: "SDK enabling Java developers to easily integrate with the Novu API.",
         publicationName: "maven"
     ]
 }

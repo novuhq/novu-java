@@ -5,6 +5,29 @@ afterEvaluate {
     }
 
     def config = project.ext.publishingConfig
+    sonatypeCentralUpload {
+        username = System.getenv("SONATYPE_USERNAME") ?: "test-user"
+        password = System.getenv("SONATYPE_PASSWORD") ?: "test-password"
+        
+        // Use the actual generated artifact files
+        archives = provider {
+            def libsDir = layout.buildDirectory.dir("libs").get()
+            def artifactId = config.artifactId
+            def version = config.version
+            
+            files(
+                libsDir.file("${artifactId}-${version}.jar"),
+                libsDir.file("${artifactId}-${version}-sources.jar"),
+                libsDir.file("${artifactId}-${version}-javadoc.jar")
+            )
+        }
+        
+        pom = layout.buildDirectory.file("pom.xml").get().asFile
+        // This is your PGP private key. This is required to sign your files
+        signingKey = System.getenv("SONATYPE_SIGNING_KEY") ?: ""
+        // This is your PGP private key passphrase to decrypt your private key
+        signingKeyPassphrase = System.getenv("SIGNING_KEY_PASSPHRASE") ?: ""
+    }
     publishing {
 
         publications {
@@ -22,10 +45,10 @@ afterEvaluate {
                     ]
                     name = config.name
                     description = config.description
-                    url = 'https://github.com/owner/repo'
+                    url = 'https://github.com/novu/novu-java'
                     scm {
-                        url = 'github.com/owner/repo'
-                        connection = 'scm:git:ssh://git@github.com/owner/repo.git'
+                        url = 'github.com/novu/novu-java'
+                        connection = 'scm:git:ssh://git@github.com/novu/novu-java.git'
                     }
                     licenses {
                         license {
@@ -35,14 +58,14 @@ afterEvaluate {
                     }
                     developers {
                         developer {
-                            name = 'My Company'
-                            organization = 'My Company'
-                            email = 'info@mycompany.com'
+                            name = 'Novu'
+                            organization = 'Novu'
+                            email = 'engineering@novu.co'
                         }
                     }
                     organization {
-                        name = 'My Company'
-                        url = 'www.mycompany.com'
+                        name = 'Novu'
+                        url = 'https://novu.co'
                     }
                 }
             }

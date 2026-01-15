@@ -3,21 +3,23 @@ id: d549fdbf-503d-4fb7-8645-b0f9f3647590
 management:
   docChecksum: d34a559ad2c156d2e759b7913f219f53
   docVersion: 3.11.0
-  speakeasyVersion: 1.685.0
-  generationVersion: 2.794.1
-  releaseVersion: 0.0.3
-  configChecksum: 63ba2a3ecda3fa25fdae09938741c1cf
+  speakeasyVersion: 1.685.2
+  generationVersion: 2.795.6
+  releaseVersion: 0.0.4
+  configChecksum: 39ed5e10c14e478b7c548071696b7c95
+  repoURL: https://github.com/novuhq/novu-java.git
+  published: true
 persistentEdits:
-  generation_id: 3cf816f1-f554-4651-9035-80ec8c0c9633
-  pristine_commit_hash: 68e671533418024f5f48f046253b91b449ba67eb
-  pristine_tree_hash: 8624ad80ea2f1ec8854753f4bead00084c718fef
+  generation_id: e2098ba8-90e0-41bf-ad53-efa1defe38aa
+  pristine_commit_hash: 0d68fccd2102a855019e7a2ff56afc57cc7feaa1
+  pristine_tree_hash: 60365bb248d83dac5a159dbc06c4299aecc79df3
 features:
   java:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.1
-    core: 3.55.7
-    deprecations: 2.81.1
+    core: 3.55.8
+    deprecations: 2.81.2
     examples: 2.81.6
     flattening: 2.81.1
     globalSecurity: 2.83.1
@@ -42,8 +44,8 @@ trackedFiles:
     pristine_git_object: 13ccfa3052b3e51671bdfbd12bcb63fd95c94fab
   build.gradle:
     id: f07866736216
-    last_write_checksum: sha1:d7669fa234875ae0489fdf58ec741ed6ce3864df
-    pristine_git_object: 47c8eaba35a4fab3e36d2dcfb6d4fa0b49ee4910
+    last_write_checksum: sha1:5d6f112d1bf567c22c9d5a91778fb4021538ef8f
+    pristine_git_object: c7e69f64a1417d5a9266374f5055b21df4d849bc
   docs/models/components/ActionDto.md:
     id: c282c9d8a8c4
     last_write_checksum: sha1:c267b0718b481fac54cdba11596f9ef21cb6d2ad
@@ -2854,8 +2856,8 @@ trackedFiles:
     pristine_git_object: 971eac94f44ae53d22cb40b328a7fe53bc9c9289
   gradle.properties:
     id: 2afbb999f001
-    last_write_checksum: sha1:f16e298925816dd2ddadb87fd5563ce14a869d7f
-    pristine_git_object: 0b4c9870f2050fc6918e4d2868a17bb077b86656
+    last_write_checksum: sha1:b0e2ee6f9672d6b2f52ba072163a107befa1efbe
+    pristine_git_object: 08b954d79daaaf92696da523fdb426f7c2fb11f2
   gradle/wrapper/gradle-wrapper.jar:
     id: ec27dae6e852
     last_write_checksum: sha1:f725fb1467084142d74fd7cd8eab691ab3442611
@@ -2874,40 +2876,40 @@ trackedFiles:
     pristine_git_object: 5eed7ee8452842305a18a4eb967442683808226a
   publishing.gradle:
     id: 0f10e722a87d
-    last_write_checksum: sha1:9a592653f464f4537c4572e13440496c1615b1dc
-    pristine_git_object: e50630a2f536b5c6b4d929a609d1b0c693b6eea6
+    last_write_checksum: sha1:132792a05889287eb544773e2e9504a372c4746f
+    pristine_git_object: 64027becb6bc83e71d89772ec8f1609aa021b1cf
   settings.gradle:
     id: 05efc8b16577
-    last_write_checksum: sha1:b5b2f4aa4269fea383621740c89e1a847d952da9
-    pristine_git_object: 9a417c6ef38588594d4900724dbc71fec69accc0
-  spring/openapi-spring-boot-autoconfigure/build.gradle:
-    id: 8cca0f748528
-    last_write_checksum: sha1:4bf91a68de64401147187f47630c079c3bac4b9a
-    pristine_git_object: 05d547fbdb43245a7c11b814d908c0510a06f69e
-  spring/openapi-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/ConditionalOnPropertyPrefix.java:
-    id: aa458931f121
+    last_write_checksum: sha1:dcc1260c393aa56c16bd5cc476cdd9926f4420aa
+    pristine_git_object: 16aa3a1243290c30419f62016496e7d629856726
+  spring/novu-java-spring-boot-autoconfigure/build.gradle:
+    id: bd1629b7c2a6
+    last_write_checksum: sha1:43c2500e230d498fbdcaa5f358c83bc292712408
+    pristine_git_object: 2e0afdf1f7812ffc91f8ba2fdc0e408b8339fc29
+  spring/novu-java-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/ConditionalOnPropertyPrefix.java:
+    id: 8ea36f8b8559
     last_write_checksum: sha1:467852286ca6090f9793a6b66f79b9f989f9dcb6
     pristine_git_object: 1fc681a6640677a23f5cb78598e0e77ff96a0341
-  spring/openapi-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/OnPropertyPrefixCondition.java:
-    id: ff219eb28a9c
+  spring/novu-java-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/NovuJavaAutoConfig.java:
+    id: 88f419cf8bea
+    last_write_checksum: sha1:13f419df10b61b5d32c13dd3fd2f484c4c8cbf9e
+    pristine_git_object: ef2f5ff80a3d0d8da3b0c868a34b7f545b9522ef
+  spring/novu-java-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/NovuJavaAutoConfigProperties.java:
+    id: 1258b4f7e5cb
+    last_write_checksum: sha1:619920869c66bab7037880de2c131fc9e40e9531
+    pristine_git_object: 986fe72c071576a801a17cc35393b01e1c6def17
+  spring/novu-java-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/OnPropertyPrefixCondition.java:
+    id: 441409ccef39
     last_write_checksum: sha1:bede3dd966bee70e820c56c5c2b1e52d83f81021
     pristine_git_object: 5bffebc1cd603617355ff969d612db8b766475a3
-  spring/openapi-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/OpenapiAutoConfig.java:
-    id: 7fd4c309a94a
-    last_write_checksum: sha1:ebb74059932585a820c2b4e0375685eea871f15f
-    pristine_git_object: 61f88a50cd549f7eaed12c04c0b713f3fb2e478c
-  spring/openapi-spring-boot-autoconfigure/src/main/java/org/openapis/openapi/OpenapiAutoConfigProperties.java:
-    id: c32633bfed88
-    last_write_checksum: sha1:30be60a68fc491012eb4989f0a044cbdb10df0d0
-    pristine_git_object: 19e52c7090f4ee5280a02b90d07a34a20f6c99c3
-  ? spring/openapi-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
-  : id: 46aa419ee195
-    last_write_checksum: sha1:99b642db590c638b2cd477d9c51da616bcf501f6
-    pristine_git_object: cbd2fac9a00bfd3f42d909199b0a6ff9b8efe462
-  spring/openapi-spring-boot-starter/build.gradle:
-    id: 0df61da8e4c8
-    last_write_checksum: sha1:b6fcf6e08a237318167ef1f10d8f6143ee6b79df
-    pristine_git_object: 31161bc9436d6a82d0c2d9e5ea5c24b12f2e504d
+  ? spring/novu-java-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+  : id: 43b762dce868
+    last_write_checksum: sha1:a8592b208926db562fc1ee9d89b3f96e0c851954
+    pristine_git_object: a8e1237c380d250d4073d639d09b14680b23221e
+  spring/novu-java-spring-boot-starter/build.gradle:
+    id: 7365543060ac
+    last_write_checksum: sha1:1b62336932ee19d348c5532fbda62bad2437f94b
+    pristine_git_object: ef02cc939300d6690fca42411c4634d5a1c3508e
   src/main/java/org/openapis/openapi/Activity.java:
     id: 78fedd481186
     last_write_checksum: sha1:ccd627279aed65143b4f3c00df6b115d2ee9393c
@@ -3066,8 +3068,8 @@ trackedFiles:
     pristine_git_object: b02e52becb05a47d333ad337ffff1b91d083517b
   src/main/java/org/openapis/openapi/SDKConfiguration.java:
     id: 0b994d6164f8
-    last_write_checksum: sha1:19fe42a9e43ce280b7edfcd069fda857bf691b98
-    pristine_git_object: d17f05501e976e76022495e473878ed73f2c015c
+    last_write_checksum: sha1:4ed3f03f742a6333044c443d590045e838e47015
+    pristine_git_object: 260624fa2db43a6317ceb55180aea6df713fe411
   src/main/java/org/openapis/openapi/SecuritySource.java:
     id: a2592d2c5a7a
     last_write_checksum: sha1:bd494cc8f77e7c0582bae60e95ce48ed4e715935
@@ -5026,8 +5028,8 @@ trackedFiles:
     pristine_git_object: 044a12c2dab48449fb62f9a9e0083e45b90c11d3
   src/main/java/org/openapis/openapi/models/errors/SubscriberResponseDtoException.java:
     id: 62f94f4e0a56
-    last_write_checksum: sha1:c5a7f4d2f8e3283d2ccf8ef066adab7d8eb4c548
-    pristine_git_object: b2db2989b64b1b9c6f4a203acc60268a874c4b77
+    last_write_checksum: sha1:f926658b27006ac9c7c074ee4d808fce8625ef15
+    pristine_git_object: b72acfcc61d7bb9e0f056bc9f21b37bdddcfeddb
   src/main/java/org/openapis/openapi/models/errors/TopicResponseDtoException.java:
     id: 8e5977c4af8e
     last_write_checksum: sha1:66e15c2844e2b2a2adfb1da119d586a0707d9e32
@@ -7478,8 +7480,8 @@ trackedFiles:
     pristine_git_object: 56658e94bf157d7f5b13ea763461135391c620eb
   src/main/java/org/openapis/openapi/utils/JSON.java:
     id: 684c2040f33e
-    last_write_checksum: sha1:9b3a16445dd52472fa6eab1006795921f9bd05d5
-    pristine_git_object: d5a5bf17b51b5aa7378b9970b9858a6341ab94b2
+    last_write_checksum: sha1:4d1b6f061172bb97992cbd9d89ceecfd1125ca6d
+    pristine_git_object: 4870d5bd1300b2fd83c03549bfeaecca1622259a
   src/main/java/org/openapis/openapi/utils/LazySingletonValue.java:
     id: 214ff12bf342
     last_write_checksum: sha1:17cb96a1763d742e3a343b9c78d92f6d11c0b209
@@ -9096,3 +9098,109 @@ examples:
         "500":
           application/json: {"statusCode": 404, "timestamp": "2024-12-12T13:00:00Z", "path": "/api/v1/resource", "message": "xx xx xx ", "ctx": {"workflowId": "some_wf_id", "stepId": "some_wf_id"}, "errorId": "abc123"}
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Java SDK Changes:
+  * `novu.contexts.get()`: **Added**
+  * `novu.layouts.preview()`: **Added**
+  * `novu.layouts.getUsage()`: **Added**
+  * `novu.subscribers.get()`: **Added**
+  * `novu.subscribers.update()`: **Added**
+  * `novu.subscribers.removeSubscriber()`: **Added**
+  * `novu.subscribers.updatePreferences()`: **Added**
+  * `novu.subscribers.updateCredentials()`: **Added**
+  * `novu.subscribers.appendCredentials()`: **Added**
+  * `novu.subscribers.markAllMessagesAs()`: **Added**
+  * `novu.subscribers.getUnseenCount()`: **Added**
+  * `novu.subscribers.updateOnlineStatus()`: **Added**
+  * `novu.subscribers.preferences.getPreferences()`: **Added**
+  * `novu.subscribers.topics.list()`: **Added**
+  * `novu.subscribers.credentials.delete()`: **Added**
+  * `novu.subscribers.messages.markAll()`: **Added**
+  * `novu.subscribersPreferences.bulkUpdate()`: **Added**
+  * `novu.topics.getAll()`: **Added**
+  * `novu.topics.getTopic()`: **Added**
+  * `novu.topics.patch()`: **Added**
+  * `novu.topics.remove()`: **Added**
+  * `novu.topics.createSubscription()`: **Added**
+  * `novu.topics.subscriptions.fetchSubscription()`: **Added**
+  * `novu.topics.subscribers.get()`: **Added**
+  * `novu.topicsSubscriptions.list()`: **Added**
+  * `novu.topicsSubscriptions.delete()`: **Added**
+  * `novu.topicsSubscriptions.update()`: **Added**
+  * `novu.translations.get()`: **Added**
+  * `novu.translations.importMasterJson()`: **Added**
+  * `novu.translations.uploadMasterJson()`: **Added**
+  * `novu.translations.groups.removeGroup()`: **Added**
+  * `novu.translations.groups.fetchGroup()`: **Added**
+  * `novu.translationsMaster.retrieve()`: **Added**
+  * `novu.workflows.modify()`: **Added**
+  * `novu.workflows.getStep()`: **Added**
+  * `novu.channelConnections.list()`: **Added**
+  * `novu.channelConnections.create()`: **Added**
+  * `novu.channelConnections.get()`: **Added**
+  * `novu.channelConnections.update()`: **Added**
+  * `novu.channelConnections.delete()`: **Added**
+  * `novu.channelEndpoints.list()`: **Added**
+  * `novu.channelEndpoints.create()`: **Added**
+  * `novu.channelEndpoints.get()`: **Added**
+  * `novu.channelEndpoints.update()`: **Added**
+  * `novu.channelEndpoints.delete()`: **Added**
+  * `novu.integrations.autoConfigure()`: **Added**
+  * `novu.integrations.setPrimary()`: **Added**
+  * `novu.integrations.generateChatOAuth()`: **Added**
+  * `novu.messages.list()`: **Added**
+  * `novu.notifications.get()`: **Added**
+  * `novu.subscribersMessages.updateAsSeen()`: **Added**
+  * `novu.subscribersNotifications.getFeed()`: **Added**
+  * `novu.contexts.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.layouts.generatePreview()`: **Deleted** **Breaking** :warning:
+  * `novu.layouts.usage()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.patch()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.preferences.list()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.preferences.update()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.preferences.bulkUpdate()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.topics.list()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.credentials.update()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.credentials.append()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.credentials.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.messages.updateAsSeen()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.messages.markAll()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.messages.markAllAs()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.notifications.feed()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.notifications.unseenCount()`: **Deleted** **Breaking** :warning:
+  * `novu.subscribers.properties.updateOnlineFlag()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.list()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.get()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.update()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.subscriptions.list()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.subscriptions.create()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.subscriptions.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.subscriptions.getSubscription()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.subscriptions.update()`: **Deleted** **Breaking** :warning:
+  * `novu.topics.subscribers.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.translations.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.translations.groups.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.translations.groups.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.translations.master.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.translations.master.importMasterJson()`: **Deleted** **Breaking** :warning:
+  * `novu.translations.master.upload()`: **Deleted** **Breaking** :warning:
+  * `novu.workflows.patch()`: **Deleted** **Breaking** :warning:
+  * `novu.workflows.steps.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.channelConnections.list()`: **Deleted** **Breaking** :warning:
+  * `novu.channelConnections.create()`: **Deleted** **Breaking** :warning:
+  * `novu.channelConnections.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.channelConnections.update()`: **Deleted** **Breaking** :warning:
+  * `novu.channelConnections.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.channelEndpoints.list()`: **Deleted** **Breaking** :warning:
+  * `novu.channelEndpoints.create()`: **Deleted** **Breaking** :warning:
+  * `novu.channelEndpoints.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.channelEndpoints.update()`: **Deleted** **Breaking** :warning:
+  * `novu.channelEndpoints.delete()`: **Deleted** **Breaking** :warning:
+  * `novu.integrations.integrationsControllerAutoConfigureIntegration()`: **Deleted** **Breaking** :warning:
+  * `novu.integrations.setAsPrimary()`: **Deleted** **Breaking** :warning:
+  * `novu.integrations.generateChatOAuthUrl()`: **Deleted** **Breaking** :warning:
+  * `novu.messages.retrieve()`: **Deleted** **Breaking** :warning:
+  * `novu.notifications.retrieve()`: **Deleted** **Breaking** :warning:

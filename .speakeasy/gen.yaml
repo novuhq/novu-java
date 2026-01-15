@@ -28,7 +28,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 0.0.3
+  version: 0.0.4
   additionalDependencies: []
   additionalPlugins:
     - id 'org.sonarqube' version '4.4.1.3373'

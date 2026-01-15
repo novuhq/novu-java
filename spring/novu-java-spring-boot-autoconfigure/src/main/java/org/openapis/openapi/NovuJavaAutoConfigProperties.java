@@ -14,13 +14,13 @@ import java.util.Set;
 /**
  * Spring Boot Configuration Properties for openapi SDK
  */
-@ConfigurationProperties(prefix = "openapi")
-public class OpenapiAutoConfigProperties {
+@ConfigurationProperties(prefix = "novujava")
+public class NovuJavaAutoConfigProperties {
 
     /**
      * Constructor.
      */
-    public OpenapiAutoConfigProperties() {
+    public NovuJavaAutoConfigProperties() {
     }
 
     /**
