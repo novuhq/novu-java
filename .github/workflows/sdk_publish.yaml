@@ -1,0 +1,26 @@
+name: Publish
+permissions:
+  checks: write
+  contents: write
+  pull-requests: write
+  statuses: write
+  id-token: write
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - .speakeasy/gen.lock
+  workflow_dispatch: {}
+jobs:
+  publish:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/sdk-publish.yaml@v15
+    with:
+      target: novu
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      java_gpg_passphrase: ${{ secrets.JAVA_GPG_PASSPHRASE }}
+      java_gpg_secret_key: ${{ secrets.JAVA_GPG_SECRET_KEY }}
+      ossrh_password: ${{ secrets.OSSRH_PASSWORD }}
+      ossrh_username: ${{ secrets.OSSRH_USERNAME }}
+      speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}

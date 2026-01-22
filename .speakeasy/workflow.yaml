@@ -12,6 +12,12 @@ targets:
     novu:
         target: java
         source: novu-OAS
+        publish:
+            java:
+                ossrhUsername: $ossrh_username
+                ossrhPassword: $ossrh_password
+                gpgSecretKey: $java_gpg_secret_key
+                gpgPassPhrase: $java_gpg_passphrase
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/novu/novu/novu-oas-java-code-samples
