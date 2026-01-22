@@ -23,13 +23,13 @@ List all messages for the current environment.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.MessagesControllerGetMessagesRequest;
+import co.novu.models.operations.MessagesControllerGetMessagesResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.MessagesControllerGetMessagesRequest;
-import org.openapis.openapi.models.operations.MessagesControllerGetMessagesResponse;
 
 public class Application {
 
@@ -87,11 +87,11 @@ Delete a message entity from the Novu platform by **messageId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.MessagesControllerDeleteMessageResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.MessagesControllerDeleteMessageResponse;
 
 public class Application {
 
@@ -144,11 +144,11 @@ Delete multiple messages from the Novu platform using **transactionId** of trigg
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.MessagesControllerDeleteMessagesByTransactionIdResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.MessagesControllerDeleteMessagesByTransactionIdResponse;
 
 public class Application {
 

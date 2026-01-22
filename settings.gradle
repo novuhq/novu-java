@@ -7,13 +7,13 @@
  * in the user manual at https://docs.gradle.org/7.5.1/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'novu-java'
+rootProject.name = 'novu'
 
-include 'novu-java-spring-boot-autoconfigure'
-include 'novu-java-spring-boot-starter'
+include 'novu-spring-boot-autoconfigure'
+include 'novu-spring-boot-starter'
 
-project(':novu-java-spring-boot-autoconfigure').projectDir = file('spring/novu-java-spring-boot-autoconfigure')
-project(':novu-java-spring-boot-starter').projectDir = file('spring/novu-java-spring-boot-starter')
+project(':novu-spring-boot-autoconfigure').projectDir = file('spring/novu-spring-boot-autoconfigure')
+project(':novu-spring-boot-starter').projectDir = file('spring/novu-spring-boot-starter')
 
 // Apply additional settings if the file exists
 if (file('settings-extra.gradle').exists()) {

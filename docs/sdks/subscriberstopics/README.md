@@ -1,12 +1,12 @@
-# Subscribers.Topics
+# SubscribersTopics
 
 ## Overview
 
 ### Available Operations
 
-* [list](#list) - Retrieve subscriber subscriptions
+* [listSubscriptions](#listsubscriptions) - Retrieve subscriber subscriptions
 
-## list
+## listSubscriptions
 
 Retrieve subscriber's topic subscriptions by its unique key identifier **subscriberId**. 
     Checkout all available filters in the query section.
@@ -17,12 +17,13 @@ Retrieve subscriber's topic subscriptions by its unique key identifier **subscri
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersControllerListSubscriberTopicsRequest;
+import co.novu.models.operations.SubscribersControllerListSubscriberTopicsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersControllerListSubscriberTopicsRequest;
-import org.openapis.openapi.models.operations.SubscribersControllerListSubscriberTopicsResponse;
+import java.util.List;
 
 public class Application {
 
@@ -35,9 +36,12 @@ public class Application {
         SubscribersControllerListSubscriberTopicsRequest req = SubscribersControllerListSubscriberTopicsRequest.builder()
                 .subscriberId("<id>")
                 .limit(10d)
+                .contextKeys(List.of(
+                    "tenant:org-123",
+                    "region:us-east-1"))
                 .build();
 
-        SubscribersControllerListSubscriberTopicsResponse res = sdk.subscribers().topics().list()
+        SubscribersControllerListSubscriberTopicsResponse res = sdk.subscribersTopics().listSubscriptions()
                 .request(req)
                 .call();
 

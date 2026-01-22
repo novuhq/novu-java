@@ -7,67 +7,10 @@ Environments allow you to manage different stages of your application developmen
 
 ### Available Operations
 
-* [getTags](#gettags) - Get environment tags
 * [create](#create) - Create an environment
 * [list](#list) - List all environments
 * [update](#update) - Update an environment
 * [delete](#delete) - Delete an environment
-
-## getTags
-
-Retrieve all unique tags used in workflows within the specified environment. These tags can be used for filtering workflows.
-
-### Example Usage
-
-<!-- UsageSnippet language="java" operationID="EnvironmentsController_getEnvironmentTags" method="get" path="/v2/environments/{environmentId}/tags" -->
-```java
-package hello.world;
-
-import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EnvironmentsControllerGetEnvironmentTagsResponse;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
-
-        Novu sdk = Novu.builder()
-                .secretKey("YOUR_SECRET_KEY_HERE")
-            .build();
-
-        EnvironmentsControllerGetEnvironmentTagsResponse res = sdk.environments().getTags()
-                .environmentId("6615943e7ace93b0540ae377")
-                .call();
-
-        if (res.getEnvironmentTagsDtos().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              | Example                                                  |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `environmentId`                                          | *String*                                                 | :heavy_check_mark:                                       | Environment internal ID (MongoDB ObjectId) or identifier | 6615943e7ace93b0540ae377                                 |
-| `idempotencyKey`                                         | *Optional\<String>*                                      | :heavy_minus_sign:                                       | A header for idempotency purposes                        |                                                          |
-
-### Response
-
-**[EnvironmentsControllerGetEnvironmentTagsResponse](../../models/operations/EnvironmentsControllerGetEnvironmentTagsResponse.md)**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| models/errors/ErrorDto                 | 414                                    | application/json                       |
-| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
-| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
-| models/errors/ErrorDto                 | 500                                    | application/json                       |
-| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## create
 
@@ -81,12 +24,12 @@ Creates a new environment within the current organization.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.CreateEnvironmentRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.EnvironmentsControllerV1CreateEnvironmentResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.CreateEnvironmentRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EnvironmentsControllerV1CreateEnvironmentResponse;
 
 public class Application {
 
@@ -143,11 +86,11 @@ This API returns a list of environments for the current organization.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.EnvironmentsControllerV1ListMyEnvironmentsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EnvironmentsControllerV1ListMyEnvironmentsResponse;
 
 public class Application {
 
@@ -198,12 +141,12 @@ Update an environment by its unique identifier **environmentId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.UpdateEnvironmentRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.EnvironmentsControllerV1UpdateMyEnvironmentResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.UpdateEnvironmentRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EnvironmentsControllerV1UpdateMyEnvironmentResponse;
 
 public class Application {
 
@@ -259,11 +202,11 @@ Delete an environment by its unique identifier **environmentId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.EnvironmentsControllerV1DeleteEnvironmentResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EnvironmentsControllerV1DeleteEnvironmentResponse;
 
 public class Application {
 

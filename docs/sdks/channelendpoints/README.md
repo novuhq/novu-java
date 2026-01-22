@@ -20,14 +20,14 @@ List all channel endpoints for a resource based on query filters.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.ProvidersIdEnum;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelEndpointsControllerListChannelEndpointsRequest;
+import co.novu.models.operations.ChannelEndpointsControllerListChannelEndpointsResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.ProvidersIdEnum;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelEndpointsControllerListChannelEndpointsRequest;
-import org.openapis.openapi.models.operations.ChannelEndpointsControllerListChannelEndpointsResponse;
 
 public class Application {
 
@@ -89,12 +89,12 @@ Create a new channel endpoint for a resource.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelEndpointsControllerCreateChannelEndpointResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelEndpointsControllerCreateChannelEndpointResponse;
 
 public class Application {
 
@@ -153,11 +153,11 @@ Retrieve a specific channel endpoint by its unique identifier.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelEndpointsControllerGetChannelEndpointResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelEndpointsControllerGetChannelEndpointResponse;
 
 public class Application {
 
@@ -209,12 +209,12 @@ Update an existing channel endpoint by its unique identifier.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelEndpointsControllerUpdateChannelEndpointResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelEndpointsControllerUpdateChannelEndpointResponse;
 
 public class Application {
 
@@ -272,11 +272,11 @@ Delete a specific channel endpoint by its unique identifier.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelEndpointsControllerDeleteChannelEndpointResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelEndpointsControllerDeleteChannelEndpointResponse;
 
 public class Application {
 

@@ -8,14 +8,12 @@
 * [create](#create) - Create a subscriber
 * [get](#get) - Retrieve a subscriber
 * [update](#update) - Update a subscriber
-* [removeSubscriber](#removesubscriber) - Delete a subscriber
+* [delete](#delete) - Delete a subscriber
 * [createBulk](#createbulk) - Bulk create subscribers
 * [updatePreferences](#updatepreferences) - Update subscriber preferences
 * [updateCredentials](#updatecredentials) - Update provider credentials
-* [appendCredentials](#appendcredentials) - Upsert provider credentials
-* [markAllMessagesAs](#markallmessagesas) - Update notifications state
-* [getUnseenCount](#getunseencount) - Retrieve unseen notifications count
-* [updateOnlineStatus](#updateonlinestatus) - Update subscriber online status
+* [removeCredentials](#removecredentials) - Delete provider credentials
+* [markAllMessages](#markallmessages) - Update all notifications state
 
 ## search
 
@@ -28,12 +26,12 @@ Search subscribers by their **email**, **phone**, **subscriberId** and **name**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersControllerSearchSubscribersRequest;
+import co.novu.models.operations.SubscribersControllerSearchSubscribersResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersControllerSearchSubscribersRequest;
-import org.openapis.openapi.models.operations.SubscribersControllerSearchSubscribersResponse;
 
 public class Application {
 
@@ -89,11 +87,11 @@ Create a subscriber with the subscriber attributes.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.CreateSubscriberRequestDto;
+import co.novu.models.errors.*;
+import co.novu.models.operations.SubscribersControllerCreateSubscriberResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.CreateSubscriberRequestDto;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.SubscribersControllerCreateSubscriberResponse;
 
 public class Application {
 
@@ -157,11 +155,11 @@ Retrieve a subscriber by its unique key identifier **subscriberId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersControllerGetSubscriberResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersControllerGetSubscriberResponse;
 
 public class Application {
 
@@ -214,12 +212,12 @@ Update a subscriber by its unique key identifier **subscriberId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.PatchSubscriberRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersControllerPatchSubscriberResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.PatchSubscriberRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersControllerPatchSubscriberResponse;
 
 public class Application {
 
@@ -271,7 +269,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## removeSubscriber
+## delete
 
 Deletes a subscriber entity from the Novu platform along with associated messages, preferences, and topic subscriptions. 
       **subscriberId** is a required field.
@@ -282,11 +280,11 @@ Deletes a subscriber entity from the Novu platform along with associated message
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersControllerRemoveSubscriberResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersControllerRemoveSubscriberResponse;
 
 public class Application {
 
@@ -296,7 +294,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        SubscribersControllerRemoveSubscriberResponse res = sdk.subscribers().removeSubscriber()
+        SubscribersControllerRemoveSubscriberResponse res = sdk.subscribers().delete()
                 .subscriberId("<id>")
                 .call();
 
@@ -340,13 +338,13 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.BulkSubscriberCreateDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerBulkCreateSubscribersResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.BulkSubscriberCreateDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerBulkCreateSubscribersResponse;
 
 public class Application {
 
@@ -402,13 +400,14 @@ Update subscriber preferences by its unique key identifier **subscriberId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersControllerUpdateSubscriberPreferencesResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersControllerUpdateSubscriberPreferencesResponse;
+import java.util.Map;
 
 public class Application {
 
@@ -482,6 +481,8 @@ public class Application {
                                 .build())
                             .build())
                         .build())
+                    .context(Map.ofEntries(
+                        Map.entry("key", PatchSubscriberPreferencesDtoContextUnion.of("org-acme"))))
                     .build())
                 .call();
 
@@ -525,13 +526,13 @@ Update credentials for a provider such as **slack** and **FCM**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerUpdateSubscriberChannelResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerUpdateSubscriberChannelResponse;
 
 public class Application {
 
@@ -590,24 +591,22 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## appendCredentials
+## removeCredentials
 
-Upsert credentials for a provider such as **slack** and **FCM**. 
-      **providerId** is required field. This API creates **deviceTokens** or appends to the existing ones.
+Delete subscriber credentials for a provider such as **slack** and **FCM** by **providerId**. 
+    This action is irreversible and will remove the credentials for the provider for particular **subscriberId**.
 
 ### Example Usage
 
-<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_modifySubscriberChannel" method="patch" path="/v1/subscribers/{subscriberId}/credentials" -->
+<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_deleteSubscriberCredentials" method="delete" path="/v1/subscribers/{subscriberId}/credentials/{providerId}" -->
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerDeleteSubscriberCredentialsResponse;
 import java.lang.Exception;
-import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerModifySubscriberChannelResponse;
 
 public class Application {
 
@@ -617,44 +616,27 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        SubscribersV1ControllerModifySubscriberChannelResponse res = sdk.subscribers().appendCredentials()
+        SubscribersV1ControllerDeleteSubscriberCredentialsResponse res = sdk.subscribers().removeCredentials()
                 .subscriberId("<id>")
-                .body(UpdateSubscriberChannelRequestDto.builder()
-                    .providerId(ChatOrPushProviderEnum.ONE_SIGNAL)
-                    .credentials(ChannelCredentials.builder()
-                        .webhookUrl("https://example.com/webhook")
-                        .channel("general")
-                        .deviceTokens(List.of(
-                            "token1",
-                            "token2",
-                            "token3"))
-                        .alertUid("12345-abcde")
-                        .title("Critical Alert")
-                        .imageUrl("https://example.com/image.png")
-                        .state("resolved")
-                        .externalUrl("https://example.com/details")
-                        .build())
-                    .build())
+                .providerId("<id>")
                 .call();
 
-        if (res.subscriberResponseDto().isPresent()) {
-            // handle response
-        }
+        // handle response
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| `subscriberId`                                                                                    | *String*                                                                                          | :heavy_check_mark:                                                                                | N/A                                                                                               |
-| `idempotencyKey`                                                                                  | *Optional\<String>*                                                                               | :heavy_minus_sign:                                                                                | A header for idempotency purposes                                                                 |
-| `body`                                                                                            | [UpdateSubscriberChannelRequestDto](../../models/components/UpdateSubscriberChannelRequestDto.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |
+| Parameter                         | Type                              | Required                          | Description                       |
+| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
+| `subscriberId`                    | *String*                          | :heavy_check_mark:                | N/A                               |
+| `providerId`                      | *String*                          | :heavy_check_mark:                | N/A                               |
+| `idempotencyKey`                  | *Optional\<String>*               | :heavy_minus_sign:                | A header for idempotency purposes |
 
 ### Response
 
-**[SubscribersV1ControllerModifySubscriberChannelResponse](../../models/operations/SubscribersV1ControllerModifySubscriberChannelResponse.md)**
+**[SubscribersV1ControllerDeleteSubscriberCredentialsResponse](../../models/operations/SubscribersV1ControllerDeleteSubscriberCredentialsResponse.md)**
 
 ### Errors
 
@@ -666,24 +648,23 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## markAllMessagesAs
+## markAllMessages
 
-Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread by **subscriberId**. 
-      **messageId** is of type mongodbId of notifications
+Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by **subscriberId**.
 
 ### Example Usage
 
-<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_markMessagesAs" method="post" path="/v1/subscribers/{subscriberId}/messages/mark-as" -->
+<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_markAllUnreadAsRead" method="post" path="/v1/subscribers/{subscriberId}/messages/mark-all" -->
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.MarkAllMessageAsRequestDto;
+import co.novu.models.components.MarkAllMessageAsRequestDtoMarkAs;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerMarkAllUnreadAsReadResponse;
 import java.lang.Exception;
-import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerMarkMessagesAsResponse;
 
 public class Application {
 
@@ -693,15 +674,14 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        SubscribersV1ControllerMarkMessagesAsResponse res = sdk.subscribers().markAllMessagesAs()
+        SubscribersV1ControllerMarkAllUnreadAsReadResponse res = sdk.subscribers().markAllMessages()
                 .subscriberId("<id>")
-                .body(MessageMarkAsRequestDto.builder()
-                    .messageId(MessageId.of(List.of()))
-                    .markAs(MessageMarkAsRequestDtoMarkAs.SEEN)
+                .body(MarkAllMessageAsRequestDto.builder()
+                    .markAs(MarkAllMessageAsRequestDtoMarkAs.READ)
                     .build())
                 .call();
 
-        if (res.messageResponseDtos().isPresent()) {
+        if (res.number().isPresent()) {
             // handle response
         }
     }
@@ -710,136 +690,15 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `subscriberId`                                                                | *String*                                                                      | :heavy_check_mark:                                                            | N/A                                                                           |
-| `idempotencyKey`                                                              | *Optional\<String>*                                                           | :heavy_minus_sign:                                                            | A header for idempotency purposes                                             |
-| `body`                                                                        | [MessageMarkAsRequestDto](../../models/components/MessageMarkAsRequestDto.md) | :heavy_check_mark:                                                            | N/A                                                                           |
+| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `subscriberId`                                                                      | *String*                                                                            | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| `idempotencyKey`                                                                    | *Optional\<String>*                                                                 | :heavy_minus_sign:                                                                  | A header for idempotency purposes                                                   |
+| `body`                                                                              | [MarkAllMessageAsRequestDto](../../models/components/MarkAllMessageAsRequestDto.md) | :heavy_check_mark:                                                                  | N/A                                                                                 |
 
 ### Response
 
-**[SubscribersV1ControllerMarkMessagesAsResponse](../../models/operations/SubscribersV1ControllerMarkMessagesAsResponse.md)**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| models/errors/ErrorDto                 | 414                                    | application/json                       |
-| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
-| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
-| models/errors/ErrorDto                 | 500                                    | application/json                       |
-| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
-
-## getUnseenCount
-
-Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier **subscriberId**.
-
-### Example Usage
-
-<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_getUnseenCount" method="get" path="/v1/subscribers/{subscriberId}/notifications/unseen" -->
-```java
-package hello.world;
-
-import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerGetUnseenCountResponse;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
-
-        Novu sdk = Novu.builder()
-                .secretKey("YOUR_SECRET_KEY_HERE")
-            .build();
-
-        SubscribersV1ControllerGetUnseenCountResponse res = sdk.subscribers().getUnseenCount()
-                .subscriberId("<id>")
-                .seen(false)
-                .limit(100d)
-                .call();
-
-        if (res.unseenCountResponse().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                      | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `subscriberId`                                 | *String*                                       | :heavy_check_mark:                             | N/A                                            |
-| `seen`                                         | *Optional\<Boolean>*                           | :heavy_minus_sign:                             | Indicates whether to count seen notifications. |
-| `limit`                                        | *Optional\<Double>*                            | :heavy_minus_sign:                             | The maximum number of notifications to return. |
-| `idempotencyKey`                               | *Optional\<String>*                            | :heavy_minus_sign:                             | A header for idempotency purposes              |
-
-### Response
-
-**[SubscribersV1ControllerGetUnseenCountResponse](../../models/operations/SubscribersV1ControllerGetUnseenCountResponse.md)**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| models/errors/ErrorDto                 | 414                                    | application/json                       |
-| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
-| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
-| models/errors/ErrorDto                 | 500                                    | application/json                       |
-| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
-
-## updateOnlineStatus
-
-Update the subscriber online status by its unique key identifier **subscriberId**
-
-### Example Usage
-
-<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_updateSubscriberOnlineFlag" method="patch" path="/v1/subscribers/{subscriberId}/online-status" -->
-```java
-package hello.world;
-
-import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.UpdateSubscriberOnlineFlagRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
-
-        Novu sdk = Novu.builder()
-                .secretKey("YOUR_SECRET_KEY_HERE")
-            .build();
-
-        SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse res = sdk.subscribers().updateOnlineStatus()
-                .subscriberId("<id>")
-                .body(UpdateSubscriberOnlineFlagRequestDto.builder()
-                    .isOnline(false)
-                    .build())
-                .call();
-
-        if (res.subscriberResponseDto().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `subscriberId`                                                                                          | *String*                                                                                                | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
-| `idempotencyKey`                                                                                        | *Optional\<String>*                                                                                     | :heavy_minus_sign:                                                                                      | A header for idempotency purposes                                                                       |
-| `body`                                                                                                  | [UpdateSubscriberOnlineFlagRequestDto](../../models/components/UpdateSubscriberOnlineFlagRequestDto.md) | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
-
-### Response
-
-**[SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse](../../models/operations/SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse.md)**
+**[SubscribersV1ControllerMarkAllUnreadAsReadResponse](../../models/operations/SubscribersV1ControllerMarkAllUnreadAsReadResponse.md)**
 
 ### Errors
 

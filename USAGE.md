@@ -4,12 +4,12 @@
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -47,11 +47,11 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.EventsControllerCancelResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EventsControllerCancelResponse;
 
 public class Application {
 
@@ -77,12 +77,12 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerBroadcastEventToAllResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerBroadcastEventToAllResponse;
 
 public class Application {
 
@@ -92,7 +92,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        EventsControllerBroadcastEventToAllResponse res = sdk.triggerBroadcast()
+        EventsControllerBroadcastEventToAllResponse res = sdk.broadcast()
                 .body(TriggerEventToAllRequestDto.builder()
                     .name("<value>")
                     .payload(Map.ofEntries(
@@ -132,13 +132,13 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerBulkResponse;
 import java.lang.Exception;
 import java.util.List;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerBulkResponse;
 
 public class Application {
 

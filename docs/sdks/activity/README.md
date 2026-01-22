@@ -16,9 +16,10 @@ Track activity and engagement events for a specific delivery provider
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.operations.InboundWebhooksControllerHandleWebhookResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.operations.InboundWebhooksControllerHandleWebhookResponse;
+import java.util.Map;
 
 public class Application {
 
@@ -31,7 +32,8 @@ public class Application {
         InboundWebhooksControllerHandleWebhookResponse res = sdk.activity().track()
                 .environmentId("<id>")
                 .integrationId("<id>")
-                .body("<value>")
+                .body(Map.ofEntries(
+                ))
                 .call();
 
         if (res.webhookResultDtos().isPresent()) {
@@ -48,7 +50,7 @@ public class Application {
 | `environmentId`                                      | *String*                                             | :heavy_check_mark:                                   | The environment identifier                           |
 | `integrationId`                                      | *String*                                             | :heavy_check_mark:                                   | The integration identifier for the delivery provider |
 | `idempotencyKey`                                     | *Optional\<String>*                                  | :heavy_minus_sign:                                   | A header for idempotency purposes                    |
-| `body`                                               | *Object*                                             | :heavy_check_mark:                                   | Webhook event payload from the delivery provider     |
+| `body`                                               | Map\<String, *Object*>                               | :heavy_check_mark:                                   | Webhook event payload from the delivery provider     |
 
 ### Response
 

@@ -20,12 +20,12 @@ List all notification events (triggered events) for the current environment.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.NotificationsControllerListNotificationsRequest;
+import co.novu.models.operations.NotificationsControllerListNotificationsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.NotificationsControllerListNotificationsRequest;
-import org.openapis.openapi.models.operations.NotificationsControllerListNotificationsResponse;
 
 public class Application {
 
@@ -81,11 +81,11 @@ Retrieve an event by its unique key identifier **notificationId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.NotificationsControllerGetNotificationResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.NotificationsControllerGetNotificationResponse;
 
 public class Application {
 

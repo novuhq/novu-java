@@ -10,162 +10,23 @@ info:
 actions:
   - target: $["paths"]["/v1/subscribers/{subscriberId}/messages/{messageId}/actions/{type}"]["post"]
     update:
-      x-speakeasy-group: subscribersMessages
+      x-speakeasy-group: subscribers.messages
+      x-speakeasy-name-override: updateActionStatus
     x-speakeasy-metadata:
-      after: sdk.subscribersMessages.updateAsSeen()
+      after: sdk.subscribers.messages.updateActionStatus()
       before: sdk.Subscribers.Messages.updateAsSeen()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/translations/master-json"]["get"]
     update:
-      x-speakeasy-group: translationsMaster
-    x-speakeasy-metadata:
-      after: sdk.translationsMaster.retrieve()
-      before: sdk.Translations.master.retrieve()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/translations/{resourceType}/{resourceId}"]["delete"]
-    update:
-      x-speakeasy-group: translations.groups
-      x-speakeasy-name-override: removeGroup
-    x-speakeasy-metadata:
-      after: sdk.translations.groups.removeGroup()
-      before: sdk.Translations.Groups.delete()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/translations/master-json"]["post"]
-    update:
       x-speakeasy-group: translations
-      x-speakeasy-name-override: importMasterJson
+      x-speakeasy-name-override: getMaster
     x-speakeasy-metadata:
-      after: sdk.translations.importMasterJson()
-      before: sdk.Translations.Master.import_master_json()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/layouts"]["post"]
-    update:
-      x-speakeasy-name-override: create
-    x-speakeasy-metadata:
-      after: sdk.layouts.create()
-      before: sdk.Layouts.LayoutsController_create()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions/{identifier}"]["get"]
-    update:
-      x-speakeasy-group: topics.subscriptions
-      x-speakeasy-name-override: fetchSubscription
-    x-speakeasy-metadata:
-      after: sdk.topics.subscriptions.fetchSubscription()
-      before: sdk.Topics.Subscriptions.getSubscription()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/online-status"]["patch"]
-    update:
-      x-speakeasy-group: subscribers
-      x-speakeasy-name-override: updateOnlineStatus
-    x-speakeasy-metadata:
-      after: sdk.subscribers.updateOnlineStatus()
-      before: sdk.Subscribers.properties.updateOnlineFlag()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/subscribers/{subscriberId}/subscriptions"]["get"]
-    update:
-      x-speakeasy-group: subscribers.topics
-    x-speakeasy-metadata:
-      after: sdk.subscribers.topics.list()
-      before: sdk.Subscribers.Topics.list()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/notifications/unseen"]["get"]
-    update:
-      x-speakeasy-group: subscribers
-      x-speakeasy-name-override: getUnseenCount
-    x-speakeasy-metadata:
-      after: sdk.subscribers.getUnseenCount()
-      before: sdk.Subscribers.Notifications.unseenCount()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}"]["delete"]
-    update:
-      x-speakeasy-name-override: remove
-    x-speakeasy-metadata:
-      after: sdk.topics.remove()
-      before: sdk.Topics.TopicsController_deleteTopic()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/subscribers/{subscriberId}"]["delete"]
-    update:
-      x-speakeasy-name-override: removeSubscriber
-    x-speakeasy-metadata:
-      after: sdk.subscribers.removeSubscriber()
-      before: sdk.Subscribers.delete()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/contexts/{type}/{id}"]["get"]
-    update:
-      x-speakeasy-name-override: get
-    x-speakeasy-metadata:
-      after: sdk.contexts.get()
-      before: sdk.Contexts.ContextsController_getContext()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}"]["get"]
-    update:
-      x-speakeasy-name-override: getTopic
-    x-speakeasy-metadata:
-      after: sdk.topics.getTopic()
-      before: sdk.Topics.get()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/layouts/{layoutId}"]["get"]
-    update:
-      x-speakeasy-name-override: retrieve
-    x-speakeasy-metadata:
-      after: sdk.layouts.retrieve()
-      before: sdk.Layouts.LayoutsController_get()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions"]["get"]
-    update:
-      x-speakeasy-group: topicsSubscriptions
-      x-speakeasy-name-override: list
-    x-speakeasy-metadata:
-      after: sdk.topicsSubscriptions.list()
-      before: sdk.Topics.Subscriptions.TopicsController_listTopicSubscriptions()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/messages/mark-all"]["post"]
-    update:
-      x-speakeasy-group: subscribers.messages
-    x-speakeasy-metadata:
-      after: sdk.subscribers.messages.markAll()
-      before: sdk.Subscribers.Messages.markAll()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/channel-connections/{identifier}"]["patch"]
-    update:
-      x-speakeasy-group: channelConnections
-    x-speakeasy-metadata:
-      after: sdk.channelConnections.update()
-      before: sdk.Channel Connections.update()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.translations.getMaster()
+      before: sdk.Translations.master.retrieve()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/contexts"]["post"]
     update:
@@ -173,113 +34,17 @@ actions:
     x-speakeasy-metadata:
       after: sdk.contexts.create()
       before: sdk.Contexts.ContextsController_createContext()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v1/topics/{topicKey}/subscribers/{externalSubscriberId}"]["get"]
+  - target: $["paths"]["/v2/translations/{resourceType}/{resourceId}/{locale}"]["get"]
     update:
-      x-speakeasy-group: topics.subscribers
       x-speakeasy-name-override: get
     x-speakeasy-metadata:
-      after: sdk.topics.subscribers.get()
-      before: sdk.Topics.Subscribers.TopicsV1Controller_getTopicSubscriber()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/subscribers/{subscriberId}/preferences/bulk"]["patch"]
-    update:
-      x-speakeasy-group: subscribersPreferences
-    x-speakeasy-metadata:
-      after: sdk.subscribersPreferences.bulkUpdate()
-      before: sdk.Subscribers.Preferences.bulkUpdate()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/translations/master-json/upload"]["post"]
-    update:
-      x-speakeasy-group: translations
-      x-speakeasy-name-override: uploadMasterJson
-    x-speakeasy-metadata:
-      after: sdk.translations.uploadMasterJson()
-      before: sdk.Translations.Master.upload()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/messages/mark-as"]["post"]
-    update:
-      x-speakeasy-group: subscribers
-      x-speakeasy-name-override: markAllMessagesAs
-    x-speakeasy-metadata:
-      after: sdk.subscribers.markAllMessagesAs()
-      before: sdk.Subscribers.Messages.markAllAs()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/credentials"]["put"]
-    update:
-      x-speakeasy-group: subscribers
-      x-speakeasy-name-override: updateCredentials
-    x-speakeasy-metadata:
-      after: sdk.subscribers.updateCredentials()
-      before: sdk.Subscribers.Credentials.SubscribersV1Controller_updateSubscriberChannel()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}"]["patch"]
-    update:
-      x-speakeasy-name-override: patch
-    x-speakeasy-metadata:
-      after: sdk.topics.patch()
-      before: sdk.Topics.update()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/channel-endpoints/{identifier}"]["delete"]
-    update:
-      x-speakeasy-group: channelEndpoints
-    x-speakeasy-metadata:
-      after: sdk.channelEndpoints.delete()
-      before: sdk.Channel Endpoints.delete()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/credentials/{providerId}"]["delete"]
-    update:
-      x-speakeasy-group: subscribers.credentials
-      x-speakeasy-name-override: delete
-    x-speakeasy-metadata:
-      after: sdk.subscribers.credentials.delete()
-      before: sdk.Subscribers.Credentials.SubscribersV1Controller_deleteSubscriberCredentials()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/integrations/{integrationId}"]["put"]
-    update:
-      x-speakeasy-name-override: update
-    x-speakeasy-metadata:
-      after: sdk.integrations.update()
-      before: sdk.Integrations.IntegrationsController_updateIntegrationById()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/contexts"]["get"]
-    update:
-      x-speakeasy-name-override: list
-    x-speakeasy-metadata:
-      after: sdk.contexts.list()
-      before: sdk.Contexts.ContextsController_listContexts()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/workflows/{workflowId}/steps/{stepId}"]["get"]
-    update:
-      x-speakeasy-group: workflows
-      x-speakeasy-name-override: getStep
-    x-speakeasy-metadata:
-      after: sdk.workflows.getStep()
-      before: sdk.Workflows.Steps.retrieve()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.translations.get()
+      before: sdk.Translations.retrieve()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/subscribers/{subscriberId}/preferences"]["patch"]
     update:
@@ -288,27 +53,84 @@ actions:
     x-speakeasy-metadata:
       after: sdk.subscribers.updatePreferences()
       before: sdk.Subscribers.Preferences.update()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v1/channel-endpoints/{identifier}"]["get"]
+  - target: $["paths"]["/v2/layouts/{layoutId}"]["delete"]
     update:
-      x-speakeasy-group: channelEndpoints
-      x-speakeasy-name-override: get
+      x-speakeasy-name-override: delete
     x-speakeasy-metadata:
-      after: sdk.channelEndpoints.get()
-      before: sdk.Channel Endpoints.retrieve()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.layouts.delete()
+      before: sdk.Layouts.LayoutsController__delete()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v1/messages"]["get"]
+  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions/{identifier}"]["get"]
     update:
-      x-speakeasy-name-override: list
+      x-speakeasy-group: topics
+      x-speakeasy-name-override: getSubscriptionById
     x-speakeasy-metadata:
-      after: sdk.messages.list()
-      before: sdk.Messages.MessagesController_getMessages()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.topics.getSubscriptionById()
+      before: sdk.Topics.Subscriptions.getSubscription()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/translations/upload"]["post"]
+    update:
+      x-speakeasy-name-override: uploadFiles
+    x-speakeasy-metadata:
+      after: sdk.translations.uploadFiles()
+      before: sdk.Translations.upload()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/credentials"]["put"]
+    update:
+      x-speakeasy-group: subscribers
+      x-speakeasy-name-override: updateCredentials
+    x-speakeasy-metadata:
+      after: sdk.subscribers.updateCredentials()
+      before: sdk.Subscribers.Credentials.SubscribersV1Controller_updateSubscriberChannel()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/contexts/{type}/{id}"]["patch"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.contexts.update()
+      before: sdk.Contexts.ContextsController_updateContext()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/translations/master-json/upload"]["post"]
+    update:
+      x-speakeasy-group: translations
+      x-speakeasy-name-override: masterUpload
+    x-speakeasy-metadata:
+      after: sdk.translations.masterUpload()
+      before: sdk.Translations.Master.upload()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/messages/mark-as"]["post"]
+    update:
+      x-speakeasy-group: subscribersMessages
+    x-speakeasy-metadata:
+      after: sdk.subscribersMessages.markAllAs()
+      before: sdk.Subscribers.Messages.markAllAs()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/online-status"]["patch"]
+    update:
+      x-speakeasy-group: subscribersProperties
+      x-speakeasy-name-override: updateOnlineStatus
+    x-speakeasy-metadata:
+      after: sdk.subscribersProperties.updateOnlineStatus()
+      before: sdk.Subscribers.properties.updateOnlineFlag()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/workflows"]["post"]
     update:
@@ -316,18 +138,44 @@ actions:
     x-speakeasy-metadata:
       after: sdk.workflows.create()
       before: sdk.Workflows.WorkflowController_create()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v1/subscribers/{subscriberId}/credentials"]["patch"]
+  - target: $["paths"]["/v2/contexts/{type}/{id}"]["get"]
     update:
-      x-speakeasy-group: subscribers
-      x-speakeasy-name-override: appendCredentials
+      x-speakeasy-name-override: get
     x-speakeasy-metadata:
-      after: sdk.subscribers.appendCredentials()
-      before: sdk.Subscribers.Credentials.append()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.contexts.get()
+      before: sdk.Contexts.ContextsController_getContext()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/workflows/{workflowId}/step/{stepId}/preview"]["post"]
+    update:
+      x-speakeasy-group: workflowsSteps
+    x-speakeasy-metadata:
+      after: sdk.workflowsSteps.generatePreview()
+      before: sdk.Workflows.Steps.generatePreview()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/channel-endpoints/{identifier}"]["patch"]
+    update:
+      x-speakeasy-group: channelEndpoints
+    x-speakeasy-metadata:
+      after: sdk.channelEndpoints.update()
+      before: sdk.Channel Endpoints.update()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/channel-endpoints"]["post"]
+    update:
+      x-speakeasy-group: channelEndpoints
+    x-speakeasy-metadata:
+      after: sdk.channelEndpoints.create()
+      before: sdk.Channel Endpoints.create()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v1/channel-connections"]["post"]
     update:
@@ -335,35 +183,35 @@ actions:
     x-speakeasy-metadata:
       after: sdk.channelConnections.create()
       before: sdk.Channel Connections.create()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v2/layouts/{layoutId}"]["put"]
+  - target: $["paths"]["/v1/messages/{messageId}"]["delete"]
     update:
-      x-speakeasy-name-override: update
+      x-speakeasy-name-override: delete
     x-speakeasy-metadata:
-      after: sdk.layouts.update()
-      before: sdk.Layouts.LayoutsController_update()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.messages.delete()
+      before: sdk.Messages.MessagesController_deleteMessage()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v2/translations/{resourceType}/{resourceId}/{locale}"]["get"]
+  - target: $["paths"]["/v2/subscribers/{subscriberId}/preferences/bulk"]["patch"]
     update:
-      x-speakeasy-name-override: get
+      x-speakeasy-group: subscribers.preferences
     x-speakeasy-metadata:
-      after: sdk.translations.get()
-      before: sdk.Translations.retrieve()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.subscribers.preferences.bulkUpdate()
+      before: sdk.Subscribers.Preferences.bulkUpdate()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v1/channel-connections"]["get"]
+  - target: $["paths"]["/v1/integrations/{integrationId}/set-primary"]["post"]
     update:
-      x-speakeasy-group: channelConnections
+      x-speakeasy-name-override: setPrimary
     x-speakeasy-metadata:
-      after: sdk.channelConnections.list()
-      before: sdk.Channel Connections.list()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.integrations.setPrimary()
+      before: sdk.Integrations.setAsPrimary()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/subscribers/{subscriberId}"]["patch"]
     update:
@@ -371,17 +219,64 @@ actions:
     x-speakeasy-metadata:
       after: sdk.subscribers.update()
       before: sdk.Subscribers.patch()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions/{identifier}"]["patch"]
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/messages/mark-all"]["post"]
     update:
-      x-speakeasy-group: topicsSubscriptions
+      x-speakeasy-group: subscribers
+      x-speakeasy-name-override: markAllMessages
     x-speakeasy-metadata:
-      after: sdk.topicsSubscriptions.update()
-      before: sdk.Topics.Subscriptions.update()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.subscribers.markAllMessages()
+      before: sdk.Subscribers.Messages.markAll()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/topics/{topicKey}"]["patch"]
+    update:
+      x-speakeasy-name-override: modify
+    x-speakeasy-metadata:
+      after: sdk.topics.modify()
+      before: sdk.Topics.update()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/integrations"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.integrations.create()
+      before: sdk.Integrations.IntegrationsController_createIntegration()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/contexts/{type}/{id}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.contexts.delete()
+      before: sdk.Contexts.ContextsController_deleteContext()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/integrations/{integrationId}"]["delete"]
+    update:
+      x-speakeasy-name-override: delete
+    x-speakeasy-metadata:
+      after: sdk.integrations.delete()
+      before: sdk.Integrations.IntegrationsController_removeIntegration()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/activity/charts"]["get"]
+    update:
+      x-speakeasy-group: activity.charts
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.activity.charts.get()
+      before: sdk.Activity.Charts.retrieve()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/layouts"]["get"]
     update:
@@ -389,17 +284,8 @@ actions:
     x-speakeasy-metadata:
       after: sdk.layouts.list()
       before: sdk.Layouts.LayoutsController_list()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/layouts/{layoutId}/usage"]["get"]
-    update:
-      x-speakeasy-name-override: getUsage
-    x-speakeasy-metadata:
-      after: sdk.layouts.getUsage()
-      before: sdk.Layouts.usage()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
       type: method-name
   - target: $["paths"]["/v2/topics/{topicKey}/subscriptions"]["post"]
     update:
@@ -408,8 +294,258 @@ actions:
     x-speakeasy-metadata:
       after: sdk.topics.createSubscription()
       before: sdk.Topics.Subscriptions.create()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/integrations/{integrationId}/auto-configure"]["post"]
+    update:
+      x-speakeasy-name-override: autoConfigure
+    x-speakeasy-metadata:
+      after: sdk.integrations.autoConfigure()
+      before: sdk.Integrations.IntegrationsController_autoConfigureIntegration()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/messages"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.messages.list()
+      before: sdk.Messages.MessagesController_getMessages()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/layouts/{layoutId}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.layouts.get()
+      before: sdk.Layouts.LayoutsController_get()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/translations/{resourceType}/{resourceId}"]["delete"]
+    update:
+      x-speakeasy-group: translations
+      x-speakeasy-name-override: removeGroup
+    x-speakeasy-metadata:
+      after: sdk.translations.removeGroup()
+      before: sdk.Translations.Groups.delete()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/contexts"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.contexts.list()
+      before: sdk.Contexts.ContextsController_listContexts()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions"]["delete"]
+    update:
+      x-speakeasy-group: topics.subscriptions
+    x-speakeasy-metadata:
+      after: sdk.topics.subscriptions.delete()
+      before: sdk.Topics.Subscriptions.delete()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/channel-endpoints/{identifier}"]["delete"]
+    update:
+      x-speakeasy-group: channelEndpoints
+    x-speakeasy-metadata:
+      after: sdk.channelEndpoints.delete()
+      before: sdk.Channel Endpoints.delete()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/notifications/unseen"]["get"]
+    update:
+      x-speakeasy-group: subscribers.notifications
+      x-speakeasy-name-override: getUnseenCount
+    x-speakeasy-metadata:
+      after: sdk.subscribers.notifications.getUnseenCount()
+      before: sdk.Subscribers.Notifications.unseenCount()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/events/trigger/broadcast"]["post"]
+    update:
+      x-speakeasy-name-override: broadcast
+    x-speakeasy-metadata:
+      after: sdk.events.broadcast()
+      before: sdk.Events.triggerBroadcast()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions/{identifier}"]["patch"]
+    update:
+      x-speakeasy-group: topics.subscriptions
+    x-speakeasy-metadata:
+      after: sdk.topics.subscriptions.update()
+      before: sdk.Topics.Subscriptions.update()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/layouts"]["post"]
+    update:
+      x-speakeasy-name-override: create
+    x-speakeasy-metadata:
+      after: sdk.layouts.create()
+      before: sdk.Layouts.LayoutsController_create()
+      created_at: 1769070761235
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/subscribers/{subscriberId}"]["get"]
+    update:
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.subscribers.get()
+      before: sdk.Subscribers.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/channel-connections"]["get"]
+    update:
+      x-speakeasy-group: channelConnections
+    x-speakeasy-metadata:
+      after: sdk.channelConnections.list()
+      before: sdk.Channel Connections.list()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/notifications"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.notifications.list()
+      before: sdk.Notifications.NotificationsController_listNotifications()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/layouts/{layoutId}/usage"]["get"]
+    update:
+      x-speakeasy-name-override: getUsage
+    x-speakeasy-metadata:
+      after: sdk.layouts.getUsage()
+      before: sdk.Layouts.usage()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/integrations"]["get"]
+    update:
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.integrations.list()
+      before: sdk.Integrations.IntegrationsController_listIntegrations()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/channel-connections/{identifier}"]["get"]
+    update:
+      x-speakeasy-group: channelConnections
+    x-speakeasy-metadata:
+      after: sdk.channelConnections.retrieve()
+      before: sdk.Channel Connections.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/channel-connections/{identifier}"]["patch"]
+    update:
+      x-speakeasy-group: channelConnections
+    x-speakeasy-metadata:
+      after: sdk.channelConnections.update()
+      before: sdk.Channel Connections.update()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/topics"]["get"]
+    update:
+      x-speakeasy-name-override: fetchAll
+    x-speakeasy-metadata:
+      after: sdk.topics.fetchAll()
+      before: sdk.Topics.list()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v1/integrations/{integrationId}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.integrations.update()
+      before: sdk.Integrations.IntegrationsController_updateIntegrationById()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/translations/group/{resourceType}/{resourceId}"]["get"]
+    update:
+      x-speakeasy-group: translations
+      x-speakeasy-name-override: groupDetails
+    x-speakeasy-metadata:
+      after: sdk.translations.groupDetails()
+      before: sdk.Translations.Groups.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/workflows/{workflowId}"]["get"]
+    update:
+      x-speakeasy-name-override: workflowDetails
+    x-speakeasy-metadata:
+      after: sdk.workflows.workflowDetails()
+      before: sdk.Workflows.get()
+      created_at: 1769070761236
+      reviewed_at: 1769070764256
+      type: method-name
+  - target: $["paths"]["/v2/translations/master-json"]["post"]
+    update:
+      x-speakeasy-group: translations
+      x-speakeasy-name-override: importMaster
+    x-speakeasy-metadata:
+      after: sdk.translations.importMaster()
+      before: sdk.Translations.Master.import()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v2/environments/{environmentId}/tags"]["get"]
+    update:
+      x-speakeasy-group: environments.tags
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.environments.tags.get()
+      before: sdk.Environments.getTags()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions"]["get"]
+    update:
+      x-speakeasy-group: topics.subscriptions
+      x-speakeasy-name-override: list
+    x-speakeasy-metadata:
+      after: sdk.topics.subscriptions.list()
+      before: sdk.Topics.Subscriptions.TopicsController_listTopicSubscriptions()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v1/activity/workflow-runs/{workflowRunId}"]["get"]
+    update:
+      x-speakeasy-group: activity
+      x-speakeasy-name-override: getWorkflowRun
+    x-speakeasy-metadata:
+      after: sdk.activity.getWorkflowRun()
+      before: sdk.Activity.WorkflowRuns.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v2/layouts/{layoutId}"]["put"]
+    update:
+      x-speakeasy-name-override: update
+    x-speakeasy-metadata:
+      after: sdk.layouts.update()
+      before: sdk.Layouts.LayoutsController_update()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
   - target: $["paths"]["/v1/subscribers/{subscriberId}/notifications/feed"]["get"]
     update:
@@ -418,62 +554,36 @@ actions:
     x-speakeasy-metadata:
       after: sdk.subscribersNotifications.getFeed()
       before: sdk.Subscribers.Notifications.feed()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v1/integrations"]["get"]
+  - target: $["paths"]["/v2/topics/{topicKey}"]["delete"]
     update:
-      x-speakeasy-name-override: list
+      x-speakeasy-name-override: remove
     x-speakeasy-metadata:
-      after: sdk.integrations.list()
-      before: sdk.Integrations.IntegrationsController_listIntegrations()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.topics.remove()
+      before: sdk.Topics.TopicsController_deleteTopic()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v1/messages/{messageId}"]["delete"]
+  - target: $["paths"]["/v1/activity/requests"]["get"]
     update:
-      x-speakeasy-name-override: delete
+      x-speakeasy-group: activity.requests
     x-speakeasy-metadata:
-      after: sdk.messages.delete()
-      before: sdk.Messages.MessagesController_deleteMessage()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.activity.requests.list()
+      before: sdk.Activity.Requests.list()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v2/topics/{topicKey}/subscriptions"]["delete"]
+  - target: $["paths"]["/v1/activity/requests/{requestId}"]["get"]
     update:
-      x-speakeasy-group: topicsSubscriptions
-    x-speakeasy-metadata:
-      after: sdk.topicsSubscriptions.delete()
-      before: sdk.Topics.Subscriptions.delete()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v2/workflows/{workflowId}"]["put"]
-    update:
-      x-speakeasy-name-override: update
-    x-speakeasy-metadata:
-      after: sdk.workflows.update()
-      before: sdk.Workflows.WorkflowController_update()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/integrations/{integrationId}"]["delete"]
-    update:
-      x-speakeasy-name-override: delete
-    x-speakeasy-metadata:
-      after: sdk.integrations.delete()
-      before: sdk.Integrations.IntegrationsController_removeIntegration()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/notifications/{notificationId}"]["get"]
-    update:
+      x-speakeasy-group: activityRequests
       x-speakeasy-name-override: get
     x-speakeasy-metadata:
-      after: sdk.notifications.get()
-      before: sdk.Notifications.NotificationsController_getNotification()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      after: sdk.activityRequests.get()
+      before: sdk.Activity.Requests.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
   - target: $["paths"]["/v2/workflows/{workflowId}"]["patch"]
     update:
@@ -481,119 +591,37 @@ actions:
     x-speakeasy-metadata:
       after: sdk.workflows.modify()
       before: sdk.Workflows.patch()
-      created_at: 1768411406431
-      reviewed_at: 1768411427056
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v2/translations/group/{resourceType}/{resourceId}"]["get"]
-    update:
-      x-speakeasy-group: translations.groups
-      x-speakeasy-name-override: fetchGroup
-    x-speakeasy-metadata:
-      after: sdk.translations.groups.fetchGroup()
-      before: sdk.Translations.Groups.retrieve()
-      created_at: 1768411406432
-      reviewed_at: 1768411427056
-      type: method-name
-  - target: $["paths"]["/v1/notifications"]["get"]
-    update:
-      x-speakeasy-name-override: list
-    x-speakeasy-metadata:
-      after: sdk.notifications.list()
-      before: sdk.Notifications.NotificationsController_listNotifications()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v1/integrations/chat/oauth"]["post"]
-    update:
-      x-speakeasy-name-override: generateChatOAuth
-    x-speakeasy-metadata:
-      after: sdk.integrations.generateChatOAuth()
-      before: sdk.Integrations.generateChatOAuthUrl()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v1/channel-endpoints"]["post"]
+  - target: $["paths"]["/v1/channel-endpoints/{identifier}"]["get"]
     update:
       x-speakeasy-group: channelEndpoints
-    x-speakeasy-metadata:
-      after: sdk.channelEndpoints.create()
-      before: sdk.Channel Endpoints.create()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v2/subscribers/{subscriberId}/preferences"]["get"]
-    update:
-      x-speakeasy-group: subscribers.preferences
-      x-speakeasy-name-override: getPreferences
-    x-speakeasy-metadata:
-      after: sdk.subscribers.preferences.getPreferences()
-      before: sdk.Subscribers.Preferences.list()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v1/channel-connections/{identifier}"]["delete"]
-    update:
-      x-speakeasy-group: channelConnections
-    x-speakeasy-metadata:
-      after: sdk.channelConnections.delete()
-      before: sdk.Channel Connections.delete()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v1/channel-endpoints/{identifier}"]["patch"]
-    update:
-      x-speakeasy-group: channelEndpoints
-    x-speakeasy-metadata:
-      after: sdk.channelEndpoints.update()
-      before: sdk.Channel Endpoints.update()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v1/channel-connections/{identifier}"]["get"]
-    update:
-      x-speakeasy-group: channelConnections
       x-speakeasy-name-override: get
     x-speakeasy-metadata:
-      after: sdk.channelConnections.get()
-      before: sdk.Channel Connections.retrieve()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
+      after: sdk.channelEndpoints.get()
+      before: sdk.Channel Endpoints.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v2/layouts/{layoutId}"]["delete"]
+  - target: $["paths"]["/v2/subscribers/{subscriberId}/subscriptions"]["get"]
     update:
-      x-speakeasy-name-override: delete
+      x-speakeasy-group: subscribersTopics
+      x-speakeasy-name-override: listSubscriptions
     x-speakeasy-metadata:
-      after: sdk.layouts.delete()
-      before: sdk.Layouts.LayoutsController__delete()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
+      after: sdk.subscribersTopics.listSubscriptions()
+      before: sdk.Subscribers.Topics.list()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v1/integrations/{integrationId}/auto-configure"]["post"]
+  - target: $["paths"]["/v2/workflows/{workflowId}"]["put"]
     update:
-      x-speakeasy-name-override: autoConfigure
+      x-speakeasy-name-override: update
     x-speakeasy-metadata:
-      after: sdk.integrations.autoConfigure()
-      before: sdk.Integrations.IntegrationsController_autoConfigureIntegration()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v1/integrations"]["post"]
-    update:
-      x-speakeasy-name-override: create
-    x-speakeasy-metadata:
-      after: sdk.integrations.create()
-      before: sdk.Integrations.IntegrationsController_createIntegration()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
-      type: method-name
-  - target: $["paths"]["/v2/contexts/{type}/{id}"]["delete"]
-    update:
-      x-speakeasy-name-override: delete
-    x-speakeasy-metadata:
-      after: sdk.contexts.delete()
-      before: sdk.Contexts.ContextsController_deleteContext()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
+      after: sdk.workflows.update()
+      before: sdk.Workflows.WorkflowController_update()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
   - target: $["paths"]["/v1/channel-endpoints"]["get"]
     update:
@@ -601,51 +629,91 @@ actions:
     x-speakeasy-metadata:
       after: sdk.channelEndpoints.list()
       before: sdk.Channel Endpoints.list()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v2/contexts/{type}/{id}"]["patch"]
+  - target: $["paths"]["/v2/subscribers/{subscriberId}/preferences"]["get"]
     update:
-      x-speakeasy-name-override: update
+      x-speakeasy-group: subscribers.preferences
     x-speakeasy-metadata:
-      after: sdk.contexts.update()
-      before: sdk.Contexts.ContextsController_updateContext()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
+      after: sdk.subscribers.preferences.list()
+      before: sdk.Subscribers.Preferences.list()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v2/topics"]["get"]
+  - target: $["paths"]["/v1/activity/workflow-runs"]["get"]
     update:
-      x-speakeasy-name-override: getAll
+      x-speakeasy-group: activity.workflowRuns
     x-speakeasy-metadata:
-      after: sdk.topics.getAll()
-      before: sdk.Topics.list()
-      created_at: 1768411406432
-      reviewed_at: 1768411427057
+      after: sdk.activity.workflowRuns.list()
+      before: sdk.Activity.WorkflowRuns.list()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v2/subscribers/{subscriberId}"]["get"]
+  - target: $["paths"]["/v1/topics/{topicKey}/subscribers/{externalSubscriberId}"]["get"]
+    update:
+      x-speakeasy-group: topics.subscribers
+      x-speakeasy-name-override: check
+    x-speakeasy-metadata:
+      after: sdk.topics.subscribers.check()
+      before: sdk.Topics.Subscribers.TopicsV1Controller_getTopicSubscriber()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v1/channel-connections/{identifier}"]["delete"]
+    update:
+      x-speakeasy-group: channelConnections
+    x-speakeasy-metadata:
+      after: sdk.channelConnections.delete()
+      before: sdk.Channel Connections.delete()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v2/workflows/{workflowId}/steps/{stepId}"]["get"]
+    update:
+      x-speakeasy-group: workflows.steps
+      x-speakeasy-name-override: get
+    x-speakeasy-metadata:
+      after: sdk.workflows.steps.get()
+      before: sdk.Workflows.Steps.retrieve()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/credentials/{providerId}"]["delete"]
+    update:
+      x-speakeasy-group: subscribers
+      x-speakeasy-name-override: removeCredentials
+    x-speakeasy-metadata:
+      after: sdk.subscribers.removeCredentials()
+      before: sdk.Subscribers.Credentials.SubscribersV1Controller_deleteSubscriberCredentials()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v1/subscribers/{subscriberId}/credentials"]["patch"]
+    update:
+      x-speakeasy-group: subscribers.credentials
+      x-speakeasy-name-override: upsert
+    x-speakeasy-metadata:
+      after: sdk.subscribers.credentials.upsert()
+      before: sdk.Subscribers.Credentials.append()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
+      type: method-name
+  - target: $["paths"]["/v1/notifications/{notificationId}"]["get"]
     update:
       x-speakeasy-name-override: get
     x-speakeasy-metadata:
-      after: sdk.subscribers.get()
-      before: sdk.Subscribers.retrieve()
-      created_at: 1768411449278
-      reviewed_at: 1768411452181
+      after: sdk.notifications.get()
+      before: sdk.Notifications.NotificationsController_getNotification()
+      created_at: 1769070761236
+      reviewed_at: 1769070764257
       type: method-name
-  - target: $["paths"]["/v1/integrations/{integrationId}/set-primary"]["post"]
+  - target: $["paths"]["/v2/topics"]["post"]
     update:
-      x-speakeasy-name-override: setPrimary
+      x-speakeasy-name-override: upsert
     x-speakeasy-metadata:
-      after: sdk.integrations.setPrimary()
-      before: sdk.Integrations.setAsPrimary()
-      created_at: 1768411449278
-      reviewed_at: 1768411452181
-      type: method-name
-  - target: $["paths"]["/v2/layouts/{layoutId}/preview"]["post"]
-    update:
-      x-speakeasy-name-override: preview
-    x-speakeasy-metadata:
-      after: sdk.layouts.preview()
-      before: sdk.Layouts.generatePreview()
-      created_at: 1768411449278
-      reviewed_at: 1768411452181
+      after: sdk.topics.upsert()
+      before: sdk.Topics.create()
+      created_at: 1769071672097
+      reviewed_at: 1769071676920
       type: method-name

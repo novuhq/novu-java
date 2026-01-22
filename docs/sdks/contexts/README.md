@@ -14,8 +14,6 @@
 
 Create a new context with the specified type, id, and data. Returns 409 if context already exists.
 
-
-
       **type** and **id** are required fields, **data** is optional, if the context already exists, it returns the 409 response
 
 ### Example Usage
@@ -24,13 +22,13 @@ Create a new context with the specified type, id, and data. Returns 409 if conte
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.CreateContextRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ContextsControllerCreateContextResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.CreateContextRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ContextsControllerCreateContextResponse;
 
 public class Application {
 
@@ -84,8 +82,6 @@ public class Application {
 
 Retrieve a paginated list of all contexts, optionally filtered by type and key pattern.
 
-
-
       **type** and **id** are optional fields, if provided, only contexts with the matching type and id will be returned.
       **search** is an optional field, if provided, only contexts with the matching key pattern will be returned.
       Checkout all possible parameters in the query section below for more details
@@ -96,12 +92,12 @@ Retrieve a paginated list of all contexts, optionally filtered by type and key p
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ContextsControllerListContextsRequest;
+import co.novu.models.operations.ContextsControllerListContextsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ContextsControllerListContextsRequest;
-import org.openapis.openapi.models.operations.ContextsControllerListContextsResponse;
 
 public class Application {
 
@@ -160,13 +156,13 @@ Update the data of an existing context.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.UpdateContextRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ContextsControllerUpdateContextResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.UpdateContextRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ContextsControllerUpdateContextResponse;
 
 public class Application {
 
@@ -229,11 +225,11 @@ Retrieve a specific context by its type and id.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ContextsControllerGetContextResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ContextsControllerGetContextResponse;
 
 public class Application {
 
@@ -288,11 +284,11 @@ Delete a context by its type and id.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ContextsControllerDeleteContextResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ContextsControllerDeleteContextResponse;
 
 public class Application {
 

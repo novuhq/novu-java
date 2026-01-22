@@ -4,9 +4,9 @@
 
 ### Available Operations
 
-* [get](#get) - Check topic subscriber
+* [check](#check) - Check topic subscriber
 
-## get
+## check
 
 Check if a subscriber belongs to a certain topic
 
@@ -16,11 +16,11 @@ Check if a subscriber belongs to a certain topic
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsV1ControllerGetTopicSubscriberResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.TopicsV1ControllerGetTopicSubscriberResponse;
 
 public class Application {
 
@@ -30,7 +30,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        TopicsV1ControllerGetTopicSubscriberResponse res = sdk.topics().subscribers().get()
+        TopicsV1ControllerGetTopicSubscriberResponse res = sdk.topics().subscribers().check()
                 .externalSubscriberId("<id>")
                 .topicKey("<value>")
                 .call();

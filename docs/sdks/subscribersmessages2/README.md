@@ -1,28 +1,29 @@
-# Subscribers.Messages
+# SubscribersMessages
 
 ## Overview
 
 ### Available Operations
 
-* [markAll](#markall) - Update all notifications state
+* [markAllAs](#markallas) - Update notifications state
 
-## markAll
+## markAllAs
 
-Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by **subscriberId**.
+Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread by **subscriberId**. 
+      **messageId** is of type mongodbId of notifications
 
 ### Example Usage
 
-<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_markAllUnreadAsRead" method="post" path="/v1/subscribers/{subscriberId}/messages/mark-all" -->
+<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_markMessagesAs" method="post" path="/v1/subscribers/{subscriberId}/messages/mark-as" -->
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerMarkMessagesAsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.MarkAllMessageAsRequestDto;
-import org.openapis.openapi.models.components.MarkAllMessageAsRequestDtoMarkAs;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerMarkAllUnreadAsReadResponse;
+import java.util.List;
 
 public class Application {
 
@@ -32,14 +33,15 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        SubscribersV1ControllerMarkAllUnreadAsReadResponse res = sdk.subscribers().messages().markAll()
+        SubscribersV1ControllerMarkMessagesAsResponse res = sdk.subscribersMessages().markAllAs()
                 .subscriberId("<id>")
-                .body(MarkAllMessageAsRequestDto.builder()
-                    .markAs(MarkAllMessageAsRequestDtoMarkAs.READ)
+                .body(MessageMarkAsRequestDto.builder()
+                    .messageId(MessageId.of(List.of()))
+                    .markAs(MessageMarkAsRequestDtoMarkAs.SEEN)
                     .build())
                 .call();
 
-        if (res.number().isPresent()) {
+        if (res.messageResponseDtos().isPresent()) {
             // handle response
         }
     }
@@ -48,15 +50,15 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                           | Type                                                                                | Required                                                                            | Description                                                                         |
-| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| `subscriberId`                                                                      | *String*                                                                            | :heavy_check_mark:                                                                  | N/A                                                                                 |
-| `idempotencyKey`                                                                    | *Optional\<String>*                                                                 | :heavy_minus_sign:                                                                  | A header for idempotency purposes                                                   |
-| `body`                                                                              | [MarkAllMessageAsRequestDto](../../models/components/MarkAllMessageAsRequestDto.md) | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| Parameter                                                                     | Type                                                                          | Required                                                                      | Description                                                                   |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `subscriberId`                                                                | *String*                                                                      | :heavy_check_mark:                                                            | N/A                                                                           |
+| `idempotencyKey`                                                              | *Optional\<String>*                                                           | :heavy_minus_sign:                                                            | A header for idempotency purposes                                             |
+| `body`                                                                        | [MessageMarkAsRequestDto](../../models/components/MessageMarkAsRequestDto.md) | :heavy_check_mark:                                                            | N/A                                                                           |
 
 ### Response
 
-**[SubscribersV1ControllerMarkAllUnreadAsReadResponse](../../models/operations/SubscribersV1ControllerMarkAllUnreadAsReadResponse.md)**
+**[SubscribersV1ControllerMarkMessagesAsResponse](../../models/operations/SubscribersV1ControllerMarkMessagesAsResponse.md)**
 
 ### Errors
 

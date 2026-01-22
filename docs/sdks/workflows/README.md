@@ -2,16 +2,18 @@
 
 ## Overview
 
+All notifications are sent via a workflow. Each workflow acts as a container for the logic and blueprint that are associated with a type of notification in your system.
+<https://docs.novu.co/workflows>
+
 ### Available Operations
 
 * [create](#create) - Create a workflow
 * [list](#list) - List all workflows
 * [update](#update) - Update a workflow
-* [get](#get) - Retrieve a workflow
+* [workflowDetails](#workflowdetails) - Retrieve a workflow
 * [delete](#delete) - Delete a workflow
 * [modify](#modify) - Update a workflow
 * [sync](#sync) - Sync a workflow
-* [getStep](#getstep) - Retrieve workflow step
 
 ## create
 
@@ -23,14 +25,14 @@ Creates a new workflow in the Novu Cloud environment
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerCreateResponse;
 import java.lang.Exception;
 import java.util.List;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerCreateResponse;
 
 public class Application {
 
@@ -108,12 +110,12 @@ Retrieves a list of workflows with optional filtering and pagination
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerSearchWorkflowsRequest;
+import co.novu.models.operations.WorkflowControllerSearchWorkflowsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerSearchWorkflowsRequest;
-import org.openapis.openapi.models.operations.WorkflowControllerSearchWorkflowsResponse;
 
 public class Application {
 
@@ -169,14 +171,14 @@ Updates the details of an existing workflow, here **workflowId** is the identifi
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerUpdateResponse;
 import java.lang.Exception;
 import java.util.List;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerUpdateResponse;
 
 public class Application {
 
@@ -246,7 +248,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## get
+## workflowDetails
 
 Fetches details of a specific workflow by its unique identifier **workflowId**
 
@@ -256,11 +258,11 @@ Fetches details of a specific workflow by its unique identifier **workflowId**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerGetWorkflowResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerGetWorkflowResponse;
 
 public class Application {
 
@@ -270,7 +272,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        WorkflowControllerGetWorkflowResponse res = sdk.workflows().get()
+        WorkflowControllerGetWorkflowResponse res = sdk.workflows().workflowDetails()
                 .workflowId("<id>")
                 .call();
 
@@ -313,11 +315,11 @@ Removes a specific workflow by its unique identifier **workflowId**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerRemoveWorkflowResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerRemoveWorkflowResponse;
 
 public class Application {
 
@@ -367,12 +369,12 @@ Partially updates a workflow by its unique identifier **workflowId**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.PatchWorkflowDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerPatchWorkflowResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.PatchWorkflowDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerPatchWorkflowResponse;
 
 public class Application {
 
@@ -427,12 +429,12 @@ Synchronizes a workflow to the target environment
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.SyncWorkflowDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.WorkflowControllerSyncResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.SyncWorkflowDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerSyncResponse;
 
 public class Application {
 
@@ -467,64 +469,6 @@ public class Application {
 ### Response
 
 **[WorkflowControllerSyncResponse](../../models/operations/WorkflowControllerSyncResponse.md)**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| models/errors/ErrorDto                 | 414                                    | application/json                       |
-| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
-| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
-| models/errors/ErrorDto                 | 500                                    | application/json                       |
-| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
-
-## getStep
-
-Retrieves data for a specific step in a workflow
-
-### Example Usage
-
-<!-- UsageSnippet language="java" operationID="WorkflowController_getWorkflowStepData" method="get" path="/v2/workflows/{workflowId}/steps/{stepId}" -->
-```java
-package hello.world;
-
-import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.WorkflowControllerGetWorkflowStepDataResponse;
-
-public class Application {
-
-    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
-
-        Novu sdk = Novu.builder()
-                .secretKey("YOUR_SECRET_KEY_HERE")
-            .build();
-
-        WorkflowControllerGetWorkflowStepDataResponse res = sdk.workflows().getStep()
-                .workflowId("<id>")
-                .stepId("<id>")
-                .call();
-
-        if (res.stepResponseDto().isPresent()) {
-            // handle response
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                         | Type                              | Required                          | Description                       |
-| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-| `workflowId`                      | *String*                          | :heavy_check_mark:                | N/A                               |
-| `stepId`                          | *String*                          | :heavy_check_mark:                | N/A                               |
-| `idempotencyKey`                  | *Optional\<String>*               | :heavy_minus_sign:                | A header for idempotency purposes |
-
-### Response
-
-**[WorkflowControllerGetWorkflowStepDataResponse](../../models/operations/WorkflowControllerGetWorkflowStepDataResponse.md)**
 
 ### Errors
 

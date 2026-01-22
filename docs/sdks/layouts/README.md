@@ -10,10 +10,10 @@ Layouts are reusable wrappers for your email notifications.
 * [create](#create) - Create a layout
 * [list](#list) - List all layouts
 * [update](#update) - Update a layout
-* [retrieve](#retrieve) - Retrieve a layout
+* [get](#get) - Retrieve a layout
 * [delete](#delete) - Delete a layout
 * [duplicate](#duplicate) - Duplicate a layout
-* [preview](#preview) - Generate layout preview
+* [generatePreview](#generatepreview) - Generate layout preview
 * [getUsage](#getusage) - Get layout usage
 
 ## create
@@ -26,12 +26,12 @@ Creates a new layout in the Novu Cloud environment
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.CreateLayoutDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerCreateResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.CreateLayoutDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerCreateResponse;
 
 public class Application {
 
@@ -86,12 +86,12 @@ Retrieves a list of layouts with optional filtering and pagination
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerListRequest;
+import co.novu.models.operations.LayoutsControllerListResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerListRequest;
-import org.openapis.openapi.models.operations.LayoutsControllerListResponse;
 
 public class Application {
 
@@ -147,12 +147,12 @@ Updates the details of an existing layout, here **layoutId** is the identifier o
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.UpdateLayoutDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerUpdateResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.UpdateLayoutDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerUpdateResponse;
 
 public class Application {
 
@@ -198,7 +198,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## retrieve
+## get
 
 Fetches details of a specific layout by its unique identifier **layoutId**
 
@@ -208,11 +208,11 @@ Fetches details of a specific layout by its unique identifier **layoutId**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerGetResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerGetResponse;
 
 public class Application {
 
@@ -222,7 +222,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        LayoutsControllerGetResponse res = sdk.layouts().retrieve()
+        LayoutsControllerGetResponse res = sdk.layouts().get()
                 .layoutId("<id>")
                 .call();
 
@@ -264,11 +264,11 @@ Removes a specific layout by its unique identifier **layoutId**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerDeleteResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerDeleteResponse;
 
 public class Application {
 
@@ -318,12 +318,12 @@ Duplicates a layout by its unique identifier **layoutId**. This will create a ne
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.DuplicateLayoutDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerDuplicateResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.DuplicateLayoutDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerDuplicateResponse;
 
 public class Application {
 
@@ -369,7 +369,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## preview
+## generatePreview
 
 Generates a preview for a layout by its unique identifier **layoutId**
 
@@ -379,13 +379,13 @@ Generates a preview for a layout by its unique identifier **layoutId**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerGeneratePreviewResponse;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerGeneratePreviewResponse;
 
 public class Application {
 
@@ -395,7 +395,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        LayoutsControllerGeneratePreviewResponse res = sdk.layouts().preview()
+        LayoutsControllerGeneratePreviewResponse res = sdk.layouts().generatePreview()
                 .layoutId("<id>")
                 .body(LayoutPreviewRequestDto.builder()
                     .previewPayload(LayoutPreviewPayloadDto.builder()
@@ -462,11 +462,11 @@ Retrieves information about workflows that use the specified layout by its uniqu
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.LayoutsControllerGetUsageResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.LayoutsControllerGetUsageResponse;
 
 public class Application {
 

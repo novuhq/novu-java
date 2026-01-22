@@ -1,12 +1,12 @@
-# SubscribersMessages
+# Subscribers.Messages
 
 ## Overview
 
 ### Available Operations
 
-* [updateAsSeen](#updateasseen) - Update notification action status
+* [updateActionStatus](#updateactionstatus) - Update notification action status
 
-## updateAsSeen
+## updateActionStatus
 
 Update in-app (inbox) notification's action status by its unique key identifier **messageId** and type field **type**. 
       **type** field can be **primary** or **secondary**
@@ -17,14 +17,14 @@ Update in-app (inbox) notification's action status by its unique key identifier 
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.MarkMessageActionAsSeenDto;
+import co.novu.models.components.MarkMessageActionAsSeenDtoStatus;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerMarkActionAsSeenRequest;
+import co.novu.models.operations.SubscribersV1ControllerMarkActionAsSeenResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.MarkMessageActionAsSeenDto;
-import org.openapis.openapi.models.components.MarkMessageActionAsSeenDtoStatus;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerMarkActionAsSeenRequest;
-import org.openapis.openapi.models.operations.SubscribersV1ControllerMarkActionAsSeenResponse;
 
 public class Application {
 
@@ -43,7 +43,7 @@ public class Application {
                     .build())
                 .build();
 
-        SubscribersV1ControllerMarkActionAsSeenResponse res = sdk.subscribersMessages().updateAsSeen()
+        SubscribersV1ControllerMarkActionAsSeenResponse res = sdk.subscribers().messages().updateActionStatus()
                 .request(req)
                 .call();
 

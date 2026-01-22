@@ -7,8 +7,6 @@ paths:
       description: >-
         Create a new context with the specified type, id, and data. Returns 409 if context already exists.
 
-
-
               **type** and **id** are required fields, **data** is optional, if the context already exists, it returns the 409 response
       parameters:
         - name: idempotency-key
@@ -320,8 +318,6 @@ paths:
       summary: List all contexts
       description: >-
         Retrieve a paginated list of all contexts, optionally filtered by type and key pattern.
-
-
 
               **type** and **id** are optional fields, if provided, only contexts with the matching type and id will be returned.
               **search** is an optional field, if provided, only contexts with the matching key pattern will be returned.
@@ -1625,7 +1621,7 @@ paths:
   /v2/environments/{environmentId}/tags:
     get:
       operationId: EnvironmentsController_getEnvironmentTags
-      x-speakeasy-name-override: getTags
+      x-speakeasy-name-override: get
       summary: Get environment tags
       description: >-
         Retrieve all unique tags used in workflows within the specified environment. These tags can be used for filtering workflows.
@@ -1936,6 +1932,7 @@ paths:
         - Environments
       security:
         - secretKey: []
+      x-speakeasy-group: environments.tags
   /v2/inbound-webhooks/delivery-providers/{environmentId}/{integrationId}:
     post:
       operationId: InboundWebhooksController_handleWebhook
@@ -1967,7 +1964,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/'
+              type: object
+              additionalProperties: true
+              description: Generic webhook payload from delivery providers
       responses:
         '200':
           description: Successfully processed webhook events
@@ -3250,7 +3249,7 @@ paths:
         - Layouts
       security:
         - secretKey: []
-      x-speakeasy-name-override: retrieve
+      x-speakeasy-name-override: get
     delete:
       operationId: LayoutsController__delete
       summary: Delete a layout
@@ -3860,7 +3859,7 @@ paths:
   /v2/layouts/{layoutId}/preview:
     post:
       operationId: LayoutsController_generatePreview
-      x-speakeasy-name-override: preview
+      x-speakeasy-name-override: generatePreview
       summary: Generate layout preview
       description: Generates a preview for a layout by its unique identifier **layoutId**
       parameters:
@@ -5794,7 +5793,7 @@ paths:
         - secretKey: []
     delete:
       operationId: SubscribersController_removeSubscriber
-      x-speakeasy-name-override: removeSubscriber
+      x-speakeasy-name-override: delete
       summary: Delete a subscriber
       description: "Deletes a subscriber entity from the Novu platform along with associated messages, preferences, and topic subscriptions. \n      **subscriberId** is a required field."
       parameters:
@@ -6103,7 +6102,7 @@ paths:
   /v2/subscribers/{subscriberId}/preferences:
     get:
       operationId: SubscribersController_getSubscriberPreferences
-      x-speakeasy-name-override: getPreferences
+      x-speakeasy-name-override: list
       x-speakeasy-group: subscribers.preferences
       summary: Retrieve subscriber preferences
       description: "Retrieve subscriber channel preferences by its unique key identifier **subscriberId**. \n    This API returns all five channels preferences for all workflows and global preferences."
@@ -6123,6 +6122,16 @@ paths:
               - nonCritical
               - all
             type: string
+        - name: contextKeys
+          required: false
+          in: query
+          description: Context keys for filtering preferences (e.g., ["tenant:acme"])
+          example:
+            - tenant:acme
+          schema:
+            type: array
+            items:
+              type: string
         - name: idempotency-key
           in: header
           description: A header for idempotency purposes
@@ -6739,7 +6748,7 @@ paths:
     patch:
       operationId: SubscribersController_bulkUpdateSubscriberPreferences
       x-speakeasy-name-override: bulkUpdate
-      x-speakeasy-group: subscribersPreferences
+      x-speakeasy-group: subscribers.preferences
       summary: Bulk update subscriber preferences
       description: "Bulk update subscriber preferences by its unique key identifier **subscriberId**. \n    This API allows updating multiple workflow preferences in a single request."
       parameters:
@@ -7056,8 +7065,8 @@ paths:
   /v2/subscribers/{subscriberId}/subscriptions:
     get:
       operationId: SubscribersController_listSubscriberTopics
-      x-speakeasy-name-override: list
-      x-speakeasy-group: subscribers.topics
+      x-speakeasy-name-override: listSubscriptions
+      x-speakeasy-group: subscribersTopics
       summary: Retrieve subscriber subscriptions
       description: "Retrieve subscriber's topic subscriptions by its unique key identifier **subscriberId**. \n    Checkout all available filters in the query section."
       parameters:
@@ -7116,6 +7125,17 @@ paths:
           description: Filter by topic key
           schema:
             type: string
+        - name: contextKeys
+          required: false
+          in: query
+          description: 'Filter by exact context keys, order insensitive (format: "type:id")'
+          example:
+            - tenant:org-123
+            - region:us-east-1
+          schema:
+            type: array
+            items:
+              type: string
         - name: idempotency-key
           in: header
           description: A header for idempotency purposes
@@ -7416,7 +7436,7 @@ paths:
   /v2/topics:
     get:
       operationId: TopicsController_listTopics
-      x-speakeasy-name-override: getAll
+      x-speakeasy-name-override: fetchAll
       summary: List all topics
       description: "This api returns a paginated list of topics.\n    Topics can be filtered by **key**, **name**, or **includeCursor** to paginate through the list. \n    Checkout all available filters in the query section."
       parameters:
@@ -8113,7 +8133,7 @@ paths:
   /v2/topics/{topicKey}:
     get:
       operationId: TopicsController_getTopic
-      x-speakeasy-name-override: getTopic
+      x-speakeasy-name-override: get
       summary: Retrieve a topic
       description: Retrieve a topic by its unique key identifier **topicKey**
       parameters:
@@ -8422,7 +8442,7 @@ paths:
         - secretKey: []
     patch:
       operationId: TopicsController_updateTopic
-      x-speakeasy-name-override: patch
+      x-speakeasy-name-override: modify
       summary: Update a topic
       description: Update a topic name by its unique key identifier **topicKey**
       parameters:
@@ -9047,7 +9067,7 @@ paths:
   /v2/topics/{topicKey}/subscriptions:
     get:
       operationId: TopicsController_listTopicSubscriptions
-      x-speakeasy-group: topicsSubscriptions
+      x-speakeasy-group: topics.subscriptions
       summary: List topic subscriptions
       description: |-
         List all subscriptions of subscribers for a topic.
@@ -9108,6 +9128,17 @@ paths:
           description: Filter by subscriber ID
           schema:
             type: string
+        - name: contextKeys
+          required: false
+          in: query
+          description: 'Filter by exact context keys, order insensitive (format: "type:id")'
+          example:
+            - tenant:org-123
+            - region:us-east-1
+          schema:
+            type: array
+            items:
+              type: string
         - name: idempotency-key
           in: header
           description: A header for idempotency purposes
@@ -9725,7 +9756,7 @@ paths:
     delete:
       operationId: TopicsController_deleteTopicSubscriptions
       x-speakeasy-name-override: delete
-      x-speakeasy-group: topicsSubscriptions
+      x-speakeasy-group: topics.subscriptions
       summary: Delete topic subscriptions
       description: Delete subscriptions for subscriberIds for a topic.
       parameters:
@@ -10041,8 +10072,8 @@ paths:
   /v2/topics/{topicKey}/subscriptions/{identifier}:
     get:
       operationId: TopicsController_getTopicSubscription
-      x-speakeasy-name-override: fetchSubscription
-      x-speakeasy-group: topics.subscriptions
+      x-speakeasy-name-override: getSubscriptionById
+      x-speakeasy-group: topics
       summary: Get a topic subscription
       description: Get a subscription by its unique identifier for a topic.
       parameters:
@@ -10085,7 +10116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubscriptionResponseDto'
+                $ref: '#/components/schemas/SubscriptionDetailsResponseDto'
         '400':
           description: Bad Request
           headers:
@@ -10358,7 +10389,7 @@ paths:
     patch:
       operationId: TopicsController_updateTopicSubscription
       x-speakeasy-name-override: update
-      x-speakeasy-group: topicsSubscriptions
+      x-speakeasy-group: topics.subscriptions
       summary: Update a topic subscription
       description: >-
         Update a subscription by its unique identifier for a topic. You can update the preferences and name associated with the subscription.
@@ -10714,7 +10745,7 @@ paths:
     delete:
       operationId: TranslationController_deleteTranslationGroupEndpoint
       x-speakeasy-name-override: removeGroup
-      x-speakeasy-group: translations.groups
+      x-speakeasy-group: translations
       summary: Delete a translation group
       description: Delete an entire translation group and all its translations
       parameters:
@@ -10847,8 +10878,8 @@ paths:
   /v2/translations/group/{resourceType}/{resourceId}:
     get:
       operationId: TranslationController_getTranslationGroupEndpoint
-      x-speakeasy-name-override: fetchGroup
-      x-speakeasy-group: translations.groups
+      x-speakeasy-name-override: groupDetails
+      x-speakeasy-group: translations
       summary: Retrieve a translation group
       description: >-
         Retrieves a single translation group by resource type (workflow, layout) and resource ID (workflowId, layoutId)
@@ -10893,8 +10924,8 @@ paths:
   /v2/translations/master-json:
     get:
       operationId: TranslationController_getMasterJsonEndpoint
-      x-speakeasy-name-override: retrieve
-      x-speakeasy-group: translationsMaster
+      x-speakeasy-name-override: getMaster
+      x-speakeasy-group: translations
       summary: Retrieve master translations JSON
       description: >-
         Retrieve all translations for a locale in master JSON format organized by resourceId (workflowId)
@@ -10927,7 +10958,7 @@ paths:
         - secretKey: []
     post:
       operationId: TranslationController_importMasterJsonEndpoint
-      x-speakeasy-name-override: importMasterJson
+      x-speakeasy-name-override: importMaster
       x-speakeasy-group: translations
       summary: Import master translations JSON
       description: >-
@@ -10960,7 +10991,7 @@ paths:
   /v2/translations/master-json/upload:
     post:
       operationId: TranslationController_uploadMasterJsonEndpoint
-      x-speakeasy-name-override: uploadMasterJson
+      x-speakeasy-name-override: masterUpload
       x-speakeasy-group: translations
       summary: Upload master translations JSON file
       description: >-
@@ -11000,7 +11031,7 @@ paths:
   /v2/translations/upload:
     post:
       operationId: TranslationController_uploadTranslationFiles
-      x-speakeasy-name-override: upload
+      x-speakeasy-name-override: uploadFiles
       summary: Upload translation files
       description: >-
         Upload one or more JSON translation files for a specific workflow. Files name must match the locale, e.g. en_US.json. Supports both "files" and "files[]" field names for backwards compatibility.
@@ -12033,7 +12064,7 @@ paths:
       x-speakeasy-name-override: update
     get:
       operationId: WorkflowController_getWorkflow
-      x-speakeasy-name-override: get
+      x-speakeasy-name-override: workflowDetails
       summary: Retrieve a workflow
       description: >-
         Fetches details of a specific workflow by its unique identifier **workflowId**
@@ -12952,8 +12983,8 @@ paths:
   /v2/workflows/{workflowId}/steps/{stepId}:
     get:
       operationId: WorkflowController_getWorkflowStepData
-      x-speakeasy-name-override: getStep
-      x-speakeasy-group: workflows
+      x-speakeasy-name-override: get
+      x-speakeasy-group: workflows.steps
       summary: Retrieve workflow step
       description: Retrieves data for a specific step in a workflow
       parameters:
@@ -14287,7 +14318,7 @@ paths:
   /v1/channel-connections/{identifier}:
     get:
       operationId: ChannelConnectionsController_getChannelConnectionByIdentifier
-      x-speakeasy-name-override: get
+      x-speakeasy-name-override: retrieve
       summary: Retrieve a channel connection
       description: Retrieve a specific channel connection by its unique identifier.
       parameters:
@@ -18716,12 +18747,10 @@ paths:
       x-speakeasy-group: ''
       x-speakeasy-usage-example:
         title: Broadcast Event to All
-      x-speakeasy-name-override: triggerBroadcast
+      x-speakeasy-name-override: broadcast
       summary: Broadcast event to all
       description: >-
         Trigger a broadcast event to all existing subscribers, could be used to send announcements, etc.
-
-
 
               In the future could be used to trigger events to a subset of subscribers based on defined filters.
       parameters:
@@ -21526,7 +21555,7 @@ paths:
   /v1/integrations/chat/oauth:
     post:
       operationId: IntegrationsController_getChatOAuthUrl
-      x-speakeasy-name-override: generateChatOAuth
+      x-speakeasy-name-override: generateChatOAuthUrl
       summary: Generate chat OAuth URL
       description: "Generate an OAuth URL for chat integrations like Slack and MS Teams. \n    This URL allows subscribers to authorize the integration, enabling the system to send messages \n    through their chat workspace. The generated URL expires after 5 minutes."
       parameters:
@@ -23840,8 +23869,8 @@ paths:
       x-speakeasy-name-override: updateCredentials
     patch:
       operationId: SubscribersV1Controller_modifySubscriberChannel
-      x-speakeasy-name-override: appendCredentials
-      x-speakeasy-group: subscribers
+      x-speakeasy-name-override: upsert
+      x-speakeasy-group: subscribers.credentials
       summary: Upsert provider credentials
       description: "Upsert credentials for a provider such as **slack** and **FCM**. \n      **providerId** is required field. This API creates **deviceTokens** or appends to the existing ones."
       parameters:
@@ -24156,7 +24185,7 @@ paths:
   /v1/subscribers/{subscriberId}/credentials/{providerId}:
     delete:
       operationId: SubscribersV1Controller_deleteSubscriberCredentials
-      x-speakeasy-group: subscribers.credentials
+      x-speakeasy-group: subscribers
       summary: Delete provider credentials
       description: "Delete subscriber credentials for a provider such as **slack** and **FCM** by **providerId**. \n    This action is irreversible and will remove the credentials for the provider for particular **subscriberId**."
       parameters:
@@ -24463,12 +24492,12 @@ paths:
         - Subscribers
       security:
         - secretKey: []
-      x-speakeasy-name-override: delete
+      x-speakeasy-name-override: removeCredentials
   /v1/subscribers/{subscriberId}/messages/{messageId}/actions/{type}:
     post:
       operationId: SubscribersV1Controller_markActionAsSeen
-      x-speakeasy-name-override: updateAsSeen
-      x-speakeasy-group: subscribersMessages
+      x-speakeasy-name-override: updateActionStatus
+      x-speakeasy-group: subscribers.messages
       summary: Update notification action status
       description: "Update in-app (inbox) notification's action status by its unique key identifier **messageId** and type field **type**. \n      **type** field can be **primary** or **secondary**"
       parameters:
@@ -24792,8 +24821,8 @@ paths:
   /v1/subscribers/{subscriberId}/messages/mark-all:
     post:
       operationId: SubscribersV1Controller_markAllUnreadAsRead
-      x-speakeasy-name-override: markAll
-      x-speakeasy-group: subscribers.messages
+      x-speakeasy-name-override: markAllMessages
+      x-speakeasy-group: subscribers
       summary: Update all notifications state
       description: >-
         Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by **subscriberId**.
@@ -25109,8 +25138,8 @@ paths:
   /v1/subscribers/{subscriberId}/messages/mark-as:
     post:
       operationId: SubscribersV1Controller_markMessagesAs
-      x-speakeasy-name-override: markAllMessagesAs
-      x-speakeasy-group: subscribers
+      x-speakeasy-name-override: markAllAs
+      x-speakeasy-group: subscribersMessages
       summary: Update notifications state
       description: "Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread by **subscriberId**. \n      **messageId** is of type mongodbId of notifications"
       parameters:
@@ -25771,7 +25800,7 @@ paths:
     get:
       operationId: SubscribersV1Controller_getUnseenCount
       x-speakeasy-name-override: getUnseenCount
-      x-speakeasy-group: subscribers
+      x-speakeasy-group: subscribers.notifications
       summary: Retrieve unseen notifications count
       description: >-
         Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier **subscriberId**.
@@ -26096,7 +26125,7 @@ paths:
     patch:
       operationId: SubscribersV1Controller_updateSubscriberOnlineFlag
       x-speakeasy-name-override: updateOnlineStatus
-      x-speakeasy-group: subscribers
+      x-speakeasy-group: subscribersProperties
       summary: Update subscriber online status
       description: >-
         Update the subscriber online status by its unique key identifier **subscriberId**
@@ -27035,12 +27064,12 @@ paths:
         - Topics
       security:
         - secretKey: []
-      x-speakeasy-name-override: get
+      x-speakeasy-name-override: check
 info:
   title: Novu API
   description: >-
     Novu REST API. Please see https://docs.novu.co/api-reference for more details.
-  version: 3.11.0
+  version: 3.12.0
   contact:
     name: Novu Support
     url: https://discord.gg/novu
@@ -27808,8 +27837,6 @@ components:
         actor:
           description: >-
             It is used to display the Avatar of the provided actor's subscriber id or actor object.
-
-
 
                 If a new actor object is provided, we will create a new subscriber in our system
           oneOf:
@@ -31109,6 +31136,10 @@ components:
           description: Workflow information
           allOf:
             - $ref: '#/components/schemas/SubscriberPreferencesWorkflowInfoDto'
+        updatedAt:
+          type: string
+          description: >-
+            Timestamp when the subscriber last updated their preference. Only present if subscriber explicitly set preferences.
       required:
         - enabled
         - channels
@@ -31242,6 +31273,28 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BulkUpdateSubscriberPreferenceItemDto'
+        context:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+                description: Simple context id
+                example: org-acme
+              - type: object
+                description: Rich context object with id and optional data
+                properties:
+                  id:
+                    type: string
+                    example: org-acme
+                  data:
+                    type: object
+                    description: Optional additional context data
+                    additionalProperties: true
+                    example:
+                      name: Acme Corp
+                      region: us-east-1
+                required:
+                  - id
       required:
         - preferences
     PatchSubscriberPreferencesDto:
@@ -31259,6 +31312,28 @@ components:
           description: Subscriber schedule
           allOf:
             - $ref: '#/components/schemas/ScheduleDto'
+        context:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+                description: Simple context id
+                example: org-acme
+              - type: object
+                description: Rich context object with id and optional data
+                properties:
+                  id:
+                    type: string
+                    example: org-acme
+                  data:
+                    type: object
+                    description: Optional additional context data
+                    additionalProperties: true
+                    example:
+                      name: Acme Corp
+                      region: us-east-1
+                required:
+                  - id
     SubscriberDto:
       type: object
       properties:
@@ -31316,6 +31391,15 @@ components:
           description: Subscriber information
           allOf:
             - $ref: '#/components/schemas/SubscriberDto'
+        contextKeys:
+          description: >-
+            Context keys that scope this subscription (e.g., tenant:org-a, project:proj-123)
+          example:
+            - tenant:org-a
+            - project:proj-123
+          type: array
+          items:
+            type: string
       required:
         - _id
         - identifier
@@ -32001,6 +32085,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SubscriptionPreferenceDto'
+        contextKeys:
+          description: >-
+            Context keys that scope this subscription (e.g., tenant:org-a, project:proj-123)
+          example:
+            - tenant:org-a
+            - project:proj-123
+          type: array
+          items:
+            type: string
         createdAt:
           type: string
           description: The creation date of the subscription
@@ -32186,6 +32279,28 @@ components:
           type: string
           description: The name of the topic
           example: My Topic
+        context:
+          type: object
+          additionalProperties:
+            oneOf:
+              - type: string
+                description: Simple context id
+                example: org-acme
+              - type: object
+                description: Rich context object with id and optional data
+                properties:
+                  id:
+                    type: string
+                    example: org-acme
+                  data:
+                    type: object
+                    description: Optional additional context data
+                    additionalProperties: true
+                    example:
+                      name: Acme Corp
+                      region: us-east-1
+                required:
+                  - id
         preferences:
           type: array
           description: >-
@@ -32221,6 +32336,15 @@ components:
           description: The subscriber information
           allOf:
             - $ref: '#/components/schemas/SubscriberDto'
+        contextKeys:
+          description: >-
+            Context keys that scope this subscription (e.g., tenant:org-a, project:proj-123)
+          example:
+            - tenant:org-a
+            - project:proj-123
+          type: array
+          items:
+            type: string
         createdAt:
           type: string
           description: The creation date of the subscription
@@ -32313,6 +32437,37 @@ components:
               subscriberId: subscriber-123
             - subscriberId: subscriber-456
             - identifier: subscriber-789-subscription-b
+    SubscriptionDetailsResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the subscription
+          example: 64f5e95d3d7946d80d0cb679
+        identifier:
+          type: string
+          description: The identifier of the subscription
+          example: subscription-identifier
+        name:
+          type: string
+          description: The name of the subscription
+          example: My Subscription
+        preferences:
+          description: The preferences/rules for the subscription
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionPreferenceDto'
+        contextKeys:
+          description: >-
+            Context keys that scope this subscription (e.g., tenant:org-a, project:proj-123)
+          example:
+            - tenant:org-a
+            - project:proj-123
+          type: array
+          items:
+            type: string
+      required:
+        - id
     UpdateTopicSubscriptionRequestDto:
       type: object
       properties:

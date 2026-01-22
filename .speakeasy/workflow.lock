@@ -1,45 +1,43 @@
-speakeasyVersion: 1.685.0
+speakeasyVersion: 1.693.0
 sources:
-    Novu-OAS:
+    'DEPRECATED: Novu API. Use -openapi.{json,yaml} instead.':
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:d469b73d1950430fd9b8c4269bc6c0aa79e2518aff46bc41b70724913f535c3e
-        sourceBlobDigest: sha256:5af0f199cc7c27569ae7c033f6e6c41e6e386936de22fd21faa5c054d75ab923
+        sourceRevisionDigest: sha256:598015a70891f7b77de7cd4b728226ce4ec58ce7f3e5ac02fb5cbf02bd4c50f2
+        sourceBlobDigest: sha256:96fb2e0e31eceb390da19a83143ef871dbbba67447e0e213040d459b332bce6b
         tags:
             - latest
-            - 3.11.0
+            - 3.12.0
+    novu-OAS:
+        sourceNamespace: novu-oas
+        sourceRevisionDigest: sha256:851554725ba179245d457ad20e919c7c98ae266ad2f7c40621d3247dd6e3a058
+        sourceBlobDigest: sha256:71389e6868a4d975393005a5f473bbe94acb60479f52a6bf17302f418c330d3c
+        tags:
+            - latest
+            - 3.12.0
 targets:
     novu:
-        source: Novu-OAS
+        source: novu-OAS
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:d469b73d1950430fd9b8c4269bc6c0aa79e2518aff46bc41b70724913f535c3e
-        sourceBlobDigest: sha256:5af0f199cc7c27569ae7c033f6e6c41e6e386936de22fd21faa5c054d75ab923
+        sourceRevisionDigest: sha256:851554725ba179245d457ad20e919c7c98ae266ad2f7c40621d3247dd6e3a058
+        sourceBlobDigest: sha256:71389e6868a4d975393005a5f473bbe94acb60479f52a6bf17302f418c330d3c
         codeSamplesNamespace: novu-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:5d6142427fcf57313c5faeef9eef48880a568f374cf662e1326e605185afea86
+        codeSamplesRevisionDigest: sha256:d45375d8b517d714c197543b78b510122c37628e3ed8ee28129b03d363790704
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        Novu-OAS:
+        novu-OAS:
             inputs:
-                - location: registry.speakeasyapi.dev/novu/novu/novu-oas:main
+                - location: https://api.novu.co/openapi.sdk.yaml
             overlays:
                 - location: .speakeasy/speakeasy-modifications-overlay.yaml
-            output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/novu/novu/novu-oas
     targets:
         novu:
             target: java
-            source: Novu-OAS
-            publish:
-                java:
-                    ossrhUsername: $ossrh_username
-                    ossrhPassword: $ossrh_password
-                    gpgSecretKey: $java_gpg_secret_key
-                    gpgPassPhrase: $java_gpg_passphrase
+            source: novu-OAS
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/novu/novu/novu-oas-java-code-samples
-                labelOverride:
-                    fixedValue: Java (SDK)
                 blocking: false

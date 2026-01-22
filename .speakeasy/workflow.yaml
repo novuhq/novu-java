@@ -1,27 +1,18 @@
 workflowVersion: 1.0.0
 speakeasyVersion: latest
 sources:
-    Novu-OAS:
+    novu-OAS:
         inputs:
-            - location: registry.speakeasyapi.dev/novu/novu/novu-oas:main
+            - location: https://api.novu.co/openapi.sdk.yaml
         overlays:
             - location: .speakeasy/speakeasy-modifications-overlay.yaml
-        output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/novu/novu/novu-oas
 targets:
     novu:
         target: java
-        source: Novu-OAS
-        publish:
-            java:
-                ossrhUsername: $ossrh_username
-                ossrhPassword: $ossrh_password
-                gpgSecretKey: $java_gpg_secret_key
-                gpgPassPhrase: $java_gpg_passphrase
+        source: novu-OAS
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/novu/novu/novu-oas-java-code-samples
-            labelOverride:
-                fixedValue: Java (SDK)
             blocking: false

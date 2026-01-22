@@ -14,7 +14,7 @@ With the help of the Integration Store, you can easily integrate your favorite d
 * [autoConfigure](#autoconfigure) - Auto-configure an integration for inbound webhooks
 * [setPrimary](#setprimary) - Update integration as primary
 * [listActive](#listactive) - List active integrations
-* [generateChatOAuth](#generatechatoauth) - Generate chat OAuth URL
+* [generateChatOAuthUrl](#generatechatoauthurl) - Generate chat OAuth URL
 
 ## list
 
@@ -26,11 +26,11 @@ List all the channels integrations created in the organization
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerListIntegrationsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerListIntegrationsResponse;
 
 public class Application {
 
@@ -81,13 +81,13 @@ Create an integration for the current environment the user is based on the API k
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.CreateIntegrationRequestDto;
+import co.novu.models.components.CreateIntegrationRequestDtoChannel;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerCreateIntegrationResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.CreateIntegrationRequestDto;
-import org.openapis.openapi.models.components.CreateIntegrationRequestDtoChannel;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerCreateIntegrationResponse;
 
 public class Application {
 
@@ -143,12 +143,12 @@ Update an integration by its unique key identifier **integrationId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.UpdateIntegrationRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerUpdateIntegrationByIdResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.UpdateIntegrationRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerUpdateIntegrationByIdResponse;
 
 public class Application {
 
@@ -204,11 +204,11 @@ Delete an integration by its unique key identifier **integrationId**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerRemoveIntegrationResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerRemoveIntegrationResponse;
 
 public class Application {
 
@@ -261,11 +261,11 @@ Auto-configure an integration by its unique key identifier **integrationId** for
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerAutoConfigureIntegrationResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerAutoConfigureIntegrationResponse;
 
 public class Application {
 
@@ -319,11 +319,11 @@ Update an integration as **primary** by its unique key identifier **integrationI
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerSetIntegrationAsPrimaryResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerSetIntegrationAsPrimaryResponse;
 
 public class Application {
 
@@ -375,11 +375,11 @@ List all the active integrations created in the organization
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerGetActiveIntegrationsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerGetActiveIntegrationsResponse;
 
 public class Application {
 
@@ -419,7 +419,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## generateChatOAuth
+## generateChatOAuthUrl
 
 Generate an OAuth URL for chat integrations like Slack and MS Teams. 
     This URL allows subscribers to authorize the integration, enabling the system to send messages 
@@ -431,15 +431,15 @@ Generate an OAuth URL for chat integrations like Slack and MS Teams.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.GenerateChatOauthUrlRequestDto;
+import co.novu.models.components.GenerateChatOauthUrlRequestDtoContextUnion;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlResponse;
 import java.lang.Exception;
 import java.util.List;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.GenerateChatOauthUrlRequestDto;
-import org.openapis.openapi.models.components.GenerateChatOauthUrlRequestDtoContextUnion;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.IntegrationsControllerGetChatOAuthUrlResponse;
 
 public class Application {
 
@@ -449,7 +449,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        IntegrationsControllerGetChatOAuthUrlResponse res = sdk.integrations().generateChatOAuth()
+        IntegrationsControllerGetChatOAuthUrlResponse res = sdk.integrations().generateChatOAuthUrl()
                 .body(GenerateChatOauthUrlRequestDto.builder()
                     .integrationIdentifier("<value>")
                     .subscriberId("subscriber-123")

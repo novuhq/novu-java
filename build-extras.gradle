@@ -2,20 +2,3 @@
 // * is referred to in an `apply from` command in `build.gradle`
 // * can be used to customise `build.gradle`
 // * is generated once and not overwritten in SDK generation updates
-
-// Configure SonarQube
-// Note: The plugin is added via gen.yaml > java > additionalPlugins
-sonarqube {
-    properties {
-        // Format: "github-org_repo-name" (use what SonarCloud shows you)
-        property "sonar.projectKey", "novu_novu-java"
-        
-        // Your SonarCloud organization name (usually your GitHub org/username)
-        property "sonar.organization", "novu"
-        
-        property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.sources", "src/main/java"
-        property "sonar.java.binaries", "build/classes"
-        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
-    }
-}

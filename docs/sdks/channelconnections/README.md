@@ -6,7 +6,7 @@
 
 * [list](#list) - List all channel connections
 * [create](#create) - Create a channel connection
-* [get](#get) - Retrieve a channel connection
+* [retrieve](#retrieve) - Retrieve a channel connection
 * [update](#update) - Update a channel connection
 * [delete](#delete) - Delete a channel connection
 
@@ -20,13 +20,13 @@ List all channel connections for a resource.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.ProvidersIdEnum;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.*;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.ProvidersIdEnum;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.*;
 
 public class Application {
 
@@ -88,13 +88,13 @@ Create a new channel connection for a resource for given integration. Only one c
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelConnectionsControllerCreateChannelConnectionResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelConnectionsControllerCreateChannelConnectionResponse;
 
 public class Application {
 
@@ -149,7 +149,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## get
+## retrieve
 
 Retrieve a specific channel connection by its unique identifier.
 
@@ -159,11 +159,11 @@ Retrieve a specific channel connection by its unique identifier.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse;
 
 public class Application {
 
@@ -173,7 +173,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse res = sdk.channelConnections().get()
+        ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse res = sdk.channelConnections().retrieve()
                 .identifier("<value>")
                 .call();
 
@@ -215,12 +215,12 @@ Update an existing channel connection by its unique identifier.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelConnectionsControllerUpdateChannelConnectionResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelConnectionsControllerUpdateChannelConnectionResponse;
 
 public class Application {
 
@@ -282,11 +282,11 @@ Delete a specific channel connection by its unique identifier.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.ChannelConnectionsControllerDeleteChannelConnectionResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.ChannelConnectionsControllerDeleteChannelConnectionResponse;
 
 public class Application {
 

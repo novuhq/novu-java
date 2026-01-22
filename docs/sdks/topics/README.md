@@ -4,14 +4,15 @@
 
 ### Available Operations
 
-* [getAll](#getall) - List all topics
-* [create](#create) - Create a topic
-* [getTopic](#gettopic) - Retrieve a topic
-* [patch](#patch) - Update a topic
+* [fetchAll](#fetchall) - List all topics
+* [upsert](#upsert) - Create a topic
+* [get](#get) - Retrieve a topic
+* [modify](#modify) - Update a topic
 * [remove](#remove) - Delete a topic
 * [createSubscription](#createsubscription) - Create topic subscriptions
+* [getSubscriptionById](#getsubscriptionbyid) - Get a topic subscription
 
-## getAll
+## fetchAll
 
 This api returns a paginated list of topics.
     Topics can be filtered by **key**, **name**, or **includeCursor** to paginate through the list. 
@@ -23,12 +24,12 @@ This api returns a paginated list of topics.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsControllerListTopicsRequest;
+import co.novu.models.operations.TopicsControllerListTopicsResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.TopicsControllerListTopicsRequest;
-import org.openapis.openapi.models.operations.TopicsControllerListTopicsResponse;
 
 public class Application {
 
@@ -42,7 +43,7 @@ public class Application {
                 .limit(10d)
                 .build();
 
-        TopicsControllerListTopicsResponse res = sdk.topics().getAll()
+        TopicsControllerListTopicsResponse res = sdk.topics().fetchAll()
                 .request(req)
                 .call();
 
@@ -73,7 +74,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## create
+## upsert
 
 Creates a new topic if it does not exist, or updates an existing topic if it already exists. Use ?failIfExists=true to prevent updates.
 
@@ -83,11 +84,11 @@ Creates a new topic if it does not exist, or updates an existing topic if it alr
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.CreateUpdateTopicRequestDto;
+import co.novu.models.errors.*;
+import co.novu.models.operations.TopicsControllerUpsertTopicResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.CreateUpdateTopicRequestDto;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.TopicsControllerUpsertTopicResponse;
 
 public class Application {
 
@@ -97,7 +98,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        TopicsControllerUpsertTopicResponse res = sdk.topics().create()
+        TopicsControllerUpsertTopicResponse res = sdk.topics().upsert()
                 .body(CreateUpdateTopicRequestDto.builder()
                     .key("task:12345")
                     .name("Task Title")
@@ -134,7 +135,7 @@ public class Application {
 | models/errors/ErrorDto                  | 500                                     | application/json                        |
 | models/errors/APIException              | 4XX, 5XX                                | \*/\*                                   |
 
-## getTopic
+## get
 
 Retrieve a topic by its unique key identifier **topicKey**
 
@@ -144,11 +145,11 @@ Retrieve a topic by its unique key identifier **topicKey**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsControllerGetTopicResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.TopicsControllerGetTopicResponse;
 
 public class Application {
 
@@ -158,7 +159,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        TopicsControllerGetTopicResponse res = sdk.topics().getTopic()
+        TopicsControllerGetTopicResponse res = sdk.topics().get()
                 .topicKey("<value>")
                 .call();
 
@@ -190,7 +191,7 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## patch
+## modify
 
 Update a topic name by its unique key identifier **topicKey**
 
@@ -200,12 +201,12 @@ Update a topic name by its unique key identifier **topicKey**
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.UpdateTopicRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsControllerUpdateTopicResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.UpdateTopicRequestDto;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.TopicsControllerUpdateTopicResponse;
 
 public class Application {
 
@@ -215,7 +216,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        TopicsControllerUpdateTopicResponse res = sdk.topics().patch()
+        TopicsControllerUpdateTopicResponse res = sdk.topics().modify()
                 .topicKey("<value>")
                 .body(UpdateTopicRequestDto.builder()
                     .name("Updated Topic Name")
@@ -262,11 +263,11 @@ Delete a topic by its unique key identifier **topicKey**.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsControllerDeleteTopicResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.TopicsControllerDeleteTopicResponse;
 
 public class Application {
 
@@ -319,14 +320,14 @@ This api will create subscription for subscriberIds for a topic.
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsControllerCreateTopicSubscriptionsResponse;
 import java.lang.Exception;
 import java.util.List;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.TopicsControllerCreateTopicSubscriptionsResponse;
 
 public class Application {
 
@@ -349,6 +350,8 @@ public class Application {
                             .subscriberId("subscriber-456")
                             .build())))
                     .name("My Topic")
+                    .context(Map.ofEntries(
+                        Map.entry("key", CreateTopicSubscriptionsRequestDtoContextUnion.of("org-acme"))))
                     .preferences(List.of(
                         CreateTopicSubscriptionsRequestDtoPreference.of(WorkflowPreferenceRequestDto.builder()
                             .workflowId("workflow-123")
@@ -379,6 +382,64 @@ public class Application {
 ### Response
 
 **[TopicsControllerCreateTopicSubscriptionsResponse](../../models/operations/TopicsControllerCreateTopicSubscriptionsResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorDto                 | 414                                    | application/json                       |
+| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
+| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
+| models/errors/ErrorDto                 | 500                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## getSubscriptionById
+
+Get a subscription by its unique identifier for a topic.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="TopicsController_getTopicSubscription" method="get" path="/v2/topics/{topicKey}/subscriptions/{identifier}" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.TopicsControllerGetTopicSubscriptionResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        TopicsControllerGetTopicSubscriptionResponse res = sdk.topics().getSubscriptionById()
+                .topicKey("<value>")
+                .identifier("<value>")
+                .call();
+
+        if (res.subscriptionDetailsResponseDto().isPresent()) {
+            // handle response
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                 | Type                                      | Required                                  | Description                               |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| `topicKey`                                | *String*                                  | :heavy_check_mark:                        | The key identifier of the topic           |
+| `identifier`                              | *String*                                  | :heavy_check_mark:                        | The unique identifier of the subscription |
+| `idempotencyKey`                          | *Optional\<String>*                       | :heavy_minus_sign:                        | A header for idempotency purposes         |
+
+### Response
+
+**[TopicsControllerGetTopicSubscriptionResponse](../../models/operations/TopicsControllerGetTopicSubscriptionResponse.md)**
 
 ### Errors
 

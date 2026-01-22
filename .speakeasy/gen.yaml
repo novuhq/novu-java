@@ -13,6 +13,7 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: true
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -28,11 +29,10 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 0.0.4
+  version: 0.1.3
   additionalDependencies: []
-  additionalPlugins:
-    - id 'org.sonarqube' version '4.4.1.3373'
-  artifactID: novu-java
+  additionalPlugins: []
+  artifactID: novu
   asyncMode: enabled
   baseErrorName: NovuException
   clientServerStatusCodesAsErrors: true
@@ -47,7 +47,7 @@ java:
   forwardCompatibleEnumsByDefault: true
   generateOptionalUnionAccessors: true
   generateSpringBootStarter: true
-  githubURL: github.com/novu/novu-java
+  githubURL: github.com/novuhq/novu-java
   groupID: co.novu
   imports:
     option: openapi
@@ -70,7 +70,7 @@ java:
   openUnions: true
   operationScopedParams: true
   outputModelSuffix: output
-  packageName: org.openapis.openapi
-  projectName: openapi
+  packageName: co.novu
+  projectName: novu
   templateVersion: v2
   unionStrategy: populated-fields

@@ -1,6 +1,6 @@
 # Blob Utility Class
 
-The [`Blob`](../../src/main/java/org/openapis/openapi/utils/Blob.java) utility class is a powerful tool for both sending and reading data in the SDK. It implements `HttpRequest.BodyPublisher` for sending data in HTTP requests and provides consumption methods for reading data streams. The class offers a reactive, memory-efficient approach to working with various data sources.
+The [`Blob`](../../src/main/java/co/novu/utils/Blob.java) utility class is a powerful tool for both sending and reading data in the SDK. It implements `HttpRequest.BodyPublisher` for sending data in HTTP requests and provides consumption methods for reading data streams. The class offers a reactive, memory-efficient approach to working with various data sources.
 
 ## Key Benefits
 
@@ -13,7 +13,7 @@ The [`Blob`](../../src/main/java/org/openapis/openapi/utils/Blob.java) utility c
 
 ## Factory Methods
 
-The [`Blob`](../../src/main/java/org/openapis/openapi/utils/Blob.java) class provides factory methods for various input sources:
+The [`Blob`](../../src/main/java/co/novu/utils/Blob.java) class provides factory methods for various input sources:
 
 | Factory Method | Use Case | Memory | Underlying I/O |
 |---|---|---|---|
@@ -106,7 +106,7 @@ Blob reactiveBlob = Blob.from(publisher);
 
 ## Consumption Methods
 
-The [`Blob`](../../src/main/java/org/openapis/openapi/utils/Blob.java) class provides four methods for reading/consuming the data. All consumption methods use NIO and are safe to use in asynchronous contexts:
+The [`Blob`](../../src/main/java/co/novu/utils/Blob.java) class provides four methods for reading/consuming the data. All consumption methods use NIO and are safe to use in asynchronous contexts:
 
 ### `asPublisher()`
 Returns a `Flow.Publisher<ByteBuffer>` for reactive processing.

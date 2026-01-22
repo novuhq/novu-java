@@ -50,15 +50,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:0.0.4'
+implementation 'co.novu:novu:0.1.3'
 ```
 
 Maven:
 ```xml
 <dependency>
     <groupId>co.novu</groupId>
-    <artifactId>novu-java</artifactId>
-    <version>0.0.4</version>
+    <artifactId>novu</artifactId>
+    <version>0.1.3</version>
 </dependency>
 ```
 
@@ -85,12 +85,12 @@ gradlew.bat publishToMavenLocal -Pskip.signing
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -128,11 +128,11 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.EventsControllerCancelResponse;
 import java.lang.Exception;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.errors.ErrorDto;
-import org.openapis.openapi.models.errors.ValidationErrorDto;
-import org.openapis.openapi.models.operations.EventsControllerCancelResponse;
 
 public class Application {
 
@@ -158,12 +158,12 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerBroadcastEventToAllResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerBroadcastEventToAllResponse;
 
 public class Application {
 
@@ -173,7 +173,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        EventsControllerBroadcastEventToAllResponse res = sdk.triggerBroadcast()
+        EventsControllerBroadcastEventToAllResponse res = sdk.broadcast()
                 .body(TriggerEventToAllRequestDto.builder()
                     .name("<value>")
                     .payload(Map.ofEntries(
@@ -213,13 +213,13 @@ public class Application {
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerBulkResponse;
 import java.lang.Exception;
 import java.util.List;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerBulkResponse;
 
 public class Application {
 
@@ -268,12 +268,12 @@ An asynchronous SDK client is also available that returns a [`CompletableFuture<
 ```java
 package hello.world;
 
+import co.novu.AsyncNovu;
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.operations.async.EventsControllerTriggerResponse;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import org.openapis.openapi.AsyncNovu;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.operations.async.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -393,12 +393,12 @@ To authenticate with the API the `secretKey` parameter must be set when initiali
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -442,7 +442,7 @@ public class Application {
 
 * [trigger](docs/sdks/novu/README.md#trigger) - Trigger event
 * [cancel](docs/sdks/novu/README.md#cancel) - Cancel triggered event
-* [triggerBroadcast](docs/sdks/novu/README.md#triggerbroadcast) - Broadcast event to all
+* [broadcast](docs/sdks/novu/README.md#broadcast) - Broadcast event to all
 * [triggerBulk](docs/sdks/novu/README.md#triggerbulk) - Bulk trigger event
 
 ### [Activity](docs/sdks/activity/README.md)
@@ -453,7 +453,7 @@ public class Application {
 
 * [list](docs/sdks/channelconnections/README.md#list) - List all channel connections
 * [create](docs/sdks/channelconnections/README.md#create) - Create a channel connection
-* [get](docs/sdks/channelconnections/README.md#get) - Retrieve a channel connection
+* [retrieve](docs/sdks/channelconnections/README.md#retrieve) - Retrieve a channel connection
 * [update](docs/sdks/channelconnections/README.md#update) - Update a channel connection
 * [delete](docs/sdks/channelconnections/README.md#delete) - Delete a channel connection
 
@@ -475,11 +475,14 @@ public class Application {
 
 ### [Environments](docs/sdks/environments/README.md)
 
-* [getTags](docs/sdks/environments/README.md#gettags) - Get environment tags
 * [create](docs/sdks/environments/README.md#create) - Create an environment
 * [list](docs/sdks/environments/README.md#list) - List all environments
 * [update](docs/sdks/environments/README.md#update) - Update an environment
 * [delete](docs/sdks/environments/README.md#delete) - Delete an environment
+
+#### [Environments.Tags](docs/sdks/tags/README.md)
+
+* [get](docs/sdks/tags/README.md#get) - Get environment tags
 
 ### [Integrations](docs/sdks/integrations/README.md)
 
@@ -490,17 +493,17 @@ public class Application {
 * [autoConfigure](docs/sdks/integrations/README.md#autoconfigure) - Auto-configure an integration for inbound webhooks
 * [setPrimary](docs/sdks/integrations/README.md#setprimary) - Update integration as primary
 * [listActive](docs/sdks/integrations/README.md#listactive) - List active integrations
-* [generateChatOAuth](docs/sdks/integrations/README.md#generatechatoauth) - Generate chat OAuth URL
+* [generateChatOAuthUrl](docs/sdks/integrations/README.md#generatechatoauthurl) - Generate chat OAuth URL
 
 ### [Layouts](docs/sdks/layouts/README.md)
 
 * [create](docs/sdks/layouts/README.md#create) - Create a layout
 * [list](docs/sdks/layouts/README.md#list) - List all layouts
 * [update](docs/sdks/layouts/README.md#update) - Update a layout
-* [retrieve](docs/sdks/layouts/README.md#retrieve) - Retrieve a layout
+* [get](docs/sdks/layouts/README.md#get) - Retrieve a layout
 * [delete](docs/sdks/layouts/README.md#delete) - Delete a layout
 * [duplicate](docs/sdks/layouts/README.md#duplicate) - Duplicate a layout
-* [preview](docs/sdks/layouts/README.md#preview) - Generate layout preview
+* [generatePreview](docs/sdks/layouts/README.md#generatepreview) - Generate layout preview
 * [getUsage](docs/sdks/layouts/README.md#getusage) - Get layout usage
 
 ### [Messages](docs/sdks/messages/README.md)
@@ -520,94 +523,91 @@ public class Application {
 * [create](docs/sdks/subscribers/README.md#create) - Create a subscriber
 * [get](docs/sdks/subscribers/README.md#get) - Retrieve a subscriber
 * [update](docs/sdks/subscribers/README.md#update) - Update a subscriber
-* [removeSubscriber](docs/sdks/subscribers/README.md#removesubscriber) - Delete a subscriber
+* [delete](docs/sdks/subscribers/README.md#delete) - Delete a subscriber
 * [createBulk](docs/sdks/subscribers/README.md#createbulk) - Bulk create subscribers
 * [updatePreferences](docs/sdks/subscribers/README.md#updatepreferences) - Update subscriber preferences
 * [updateCredentials](docs/sdks/subscribers/README.md#updatecredentials) - Update provider credentials
-* [appendCredentials](docs/sdks/subscribers/README.md#appendcredentials) - Upsert provider credentials
-* [markAllMessagesAs](docs/sdks/subscribers/README.md#markallmessagesas) - Update notifications state
-* [getUnseenCount](docs/sdks/subscribers/README.md#getunseencount) - Retrieve unseen notifications count
-* [updateOnlineStatus](docs/sdks/subscribers/README.md#updateonlinestatus) - Update subscriber online status
+* [removeCredentials](docs/sdks/subscribers/README.md#removecredentials) - Delete provider credentials
+* [markAllMessages](docs/sdks/subscribers/README.md#markallmessages) - Update all notifications state
 
 ### [Subscribers.Credentials](docs/sdks/credentials/README.md)
 
-* [delete](docs/sdks/credentials/README.md#delete) - Delete provider credentials
+* [upsert](docs/sdks/credentials/README.md#upsert) - Upsert provider credentials
 
-### [Subscribers.Messages](docs/sdks/subscribersmessages2/README.md)
+### [Subscribers.Messages](docs/sdks/subscribersmessages1/README.md)
 
-* [markAll](docs/sdks/subscribersmessages2/README.md#markall) - Update all notifications state
+* [updateActionStatus](docs/sdks/subscribersmessages1/README.md#updateactionstatus) - Update notification action status
+
+### [Subscribers.Notifications](docs/sdks/subscribersnotifications2/README.md)
+
+* [getUnseenCount](docs/sdks/subscribersnotifications2/README.md#getunseencount) - Retrieve unseen notifications count
 
 ### [Subscribers.Preferences](docs/sdks/preferences/README.md)
 
-* [getPreferences](docs/sdks/preferences/README.md#getpreferences) - Retrieve subscriber preferences
+* [list](docs/sdks/preferences/README.md#list) - Retrieve subscriber preferences
+* [bulkUpdate](docs/sdks/preferences/README.md#bulkupdate) - Bulk update subscriber preferences
 
-### [Subscribers.Topics](docs/sdks/subscriberstopics/README.md)
+### [SubscribersMessages](docs/sdks/subscribersmessages2/README.md)
 
-* [list](docs/sdks/subscriberstopics/README.md#list) - Retrieve subscriber subscriptions
+* [markAllAs](docs/sdks/subscribersmessages2/README.md#markallas) - Update notifications state
 
-### [SubscribersMessages](docs/sdks/subscribersmessages1/README.md)
+### [SubscribersNotifications](docs/sdks/subscribersnotifications1/README.md)
 
-* [updateAsSeen](docs/sdks/subscribersmessages1/README.md#updateasseen) - Update notification action status
+* [getFeed](docs/sdks/subscribersnotifications1/README.md#getfeed) - Retrieve subscriber notifications
 
-### [SubscribersNotifications](docs/sdks/subscribersnotifications/README.md)
+### [SubscribersProperties](docs/sdks/subscribersproperties/README.md)
 
-* [getFeed](docs/sdks/subscribersnotifications/README.md#getfeed) - Retrieve subscriber notifications
+* [updateOnlineStatus](docs/sdks/subscribersproperties/README.md#updateonlinestatus) - Update subscriber online status
 
-### [SubscribersPreferences](docs/sdks/subscriberspreferences/README.md)
+### [SubscribersTopics](docs/sdks/subscriberstopics/README.md)
 
-* [bulkUpdate](docs/sdks/subscriberspreferences/README.md#bulkupdate) - Bulk update subscriber preferences
+* [listSubscriptions](docs/sdks/subscriberstopics/README.md#listsubscriptions) - Retrieve subscriber subscriptions
 
 ### [Topics](docs/sdks/topics/README.md)
 
-* [getAll](docs/sdks/topics/README.md#getall) - List all topics
-* [create](docs/sdks/topics/README.md#create) - Create a topic
-* [getTopic](docs/sdks/topics/README.md#gettopic) - Retrieve a topic
-* [patch](docs/sdks/topics/README.md#patch) - Update a topic
+* [fetchAll](docs/sdks/topics/README.md#fetchall) - List all topics
+* [upsert](docs/sdks/topics/README.md#upsert) - Create a topic
+* [get](docs/sdks/topics/README.md#get) - Retrieve a topic
+* [modify](docs/sdks/topics/README.md#modify) - Update a topic
 * [remove](docs/sdks/topics/README.md#remove) - Delete a topic
 * [createSubscription](docs/sdks/topics/README.md#createsubscription) - Create topic subscriptions
+* [getSubscriptionById](docs/sdks/topics/README.md#getsubscriptionbyid) - Get a topic subscription
 
 ### [Topics.Subscribers](docs/sdks/topicssubscribers/README.md)
 
-* [get](docs/sdks/topicssubscribers/README.md#get) - Check topic subscriber
+* [check](docs/sdks/topicssubscribers/README.md#check) - Check topic subscriber
 
 ### [Topics.Subscriptions](docs/sdks/subscriptions/README.md)
 
-* [fetchSubscription](docs/sdks/subscriptions/README.md#fetchsubscription) - Get a topic subscription
-
-### [TopicsSubscriptions](docs/sdks/topicssubscriptions/README.md)
-
-* [list](docs/sdks/topicssubscriptions/README.md#list) - List topic subscriptions
-* [delete](docs/sdks/topicssubscriptions/README.md#delete) - Delete topic subscriptions
-* [update](docs/sdks/topicssubscriptions/README.md#update) - Update a topic subscription
+* [list](docs/sdks/subscriptions/README.md#list) - List topic subscriptions
+* [delete](docs/sdks/subscriptions/README.md#delete) - Delete topic subscriptions
+* [update](docs/sdks/subscriptions/README.md#update) - Update a topic subscription
 
 ### [Translations](docs/sdks/translations/README.md)
 
 * [create](docs/sdks/translations/README.md#create) - Create a translation
 * [get](docs/sdks/translations/README.md#get) - Retrieve a translation
 * [delete](docs/sdks/translations/README.md#delete) - Delete a translation
-* [upload](docs/sdks/translations/README.md#upload) - Upload translation files
-* [importMasterJson](docs/sdks/translations/README.md#importmasterjson) - Import master translations JSON
-* [uploadMasterJson](docs/sdks/translations/README.md#uploadmasterjson) - Upload master translations JSON file
-
-### [Translations.Groups](docs/sdks/groups/README.md)
-
-* [removeGroup](docs/sdks/groups/README.md#removegroup) - Delete a translation group
-* [fetchGroup](docs/sdks/groups/README.md#fetchgroup) - Retrieve a translation group
-
-### [TranslationsMaster](docs/sdks/translationsmaster/README.md)
-
-* [retrieve](docs/sdks/translationsmaster/README.md#retrieve) - Retrieve master translations JSON
+* [uploadFiles](docs/sdks/translations/README.md#uploadfiles) - Upload translation files
+* [removeGroup](docs/sdks/translations/README.md#removegroup) - Delete a translation group
+* [groupDetails](docs/sdks/translations/README.md#groupdetails) - Retrieve a translation group
+* [getMaster](docs/sdks/translations/README.md#getmaster) - Retrieve master translations JSON
+* [importMaster](docs/sdks/translations/README.md#importmaster) - Import master translations JSON
+* [masterUpload](docs/sdks/translations/README.md#masterupload) - Upload master translations JSON file
 
 ### [Workflows](docs/sdks/workflows/README.md)
 
 * [create](docs/sdks/workflows/README.md#create) - Create a workflow
 * [list](docs/sdks/workflows/README.md#list) - List all workflows
 * [update](docs/sdks/workflows/README.md#update) - Update a workflow
-* [get](docs/sdks/workflows/README.md#get) - Retrieve a workflow
+* [workflowDetails](docs/sdks/workflows/README.md#workflowdetails) - Retrieve a workflow
 * [delete](docs/sdks/workflows/README.md#delete) - Delete a workflow
 * [modify](docs/sdks/workflows/README.md#modify) - Update a workflow
 * [sync](docs/sdks/workflows/README.md#sync) - Sync a workflow
-* [getStep](docs/sdks/workflows/README.md#getstep) - Retrieve workflow step
+
+### [Workflows.Steps](docs/sdks/steps/README.md)
+
+* [get](docs/sdks/steps/README.md#get) - Retrieve workflow step
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -617,7 +617,7 @@ public class Application {
 
 Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files.
 
-The SDK provides a [`Blob`](src/main/java/org/openapis/openapi/utils/Blob.java) utility class for efficient file handling. It supports various input sources including file paths, streams, strings, and byte arrays, while providing memory-efficient streaming and reactive processing.
+The SDK provides a [`Blob`](src/main/java/co/novu/utils/Blob.java) utility class for efficient file handling. It supports various input sources including file paths, streams, strings, and byte arrays, while providing memory-efficient streaming and reactive processing.
 
 ```java
 // Recommended for large files - streams data efficiently
@@ -635,10 +635,10 @@ The following example demonstrates how to attach a file to a request:
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.operations.*;
 import java.lang.Exception;
 import java.util.List;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.operations.*;
 
 public class Application {
 
@@ -648,7 +648,7 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        TranslationControllerUploadTranslationFilesResponse res = sdk.translations().upload()
+        TranslationControllerUploadTranslationFilesResponse res = sdk.translations().uploadFiles()
                 .body(TranslationControllerUploadTranslationFilesRequestBody.builder()
                     .resourceId("welcome-email")
                     .resourceType(TranslationControllerUploadTranslationFilesResourceType.WORKFLOW)
@@ -670,15 +670,15 @@ To change the default retry strategy for a single API call, you can provide a `R
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
+import co.novu.utils.BackoffStrategy;
+import co.novu.utils.RetryConfig;
 import java.lang.Exception;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
-import org.openapis.openapi.utils.BackoffStrategy;
-import org.openapis.openapi.utils.RetryConfig;
 
 public class Application {
 
@@ -725,15 +725,15 @@ If you'd like to override the default retry strategy for all operations that sup
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
+import co.novu.utils.BackoffStrategy;
+import co.novu.utils.RetryConfig;
 import java.lang.Exception;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
-import org.openapis.openapi.utils.BackoffStrategy;
-import org.openapis.openapi.utils.RetryConfig;
 
 public class Application {
 
@@ -798,15 +798,15 @@ Handling errors in this SDK should largely match your expectations. All operatio
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
 import java.io.UncheckedIOException;
 import java.lang.Exception;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -876,8 +876,8 @@ public class Application {
 ### Error Classes
 **Primary errors:**
 * [`NovuException`](./src/main/java/models/errors/NovuException.java): The base class for HTTP error responses.
-  * [`org.openapis.openapi.models.errors.ErrorDto`](./src/main/java/models/errors/org.openapis.openapi.models.errors.ErrorDto.java): *
-  * [`org.openapis.openapi.models.errors.ValidationErrorDto`](./src/main/java/models/errors/org.openapis.openapi.models.errors.ValidationErrorDto.java): Unprocessable Entity. Status code `422`. *
+  * [`co.novu.models.errors.ErrorDto`](./src/main/java/models/errors/co.novu.models.errors.ErrorDto.java): *
+  * [`co.novu.models.errors.ValidationErrorDto`](./src/main/java/models/errors/co.novu.models.errors.ValidationErrorDto.java): Unprocessable Entity. Status code `422`. *
 
 <details><summary>Less common errors (9)</summary>
 
@@ -889,9 +889,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`org.openapis.openapi.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/org.openapis.openapi.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 93 methods.*
-* [`org.openapis.openapi.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/org.openapis.openapi.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 93 methods.*
-* [`org.openapis.openapi.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/org.openapis.openapi.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 93 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 93 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 93 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 93 methods.*
 
 
 </details>
@@ -916,12 +916,12 @@ You can override the default server globally using the `.serverIndex(int serverI
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -961,12 +961,12 @@ The default server can also be overridden globally using the `.serverURL(String 
 ```java
 package hello.world;
 
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.*;
+import co.novu.models.operations.EventsControllerTriggerResponse;
 import java.lang.Exception;
 import java.util.Map;
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.models.components.*;
-import org.openapis.openapi.models.errors.*;
-import org.openapis.openapi.models.operations.EventsControllerTriggerResponse;
 
 public class Application {
 
@@ -1019,10 +1019,10 @@ is used to power the async SDK methods and returns a `CompletableFuture<HttpResp
 The following example shows how to add a custom header and handle errors:
 
 ```java
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.utils.HTTPClient;
-import org.openapis.openapi.utils.SpeakeasyHTTPClient;
-import org.openapis.openapi.utils.Utils;
+import co.novu.Novu;
+import co.novu.utils.HTTPClient;
+import co.novu.utils.SpeakeasyHTTPClient;
+import co.novu.utils.Utils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -1071,10 +1071,10 @@ public class Application {
 You can also provide a completely custom HTTP client with your own configuration:
 
 ```java
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.utils.HTTPClient;
-import org.openapis.openapi.utils.Blob;
-import org.openapis.openapi.utils.ResponseWithBody;
+import co.novu.Novu;
+import co.novu.utils.HTTPClient;
+import co.novu.utils.Blob;
+import co.novu.utils.ResponseWithBody;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -1121,8 +1121,8 @@ public class Application {
 You can also enable debug logging on the default `SpeakeasyHTTPClient`:
 
 ```java
-import org.openapis.openapi.Novu;
-import org.openapis.openapi.utils.SpeakeasyHTTPClient;
+import co.novu.Novu;
+import co.novu.utils.SpeakeasyHTTPClient;
 
 public class Application {
     public static void main(String[] args) {
@@ -1170,13 +1170,13 @@ Configure logging levels in your `logback.xml`:
     </appender>
 
     <!-- SDK-wide logging -->
-    <logger name="org.openapis.openapi" level="DEBUG"/>
+    <logger name="co.novu" level="DEBUG"/>
     
     <!-- Component-specific logging -->
-    <logger name="org.openapis.openapi.utils.SpeakeasyHTTPClient" level="DEBUG"/>
-    <logger name="org.openapis.openapi.utils.Retries" level="DEBUG"/>
-    <logger name="org.openapis.openapi.utils.pagination" level="DEBUG"/>
-    <logger name="org.openapis.openapi.utils.Hooks" level="TRACE"/>
+    <logger name="co.novu.utils.SpeakeasyHTTPClient" level="DEBUG"/>
+    <logger name="co.novu.utils.Retries" level="DEBUG"/>
+    <logger name="co.novu.utils.pagination" level="DEBUG"/>
+    <logger name="co.novu.utils.Hooks" level="TRACE"/>
     
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
