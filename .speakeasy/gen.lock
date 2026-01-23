@@ -3,14 +3,16 @@ id: caaab73e-db12-4a8b-93a0-536b113afa44
 management:
   docChecksum: 8d426ef45cf545c3a6f5e641e8c51fdf
   docVersion: 3.12.0
-  speakeasyVersion: 1.693.0
-  generationVersion: 2.798.0
-  releaseVersion: 0.1.3
-  configChecksum: b110fd456454d1132f441a005007c842
+  speakeasyVersion: 1.696.0
+  generationVersion: 2.799.0
+  releaseVersion: 3.12.0
+  configChecksum: 7a9768031f31861611ccac36a80589c5
+  repoURL: https://github.com/novuhq/novu-java.git
+  published: true
 persistentEdits:
-  generation_id: 50fa4a16-d1ba-450c-801d-43b149fee2ef
-  pristine_commit_hash: 9c4be9cad05c9ccd10414f933b0ad86ae9a0d4e5
-  pristine_tree_hash: 3e1dcdf996a3ae2126a06913402ee0251e6837fc
+  generation_id: 75e69b0f-d52f-4bd8-8384-9009f6e5c09d
+  pristine_commit_hash: a1705c577141af9ef4d4c5cd4ff63986955a046d
+  pristine_tree_hash: b5d201100a255a67fc7f95a86d1a6bd1a4bf3720
 features:
   java:
     additionalDependencies: 0.1.0
@@ -42,8 +44,8 @@ trackedFiles:
     pristine_git_object: cc5b5f6b12d3725d2d4aa639f2559c4a571ca83f
   build.gradle:
     id: f07866736216
-    last_write_checksum: sha1:0550eb5ae51f8728994b0c3841ab715fec279178
-    pristine_git_object: fd80d1db99386ab7ee8677c8362b9e4391f88fbd
+    last_write_checksum: sha1:b54d48ed93b204a59d7073fa3ff6a35ee0c45c05
+    pristine_git_object: a9fa046786d02c61a5f017b2224ef4e0f869f159
   docs/models/components/ActionDto.md:
     id: c282c9d8a8c4
     last_write_checksum: sha1:c267b0718b481fac54cdba11596f9ef21cb6d2ad
@@ -2882,8 +2884,8 @@ trackedFiles:
     pristine_git_object: ebaa3566af4ce4249639e5a2dd8bca0edd2979bf
   gradle.properties:
     id: 2afbb999f001
-    last_write_checksum: sha1:a0d69d7a2b7fb93b34249656d7c5a657d46c0416
-    pristine_git_object: 58f0080259aed986fcebd2f8edbca1cdaa09b077
+    last_write_checksum: sha1:1634fbf197445b2a6181932f92cdcb8549cf5744
+    pristine_git_object: 483db5e05227f66477ccbcff8eb21bf537783643
   gradle/wrapper/gradle-wrapper.jar:
     id: ec27dae6e852
     last_write_checksum: sha1:f725fb1467084142d74fd7cd8eab691ab3442611
@@ -2902,8 +2904,8 @@ trackedFiles:
     pristine_git_object: 5eed7ee8452842305a18a4eb967442683808226a
   publishing.gradle:
     id: 0f10e722a87d
-    last_write_checksum: sha1:b23ac6fcc9a737b49d0e58ca086d6769bef46026
-    pristine_git_object: d609c73236faeebe7d898f90f555b85140f19898
+    last_write_checksum: sha1:3c98375f59b39b26ef235dda00a9c111b88a5652
+    pristine_git_object: f11400667f1cfa44ce25be9007a51d535c1b9e83
   settings.gradle:
     id: 05efc8b16577
     last_write_checksum: sha1:9384a98f60c4145a9a7e61f39a3d390979487059
@@ -3090,8 +3092,8 @@ trackedFiles:
     pristine_git_object: 1b5f7ce4b77efc9d29be373d45eca57c867ad675
   src/main/java/co/novu/SDKConfiguration.java:
     id: c8d0f1a7e696
-    last_write_checksum: sha1:9d9a7efa1fe35d03fccf98f6beedaef05d376549
-    pristine_git_object: 5a762262d46d5db4b1479743c246605898d329c1
+    last_write_checksum: sha1:1337b621ddc816306ef8eaf9f5d133020d947160
+    pristine_git_object: 6ee37664a9bf46863412b633c8a89108fc667222
   src/main/java/co/novu/SecuritySource.java:
     id: 8b19fc2daaf0
     last_write_checksum: sha1:b876d0191046515ce80a9ea832f7c9b06bcfaa40
@@ -9233,3 +9235,7 @@ examples:
           resourceType: "workflow"
           resourceId: "welcome-email"
 examplesVersion: 1.0.2
+releaseNotes: |
+  ## Java SDK Changes:
+  * `novu.topics.upsert()`: **Added**
+  * `novu.topics.create()`: **Deleted** **Breaking** :warning:
