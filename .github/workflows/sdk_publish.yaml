@@ -19,8 +19,8 @@ jobs:
       target: novu
     secrets:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      java_gpg_passphrase: ${{ secrets.JAVA_GPG_PASSPHRASE }}
-      java_gpg_secret_key: ${{ secrets.JAVA_GPG_SECRET_KEY }}
+      java_gpg_passphrase: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSPHRASE}}
+      java_gpg_secret_key: ${{ secrets.OSSRH_GPG_PRIVATE_KEY }}
       ossrh_password: ${{ secrets.OSSRH_PASSWORD }}
       ossrh_username: ${{ secrets.OSSRH_USERNAME }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
