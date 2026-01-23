@@ -50,7 +50,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu:0.1.3'
+implementation 'co.novu:novu:3.12.0'
 ```
 
 Maven:
@@ -58,7 +58,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu</artifactId>
-    <version>0.1.3</version>
+    <version>3.12.0</version>
 </dependency>
 ```
 

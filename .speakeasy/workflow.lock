@@ -1,4 +1,4 @@
-speakeasyVersion: 1.693.0
+speakeasyVersion: 1.696.0
 sources:
     'DEPRECATED: Novu API. Use -openapi.{json,yaml} instead.':
         sourceNamespace: novu-oas
@@ -9,19 +9,20 @@ sources:
             - 3.12.0
     novu-OAS:
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:851554725ba179245d457ad20e919c7c98ae266ad2f7c40621d3247dd6e3a058
-        sourceBlobDigest: sha256:71389e6868a4d975393005a5f473bbe94acb60479f52a6bf17302f418c330d3c
+        sourceRevisionDigest: sha256:a4fbb15bb61b8963d50031aae18f985aceda5366f1006f4a94cc46a30b5ec47b
+        sourceBlobDigest: sha256:b05171ab57555446bc0e3be838b9667f5c44b575222c90ee36a7ab1416cefe1f
         tags:
             - latest
+            - speakeasy-sdk-regen-next-1769072241
             - 3.12.0
 targets:
     novu:
         source: novu-OAS
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:851554725ba179245d457ad20e919c7c98ae266ad2f7c40621d3247dd6e3a058
-        sourceBlobDigest: sha256:71389e6868a4d975393005a5f473bbe94acb60479f52a6bf17302f418c330d3c
+        sourceRevisionDigest: sha256:a4fbb15bb61b8963d50031aae18f985aceda5366f1006f4a94cc46a30b5ec47b
+        sourceBlobDigest: sha256:b05171ab57555446bc0e3be838b9667f5c44b575222c90ee36a7ab1416cefe1f
         codeSamplesNamespace: novu-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:d45375d8b517d714c197543b78b510122c37628e3ed8ee28129b03d363790704
+        codeSamplesRevisionDigest: sha256:9eecd94f19a0c7e69f99232c659351eed0e2f4b81e96c62631fa1f404239ef91
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -37,6 +38,12 @@ workflow:
         novu:
             target: java
             source: novu-OAS
+            publish:
+                java:
+                    ossrhUsername: $ossrh_username
+                    ossrhPassword: $ossrh_password
+                    gpgSecretKey: $java_gpg_secret_key
+                    gpgPassPhrase: $java_gpg_passphrase
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/novu/novu/novu-oas-java-code-samples

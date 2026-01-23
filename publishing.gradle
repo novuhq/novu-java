@@ -5,6 +5,29 @@ afterEvaluate {
     }
 
     def config = project.ext.publishingConfig
+    sonatypeCentralUpload {
+        username = System.getenv("SONATYPE_USERNAME") ?: "test-user"
+        password = System.getenv("SONATYPE_PASSWORD") ?: "test-password"
+        
+        // Use the actual generated artifact files
+        archives = provider {
+            def libsDir = layout.buildDirectory.dir("libs").get()
+            def artifactId = config.artifactId
+            def version = config.version
+            
+            files(
+                libsDir.file("${artifactId}-${version}.jar"),
+                libsDir.file("${artifactId}-${version}-sources.jar"),
+                libsDir.file("${artifactId}-${version}-javadoc.jar")
+            )
+        }
+        
+        pom = layout.buildDirectory.file("pom.xml").get().asFile
+        // This is your PGP private key. This is required to sign your files
+        signingKey = System.getenv("SONATYPE_SIGNING_KEY") ?: ""
+        // This is your PGP private key passphrase to decrypt your private key
+        signingKeyPassphrase = System.getenv("SIGNING_KEY_PASSPHRASE") ?: ""
+    }
     publishing {
 
         publications {

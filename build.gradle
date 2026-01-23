@@ -14,6 +14,8 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
+    // V2 publishing plugin (Sonatype Central Portal)
+    id 'cl.franciscosolis.sonatype-central-upload' version '1.0.3'
     id "io.spring.dependency-management" version "1.1.6" apply false
 }
 
@@ -36,6 +38,7 @@ group = "${groupId}"
 
 jar {
     dependsOn 'generatePomFileForMavenPublication'
+    archiveBaseName = "${artifactId}"
 
     into("META-INF/maven/co.novu/novu") {
         from(layout.buildDirectory.file("pom.xml")) {
@@ -102,6 +105,7 @@ subprojects {
             plugin "io.spring.dependency-management"
             plugin "maven-publish"
             plugin "signing"
+            plugin "cl.franciscosolis.sonatype-central-upload"
         }
         dependencyManagement {
             imports {
