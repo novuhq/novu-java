@@ -5,14 +5,15 @@ management:
   docVersion: 3.14.0
   speakeasyVersion: 1.732.2
   generationVersion: 2.845.10
-  releaseVersion: 3.13.0
-  configChecksum: 778c2dc8da760111b3a8d4189e7186aa
+  releaseVersion: 3.14.0
+  configChecksum: 27929c8c41866427de46a3e4af6ea2d8
   repoURL: https://github.com/novuhq/novu-java.git
+  installationURL: https://github.com/novuhq/novu-java
   published: true
 persistentEdits:
-  generation_id: 33cb9be3-1b1a-4228-9568-dfdf8d5c99db
-  pristine_commit_hash: 58fbcfe9ddd789f4f5586906ca94d768d9841509
-  pristine_tree_hash: dea32494e81b2346f62f6a52534e7f399050a0d7
+  generation_id: ca009ef3-5c5d-455c-822e-613168df9ca6
+  pristine_commit_hash: 44f7d4531d546efe998d9e10b3d39b2fab6b2688
+  pristine_tree_hash: 44e3b91e9ddcdc85d2a4174fdc3c4cd869d71ab7
 features:
   java:
     additionalDependencies: 0.1.0
@@ -2881,8 +2882,8 @@ trackedFiles:
     pristine_git_object: ebaa3566af4ce4249639e5a2dd8bca0edd2979bf
   gradle.properties:
     id: 2afbb999f001
-    last_write_checksum: sha1:ed8dd5af4862f03a79393fc2c35a0259b5a20d4f
-    pristine_git_object: 3fe5ab9d077906de698b1b0c73f1f71f2d350e0b
+    last_write_checksum: sha1:cb99eda45e8e5961c2383fe8d0957768ee78b340
+    pristine_git_object: 7b03c511da89c676d8960c38995b288d1658c161
   gradle/wrapper/gradle-wrapper.jar:
     id: ec27dae6e852
     last_write_checksum: sha1:f725fb1467084142d74fd7cd8eab691ab3442611
@@ -3089,8 +3090,8 @@ trackedFiles:
     pristine_git_object: 1b5f7ce4b77efc9d29be373d45eca57c867ad675
   src/main/java/co/novu/SDKConfiguration.java:
     id: c8d0f1a7e696
-    last_write_checksum: sha1:0e0ca687da6d35205aafc4d13edf1396f694b42f
-    pristine_git_object: f83dbd56febe541513313bb64fdcda7a69a93981
+    last_write_checksum: sha1:638ef83d2eb6edf3d250cb87ef9fd8c6e5597fa5
+    pristine_git_object: 992ece489fd54746c9cc80b7a48dc51d740e2cba
   src/main/java/co/novu/SecuritySource.java:
     id: 8b19fc2daaf0
     last_write_checksum: sha1:b876d0191046515ce80a9ea832f7c9b06bcfaa40
