@@ -13,6 +13,7 @@ sources:
         sourceBlobDigest: sha256:70458c344be37b8b008f62e6725939bfe6ebcef8ec5edceebaf375ae6f541c10
         tags:
             - latest
+            - speakeasy-sdk-regen-next-1769213168
             - 3.14.0
 targets:
     novu:
@@ -21,7 +22,7 @@ targets:
         sourceRevisionDigest: sha256:aaf89e274c31a5a450b1170b501418fe743781d8797e09e5827f2adb34e5f49a
         sourceBlobDigest: sha256:70458c344be37b8b008f62e6725939bfe6ebcef8ec5edceebaf375ae6f541c10
         codeSamplesNamespace: novu-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:5c2d4382f80ca859d4e2dc5a96f870c99a79ee4de6c5065fefeb34d9ba30ce97
+        codeSamplesRevisionDigest: sha256:c73df67cdc82540ab0df3a94450eda0fdb446c4f8d4bdfe12f23112c12595130
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
