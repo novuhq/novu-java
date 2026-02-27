@@ -334,17 +334,13 @@ public class EventStream<ResponseT extends AsyncResponse, ItemT> implements Publ
 
         @Override
         public ItemT processItem(EventStreamMessage message, ObjectMapper objectMapper, TypeReference<ItemT> typeReference) {
-            // Skip empty data messages
-            if (message.data().isEmpty()) {
-                return null;
-            }
             return Utils.asType(message, objectMapper, typeReference);
         }
 
         @Override
         public boolean shouldStop(EventStreamMessage message) {
             // Check if this is a terminal message
-            return terminalMessage != null && terminalMessage.equals(message.data());
+            return terminalMessage != null && message.data().map(terminalMessage::equals).orElse(false);
         }
     }
 

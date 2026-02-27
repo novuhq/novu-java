@@ -44,7 +44,16 @@ import java.lang.Boolean;
 import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
-
+/**
+ * Topics are a way to group subscribers together so that they can be notified of events at once. A
+ * topic is identified by a custom key. This can be helpful for things like sending out marketing
+ * emails or notifying users of new features.
+ * 
+ * <p>Topics can also be used to send notifications to the subscribers who have been grouped together
+ * based on their interests, location, activities and much more.
+ * 
+ * <p><a href="https://docs.novu.co/subscribers/topics">https://docs.novu.co/subscribers/topics</a>
+ */
 public class AsyncTopics {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
@@ -376,9 +385,9 @@ public class AsyncTopics {
 
 
     /**
-     * Get a topic subscription
+     * Retrieve a topic subscription
      * 
-     * <p>Get a subscription by its unique identifier for a topic.
+     * <p>Retrieve a subscription by its unique identifier for a topic.
      * 
      * @return The async call builder
      */
@@ -387,9 +396,9 @@ public class AsyncTopics {
     }
 
     /**
-     * Get a topic subscription
+     * Retrieve a topic subscription
      * 
-     * <p>Get a subscription by its unique identifier for a topic.
+     * <p>Retrieve a subscription by its unique identifier for a topic.
      * 
      * @param topicKey The key identifier of the topic
      * @param identifier The unique identifier of the subscription
@@ -402,9 +411,9 @@ public class AsyncTopics {
     }
 
     /**
-     * Get a topic subscription
+     * Retrieve a topic subscription
      * 
-     * <p>Get a subscription by its unique identifier for a topic.
+     * <p>Retrieve a subscription by its unique identifier for a topic.
      * 
      * @param topicKey The key identifier of the topic
      * @param identifier The unique identifier of the subscription

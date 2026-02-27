@@ -2,6 +2,9 @@
 
 ## Overview
 
+Used to localize your notifications to different languages.
+<https://docs.novu.co/platform/workflow/advanced-features/translations>
+
 ### Available Operations
 
 * [create](#create) - Create a translation

@@ -28,13 +28,13 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 @AutoConfiguration
 @ConditionalOnClass(Novu.class)
-@EnableConfigurationProperties(NovuAutoConfigProperties.class)
-public class NovuAutoConfig {
+@EnableConfigurationProperties(NovuJavaAutoConfigProperties.class)
+public class NovuJavaAutoConfig {
 
     /**
      * Constructor.
      */
-    public NovuAutoConfig() {
+    public NovuJavaAutoConfig() {
     }
 
     /**
@@ -45,12 +45,12 @@ public class NovuAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "novu.retry-config", name = "strategy")
-    public RetryConfig retryConfig(NovuAutoConfigProperties properties) {
-        NovuAutoConfigProperties.RetryConfig retryProps = properties.getRetryConfig();
+    @ConditionalOnProperty(prefix = "novujava.retry-config", name = "strategy")
+    public RetryConfig retryConfig(NovuJavaAutoConfigProperties properties) {
+        NovuJavaAutoConfigProperties.RetryConfig retryProps = properties.getRetryConfig();
         
         if (RetryConfig.Strategy.BACKOFF.equals(retryProps.getStrategy())) {
-            NovuAutoConfigProperties.RetryConfig.Backoff backoff = retryProps.getBackoff();
+            NovuJavaAutoConfigProperties.RetryConfig.Backoff backoff = retryProps.getBackoff();
             return RetryConfig.builder()
                 .backoff(
                     BackoffStrategy.builder()
@@ -77,8 +77,8 @@ public class NovuAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    public HTTPClient httpClient(NovuAutoConfigProperties properties) {
-        NovuAutoConfigProperties.HttpClient httpClientProps = properties.getHttpClient();
+    public HTTPClient httpClient(NovuJavaAutoConfigProperties properties) {
+        NovuJavaAutoConfigProperties.HttpClient httpClientProps = properties.getHttpClient();
 
         if (httpClientProps != null) {
             // Configure debug logging
@@ -100,8 +100,8 @@ public class NovuAutoConfig {
      */
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnPropertyPrefix(prefix = "novu.security")
-    public SecuritySource securitySource(NovuAutoConfigProperties properties) {NovuAutoConfigProperties.Security securityProps = properties.getSecurity();
+    @ConditionalOnPropertyPrefix(prefix = "novujava.security")
+    public SecuritySource securitySource(NovuJavaAutoConfigProperties properties) {NovuJavaAutoConfigProperties.Security securityProps = properties.getSecurity();
         co.novu.models.components.Security.Builder securityBuilder = co.novu.models.components.Security.builder();
         boolean hasAnySecurityConfiguration = false;
         // Build secretKey security from direct properties (primitive value)
@@ -132,7 +132,7 @@ public class NovuAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public SDKConfiguration sdkConfiguration(
-            NovuAutoConfigProperties properties,
+            NovuJavaAutoConfigProperties properties,
             HTTPClient httpClient,
             co.novu.utils.Hooks hooks,
             co.novu.utils.AsyncHooks asyncHooks,

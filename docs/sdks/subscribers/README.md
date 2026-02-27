@@ -2,6 +2,9 @@
 
 ## Overview
 
+A subscriber in Novu represents someone who should receive a message. A subscriber's profile information contains important attributes about the subscriber that will be used in messages (name, email). The subscriber object can contain other key-value pairs that can be used to further personalize your messages.
+<https://docs.novu.co/subscribers/subscribers>
+
 ### Available Operations
 
 * [search](#search) - Search subscribers

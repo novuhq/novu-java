@@ -2,6 +2,9 @@
 
 ## Overview
 
+Topics are a way to group subscribers together so that they can be notified of events at once. A topic is identified by a custom key. This can be helpful for things like sending out marketing emails or notifying users of new features. Topics can also be used to send notifications to the subscribers who have been grouped together based on their interests, location, activities and much more.
+<https://docs.novu.co/subscribers/topics>
+
 ### Available Operations
 
 * [fetchAll](#fetchall) - List all topics
@@ -10,7 +13,7 @@
 * [modify](#modify) - Update a topic
 * [remove](#remove) - Delete a topic
 * [createSubscription](#createsubscription) - Create topic subscriptions
-* [getSubscriptionById](#getsubscriptionbyid) - Get a topic subscription
+* [getSubscriptionById](#getsubscriptionbyid) - Retrieve a topic subscription
 
 ## fetchAll
 
@@ -395,7 +398,7 @@ public class Application {
 
 ## getSubscriptionById
 
-Get a subscription by its unique identifier for a topic.
+Retrieve a subscription by its unique identifier for a topic.
 
 ### Example Usage
 

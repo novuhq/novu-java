@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -237,14 +239,14 @@ public class MessageResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payload")
-    private MessageResponseDtoPayload payload;
+    private Map<String, Object> payload;
 
     /**
      * Provider specific overrides used when triggering the notification
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("overrides")
-    private MessageResponseDtoOverrides overrides;
+    private Map<String, Object> overrides;
 
     /**
      * Context (single or multi) in which the message was sent
@@ -287,8 +289,8 @@ public class MessageResponseDto {
             @JsonProperty("status") @Nonnull MessageStatusEnum status,
             @JsonProperty("errorId") @Nullable String errorId,
             @JsonProperty("errorText") @Nullable String errorText,
-            @JsonProperty("payload") @Nullable MessageResponseDtoPayload payload,
-            @JsonProperty("overrides") @Nullable MessageResponseDtoOverrides overrides,
+            @JsonProperty("payload") @Nullable Map<String, Object> payload,
+            @JsonProperty("overrides") @Nullable Map<String, Object> overrides,
             @JsonProperty("contextKeys") @Nullable List<String> contextKeys) {
         this.id = id;
         this.templateId = Optional.ofNullable(templateId)
@@ -594,14 +596,14 @@ public class MessageResponseDto {
     /**
      * The payload that was used to send the notification trigger
      */
-    public Optional<MessageResponseDtoPayload> payload() {
+    public Optional<Map<String, Object>> payload() {
         return Optional.ofNullable(this.payload);
     }
 
     /**
      * Provider specific overrides used when triggering the notification
      */
-    public Optional<MessageResponseDtoOverrides> overrides() {
+    public Optional<Map<String, Object>> overrides() {
         return Optional.ofNullable(this.overrides);
     }
 
@@ -909,7 +911,7 @@ public class MessageResponseDto {
     /**
      * The payload that was used to send the notification trigger
      */
-    public MessageResponseDto withPayload(@Nullable MessageResponseDtoPayload payload) {
+    public MessageResponseDto withPayload(@Nullable Map<String, Object> payload) {
         this.payload = payload;
         return this;
     }
@@ -918,7 +920,7 @@ public class MessageResponseDto {
     /**
      * Provider specific overrides used when triggering the notification
      */
-    public MessageResponseDto withOverrides(@Nullable MessageResponseDtoOverrides overrides) {
+    public MessageResponseDto withOverrides(@Nullable Map<String, Object> overrides) {
         this.overrides = overrides;
         return this;
     }
@@ -1104,9 +1106,9 @@ public class MessageResponseDto {
 
         private String errorText;
 
-        private MessageResponseDtoPayload payload;
+        private Map<String, Object> payload;
 
-        private MessageResponseDtoOverrides overrides;
+        private Map<String, Object> overrides;
 
         private List<String> contextKeys;
 
@@ -1374,7 +1376,7 @@ public class MessageResponseDto {
         /**
          * The payload that was used to send the notification trigger
          */
-        public Builder payload(@Nullable MessageResponseDtoPayload payload) {
+        public Builder payload(@Nullable Map<String, Object> payload) {
             this.payload = payload;
             return this;
         }
@@ -1382,7 +1384,7 @@ public class MessageResponseDto {
         /**
          * Provider specific overrides used when triggering the notification
          */
-        public Builder overrides(@Nullable MessageResponseDtoOverrides overrides) {
+        public Builder overrides(@Nullable Map<String, Object> overrides) {
             this.overrides = overrides;
             return this;
         }

@@ -23,7 +23,8 @@ public enum WorkflowCreationSourceEnum {
     DROPDOWN("dropdown"),
     ONBOARDING_GET_STARTED("onboarding_get_started"),
     BRIDGE("bridge"),
-    DASHBOARD("dashboard");
+    DASHBOARD("dashboard"),
+    AI("ai");
 
     @JsonValue
     private final String value;

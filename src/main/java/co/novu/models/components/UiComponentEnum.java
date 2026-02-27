@@ -27,6 +27,7 @@ public class UiComponentEnum {
 
     public static final UiComponentEnum EMAIL_EDITOR_SELECT = new UiComponentEnum("EMAIL_EDITOR_SELECT");
     public static final UiComponentEnum LAYOUT_SELECT = new UiComponentEnum("LAYOUT_SELECT");
+    public static final UiComponentEnum EMAIL_RENDERER_SELECT = new UiComponentEnum("EMAIL_RENDERER_SELECT");
     public static final UiComponentEnum BLOCK_EDITOR = new UiComponentEnum("BLOCK_EDITOR");
     public static final UiComponentEnum EMAIL_BODY = new UiComponentEnum("EMAIL_BODY");
     public static final UiComponentEnum TEXT_FULL_LINE = new UiComponentEnum("TEXT_FULL_LINE");
@@ -137,6 +138,7 @@ public class UiComponentEnum {
         Map<String, UiComponentEnum> map = new LinkedHashMap<>();
         map.put("EMAIL_EDITOR_SELECT", EMAIL_EDITOR_SELECT);
         map.put("LAYOUT_SELECT", LAYOUT_SELECT);
+        map.put("EMAIL_RENDERER_SELECT", EMAIL_RENDERER_SELECT);
         map.put("BLOCK_EDITOR", BLOCK_EDITOR);
         map.put("EMAIL_BODY", EMAIL_BODY);
         map.put("TEXT_FULL_LINE", TEXT_FULL_LINE);
@@ -179,6 +181,7 @@ public class UiComponentEnum {
         Map<String, UiComponentEnumEnum> map = new HashMap<>();
         map.put("EMAIL_EDITOR_SELECT", UiComponentEnumEnum.EMAIL_EDITOR_SELECT);
         map.put("LAYOUT_SELECT", UiComponentEnumEnum.LAYOUT_SELECT);
+        map.put("EMAIL_RENDERER_SELECT", UiComponentEnumEnum.EMAIL_RENDERER_SELECT);
         map.put("BLOCK_EDITOR", UiComponentEnumEnum.BLOCK_EDITOR);
         map.put("EMAIL_BODY", UiComponentEnumEnum.EMAIL_BODY);
         map.put("TEXT_FULL_LINE", UiComponentEnumEnum.TEXT_FULL_LINE);
@@ -222,6 +225,7 @@ public class UiComponentEnum {
 
         EMAIL_EDITOR_SELECT("EMAIL_EDITOR_SELECT"),
         LAYOUT_SELECT("LAYOUT_SELECT"),
+        EMAIL_RENDERER_SELECT("EMAIL_RENDERER_SELECT"),
         BLOCK_EDITOR("BLOCK_EDITOR"),
         EMAIL_BODY("EMAIL_BODY"),
         TEXT_FULL_LINE("TEXT_FULL_LINE"),

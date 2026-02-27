@@ -55,7 +55,11 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
 
-
+/**
+ * Used to localize your notifications to different languages.
+ * 
+ * <p><a href="https://docs.novu.co/platform/workflow/advanced-features/translations">https://docs.novu.co/platform/workflow/advanced-features/translations</a>
+ */
 public class Translations {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;

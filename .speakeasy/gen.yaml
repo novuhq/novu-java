@@ -14,6 +14,7 @@ generation:
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: true
+    nameOverrideFeb2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -23,16 +24,17 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: body
+  versioningStrategy: automatic
   persistentEdits: {}
   tests:
     generateTests: false
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 3.12.0
+  version: 3.13.0
   additionalDependencies: []
   additionalPlugins: []
-  artifactID: novu
+  artifactID: novu-java
   asyncMode: enabled
   baseErrorName: NovuException
   clientServerStatusCodesAsErrors: true
@@ -41,10 +43,12 @@ java:
   companyURL: https://novu.co
   defaultErrorName: APIException
   enableCustomCodeRegions: false
+  enableFormatting: false
   enableSlf4jLogging: true
   enableStreamingUploads: true
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: true
+  forwardCompatibleUnionsByDefault: "false"
   generateOptionalUnionAccessors: true
   generateSpringBootStarter: true
   githubURL: github.com/novuhq/novu-java
@@ -67,10 +71,10 @@ java:
   maxMethodParams: 4
   multipartArrayFormat: standard
   nullFriendlyParameters: true
-  openUnions: true
   operationScopedParams: true
   outputModelSuffix: output
   packageName: co.novu
   projectName: novu
+  respectTitlesForPrimitiveUnionMembers: false
   templateVersion: v2
   unionStrategy: populated-fields

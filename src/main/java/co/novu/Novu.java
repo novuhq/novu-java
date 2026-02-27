@@ -79,16 +79,36 @@ public class Novu {
      */
     private final Layouts layouts;
 
-
+    /**
+     * A subscriber in Novu represents someone who should receive a message. A subscriber's profile
+     * information contains important attributes about the subscriber that will be used in messages (name,
+     * email). The subscriber object can contain other key-value pairs that can be used to further
+     * personalize your messages.
+     * 
+     * <p><a href="https://docs.novu.co/subscribers/subscribers">https://docs.novu.co/subscribers/subscribers</a>
+     */
     private final Subscribers subscribers;
 
 
     private final SubscribersTopics subscribersTopics;
 
-
+    /**
+     * Topics are a way to group subscribers together so that they can be notified of events at once. A
+     * topic is identified by a custom key. This can be helpful for things like sending out marketing
+     * emails or notifying users of new features.
+     * 
+     * <p>Topics can also be used to send notifications to the subscribers who have been grouped together
+     * based on their interests, location, activities and much more.
+     * 
+     * <p><a href="https://docs.novu.co/subscribers/topics">https://docs.novu.co/subscribers/topics</a>
+     */
     private final Topics topics;
 
-
+    /**
+     * Used to localize your notifications to different languages.
+     * 
+     * <p><a href="https://docs.novu.co/platform/workflow/advanced-features/translations">https://docs.novu.co/platform/workflow/advanced-features/translations</a>
+     */
     private final Translations translations;
 
     /**
@@ -165,7 +185,14 @@ public class Novu {
         return layouts;
     }
 
-
+    /**
+     * A subscriber in Novu represents someone who should receive a message. A subscriber's profile
+     * information contains important attributes about the subscriber that will be used in messages (name,
+     * email). The subscriber object can contain other key-value pairs that can be used to further
+     * personalize your messages.
+     * 
+     * <p><a href="https://docs.novu.co/subscribers/subscribers">https://docs.novu.co/subscribers/subscribers</a>
+     */
     public Subscribers subscribers() {
         return subscribers;
     }
@@ -175,12 +202,25 @@ public class Novu {
         return subscribersTopics;
     }
 
-
+    /**
+     * Topics are a way to group subscribers together so that they can be notified of events at once. A
+     * topic is identified by a custom key. This can be helpful for things like sending out marketing
+     * emails or notifying users of new features.
+     * 
+     * <p>Topics can also be used to send notifications to the subscribers who have been grouped together
+     * based on their interests, location, activities and much more.
+     * 
+     * <p><a href="https://docs.novu.co/subscribers/topics">https://docs.novu.co/subscribers/topics</a>
+     */
     public Topics topics() {
         return topics;
     }
 
-
+    /**
+     * Used to localize your notifications to different languages.
+     * 
+     * <p><a href="https://docs.novu.co/platform/workflow/advanced-features/translations">https://docs.novu.co/platform/workflow/advanced-features/translations</a>
+     */
     public Translations translations() {
         return translations;
     }

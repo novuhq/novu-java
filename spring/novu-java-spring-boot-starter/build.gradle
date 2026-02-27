@@ -4,7 +4,7 @@ description = 'novu Spring Boot Starter'
 ext {
     publishingConfig = [
         groupId: rootProject.group,
-        artifactId: 'novu-spring-boot-starter',
+        artifactId: 'novu-java-spring-boot-starter',
         version: rootProject.version,
         name: 'Novu Java SDK - Spring Boot Starter',
         description: 'Spring Boot starter for the Novu Java SDK.',
@@ -13,14 +13,14 @@ ext {
 
 dependencies {
     api project(':')
-    api project(':novu-spring-boot-autoconfigure')
+    api project(':novu-java-spring-boot-autoconfigure')
     api "org.springframework.boot:spring-boot-starter:${rootProject.springBootVersion}"
 }
 
 jar {
     dependsOn 'generatePomFileForMavenPublication'
-    archiveBaseName = 'novu-spring-boot-starter'
-    into("META-INF/maven/co.novu/novu-spring-boot-starter") {
+    archiveBaseName = 'novu-java-spring-boot-starter'
+    into("META-INF/maven/co.novu/novu-java-spring-boot-starter") {
         from(layout.buildDirectory.file("pom.xml")) {
             // Only include if it exists to avoid build ordering issues
             duplicatesStrategy = DuplicatesStrategy.INCLUDE

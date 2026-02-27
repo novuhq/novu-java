@@ -47,6 +47,14 @@ public final class RequestBody {
                     request);
         }
 
+        // If no requestField specified, the request object IS the body — serialize it directly
+        // without attempting any field lookup. This is the case when an operation has no
+        // parameters alongside the body (i.e. IsRequestBody=true at the callsite).
+        if (requestField == null || requestField.isEmpty()) {
+            return serializeContentType(requestField, SERIALIZATION_METHOD_TO_CONTENT_TYPE.get(serializationMethod),
+                    request);
+        }
+
         Field reqField = null;
 
         try {

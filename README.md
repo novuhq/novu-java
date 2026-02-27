@@ -50,15 +50,15 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu:3.12.0'
+implementation 'co.novu:novu-java:3.13.0'
 ```
 
 Maven:
 ```xml
 <dependency>
     <groupId>co.novu</groupId>
-    <artifactId>novu</artifactId>
-    <version>3.12.0</version>
+    <artifactId>novu-java</artifactId>
+    <version>3.13.0</version>
 </dependency>
 ```
 
@@ -482,7 +482,7 @@ public class Application {
 
 #### [Environments.Tags](docs/sdks/tags/README.md)
 
-* [get](docs/sdks/tags/README.md#get) - Get environment tags
+* [get](docs/sdks/tags/README.md#get) - List environment tags
 
 ### [Integrations](docs/sdks/integrations/README.md)
 
@@ -571,7 +571,7 @@ public class Application {
 * [modify](docs/sdks/topics/README.md#modify) - Update a topic
 * [remove](docs/sdks/topics/README.md#remove) - Delete a topic
 * [createSubscription](docs/sdks/topics/README.md#createsubscription) - Create topic subscriptions
-* [getSubscriptionById](docs/sdks/topics/README.md#getsubscriptionbyid) - Get a topic subscription
+* [getSubscriptionById](docs/sdks/topics/README.md#getsubscriptionbyid) - Retrieve a topic subscription
 
 ### [Topics.Subscribers](docs/sdks/topicssubscribers/README.md)
 

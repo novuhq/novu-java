@@ -56,7 +56,11 @@ import jakarta.annotation.Nullable;
 import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
-
+/**
+ * Used to localize your notifications to different languages.
+ * 
+ * <p><a href="https://docs.novu.co/platform/workflow/advanced-features/translations">https://docs.novu.co/platform/workflow/advanced-features/translations</a>
+ */
 public class AsyncTranslations {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;

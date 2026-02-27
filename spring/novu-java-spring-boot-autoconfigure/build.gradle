@@ -4,7 +4,7 @@ description = 'novu Spring Boot Auto Configuration'
 ext {
     publishingConfig = [
         groupId: rootProject.group,
-        artifactId: 'novu-spring-boot-autoconfigure',
+        artifactId: 'novu-java-spring-boot-autoconfigure',
         version: rootProject.version,
         name: 'Novu Java SDK - Spring Boot Auto Configuration',
         description: 'Spring Boot auto-configuration for the Novu Java SDK.',
@@ -25,8 +25,8 @@ test {
 
 jar {
     dependsOn 'generatePomFileForMavenPublication'
-    archiveBaseName = 'novu-spring-boot-autoconfigure'
-    into("META-INF/maven/co.novu/novu-spring-boot-autoconfigure") {
+    archiveBaseName = 'novu-java-spring-boot-autoconfigure'
+    into("META-INF/maven/co.novu/novu-java-spring-boot-autoconfigure") {
         from(layout.buildDirectory.file("pom.xml")) {
             // Only include if it exists to avoid build ordering issues
             duplicatesStrategy = DuplicatesStrategy.INCLUDE

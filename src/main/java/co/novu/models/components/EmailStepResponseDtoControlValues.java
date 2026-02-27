@@ -60,6 +60,13 @@ public class EmailStepResponseDtoControlValues {
     private EmailStepResponseDtoEditorType editorType;
 
     /**
+     * Type of renderer to use (raw HTML or React Email step resolver)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("rendererType")
+    private EmailStepResponseDtoRendererType rendererType;
+
+    /**
      * Disable sanitization of the output.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -83,6 +90,7 @@ public class EmailStepResponseDtoControlValues {
             @JsonProperty("subject") @Nonnull String subject,
             @JsonProperty("body") @Nullable String body,
             @JsonProperty("editorType") @Nullable EmailStepResponseDtoEditorType editorType,
+            @JsonProperty("rendererType") @Nullable EmailStepResponseDtoRendererType rendererType,
             @JsonProperty("disableOutputSanitization") @Nullable Boolean disableOutputSanitization,
             @JsonProperty("layoutId") @Nullable JsonNullable<String> layoutId) {
         this.skip = skip;
@@ -92,6 +100,8 @@ public class EmailStepResponseDtoControlValues {
             .orElse(Builder._SINGLETON_VALUE_Body.value());
         this.editorType = Optional.ofNullable(editorType)
             .orElse(Builder._SINGLETON_VALUE_EditorType.value());
+        this.rendererType = Optional.ofNullable(rendererType)
+            .orElse(Builder._SINGLETON_VALUE_RendererType.value());
         this.disableOutputSanitization = Optional.ofNullable(disableOutputSanitization)
             .orElse(Builder._SINGLETON_VALUE_DisableOutputSanitization.value());
         this.layoutId = Optional.ofNullable(layoutId)
@@ -102,7 +112,8 @@ public class EmailStepResponseDtoControlValues {
     public EmailStepResponseDtoControlValues(
             @Nonnull String subject) {
         this(null, subject, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -133,6 +144,13 @@ public class EmailStepResponseDtoControlValues {
      */
     public Optional<EmailStepResponseDtoEditorType> editorType() {
         return Optional.ofNullable(this.editorType);
+    }
+
+    /**
+     * Type of renderer to use (raw HTML or React Email step resolver)
+     */
+    public Optional<EmailStepResponseDtoRendererType> rendererType() {
+        return Optional.ofNullable(this.rendererType);
     }
 
     /**
@@ -198,6 +216,15 @@ public class EmailStepResponseDtoControlValues {
 
 
     /**
+     * Type of renderer to use (raw HTML or React Email step resolver)
+     */
+    public EmailStepResponseDtoControlValues withRendererType(@Nullable EmailStepResponseDtoRendererType rendererType) {
+        this.rendererType = rendererType;
+        return this;
+    }
+
+
+    /**
      * Disable sanitization of the output.
      */
     public EmailStepResponseDtoControlValues withDisableOutputSanitization(@Nullable Boolean disableOutputSanitization) {
@@ -243,6 +270,7 @@ public class EmailStepResponseDtoControlValues {
             Utils.enhancedDeepEquals(this.subject, other.subject) &&
             Utils.enhancedDeepEquals(this.body, other.body) &&
             Utils.enhancedDeepEquals(this.editorType, other.editorType) &&
+            Utils.enhancedDeepEquals(this.rendererType, other.rendererType) &&
             Utils.enhancedDeepEquals(this.disableOutputSanitization, other.disableOutputSanitization) &&
             Utils.enhancedDeepEquals(this.layoutId, other.layoutId) &&
             Utils.enhancedDeepEquals(this.additionalProperties, other.additionalProperties);
@@ -252,8 +280,8 @@ public class EmailStepResponseDtoControlValues {
     public int hashCode() {
         return Utils.enhancedHash(
             skip, subject, body,
-            editorType, disableOutputSanitization, layoutId,
-            additionalProperties);
+            editorType, rendererType, disableOutputSanitization,
+            layoutId, additionalProperties);
     }
     
     @Override
@@ -263,6 +291,7 @@ public class EmailStepResponseDtoControlValues {
                 "subject", subject,
                 "body", body,
                 "editorType", editorType,
+                "rendererType", rendererType,
                 "disableOutputSanitization", disableOutputSanitization,
                 "layoutId", layoutId,
                 "additionalProperties", additionalProperties);
@@ -278,6 +307,8 @@ public class EmailStepResponseDtoControlValues {
         private String body;
 
         private EmailStepResponseDtoEditorType editorType;
+
+        private EmailStepResponseDtoRendererType rendererType;
 
         private Boolean disableOutputSanitization;
 
@@ -324,6 +355,14 @@ public class EmailStepResponseDtoControlValues {
         }
 
         /**
+         * Type of renderer to use (raw HTML or React Email step resolver)
+         */
+        public Builder rendererType(@Nullable EmailStepResponseDtoRendererType rendererType) {
+            this.rendererType = rendererType;
+            return this;
+        }
+
+        /**
          * Disable sanitization of the output.
          */
         public Builder disableOutputSanitization(@Nullable Boolean disableOutputSanitization) {
@@ -356,7 +395,8 @@ public class EmailStepResponseDtoControlValues {
         public EmailStepResponseDtoControlValues build() {
             return new EmailStepResponseDtoControlValues(
                 skip, subject, body,
-                editorType, disableOutputSanitization, layoutId)
+                editorType, rendererType, disableOutputSanitization,
+                layoutId)
                 .withAdditionalProperties(additionalProperties);
         }
 
@@ -372,6 +412,12 @@ public class EmailStepResponseDtoControlValues {
                         "editorType",
                         "\"block\"",
                         new TypeReference<EmailStepResponseDtoEditorType>() {});
+
+        private static final LazySingletonValue<EmailStepResponseDtoRendererType> _SINGLETON_VALUE_RendererType =
+                new LazySingletonValue<>(
+                        "rendererType",
+                        "\"html\"",
+                        new TypeReference<EmailStepResponseDtoRendererType>() {});
 
         private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_DisableOutputSanitization =
                 new LazySingletonValue<>(

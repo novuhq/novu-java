@@ -52,6 +52,13 @@ public class EmailControlDto {
     private EmailControlDtoEditorType editorType;
 
     /**
+     * Type of renderer to use (raw HTML or React Email step resolver)
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("rendererType")
+    private EmailControlDtoRendererType rendererType;
+
+    /**
      * Disable sanitization of the output.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -71,6 +78,7 @@ public class EmailControlDto {
             @JsonProperty("subject") @Nonnull String subject,
             @JsonProperty("body") @Nullable String body,
             @JsonProperty("editorType") @Nullable EmailControlDtoEditorType editorType,
+            @JsonProperty("rendererType") @Nullable EmailControlDtoRendererType rendererType,
             @JsonProperty("disableOutputSanitization") @Nullable Boolean disableOutputSanitization,
             @JsonProperty("layoutId") @Nullable JsonNullable<String> layoutId) {
         this.skip = skip;
@@ -80,6 +88,8 @@ public class EmailControlDto {
             .orElse(Builder._SINGLETON_VALUE_Body.value());
         this.editorType = Optional.ofNullable(editorType)
             .orElse(Builder._SINGLETON_VALUE_EditorType.value());
+        this.rendererType = Optional.ofNullable(rendererType)
+            .orElse(Builder._SINGLETON_VALUE_RendererType.value());
         this.disableOutputSanitization = Optional.ofNullable(disableOutputSanitization)
             .orElse(Builder._SINGLETON_VALUE_DisableOutputSanitization.value());
         this.layoutId = Optional.ofNullable(layoutId)
@@ -89,7 +99,8 @@ public class EmailControlDto {
     public EmailControlDto(
             @Nonnull String subject) {
         this(null, subject, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -120,6 +131,13 @@ public class EmailControlDto {
      */
     public Optional<EmailControlDtoEditorType> editorType() {
         return Optional.ofNullable(this.editorType);
+    }
+
+    /**
+     * Type of renderer to use (raw HTML or React Email step resolver)
+     */
+    public Optional<EmailControlDtoRendererType> rendererType() {
+        return Optional.ofNullable(this.rendererType);
     }
 
     /**
@@ -180,6 +198,15 @@ public class EmailControlDto {
 
 
     /**
+     * Type of renderer to use (raw HTML or React Email step resolver)
+     */
+    public EmailControlDto withRendererType(@Nullable EmailControlDtoRendererType rendererType) {
+        this.rendererType = rendererType;
+        return this;
+    }
+
+
+    /**
      * Disable sanitization of the output.
      */
     public EmailControlDto withDisableOutputSanitization(@Nullable Boolean disableOutputSanitization) {
@@ -211,6 +238,7 @@ public class EmailControlDto {
             Utils.enhancedDeepEquals(this.subject, other.subject) &&
             Utils.enhancedDeepEquals(this.body, other.body) &&
             Utils.enhancedDeepEquals(this.editorType, other.editorType) &&
+            Utils.enhancedDeepEquals(this.rendererType, other.rendererType) &&
             Utils.enhancedDeepEquals(this.disableOutputSanitization, other.disableOutputSanitization) &&
             Utils.enhancedDeepEquals(this.layoutId, other.layoutId);
     }
@@ -219,7 +247,8 @@ public class EmailControlDto {
     public int hashCode() {
         return Utils.enhancedHash(
             skip, subject, body,
-            editorType, disableOutputSanitization, layoutId);
+            editorType, rendererType, disableOutputSanitization,
+            layoutId);
     }
     
     @Override
@@ -229,6 +258,7 @@ public class EmailControlDto {
                 "subject", subject,
                 "body", body,
                 "editorType", editorType,
+                "rendererType", rendererType,
                 "disableOutputSanitization", disableOutputSanitization,
                 "layoutId", layoutId);
     }
@@ -243,6 +273,8 @@ public class EmailControlDto {
         private String body;
 
         private EmailControlDtoEditorType editorType;
+
+        private EmailControlDtoRendererType rendererType;
 
         private Boolean disableOutputSanitization;
 
@@ -287,6 +319,14 @@ public class EmailControlDto {
         }
 
         /**
+         * Type of renderer to use (raw HTML or React Email step resolver)
+         */
+        public Builder rendererType(@Nullable EmailControlDtoRendererType rendererType) {
+            this.rendererType = rendererType;
+            return this;
+        }
+
+        /**
          * Disable sanitization of the output.
          */
         public Builder disableOutputSanitization(@Nullable Boolean disableOutputSanitization) {
@@ -305,7 +345,8 @@ public class EmailControlDto {
         public EmailControlDto build() {
             return new EmailControlDto(
                 skip, subject, body,
-                editorType, disableOutputSanitization, layoutId);
+                editorType, rendererType, disableOutputSanitization,
+                layoutId);
         }
 
 
@@ -320,6 +361,12 @@ public class EmailControlDto {
                         "editorType",
                         "\"block\"",
                         new TypeReference<EmailControlDtoEditorType>() {});
+
+        private static final LazySingletonValue<EmailControlDtoRendererType> _SINGLETON_VALUE_RendererType =
+                new LazySingletonValue<>(
+                        "rendererType",
+                        "\"html\"",
+                        new TypeReference<EmailControlDtoRendererType>() {});
 
         private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_DisableOutputSanitization =
                 new LazySingletonValue<>(

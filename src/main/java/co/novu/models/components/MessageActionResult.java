@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -20,7 +22,7 @@ public class MessageActionResult {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payload")
-    private MessageActionResultPayload payload;
+    private Map<String, Object> payload;
 
     /**
      * Type of button for the action result
@@ -31,7 +33,7 @@ public class MessageActionResult {
 
     @JsonCreator
     public MessageActionResult(
-            @JsonProperty("payload") @Nullable MessageActionResultPayload payload,
+            @JsonProperty("payload") @Nullable Map<String, Object> payload,
             @JsonProperty("type") @Nullable ButtonTypeEnum type) {
         this.payload = payload;
         this.type = type;
@@ -44,7 +46,7 @@ public class MessageActionResult {
     /**
      * Payload of the action result
      */
-    public Optional<MessageActionResultPayload> payload() {
+    public Optional<Map<String, Object>> payload() {
         return Optional.ofNullable(this.payload);
     }
 
@@ -63,7 +65,7 @@ public class MessageActionResult {
     /**
      * Payload of the action result
      */
-    public MessageActionResult withPayload(@Nullable MessageActionResultPayload payload) {
+    public MessageActionResult withPayload(@Nullable Map<String, Object> payload) {
         this.payload = payload;
         return this;
     }
@@ -108,7 +110,7 @@ public class MessageActionResult {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private MessageActionResultPayload payload;
+        private Map<String, Object> payload;
 
         private ButtonTypeEnum type;
 
@@ -119,7 +121,7 @@ public class MessageActionResult {
         /**
          * Payload of the action result
          */
-        public Builder payload(@Nullable MessageActionResultPayload payload) {
+        public Builder payload(@Nullable Map<String, Object> payload) {
             this.payload = payload;
             return this;
         }

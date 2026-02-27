@@ -4,7 +4,7 @@
 
 ### Available Operations
 
-* [get](#get) - Get environment tags
+* [get](#get) - List environment tags
 
 ## get
 

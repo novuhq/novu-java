@@ -59,7 +59,14 @@ import java.lang.Boolean;
 import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
-
+/**
+ * A subscriber in Novu represents someone who should receive a message. A subscriber's profile
+ * information contains important attributes about the subscriber that will be used in messages (name,
+ * email). The subscriber object can contain other key-value pairs that can be used to further
+ * personalize your messages.
+ * 
+ * <p><a href="https://docs.novu.co/subscribers/subscribers">https://docs.novu.co/subscribers/subscribers</a>
+ */
 public class AsyncSubscribers {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;

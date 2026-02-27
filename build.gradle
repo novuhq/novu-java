@@ -40,7 +40,7 @@ jar {
     dependsOn 'generatePomFileForMavenPublication'
     archiveBaseName = "${artifactId}"
 
-    into("META-INF/maven/co.novu/novu") {
+    into("META-INF/maven/co.novu/novu-java") {
         from(layout.buildDirectory.file("pom.xml")) {
             // Only include if it exists to avoid build ordering issues
             duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -93,8 +93,8 @@ ext {
 
 subprojects {
     if (name in [
-            'novu-spring-boot-autoconfigure',
-            'novu-spring-boot-starter'
+            'novu-java-spring-boot-autoconfigure',
+            'novu-java-spring-boot-starter'
     ]) {
         // Ensure subprojects use the same group and version as root project
         group = rootProject.group

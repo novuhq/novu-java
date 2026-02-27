@@ -14,13 +14,13 @@ import java.util.Set;
 /**
  * Spring Boot Configuration Properties for novu SDK
  */
-@ConfigurationProperties(prefix = "novu")
-public class NovuAutoConfigProperties {
+@ConfigurationProperties(prefix = "novujava")
+public class NovuJavaAutoConfigProperties {
 
     /**
      * Constructor.
      */
-    public NovuAutoConfigProperties() {
+    public NovuJavaAutoConfigProperties() {
     }
 
     /**

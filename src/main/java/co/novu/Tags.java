@@ -36,7 +36,7 @@ public class Tags {
     }
 
     /**
-     * Get environment tags
+     * List environment tags
      * 
      * <p>Retrieve all unique tags used in workflows within the specified environment. These tags can be used
      * for filtering workflows.
@@ -48,7 +48,7 @@ public class Tags {
     }
 
     /**
-     * Get environment tags
+     * List environment tags
      * 
      * <p>Retrieve all unique tags used in workflows within the specified environment. These tags can be used
      * for filtering workflows.
@@ -62,7 +62,7 @@ public class Tags {
     }
 
     /**
-     * Get environment tags
+     * List environment tags
      * 
      * <p>Retrieve all unique tags used in workflows within the specified environment. These tags can be used
      * for filtering workflows.
