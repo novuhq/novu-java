@@ -1,14 +1,10 @@
 # openapi
 
-Developer-friendly & type-safe Java SDK specifically catered to leverage *openapi* API.
+Developer-friendly & type-safe Java SDK specifically
 
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=java)
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://mit-license.org/)
 
-
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/novu/novu). Delete this section before > publishing to a package manager.
 
 <!-- Start Summary [summary] -->
 ## Summary
