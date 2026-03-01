@@ -1,5 +1,3 @@
-# openapi
-
 Developer-friendly & type-safe Java SDK specifically
 
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=java)
