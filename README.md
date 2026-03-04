@@ -29,8 +29,7 @@ The notification platform that turns complex multi-channel delivery into a singl
 
 <!-- speakeasy-ignore-end -->
 
-Developer-friendly & type-safe Java SDK specifically
-
+# JAVA Novu SDK
 [![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://mit-license.org/)
 
 
