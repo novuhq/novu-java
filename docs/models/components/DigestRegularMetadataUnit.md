@@ -1,5 +1,16 @@
 # DigestRegularMetadataUnit
 
+## Example Usage
+
+```java
+import co.novu.models.components.DigestRegularMetadataUnit;
+
+DigestRegularMetadataUnit value = DigestRegularMetadataUnit.SECONDS;
+
+// Open enum: use .of() to create instances from custom string values
+DigestRegularMetadataUnit custom = DigestRegularMetadataUnit.of("custom_value");
+```
+
 
 ## Values
 

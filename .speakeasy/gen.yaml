@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 3.14.0
+  version: 3.14.1
   additionalDependencies: []
   additionalPlugins: []
   artifactID: novu-java
@@ -46,11 +46,13 @@ java:
   enableFormatting: false
   enableSlf4jLogging: true
   enableStreamingUploads: true
+  explicitDocImports: false
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: true
   forwardCompatibleUnionsByDefault: "false"
   generateOptionalUnionAccessors: true
   generateSpringBootStarter: true
+  generateUnionDocs: false
   githubURL: github.com/novuhq/novu-java
   groupID: co.novu
   imports:
@@ -74,7 +76,9 @@ java:
   operationScopedParams: true
   outputModelSuffix: output
   packageName: co.novu
+  prefixModeMethodNames: false
   projectName: novu
   respectTitlesForPrimitiveUnionMembers: false
+  showSetterGetterTypesInDocs: false
   templateVersion: v2
   unionStrategy: populated-fields

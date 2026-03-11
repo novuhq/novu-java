@@ -37,7 +37,7 @@ public class Application {
                 .call();
 
         if (res.unseenCountResponse().isPresent()) {
-            // handle response
+            System.out.println(res.unseenCountResponse().get());
         }
     }
 }

@@ -1,5 +1,16 @@
 # Ordinal
 
+## Example Usage
+
+```java
+import co.novu.models.components.Ordinal;
+
+Ordinal value = Ordinal.ONE;
+
+// Open enum: use .of() to create instances from custom string values
+Ordinal custom = Ordinal.of("custom_value");
+```
+
 
 ## Values
 

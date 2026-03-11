@@ -2,6 +2,17 @@
 
 Provider ID of the job
 
+## Example Usage
+
+```java
+import co.novu.models.components.ProvidersIdEnum;
+
+ProvidersIdEnum value = ProvidersIdEnum.EMAILJS;
+
+// Open enum: use .of() to create instances from custom string values
+ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
+```
+
 
 ## Values
 

@@ -54,7 +54,7 @@ public class Application {
                 .call();
 
         if (res.translationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.translationResponseDto().get());
         }
     }
 }
@@ -107,7 +107,7 @@ public class Application {
                 .call();
 
         if (res.translationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.translationResponseDto().get());
         }
     }
 }
@@ -317,7 +317,7 @@ public class Application {
                 .call();
 
         if (res.translationGroupDto().isPresent()) {
-            // handle response
+            System.out.println(res.translationGroupDto().get());
         }
     }
 }
@@ -368,7 +368,7 @@ public class Application {
                 .call();
 
         if (res.getMasterJsonResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getMasterJsonResponseDto().get());
         }
     }
 }
@@ -430,7 +430,7 @@ public class Application {
                 .call();
 
         if (res.importMasterJsonResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.importMasterJsonResponseDto().get());
         }
     }
 }

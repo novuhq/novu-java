@@ -2,6 +2,17 @@
 
 Component type for the UI Schema Property
 
+## Example Usage
+
+```java
+import co.novu.models.components.UiComponentEnum;
+
+UiComponentEnum value = UiComponentEnum.EMAIL_EDITOR_SELECT;
+
+// Open enum: use .of() to create instances from custom string values
+UiComponentEnum custom = UiComponentEnum.of("custom_value");
+```
+
 
 ## Values
 

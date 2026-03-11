@@ -2,6 +2,14 @@
 
 Type of channel endpoint
 
+## Example Usage
+
+```java
+import co.novu.models.components.CreateMsTeamsUserEndpointDtoType;
+
+CreateMsTeamsUserEndpointDtoType value = CreateMsTeamsUserEndpointDtoType.MS_TEAMS_USER;
+```
+
 
 ## Values
 

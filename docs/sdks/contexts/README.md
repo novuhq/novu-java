@@ -51,7 +51,7 @@ public class Application {
                 .call();
 
         if (res.getContextResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getContextResponseDto().get());
         }
     }
 }
@@ -118,7 +118,7 @@ public class Application {
                 .call();
 
         if (res.listContextsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listContextsResponseDto().get());
         }
     }
 }
@@ -185,7 +185,7 @@ public class Application {
                 .call();
 
         if (res.getContextResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getContextResponseDto().get());
         }
     }
 }
@@ -245,7 +245,7 @@ public class Application {
                 .call();
 
         if (res.getContextResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getContextResponseDto().get());
         }
     }
 }

@@ -2,6 +2,17 @@
 
 The provider identifier (e.g., sendgrid, twilio, slack, etc.).
 
+## Example Usage
+
+```java
+import co.novu.models.components.GetChannelEndpointResponseDtoProviderId;
+
+GetChannelEndpointResponseDtoProviderId value = GetChannelEndpointResponseDtoProviderId.EMAILJS;
+
+// Open enum: use .of() to create instances from custom string values
+GetChannelEndpointResponseDtoProviderId custom = GetChannelEndpointResponseDtoProviderId.of("custom_value");
+```
+
 
 ## Values
 

@@ -42,7 +42,7 @@ public class Application {
                 .call();
 
         if (res.getSubscriberPreferencesDto().isPresent()) {
-            // handle response
+            System.out.println(res.getSubscriberPreferencesDto().get());
         }
     }
 }
@@ -110,7 +110,7 @@ public class Application {
                 .call();
 
         if (res.getPreferencesResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.getPreferencesResponseDtos().get());
         }
     }
 }

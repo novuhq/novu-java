@@ -2,6 +2,17 @@
 
 Status of the event
 
+## Example Usage
+
+```java
+import co.novu.models.components.EventBodyStatus;
+
+EventBodyStatus value = EventBodyStatus.OPENED;
+
+// Open enum: use .of() to create instances from custom string values
+EventBodyStatus custom = EventBodyStatus.of("custom_value");
+```
+
 
 ## Values
 

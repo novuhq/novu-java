@@ -2,6 +2,17 @@
 
 Group of the UI Schema
 
+## Example Usage
+
+```java
+import co.novu.models.components.UiSchemaGroupEnum;
+
+UiSchemaGroupEnum value = UiSchemaGroupEnum.IN_APP;
+
+// Open enum: use .of() to create instances from custom string values
+UiSchemaGroupEnum custom = UiSchemaGroupEnum.of("custom_value");
+```
+
 
 ## Values
 

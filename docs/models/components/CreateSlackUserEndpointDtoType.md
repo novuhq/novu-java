@@ -2,6 +2,14 @@
 
 Type of channel endpoint
 
+## Example Usage
+
+```java
+import co.novu.models.components.CreateSlackUserEndpointDtoType;
+
+CreateSlackUserEndpointDtoType value = CreateSlackUserEndpointDtoType.SLACK_USER;
+```
+
 
 ## Values
 

@@ -1,5 +1,16 @@
 # IssueType
 
+## Example Usage
+
+```java
+import co.novu.models.components.IssueType;
+
+IssueType value = IssueType.MISSING_VALUE;
+
+// Open enum: use .of() to create instances from custom string values
+IssueType custom = IssueType.of("custom_value");
+```
+
 
 ## Values
 

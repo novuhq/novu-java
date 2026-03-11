@@ -2,6 +2,14 @@
 
 Channel type to filter results.
 
+## Example Usage
+
+```java
+import co.novu.models.operations.ChannelEndpointsControllerListChannelEndpointsChannel;
+
+ChannelEndpointsControllerListChannelEndpointsChannel value = ChannelEndpointsControllerListChannelEndpointsChannel.IN_APP;
+```
+
 
 ## Values
 

@@ -2,6 +2,17 @@
 
 Status of the trigger
 
+## Example Usage
+
+```java
+import co.novu.models.components.TriggerEventResponseDtoStatus;
+
+TriggerEventResponseDtoStatus value = TriggerEventResponseDtoStatus.ERROR;
+
+// Open enum: use .of() to create instances from custom string values
+TriggerEventResponseDtoStatus custom = TriggerEventResponseDtoStatus.of("custom_value");
+```
+
 
 ## Values
 

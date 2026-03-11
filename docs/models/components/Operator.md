@@ -1,5 +1,16 @@
 # Operator
 
+## Example Usage
+
+```java
+import co.novu.models.components.Operator;
+
+Operator value = Operator.LARGER;
+
+// Open enum: use .of() to create instances from custom string values
+Operator custom = Operator.of("custom_value");
+```
+
 
 ## Values
 

@@ -2,6 +2,14 @@
 
 The channel of the message to be deleted
 
+## Example Usage
+
+```java
+import co.novu.models.operations.MessagesControllerDeleteMessagesByTransactionIdChannel;
+
+MessagesControllerDeleteMessagesByTransactionIdChannel value = MessagesControllerDeleteMessagesByTransactionIdChannel.IN_APP;
+```
+
 
 ## Values
 

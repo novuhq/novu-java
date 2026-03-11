@@ -48,7 +48,7 @@ public class Application {
                 .call();
 
         if (res.listTopicSubscriptionsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listTopicSubscriptionsResponseDto().get());
         }
     }
 }
@@ -118,7 +118,7 @@ public class Application {
                 .call();
 
         if (res.deleteTopicSubscriptionsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.deleteTopicSubscriptionsResponseDto().get());
         }
     }
 }
@@ -191,7 +191,7 @@ public class Application {
                 .call();
 
         if (res.subscriptionResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriptionResponseDto().get());
         }
     }
 }

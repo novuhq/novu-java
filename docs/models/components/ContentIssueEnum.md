@@ -2,6 +2,17 @@
 
 Type of step content issue
 
+## Example Usage
+
+```java
+import co.novu.models.components.ContentIssueEnum;
+
+ContentIssueEnum value = ContentIssueEnum.ILLEGAL_VARIABLE_IN_CONTROL_VALUE;
+
+// Open enum: use .of() to create instances from custom string values
+ContentIssueEnum custom = ContentIssueEnum.of("custom_value");
+```
+
 
 ## Values
 
