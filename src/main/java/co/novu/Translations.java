@@ -85,6 +85,9 @@ public class Translations {
      * <p>Create a translation for a specific workflow and locale, if the translation already exists, it will
      * be updated
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerCreateTranslationEndpointRequestBuilder create() {
@@ -96,6 +99,9 @@ public class Translations {
      * 
      * <p>Create a translation for a specific workflow and locale, if the translation already exists, it will
      * be updated
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param body 
      * @return The response from the API call
@@ -110,6 +116,9 @@ public class Translations {
      * 
      * <p>Create a translation for a specific workflow and locale, if the translation already exists, it will
      * be updated
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
@@ -131,6 +140,9 @@ public class Translations {
      * 
      * <p>Retrieve a specific translation by resource type, resource ID and locale
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerGetSingleTranslationRequestBuilder get() {
@@ -141,6 +153,9 @@ public class Translations {
      * Retrieve a translation
      * 
      * <p>Retrieve a specific translation by resource type, resource ID and locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -159,6 +174,9 @@ public class Translations {
      * Retrieve a translation
      * 
      * <p>Retrieve a specific translation by resource type, resource ID and locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -185,6 +203,9 @@ public class Translations {
      * 
      * <p>Delete a specific translation by resource type, resource ID and locale
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerDeleteTranslationEndpointRequestBuilder delete() {
@@ -195,6 +216,9 @@ public class Translations {
      * Delete a translation
      * 
      * <p>Delete a specific translation by resource type, resource ID and locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -213,6 +237,9 @@ public class Translations {
      * Delete a translation
      * 
      * <p>Delete a specific translation by resource type, resource ID and locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -242,6 +269,9 @@ public class Translations {
      * 
      * <p>Supports both "files" and "files[]" field names for backwards compatibility.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerUploadTranslationFilesRequestBuilder uploadFiles() {
@@ -255,6 +285,9 @@ public class Translations {
      * e.g. en_US.json.
      * 
      * <p>Supports both "files" and "files[]" field names for backwards compatibility.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param body 
      * @return The response from the API call
@@ -271,6 +304,9 @@ public class Translations {
      * e.g. en_US.json.
      * 
      * <p>Supports both "files" and "files[]" field names for backwards compatibility.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
@@ -292,6 +328,9 @@ public class Translations {
      * 
      * <p>Delete an entire translation group and all its translations
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerDeleteTranslationGroupEndpointRequestBuilder removeGroup() {
@@ -302,6 +341,9 @@ public class Translations {
      * Delete a translation group
      * 
      * <p>Delete an entire translation group and all its translations
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -317,6 +359,9 @@ public class Translations {
      * Delete a translation group
      * 
      * <p>Delete an entire translation group and all its translations
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -340,6 +385,9 @@ public class Translations {
      * <p>Retrieves a single translation group by resource type (workflow, layout) and resource ID
      * (workflowId, layoutId)
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerGetTranslationGroupEndpointRequestBuilder groupDetails() {
@@ -351,6 +399,9 @@ public class Translations {
      * 
      * <p>Retrieves a single translation group by resource type (workflow, layout) and resource ID
      * (workflowId, layoutId)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -367,6 +418,9 @@ public class Translations {
      * 
      * <p>Retrieves a single translation group by resource type (workflow, layout) and resource ID
      * (workflowId, layoutId)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param resourceType Resource type
      * @param resourceId Resource ID
@@ -389,6 +443,9 @@ public class Translations {
      * 
      * <p>Retrieve all translations for a locale in master JSON format organized by resourceId (workflowId)
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerGetMasterJsonEndpointRequestBuilder getMaster() {
@@ -399,6 +456,9 @@ public class Translations {
      * Retrieve master translations JSON
      * 
      * <p>Retrieve all translations for a locale in master JSON format organized by resourceId (workflowId)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -411,6 +471,9 @@ public class Translations {
      * Retrieve master translations JSON
      * 
      * <p>Retrieve all translations for a locale in master JSON format organized by resourceId (workflowId)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param locale Locale to export. If not provided, exports organization default locale
      * @param idempotencyKey A header for idempotency purposes
@@ -432,6 +495,9 @@ public class Translations {
      * 
      * <p>Import translations for multiple workflows from master JSON format for a specific locale
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerImportMasterJsonEndpointRequestBuilder importMaster() {
@@ -442,6 +508,9 @@ public class Translations {
      * Import master translations JSON
      * 
      * <p>Import translations for multiple workflows from master JSON format for a specific locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param body 
      * @return The response from the API call
@@ -455,6 +524,9 @@ public class Translations {
      * Import master translations JSON
      * 
      * <p>Import translations for multiple workflows from master JSON format for a specific locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
@@ -477,6 +549,9 @@ public class Translations {
      * <p>Upload a master JSON file containing translations for multiple workflows. Locale is automatically
      * detected from filename (e.g., en_US.json)
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public TranslationControllerUploadMasterJsonEndpointRequestBuilder masterUpload() {
@@ -488,6 +563,9 @@ public class Translations {
      * 
      * <p>Upload a master JSON file containing translations for multiple workflows. Locale is automatically
      * detected from filename (e.g., en_US.json)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param body 
      * @return The response from the API call
@@ -502,6 +580,9 @@ public class Translations {
      * 
      * <p>Upload a master JSON file containing translations for multiple workflows. Locale is automatically
      * detected from filename (e.g., en_US.json)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 

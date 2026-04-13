@@ -39,7 +39,7 @@ public class Application {
                 .call();
 
         if (res.subscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriberResponseDto().get());
         }
     }
 }

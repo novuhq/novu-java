@@ -36,13 +36,13 @@ public class GenerateLayoutPreviewResponseDto {
      * Preview result
      */
     @JsonProperty("result")
-    private ResultUnion result;
+    private GenerateLayoutPreviewResponseDtoResultUnion result;
 
     @JsonCreator
     public GenerateLayoutPreviewResponseDto(
             @JsonProperty("previewPayloadExample") @Nonnull LayoutPreviewPayloadDto previewPayloadExample,
             @JsonProperty("schema") @Nullable JsonNullable<Map<String, Object>> schema,
-            @JsonProperty("result") @Nonnull ResultUnion result) {
+            @JsonProperty("result") @Nonnull GenerateLayoutPreviewResponseDtoResultUnion result) {
         this.previewPayloadExample = Optional.ofNullable(previewPayloadExample)
             .orElseThrow(() -> new IllegalArgumentException("previewPayloadExample cannot be null"));
         this.schema = Optional.ofNullable(schema)
@@ -53,7 +53,7 @@ public class GenerateLayoutPreviewResponseDto {
     
     public GenerateLayoutPreviewResponseDto(
             @Nonnull LayoutPreviewPayloadDto previewPayloadExample,
-            @Nonnull ResultUnion result) {
+            @Nonnull GenerateLayoutPreviewResponseDtoResultUnion result) {
         this(previewPayloadExample, null, result);
     }
 
@@ -74,7 +74,7 @@ public class GenerateLayoutPreviewResponseDto {
     /**
      * Preview result
      */
-    public ResultUnion result() {
+    public GenerateLayoutPreviewResponseDtoResultUnion result() {
         return this.result;
     }
 
@@ -104,7 +104,7 @@ public class GenerateLayoutPreviewResponseDto {
     /**
      * Preview result
      */
-    public GenerateLayoutPreviewResponseDto withResult(@Nonnull ResultUnion result) {
+    public GenerateLayoutPreviewResponseDto withResult(@Nonnull GenerateLayoutPreviewResponseDtoResultUnion result) {
         this.result = Utils.checkNotNull(result, "result");
         return this;
     }
@@ -146,7 +146,7 @@ public class GenerateLayoutPreviewResponseDto {
 
         private JsonNullable<Map<String, Object>> schema;
 
-        private ResultUnion result;
+        private GenerateLayoutPreviewResponseDtoResultUnion result;
 
         private Builder() {
           // force use of static builder() method
@@ -171,7 +171,7 @@ public class GenerateLayoutPreviewResponseDto {
         /**
          * Preview result
          */
-        public Builder result(@Nonnull ResultUnion result) {
+        public Builder result(@Nonnull GenerateLayoutPreviewResponseDtoResultUnion result) {
             this.result = Utils.checkNotNull(result, "result");
             return this;
         }

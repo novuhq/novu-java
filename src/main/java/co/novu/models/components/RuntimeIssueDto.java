@@ -5,80 +5,17 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Optional;
 
 
 public class RuntimeIssueDto {
-
-    @JsonProperty("issueType")
-    private IssueType issueType;
-
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("variableName")
-    private String variableName;
-
-
-    @JsonProperty("message")
-    private String message;
-
     @JsonCreator
-    public RuntimeIssueDto(
-            @JsonProperty("issueType") @Nonnull IssueType issueType,
-            @JsonProperty("variableName") @Nullable String variableName,
-            @JsonProperty("message") @Nonnull String message) {
-        this.issueType = Optional.ofNullable(issueType)
-            .orElseThrow(() -> new IllegalArgumentException("issueType cannot be null"));
-        this.variableName = variableName;
-        this.message = Optional.ofNullable(message)
-            .orElseThrow(() -> new IllegalArgumentException("message cannot be null"));
-    }
-    
-    public RuntimeIssueDto(
-            @Nonnull IssueType issueType,
-            @Nonnull String message) {
-        this(issueType, null, message);
-    }
-
-    public IssueType issueType() {
-        return this.issueType;
-    }
-
-    public Optional<String> variableName() {
-        return Optional.ofNullable(this.variableName);
-    }
-
-    public String message() {
-        return this.message;
+    public RuntimeIssueDto() {
     }
 
     public static Builder builder() {
         return new Builder();
-    }
-
-
-    public RuntimeIssueDto withIssueType(@Nonnull IssueType issueType) {
-        this.issueType = Utils.checkNotNull(issueType, "issueType");
-        return this;
-    }
-
-
-    public RuntimeIssueDto withVariableName(@Nullable String variableName) {
-        this.variableName = variableName;
-        return this;
-    }
-
-
-    public RuntimeIssueDto withMessage(@Nonnull String message) {
-        this.message = Utils.checkNotNull(message, "message");
-        return this;
     }
 
 
@@ -90,58 +27,30 @@ public class RuntimeIssueDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RuntimeIssueDto other = (RuntimeIssueDto) o;
-        return 
-            Utils.enhancedDeepEquals(this.issueType, other.issueType) &&
-            Utils.enhancedDeepEquals(this.variableName, other.variableName) &&
-            Utils.enhancedDeepEquals(this.message, other.message);
+        return true;
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            issueType, variableName, message);
+            );
     }
     
     @Override
     public String toString() {
-        return Utils.toString(RuntimeIssueDto.class,
-                "issueType", issueType,
-                "variableName", variableName,
-                "message", message);
+        return Utils.toString(RuntimeIssueDto.class);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private IssueType issueType;
-
-        private String variableName;
-
-        private String message;
-
         private Builder() {
           // force use of static builder() method
         }
 
-        public Builder issueType(@Nonnull IssueType issueType) {
-            this.issueType = Utils.checkNotNull(issueType, "issueType");
-            return this;
-        }
-
-        public Builder variableName(@Nullable String variableName) {
-            this.variableName = variableName;
-            return this;
-        }
-
-        public Builder message(@Nonnull String message) {
-            this.message = Utils.checkNotNull(message, "message");
-            return this;
-        }
-
         public RuntimeIssueDto build() {
             return new RuntimeIssueDto(
-                issueType, variableName, message);
+                );
         }
 
     }

@@ -34,7 +34,8 @@ public class UpdateLayoutDto {
     private Boolean isTranslationEnabled;
 
     /**
-     * Control values for the layout
+     * Control values for the layout. Omit to leave unchanged, or set to null to clear stored control
+     * values.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("controlValues")
@@ -73,7 +74,8 @@ public class UpdateLayoutDto {
     }
 
     /**
-     * Control values for the layout
+     * Control values for the layout. Omit to leave unchanged, or set to null to clear stored control
+     * values.
      */
     public JsonNullable<UpdateLayoutDtoControlValues> controlValues() {
         return this.controlValues;
@@ -103,7 +105,8 @@ public class UpdateLayoutDto {
 
 
     /**
-     * Control values for the layout
+     * Control values for the layout. Omit to leave unchanged, or set to null to clear stored control
+     * values.
      */
     public UpdateLayoutDto withControlValues(@Nullable UpdateLayoutDtoControlValues controlValues) {
         this.controlValues = JsonNullable.of(controlValues);
@@ -170,7 +173,8 @@ public class UpdateLayoutDto {
         }
 
         /**
-         * Control values for the layout
+         * Control values for the layout. Omit to leave unchanged, or set to null to clear stored control
+         * values.
          */
         public Builder controlValues(@Nullable UpdateLayoutDtoControlValues controlValues) {
             this.controlValues = JsonNullable.of(controlValues);

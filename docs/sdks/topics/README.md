@@ -51,7 +51,7 @@ public class Application {
                 .call();
 
         if (res.listTopicsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listTopicsResponseDto().get());
         }
     }
 }
@@ -109,7 +109,7 @@ public class Application {
                 .call();
 
         if (res.topicResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.topicResponseDto().get());
         }
     }
 }
@@ -167,7 +167,7 @@ public class Application {
                 .call();
 
         if (res.topicResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.topicResponseDto().get());
         }
     }
 }
@@ -227,7 +227,7 @@ public class Application {
                 .call();
 
         if (res.topicResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.topicResponseDto().get());
         }
     }
 }
@@ -285,7 +285,7 @@ public class Application {
                 .call();
 
         if (res.deleteTopicResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.deleteTopicResponseDto().get());
         }
     }
 }
@@ -368,7 +368,7 @@ public class Application {
                 .call();
 
         if (res.createSubscriptionsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.createSubscriptionsResponseDto().get());
         }
     }
 }
@@ -426,7 +426,7 @@ public class Application {
                 .call();
 
         if (res.subscriptionDetailsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriptionDetailsResponseDto().get());
         }
     }
 }

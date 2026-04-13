@@ -70,19 +70,23 @@ import java.util.concurrent.CompletableFuture;
 public class AsyncSubscribers {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
+    private final AsyncSubscribersNotifications1 notifications;
     private final AsyncPreferences preferences;
     private final AsyncCredentials credentials;
     private final AsyncSubscribersMessages1 messages;
-    private final AsyncSubscribersNotifications2 notifications;
     private final Subscribers syncSDK;
 
     AsyncSubscribers(Subscribers syncSDK, SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.notifications = new AsyncSubscribersNotifications1(syncSDK.notifications(), this.sdkConfiguration);
         this.preferences = new AsyncPreferences(syncSDK.preferences(), this.sdkConfiguration);
         this.credentials = new AsyncCredentials(syncSDK.credentials(), this.sdkConfiguration);
         this.messages = new AsyncSubscribersMessages1(syncSDK.messages(), this.sdkConfiguration);
-        this.notifications = new AsyncSubscribersNotifications2(syncSDK.notifications(), this.sdkConfiguration);
         this.syncSDK = syncSDK;
+    }
+
+    public final AsyncSubscribersNotifications1 notifications() {
+        return notifications;
     }
 
     public final AsyncPreferences preferences() {
@@ -95,10 +99,6 @@ public class AsyncSubscribers {
 
     public final AsyncSubscribersMessages1 messages() {
         return messages;
-    }
-
-    public final AsyncSubscribersNotifications2 notifications() {
-        return notifications;
     }
 
     /**
@@ -232,7 +232,7 @@ public class AsyncSubscribers {
      * <p>Retrieve a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** field is required.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @return {@code CompletableFuture<SubscribersControllerGetSubscriberResponse>} - The async response
      */
     public CompletableFuture<SubscribersControllerGetSubscriberResponse> get(@Nonnull String subscriberId) {
@@ -245,7 +245,7 @@ public class AsyncSubscribers {
      * <p>Retrieve a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** field is required.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerGetSubscriberResponse>} - The async response
@@ -281,7 +281,7 @@ public class AsyncSubscribers {
      * <p>Update a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** is a required field, rest other fields are optional
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param body 
      * @return {@code CompletableFuture<SubscribersControllerPatchSubscriberResponse>} - The async response
      */
@@ -297,7 +297,7 @@ public class AsyncSubscribers {
      * <p>Update a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** is a required field, rest other fields are optional
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options
@@ -336,7 +336,7 @@ public class AsyncSubscribers {
      * topic subscriptions.
      * **subscriberId** is a required field.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @return {@code CompletableFuture<SubscribersControllerRemoveSubscriberResponse>} - The async response
      */
     public CompletableFuture<SubscribersControllerRemoveSubscriberResponse> delete(@Nonnull String subscriberId) {
@@ -350,7 +350,7 @@ public class AsyncSubscribers {
      * topic subscriptions.
      * **subscriberId** is a required field.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerRemoveSubscriberResponse>} - The async response
@@ -437,7 +437,7 @@ public class AsyncSubscribers {
      * **workflowId** is optional field, if provided, this API will update that workflow preference,
      * otherwise it will update global preferences
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param body 
      * @return {@code CompletableFuture<SubscribersControllerUpdateSubscriberPreferencesResponse>} - The async response
      */
@@ -454,7 +454,7 @@ public class AsyncSubscribers {
      * **workflowId** is optional field, if provided, this API will update that workflow preference,
      * otherwise it will update global preferences
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options

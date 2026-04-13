@@ -60,6 +60,9 @@ public class AsyncChannelEndpoints {
      * 
      * <p>List all channel endpoints for a resource based on query filters.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The async call builder
      */
     public ChannelEndpointsControllerListChannelEndpointsRequestBuilder list() {
@@ -70,6 +73,9 @@ public class AsyncChannelEndpoints {
      * List all channel endpoints
      * 
      * <p>List all channel endpoints for a resource based on query filters.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<ChannelEndpointsControllerListChannelEndpointsResponse>} - The async response
@@ -82,6 +88,9 @@ public class AsyncChannelEndpoints {
      * List all channel endpoints
      * 
      * <p>List all channel endpoints for a resource based on query filters.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -102,6 +111,9 @@ public class AsyncChannelEndpoints {
      * 
      * <p>Create a new channel endpoint for a resource.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The async call builder
      */
     public ChannelEndpointsControllerCreateChannelEndpointRequestBuilder create() {
@@ -112,6 +124,9 @@ public class AsyncChannelEndpoints {
      * Create a channel endpoint
      * 
      * <p>Create a new channel endpoint for a resource.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param body Channel endpoint creation request. The structure varies based on the type field.
      * @return {@code CompletableFuture<ChannelEndpointsControllerCreateChannelEndpointResponse>} - The async response
@@ -124,6 +139,9 @@ public class AsyncChannelEndpoints {
      * Create a channel endpoint
      * 
      * <p>Create a new channel endpoint for a resource.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body Channel endpoint creation request. The structure varies based on the type field.
@@ -148,6 +166,9 @@ public class AsyncChannelEndpoints {
      * 
      * <p>Retrieve a specific channel endpoint by its unique identifier.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The async call builder
      */
     public ChannelEndpointsControllerGetChannelEndpointRequestBuilder get() {
@@ -158,6 +179,9 @@ public class AsyncChannelEndpoints {
      * Retrieve a channel endpoint
      * 
      * <p>Retrieve a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @return {@code CompletableFuture<ChannelEndpointsControllerGetChannelEndpointResponse>} - The async response
@@ -170,6 +194,9 @@ public class AsyncChannelEndpoints {
      * Retrieve a channel endpoint
      * 
      * <p>Retrieve a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes
@@ -194,6 +221,9 @@ public class AsyncChannelEndpoints {
      * 
      * <p>Update an existing channel endpoint by its unique identifier.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The async call builder
      */
     public ChannelEndpointsControllerUpdateChannelEndpointRequestBuilder update() {
@@ -204,6 +234,9 @@ public class AsyncChannelEndpoints {
      * Update a channel endpoint
      * 
      * <p>Update an existing channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param body 
@@ -219,6 +252,9 @@ public class AsyncChannelEndpoints {
      * Update a channel endpoint
      * 
      * <p>Update an existing channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes
@@ -244,6 +280,9 @@ public class AsyncChannelEndpoints {
      * 
      * <p>Delete a specific channel endpoint by its unique identifier.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The async call builder
      */
     public ChannelEndpointsControllerDeleteChannelEndpointRequestBuilder delete() {
@@ -254,6 +293,9 @@ public class AsyncChannelEndpoints {
      * Delete a channel endpoint
      * 
      * <p>Delete a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @return {@code CompletableFuture<ChannelEndpointsControllerDeleteChannelEndpointResponse>} - The async response
@@ -266,6 +308,9 @@ public class AsyncChannelEndpoints {
      * Delete a channel endpoint
      * 
      * <p>Delete a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes

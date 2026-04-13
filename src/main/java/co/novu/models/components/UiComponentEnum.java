@@ -27,7 +27,6 @@ public class UiComponentEnum {
 
     public static final UiComponentEnum EMAIL_EDITOR_SELECT = new UiComponentEnum("EMAIL_EDITOR_SELECT");
     public static final UiComponentEnum LAYOUT_SELECT = new UiComponentEnum("LAYOUT_SELECT");
-    public static final UiComponentEnum EMAIL_RENDERER_SELECT = new UiComponentEnum("EMAIL_RENDERER_SELECT");
     public static final UiComponentEnum BLOCK_EDITOR = new UiComponentEnum("BLOCK_EDITOR");
     public static final UiComponentEnum EMAIL_BODY = new UiComponentEnum("EMAIL_BODY");
     public static final UiComponentEnum TEXT_FULL_LINE = new UiComponentEnum("TEXT_FULL_LINE");
@@ -63,6 +62,14 @@ public class UiComponentEnum {
     public static final UiComponentEnum QUERY_EDITOR = new UiComponentEnum("QUERY_EDITOR");
     public static final UiComponentEnum DATA = new UiComponentEnum("DATA");
     public static final UiComponentEnum LAYOUT_EMAIL = new UiComponentEnum("LAYOUT_EMAIL");
+    public static final UiComponentEnum DESTINATION_METHOD = new UiComponentEnum("DESTINATION_METHOD");
+    public static final UiComponentEnum DESTINATION_URL = new UiComponentEnum("DESTINATION_URL");
+    public static final UiComponentEnum DESTINATION_HEADERS = new UiComponentEnum("DESTINATION_HEADERS");
+    public static final UiComponentEnum DESTINATION_BODY = new UiComponentEnum("DESTINATION_BODY");
+    public static final UiComponentEnum DESTINATION_RESPONSE_BODY_SCHEMA = new UiComponentEnum("DESTINATION_RESPONSE_BODY_SCHEMA");
+    public static final UiComponentEnum DESTINATION_ENFORCE_SCHEMA_VALIDATION = new UiComponentEnum("DESTINATION_ENFORCE_SCHEMA_VALIDATION");
+    public static final UiComponentEnum DESTINATION_CONTINUE_ON_FAILURE = new UiComponentEnum("DESTINATION_CONTINUE_ON_FAILURE");
+    public static final UiComponentEnum DESTINATION_TIMEOUT = new UiComponentEnum("DESTINATION_TIMEOUT");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -138,7 +145,6 @@ public class UiComponentEnum {
         Map<String, UiComponentEnum> map = new LinkedHashMap<>();
         map.put("EMAIL_EDITOR_SELECT", EMAIL_EDITOR_SELECT);
         map.put("LAYOUT_SELECT", LAYOUT_SELECT);
-        map.put("EMAIL_RENDERER_SELECT", EMAIL_RENDERER_SELECT);
         map.put("BLOCK_EDITOR", BLOCK_EDITOR);
         map.put("EMAIL_BODY", EMAIL_BODY);
         map.put("TEXT_FULL_LINE", TEXT_FULL_LINE);
@@ -174,6 +180,14 @@ public class UiComponentEnum {
         map.put("QUERY_EDITOR", QUERY_EDITOR);
         map.put("DATA", DATA);
         map.put("LAYOUT_EMAIL", LAYOUT_EMAIL);
+        map.put("DESTINATION_METHOD", DESTINATION_METHOD);
+        map.put("DESTINATION_URL", DESTINATION_URL);
+        map.put("DESTINATION_HEADERS", DESTINATION_HEADERS);
+        map.put("DESTINATION_BODY", DESTINATION_BODY);
+        map.put("DESTINATION_RESPONSE_BODY_SCHEMA", DESTINATION_RESPONSE_BODY_SCHEMA);
+        map.put("DESTINATION_ENFORCE_SCHEMA_VALIDATION", DESTINATION_ENFORCE_SCHEMA_VALIDATION);
+        map.put("DESTINATION_CONTINUE_ON_FAILURE", DESTINATION_CONTINUE_ON_FAILURE);
+        map.put("DESTINATION_TIMEOUT", DESTINATION_TIMEOUT);
         return map;
     }
 
@@ -181,7 +195,6 @@ public class UiComponentEnum {
         Map<String, UiComponentEnumEnum> map = new HashMap<>();
         map.put("EMAIL_EDITOR_SELECT", UiComponentEnumEnum.EMAIL_EDITOR_SELECT);
         map.put("LAYOUT_SELECT", UiComponentEnumEnum.LAYOUT_SELECT);
-        map.put("EMAIL_RENDERER_SELECT", UiComponentEnumEnum.EMAIL_RENDERER_SELECT);
         map.put("BLOCK_EDITOR", UiComponentEnumEnum.BLOCK_EDITOR);
         map.put("EMAIL_BODY", UiComponentEnumEnum.EMAIL_BODY);
         map.put("TEXT_FULL_LINE", UiComponentEnumEnum.TEXT_FULL_LINE);
@@ -217,6 +230,14 @@ public class UiComponentEnum {
         map.put("QUERY_EDITOR", UiComponentEnumEnum.QUERY_EDITOR);
         map.put("DATA", UiComponentEnumEnum.DATA);
         map.put("LAYOUT_EMAIL", UiComponentEnumEnum.LAYOUT_EMAIL);
+        map.put("DESTINATION_METHOD", UiComponentEnumEnum.DESTINATION_METHOD);
+        map.put("DESTINATION_URL", UiComponentEnumEnum.DESTINATION_URL);
+        map.put("DESTINATION_HEADERS", UiComponentEnumEnum.DESTINATION_HEADERS);
+        map.put("DESTINATION_BODY", UiComponentEnumEnum.DESTINATION_BODY);
+        map.put("DESTINATION_RESPONSE_BODY_SCHEMA", UiComponentEnumEnum.DESTINATION_RESPONSE_BODY_SCHEMA);
+        map.put("DESTINATION_ENFORCE_SCHEMA_VALIDATION", UiComponentEnumEnum.DESTINATION_ENFORCE_SCHEMA_VALIDATION);
+        map.put("DESTINATION_CONTINUE_ON_FAILURE", UiComponentEnumEnum.DESTINATION_CONTINUE_ON_FAILURE);
+        map.put("DESTINATION_TIMEOUT", UiComponentEnumEnum.DESTINATION_TIMEOUT);
         return map;
     }
     
@@ -225,7 +246,6 @@ public class UiComponentEnum {
 
         EMAIL_EDITOR_SELECT("EMAIL_EDITOR_SELECT"),
         LAYOUT_SELECT("LAYOUT_SELECT"),
-        EMAIL_RENDERER_SELECT("EMAIL_RENDERER_SELECT"),
         BLOCK_EDITOR("BLOCK_EDITOR"),
         EMAIL_BODY("EMAIL_BODY"),
         TEXT_FULL_LINE("TEXT_FULL_LINE"),
@@ -260,7 +280,15 @@ public class UiComponentEnum {
         PUSH_SUBJECT("PUSH_SUBJECT"),
         QUERY_EDITOR("QUERY_EDITOR"),
         DATA("DATA"),
-        LAYOUT_EMAIL("LAYOUT_EMAIL"),;
+        LAYOUT_EMAIL("LAYOUT_EMAIL"),
+        DESTINATION_METHOD("DESTINATION_METHOD"),
+        DESTINATION_URL("DESTINATION_URL"),
+        DESTINATION_HEADERS("DESTINATION_HEADERS"),
+        DESTINATION_BODY("DESTINATION_BODY"),
+        DESTINATION_RESPONSE_BODY_SCHEMA("DESTINATION_RESPONSE_BODY_SCHEMA"),
+        DESTINATION_ENFORCE_SCHEMA_VALIDATION("DESTINATION_ENFORCE_SCHEMA_VALIDATION"),
+        DESTINATION_CONTINUE_ON_FAILURE("DESTINATION_CONTINUE_ON_FAILURE"),
+        DESTINATION_TIMEOUT("DESTINATION_TIMEOUT"),;
 
         private final String value;
 

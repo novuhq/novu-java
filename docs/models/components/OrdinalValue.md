@@ -1,5 +1,16 @@
 # OrdinalValue
 
+## Example Usage
+
+```java
+import co.novu.models.components.OrdinalValue;
+
+OrdinalValue value = OrdinalValue.DAY;
+
+// Open enum: use .of() to create instances from custom string values
+OrdinalValue custom = OrdinalValue.of("custom_value");
+```
+
 
 ## Values
 

@@ -35,7 +35,7 @@ public class Application {
                 .call();
 
         if (res.getEnvironmentTagsDtos().isPresent()) {
-            // handle response
+            System.out.println(res.getEnvironmentTagsDtos().get());
         }
     }
 }

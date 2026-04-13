@@ -35,6 +35,7 @@ public class StepTypeEnum {
     public static final StepTypeEnum DELAY = new StepTypeEnum("delay");
     public static final StepTypeEnum THROTTLE = new StepTypeEnum("throttle");
     public static final StepTypeEnum CUSTOM = new StepTypeEnum("custom");
+    public static final StepTypeEnum HTTP_REQUEST = new StepTypeEnum("http_request");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -118,6 +119,7 @@ public class StepTypeEnum {
         map.put("delay", DELAY);
         map.put("throttle", THROTTLE);
         map.put("custom", CUSTOM);
+        map.put("http_request", HTTP_REQUEST);
         return map;
     }
 
@@ -133,6 +135,7 @@ public class StepTypeEnum {
         map.put("delay", StepTypeEnumEnum.DELAY);
         map.put("throttle", StepTypeEnumEnum.THROTTLE);
         map.put("custom", StepTypeEnumEnum.CUSTOM);
+        map.put("http_request", StepTypeEnumEnum.HTTP_REQUEST);
         return map;
     }
     
@@ -148,7 +151,8 @@ public class StepTypeEnum {
         TRIGGER("trigger"),
         DELAY("delay"),
         THROTTLE("throttle"),
-        CUSTOM("custom"),;
+        CUSTOM("custom"),
+        HTTP_REQUEST("http_request"),;
 
         private final String value;
 

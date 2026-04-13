@@ -6,11 +6,19 @@ package co.novu;
 import static co.novu.operations.Operations.AsyncRequestOperation;
 
 import co.novu.models.components.CreateEnvironmentRequestDto;
+import co.novu.models.components.DiffEnvironmentRequestDto;
+import co.novu.models.components.PublishEnvironmentRequestDto;
 import co.novu.models.components.UpdateEnvironmentRequestDto;
+import co.novu.models.operations.EnvironmentsControllerDiffEnvironmentRequest;
+import co.novu.models.operations.EnvironmentsControllerPublishEnvironmentRequest;
 import co.novu.models.operations.EnvironmentsControllerV1CreateEnvironmentRequest;
 import co.novu.models.operations.EnvironmentsControllerV1DeleteEnvironmentRequest;
 import co.novu.models.operations.EnvironmentsControllerV1ListMyEnvironmentsRequest;
 import co.novu.models.operations.EnvironmentsControllerV1UpdateMyEnvironmentRequest;
+import co.novu.models.operations.async.EnvironmentsControllerDiffEnvironmentRequestBuilder;
+import co.novu.models.operations.async.EnvironmentsControllerDiffEnvironmentResponse;
+import co.novu.models.operations.async.EnvironmentsControllerPublishEnvironmentRequestBuilder;
+import co.novu.models.operations.async.EnvironmentsControllerPublishEnvironmentResponse;
 import co.novu.models.operations.async.EnvironmentsControllerV1CreateEnvironmentRequestBuilder;
 import co.novu.models.operations.async.EnvironmentsControllerV1CreateEnvironmentResponse;
 import co.novu.models.operations.async.EnvironmentsControllerV1DeleteEnvironmentRequestBuilder;
@@ -19,6 +27,8 @@ import co.novu.models.operations.async.EnvironmentsControllerV1ListMyEnvironment
 import co.novu.models.operations.async.EnvironmentsControllerV1ListMyEnvironmentsResponse;
 import co.novu.models.operations.async.EnvironmentsControllerV1UpdateMyEnvironmentRequestBuilder;
 import co.novu.models.operations.async.EnvironmentsControllerV1UpdateMyEnvironmentResponse;
+import co.novu.operations.EnvironmentsControllerDiffEnvironment;
+import co.novu.operations.EnvironmentsControllerPublishEnvironment;
 import co.novu.operations.EnvironmentsControllerV1CreateEnvironment;
 import co.novu.operations.EnvironmentsControllerV1DeleteEnvironment;
 import co.novu.operations.EnvironmentsControllerV1ListMyEnvironments;
@@ -60,6 +70,112 @@ public class AsyncEnvironments {
      */
     public Environments sync() {
         return syncSDK;
+    }
+
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the source and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @return The async call builder
+     */
+    public EnvironmentsControllerDiffEnvironmentRequestBuilder diff() {
+        return new EnvironmentsControllerDiffEnvironmentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the source and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
+     * @param body 
+     * @return {@code CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse> diff(@Nonnull String targetEnvironmentId, @Nonnull DiffEnvironmentRequestDto body) {
+        return diff(
+                targetEnvironmentId, null, body,
+                null);
+    }
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the source and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return {@code CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse> diff(
+            @Nonnull String targetEnvironmentId, @Nullable String idempotencyKey,
+            @Nonnull DiffEnvironmentRequestDto body, @Nullable Options options) {
+        EnvironmentsControllerDiffEnvironmentRequest request = new EnvironmentsControllerDiffEnvironmentRequest(targetEnvironmentId, idempotencyKey, body);
+        AsyncRequestOperation<EnvironmentsControllerDiffEnvironmentRequest, EnvironmentsControllerDiffEnvironmentResponse> operation
+              = new EnvironmentsControllerDiffEnvironment.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @return The async call builder
+     */
+    public EnvironmentsControllerPublishEnvironmentRequestBuilder publish() {
+        return new EnvironmentsControllerPublishEnvironmentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to
+     * @param body 
+     * @return {@code CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse> publish(@Nonnull String targetEnvironmentId, @Nonnull PublishEnvironmentRequestDto body) {
+        return publish(
+                targetEnvironmentId, null, body,
+                null);
+    }
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return {@code CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse> publish(
+            @Nonnull String targetEnvironmentId, @Nullable String idempotencyKey,
+            @Nonnull PublishEnvironmentRequestDto body, @Nullable Options options) {
+        EnvironmentsControllerPublishEnvironmentRequest request = new EnvironmentsControllerPublishEnvironmentRequest(targetEnvironmentId, idempotencyKey, body);
+        AsyncRequestOperation<EnvironmentsControllerPublishEnvironmentRequest, EnvironmentsControllerPublishEnvironmentResponse> operation
+              = new EnvironmentsControllerPublishEnvironment.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
     }
 
 

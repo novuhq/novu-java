@@ -50,7 +50,7 @@ public class Application {
                 .call();
 
         if (res.messagesResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.messagesResponseDto().get());
         }
     }
 }
@@ -106,7 +106,7 @@ public class Application {
                 .call();
 
         if (res.deleteMessageResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.deleteMessageResponseDto().get());
         }
     }
 }

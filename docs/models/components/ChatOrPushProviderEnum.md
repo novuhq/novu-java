@@ -2,6 +2,17 @@
 
 The provider identifier for the credentials
 
+## Example Usage
+
+```java
+import co.novu.models.components.ChatOrPushProviderEnum;
+
+ChatOrPushProviderEnum value = ChatOrPushProviderEnum.SLACK;
+
+// Open enum: use .of() to create instances from custom string values
+ChatOrPushProviderEnum custom = ChatOrPushProviderEnum.of("custom_value");
+```
+
 
 ## Values
 

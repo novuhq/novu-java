@@ -43,7 +43,7 @@ public class Application {
                 .call();
 
         if (res.activitiesResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.activitiesResponseDto().get());
         }
     }
 }
@@ -100,7 +100,7 @@ public class Application {
                 .call();
 
         if (res.activityNotificationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.activityNotificationResponseDto().get());
         }
     }
 }

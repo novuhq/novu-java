@@ -28,6 +28,7 @@ public class WorkflowResponseDtoStepTypeIdResolver extends GenericTypeIdResolver
         registerType("digest", DigestStepResponseDto.class);
         registerType("custom", CustomStepResponseDto.class);
         registerType("throttle", ThrottleStepResponseDto.class);
+        registerType("http_request", HttpRequestStepResponseDto.class);
     }
 
     @Override

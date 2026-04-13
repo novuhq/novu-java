@@ -53,7 +53,7 @@ public class Application {
                 .call();
 
         if (res.listChannelEndpointsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listChannelEndpointsResponseDto().get());
         }
     }
 }
@@ -116,7 +116,7 @@ public class Application {
                 .call();
 
         if (res.getChannelEndpointResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getChannelEndpointResponseDto().get());
         }
     }
 }
@@ -172,7 +172,7 @@ public class Application {
                 .call();
 
         if (res.getChannelEndpointResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getChannelEndpointResponseDto().get());
         }
     }
 }
@@ -234,7 +234,7 @@ public class Application {
                 .call();
 
         if (res.getChannelEndpointResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getChannelEndpointResponseDto().get());
         }
     }
 }

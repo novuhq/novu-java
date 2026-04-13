@@ -92,9 +92,13 @@ public class AsyncNovu {
      */
     private final AsyncWorkflows workflows;
 
+    private final AsyncWorkflowsSteps workflowsSteps;
+
     private final AsyncChannelConnections channelConnections;
 
     private final AsyncChannelEndpoints channelEndpoints;
+
+    private final AsyncEnvironmentVariables environmentVariables;
     /**
      * With the help of the Integration Store, you can easily integrate your favorite delivery provider.
      * During the runtime of the API, the Integrations Store is responsible for storing the configurations
@@ -116,7 +120,7 @@ public class AsyncNovu {
 
     private final AsyncSubscribersMessages2 subscribersMessages;
 
-    private final AsyncSubscribersNotifications1 subscribersNotifications;
+    private final AsyncSubscribersNotifications2 subscribersNotifications;
 
     private final AsyncSubscribersProperties subscribersProperties;
 
@@ -191,12 +195,20 @@ public class AsyncNovu {
         return workflows;
     }
 
+    public AsyncWorkflowsSteps workflowsSteps() {
+        return workflowsSteps;
+    }
+
     public AsyncChannelConnections channelConnections() {
         return channelConnections;
     }
 
     public AsyncChannelEndpoints channelEndpoints() {
         return channelEndpoints;
+    }
+
+    public AsyncEnvironmentVariables environmentVariables() {
+        return environmentVariables;
     }
     /**
      * With the help of the Integration Store, you can easily integrate your favorite delivery provider.
@@ -227,7 +239,7 @@ public class AsyncNovu {
         return subscribersMessages;
     }
 
-    public AsyncSubscribersNotifications1 subscribersNotifications() {
+    public AsyncSubscribersNotifications2 subscribersNotifications() {
         return subscribersNotifications;
     }
 
@@ -250,13 +262,15 @@ public class AsyncNovu {
         this.topics = new AsyncTopics(syncSDK.topics(), sdkConfiguration);
         this.translations = new AsyncTranslations(syncSDK.translations(), sdkConfiguration);
         this.workflows = new AsyncWorkflows(syncSDK.workflows(), sdkConfiguration);
+        this.workflowsSteps = new AsyncWorkflowsSteps(syncSDK.workflowsSteps(), sdkConfiguration);
         this.channelConnections = new AsyncChannelConnections(syncSDK.channelConnections(), sdkConfiguration);
         this.channelEndpoints = new AsyncChannelEndpoints(syncSDK.channelEndpoints(), sdkConfiguration);
+        this.environmentVariables = new AsyncEnvironmentVariables(syncSDK.environmentVariables(), sdkConfiguration);
         this.integrations = new AsyncIntegrations(syncSDK.integrations(), sdkConfiguration);
         this.messages = new AsyncMessages(syncSDK.messages(), sdkConfiguration);
         this.notifications = new AsyncNotifications(syncSDK.notifications(), sdkConfiguration);
         this.subscribersMessages = new AsyncSubscribersMessages2(syncSDK.subscribersMessages(), sdkConfiguration);
-        this.subscribersNotifications = new AsyncSubscribersNotifications1(syncSDK.subscribersNotifications(), sdkConfiguration);
+        this.subscribersNotifications = new AsyncSubscribersNotifications2(syncSDK.subscribersNotifications(), sdkConfiguration);
         this.subscribersProperties = new AsyncSubscribersProperties(syncSDK.subscribersProperties(), sdkConfiguration);
     }
 

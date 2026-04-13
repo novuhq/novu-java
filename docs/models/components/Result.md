@@ -1,9 +1,0 @@
-# Result
-
-
-## Fields
-
-| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
-| `type`                                                                                                             | [Optional\<GenerateLayoutPreviewResponseDtoType>](../../models/components/GenerateLayoutPreviewResponseDtoType.md) | :heavy_minus_sign:                                                                                                 | N/A                                                                                                                |
-| `preview`                                                                                                          | [Optional\<EmailLayoutRenderOutput>](../../models/components/EmailLayoutRenderOutput.md)                           | :heavy_minus_sign:                                                                                                 | N/A                                                                                                                |

@@ -125,7 +125,7 @@ public class ChannelEndpointsControllerListChannelEndpoints {
                     request,
                     null));
             req.addHeaders(Utils.getHeadersFromMetadata(request, null));
-            Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
+            Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity(), "secretKey", "secretKey");
 
             return req.build();
         }

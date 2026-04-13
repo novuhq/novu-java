@@ -5,14 +5,84 @@ package co.novu;
 
 import static co.novu.operations.Operations.RequestOperation;
 
-import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedRequest;
-import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedRequestBuilder;
-import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedResponse;
-import co.novu.operations.SubscribersV1ControllerGetNotificationsFeed;
+import co.novu.models.components.MarkSubscriberNotificationsAsSeenDto;
+import co.novu.models.components.UpdateAllSubscriberNotificationsDto;
+import co.novu.models.operations.SubscribersControllerArchiveAllNotificationsRequest;
+import co.novu.models.operations.SubscribersControllerArchiveAllNotificationsRequestBuilder;
+import co.novu.models.operations.SubscribersControllerArchiveAllNotificationsResponse;
+import co.novu.models.operations.SubscribersControllerArchiveAllReadNotificationsRequest;
+import co.novu.models.operations.SubscribersControllerArchiveAllReadNotificationsRequestBuilder;
+import co.novu.models.operations.SubscribersControllerArchiveAllReadNotificationsResponse;
+import co.novu.models.operations.SubscribersControllerArchiveNotificationRequest;
+import co.novu.models.operations.SubscribersControllerArchiveNotificationRequestBuilder;
+import co.novu.models.operations.SubscribersControllerArchiveNotificationResponse;
+import co.novu.models.operations.SubscribersControllerCompleteNotificationActionRequest;
+import co.novu.models.operations.SubscribersControllerCompleteNotificationActionRequestBuilder;
+import co.novu.models.operations.SubscribersControllerCompleteNotificationActionResponse;
+import co.novu.models.operations.SubscribersControllerDeleteAllNotificationsRequest;
+import co.novu.models.operations.SubscribersControllerDeleteAllNotificationsRequestBuilder;
+import co.novu.models.operations.SubscribersControllerDeleteAllNotificationsResponse;
+import co.novu.models.operations.SubscribersControllerDeleteNotificationRequest;
+import co.novu.models.operations.SubscribersControllerDeleteNotificationRequestBuilder;
+import co.novu.models.operations.SubscribersControllerDeleteNotificationResponse;
+import co.novu.models.operations.SubscribersControllerGetSubscriberNotificationsCountRequest;
+import co.novu.models.operations.SubscribersControllerGetSubscriberNotificationsCountRequestBuilder;
+import co.novu.models.operations.SubscribersControllerGetSubscriberNotificationsCountResponse;
+import co.novu.models.operations.SubscribersControllerGetSubscriberNotificationsRequest;
+import co.novu.models.operations.SubscribersControllerGetSubscriberNotificationsRequestBuilder;
+import co.novu.models.operations.SubscribersControllerGetSubscriberNotificationsResponse;
+import co.novu.models.operations.SubscribersControllerMarkAllNotificationsAsReadRequest;
+import co.novu.models.operations.SubscribersControllerMarkAllNotificationsAsReadRequestBuilder;
+import co.novu.models.operations.SubscribersControllerMarkAllNotificationsAsReadResponse;
+import co.novu.models.operations.SubscribersControllerMarkNotificationAsReadRequest;
+import co.novu.models.operations.SubscribersControllerMarkNotificationAsReadRequestBuilder;
+import co.novu.models.operations.SubscribersControllerMarkNotificationAsReadResponse;
+import co.novu.models.operations.SubscribersControllerMarkNotificationAsUnreadRequest;
+import co.novu.models.operations.SubscribersControllerMarkNotificationAsUnreadRequestBuilder;
+import co.novu.models.operations.SubscribersControllerMarkNotificationAsUnreadResponse;
+import co.novu.models.operations.SubscribersControllerMarkNotificationsAsSeenRequest;
+import co.novu.models.operations.SubscribersControllerMarkNotificationsAsSeenRequestBuilder;
+import co.novu.models.operations.SubscribersControllerMarkNotificationsAsSeenResponse;
+import co.novu.models.operations.SubscribersControllerRevertNotificationActionRequest;
+import co.novu.models.operations.SubscribersControllerRevertNotificationActionRequestBuilder;
+import co.novu.models.operations.SubscribersControllerRevertNotificationActionResponse;
+import co.novu.models.operations.SubscribersControllerSnoozeNotificationRequest;
+import co.novu.models.operations.SubscribersControllerSnoozeNotificationRequestBuilder;
+import co.novu.models.operations.SubscribersControllerSnoozeNotificationResponse;
+import co.novu.models.operations.SubscribersControllerUnarchiveNotificationRequest;
+import co.novu.models.operations.SubscribersControllerUnarchiveNotificationRequestBuilder;
+import co.novu.models.operations.SubscribersControllerUnarchiveNotificationResponse;
+import co.novu.models.operations.SubscribersControllerUnsnoozeNotificationRequest;
+import co.novu.models.operations.SubscribersControllerUnsnoozeNotificationRequestBuilder;
+import co.novu.models.operations.SubscribersControllerUnsnoozeNotificationResponse;
+import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountRequest;
+import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountRequestBuilder;
+import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountResponse;
+import co.novu.operations.SubscribersControllerArchiveAllNotifications;
+import co.novu.operations.SubscribersControllerArchiveAllReadNotifications;
+import co.novu.operations.SubscribersControllerArchiveNotification;
+import co.novu.operations.SubscribersControllerCompleteNotificationAction;
+import co.novu.operations.SubscribersControllerDeleteAllNotifications;
+import co.novu.operations.SubscribersControllerDeleteNotification;
+import co.novu.operations.SubscribersControllerGetSubscriberNotifications;
+import co.novu.operations.SubscribersControllerGetSubscriberNotificationsCount;
+import co.novu.operations.SubscribersControllerMarkAllNotificationsAsRead;
+import co.novu.operations.SubscribersControllerMarkNotificationAsRead;
+import co.novu.operations.SubscribersControllerMarkNotificationAsUnread;
+import co.novu.operations.SubscribersControllerMarkNotificationsAsSeen;
+import co.novu.operations.SubscribersControllerRevertNotificationAction;
+import co.novu.operations.SubscribersControllerSnoozeNotification;
+import co.novu.operations.SubscribersControllerUnarchiveNotification;
+import co.novu.operations.SubscribersControllerUnsnoozeNotification;
+import co.novu.operations.SubscribersV1ControllerGetUnseenCount;
 import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Boolean;
+import java.lang.Double;
+import java.lang.String;
+import java.util.List;
 
 
 public class SubscribersNotifications1 {
@@ -37,40 +107,843 @@ public class SubscribersNotifications1 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>Retrieve in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports filtering by tags, read/archived/snoozed/seen state, data attributes, severity, date range,
+     * and context keys.
      * 
      * @return The call builder
      */
-    public SubscribersV1ControllerGetNotificationsFeedRequestBuilder getFeed() {
-        return new SubscribersV1ControllerGetNotificationsFeedRequestBuilder(sdkConfiguration);
+    public SubscribersControllerGetSubscriberNotificationsRequestBuilder list() {
+        return new SubscribersControllerGetSubscriberNotificationsRequestBuilder(sdkConfiguration);
     }
 
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>Retrieve in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports filtering by tags, read/archived/snoozed/seen state, data attributes, severity, date range,
+     * and context keys.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public SubscribersV1ControllerGetNotificationsFeedResponse getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request) {
-        return getFeed(request, null);
+    public SubscribersControllerGetSubscriberNotificationsResponse list(@Nonnull SubscribersControllerGetSubscriberNotificationsRequest request) {
+        return list(request, null);
     }
 
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>Retrieve in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports filtering by tags, read/archived/snoozed/seen state, data attributes, severity, date range,
+     * and context keys.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public SubscribersV1ControllerGetNotificationsFeedResponse getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request, @Nullable Options options) {
-        RequestOperation<SubscribersV1ControllerGetNotificationsFeedRequest, SubscribersV1ControllerGetNotificationsFeedResponse> operation
-              = new SubscribersV1ControllerGetNotificationsFeed.Sync(sdkConfiguration, options, _headers);
+    public SubscribersControllerGetSubscriberNotificationsResponse list(@Nonnull SubscribersControllerGetSubscriberNotificationsRequest request, @Nullable Options options) {
+        RequestOperation<SubscribersControllerGetSubscriberNotificationsRequest, SubscribersControllerGetSubscriberNotificationsResponse> operation
+              = new SubscribersControllerGetSubscriberNotifications.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Delete a notification
+     * 
+     * <p>Delete a specific in-app (inbox) notification permanently by its unique identifier
+     * **notificationId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerDeleteNotificationRequestBuilder delete() {
+        return new SubscribersControllerDeleteNotificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Delete a notification
+     * 
+     * <p>Delete a specific in-app (inbox) notification permanently by its unique identifier
+     * **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerDeleteNotificationResponse delete(@Nonnull String subscriberId, @Nonnull String notificationId) {
+        return delete(subscriberId, notificationId, null,
+            null, null);
+    }
+
+    /**
+     * Delete a notification
+     * 
+     * <p>Delete a specific in-app (inbox) notification permanently by its unique identifier
+     * **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerDeleteNotificationResponse delete(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersControllerDeleteNotificationRequest request = new SubscribersControllerDeleteNotificationRequest(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey);
+        RequestOperation<SubscribersControllerDeleteNotificationRequest, SubscribersControllerDeleteNotificationResponse> operation
+              = new SubscribersControllerDeleteNotification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Complete a notification action
+     * 
+     * <p>Mark a single in-app (inbox) notification's action (primary or secondary) as completed by its unique
+     * identifier **notificationId** and action type **actionType**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerCompleteNotificationActionRequestBuilder completeAction() {
+        return new SubscribersControllerCompleteNotificationActionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Complete a notification action
+     * 
+     * <p>Mark a single in-app (inbox) notification's action (primary or secondary) as completed by its unique
+     * identifier **notificationId** and action type **actionType**.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerCompleteNotificationActionResponse completeAction(@Nonnull SubscribersControllerCompleteNotificationActionRequest request) {
+        return completeAction(request, null);
+    }
+
+    /**
+     * Complete a notification action
+     * 
+     * <p>Mark a single in-app (inbox) notification's action (primary or secondary) as completed by its unique
+     * identifier **notificationId** and action type **actionType**.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerCompleteNotificationActionResponse completeAction(@Nonnull SubscribersControllerCompleteNotificationActionRequest request, @Nullable Options options) {
+        RequestOperation<SubscribersControllerCompleteNotificationActionRequest, SubscribersControllerCompleteNotificationActionResponse> operation
+              = new SubscribersControllerCompleteNotificationAction.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Revert a notification action
+     * 
+     * <p>Revert a single in-app (inbox) notification's action (primary or secondary) to pending state by its
+     * unique identifier **notificationId** and action type **actionType**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerRevertNotificationActionRequestBuilder revertAction() {
+        return new SubscribersControllerRevertNotificationActionRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Revert a notification action
+     * 
+     * <p>Revert a single in-app (inbox) notification's action (primary or secondary) to pending state by its
+     * unique identifier **notificationId** and action type **actionType**.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerRevertNotificationActionResponse revertAction(@Nonnull SubscribersControllerRevertNotificationActionRequest request) {
+        return revertAction(request, null);
+    }
+
+    /**
+     * Revert a notification action
+     * 
+     * <p>Revert a single in-app (inbox) notification's action (primary or secondary) to pending state by its
+     * unique identifier **notificationId** and action type **actionType**.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerRevertNotificationActionResponse revertAction(@Nonnull SubscribersControllerRevertNotificationActionRequest request, @Nullable Options options) {
+        RequestOperation<SubscribersControllerRevertNotificationActionRequest, SubscribersControllerRevertNotificationActionResponse> operation
+              = new SubscribersControllerRevertNotificationAction.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Archive a notification
+     * 
+     * <p>Archive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerArchiveNotificationRequestBuilder archive() {
+        return new SubscribersControllerArchiveNotificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Archive a notification
+     * 
+     * <p>Archive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerArchiveNotificationResponse archive(@Nonnull String subscriberId, @Nonnull String notificationId) {
+        return archive(subscriberId, notificationId, null,
+            null, null);
+    }
+
+    /**
+     * Archive a notification
+     * 
+     * <p>Archive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerArchiveNotificationResponse archive(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersControllerArchiveNotificationRequest request = new SubscribersControllerArchiveNotificationRequest(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey);
+        RequestOperation<SubscribersControllerArchiveNotificationRequest, SubscribersControllerArchiveNotificationResponse> operation
+              = new SubscribersControllerArchiveNotification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Mark a notification as read
+     * 
+     * <p>Mark a specific in-app (inbox) notification as read by its unique identifier **notificationId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerMarkNotificationAsReadRequestBuilder markAsRead() {
+        return new SubscribersControllerMarkNotificationAsReadRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Mark a notification as read
+     * 
+     * <p>Mark a specific in-app (inbox) notification as read by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkNotificationAsReadResponse markAsRead(@Nonnull String subscriberId, @Nonnull String notificationId) {
+        return markAsRead(subscriberId, notificationId, null,
+            null, null);
+    }
+
+    /**
+     * Mark a notification as read
+     * 
+     * <p>Mark a specific in-app (inbox) notification as read by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkNotificationAsReadResponse markAsRead(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersControllerMarkNotificationAsReadRequest request = new SubscribersControllerMarkNotificationAsReadRequest(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey);
+        RequestOperation<SubscribersControllerMarkNotificationAsReadRequest, SubscribersControllerMarkNotificationAsReadResponse> operation
+              = new SubscribersControllerMarkNotificationAsRead.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Snooze a notification
+     * 
+     * <p>Snooze a specific in-app (inbox) notification by its unique identifier **notificationId** until a
+     * specified time.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerSnoozeNotificationRequestBuilder snooze() {
+        return new SubscribersControllerSnoozeNotificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Snooze a notification
+     * 
+     * <p>Snooze a specific in-app (inbox) notification by its unique identifier **notificationId** until a
+     * specified time.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerSnoozeNotificationResponse snooze(@Nonnull SubscribersControllerSnoozeNotificationRequest request) {
+        return snooze(request, null);
+    }
+
+    /**
+     * Snooze a notification
+     * 
+     * <p>Snooze a specific in-app (inbox) notification by its unique identifier **notificationId** until a
+     * specified time.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerSnoozeNotificationResponse snooze(@Nonnull SubscribersControllerSnoozeNotificationRequest request, @Nullable Options options) {
+        RequestOperation<SubscribersControllerSnoozeNotificationRequest, SubscribersControllerSnoozeNotificationResponse> operation
+              = new SubscribersControllerSnoozeNotification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Unarchive a notification
+     * 
+     * <p>Unarchive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerUnarchiveNotificationRequestBuilder unarchive() {
+        return new SubscribersControllerUnarchiveNotificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Unarchive a notification
+     * 
+     * <p>Unarchive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerUnarchiveNotificationResponse unarchive(@Nonnull String subscriberId, @Nonnull String notificationId) {
+        return unarchive(subscriberId, notificationId, null,
+            null, null);
+    }
+
+    /**
+     * Unarchive a notification
+     * 
+     * <p>Unarchive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerUnarchiveNotificationResponse unarchive(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersControllerUnarchiveNotificationRequest request = new SubscribersControllerUnarchiveNotificationRequest(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey);
+        RequestOperation<SubscribersControllerUnarchiveNotificationRequest, SubscribersControllerUnarchiveNotificationResponse> operation
+              = new SubscribersControllerUnarchiveNotification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Mark a notification as unread
+     * 
+     * <p>Mark a specific in-app (inbox) notification as unread by its unique identifier **notificationId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerMarkNotificationAsUnreadRequestBuilder markAsUnread() {
+        return new SubscribersControllerMarkNotificationAsUnreadRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Mark a notification as unread
+     * 
+     * <p>Mark a specific in-app (inbox) notification as unread by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkNotificationAsUnreadResponse markAsUnread(@Nonnull String subscriberId, @Nonnull String notificationId) {
+        return markAsUnread(subscriberId, notificationId, null,
+            null, null);
+    }
+
+    /**
+     * Mark a notification as unread
+     * 
+     * <p>Mark a specific in-app (inbox) notification as unread by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkNotificationAsUnreadResponse markAsUnread(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersControllerMarkNotificationAsUnreadRequest request = new SubscribersControllerMarkNotificationAsUnreadRequest(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey);
+        RequestOperation<SubscribersControllerMarkNotificationAsUnreadRequest, SubscribersControllerMarkNotificationAsUnreadResponse> operation
+              = new SubscribersControllerMarkNotificationAsUnread.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Unsnooze a notification
+     * 
+     * <p>Unsnooze a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerUnsnoozeNotificationRequestBuilder unsnooze() {
+        return new SubscribersControllerUnsnoozeNotificationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Unsnooze a notification
+     * 
+     * <p>Unsnooze a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerUnsnoozeNotificationResponse unsnooze(@Nonnull String subscriberId, @Nonnull String notificationId) {
+        return unsnooze(subscriberId, notificationId, null,
+            null, null);
+    }
+
+    /**
+     * Unsnooze a notification
+     * 
+     * <p>Unsnooze a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerUnsnoozeNotificationResponse unsnooze(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersControllerUnsnoozeNotificationRequest request = new SubscribersControllerUnsnoozeNotificationRequest(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey);
+        RequestOperation<SubscribersControllerUnsnoozeNotificationRequest, SubscribersControllerUnsnoozeNotificationResponse> operation
+              = new SubscribersControllerUnsnoozeNotification.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Archive all notifications
+     * 
+     * <p>Archive all in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerArchiveAllNotificationsRequestBuilder archiveAll() {
+        return new SubscribersControllerArchiveAllNotificationsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Archive all notifications
+     * 
+     * <p>Archive all in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerArchiveAllNotificationsResponse archiveAll(@Nonnull String subscriberId, @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return archiveAll(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Archive all notifications
+     * 
+     * <p>Archive all in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerArchiveAllNotificationsResponse archiveAll(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body, @Nullable Options options) {
+        SubscribersControllerArchiveAllNotificationsRequest request = new SubscribersControllerArchiveAllNotificationsRequest(subscriberId, idempotencyKey, body);
+        RequestOperation<SubscribersControllerArchiveAllNotificationsRequest, SubscribersControllerArchiveAllNotificationsResponse> operation
+              = new SubscribersControllerArchiveAllNotifications.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve subscriber notifications count
+     * 
+     * <p>Retrieve count of in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports multiple filters to count in-app (inbox) notifications by different criteria, including
+     * context keys.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerGetSubscriberNotificationsCountRequestBuilder count() {
+        return new SubscribersControllerGetSubscriberNotificationsCountRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve subscriber notifications count
+     * 
+     * <p>Retrieve count of in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports multiple filters to count in-app (inbox) notifications by different criteria, including
+     * context keys.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param filters Array of filter objects (max 30) to count notifications by different criteria
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerGetSubscriberNotificationsCountResponse count(@Nonnull String subscriberId, @Nonnull String filters) {
+        return count(subscriberId, filters, null,
+            null);
+    }
+
+    /**
+     * Retrieve subscriber notifications count
+     * 
+     * <p>Retrieve count of in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports multiple filters to count in-app (inbox) notifications by different criteria, including
+     * context keys.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param filters Array of filter objects (max 30) to count notifications by different criteria
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerGetSubscriberNotificationsCountResponse count(
+            @Nonnull String subscriberId, @Nonnull String filters,
+            @Nullable String idempotencyKey, @Nullable Options options) {
+        SubscribersControllerGetSubscriberNotificationsCountRequest request = new SubscribersControllerGetSubscriberNotificationsCountRequest(subscriberId, filters, idempotencyKey);
+        RequestOperation<SubscribersControllerGetSubscriberNotificationsCountRequest, SubscribersControllerGetSubscriberNotificationsCountResponse> operation
+              = new SubscribersControllerGetSubscriberNotificationsCount.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Delete all notifications
+     * 
+     * <p>Permanently delete all in-app (inbox) notifications matching the specified filters. Supports
+     * context-based filtering.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerDeleteAllNotificationsRequestBuilder deleteAll() {
+        return new SubscribersControllerDeleteAllNotificationsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Delete all notifications
+     * 
+     * <p>Permanently delete all in-app (inbox) notifications matching the specified filters. Supports
+     * context-based filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerDeleteAllNotificationsResponse deleteAll(@Nonnull String subscriberId, @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return deleteAll(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Delete all notifications
+     * 
+     * <p>Permanently delete all in-app (inbox) notifications matching the specified filters. Supports
+     * context-based filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerDeleteAllNotificationsResponse deleteAll(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body, @Nullable Options options) {
+        SubscribersControllerDeleteAllNotificationsRequest request = new SubscribersControllerDeleteAllNotificationsRequest(subscriberId, idempotencyKey, body);
+        RequestOperation<SubscribersControllerDeleteAllNotificationsRequest, SubscribersControllerDeleteAllNotificationsResponse> operation
+              = new SubscribersControllerDeleteAllNotifications.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Mark all notifications as read
+     * 
+     * <p>Mark all in-app (inbox) notifications matching the specified filters as read. Supports context-based
+     * filtering.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerMarkAllNotificationsAsReadRequestBuilder markAllAsRead() {
+        return new SubscribersControllerMarkAllNotificationsAsReadRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Mark all notifications as read
+     * 
+     * <p>Mark all in-app (inbox) notifications matching the specified filters as read. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkAllNotificationsAsReadResponse markAllAsRead(@Nonnull String subscriberId, @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return markAllAsRead(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Mark all notifications as read
+     * 
+     * <p>Mark all in-app (inbox) notifications matching the specified filters as read. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkAllNotificationsAsReadResponse markAllAsRead(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body, @Nullable Options options) {
+        SubscribersControllerMarkAllNotificationsAsReadRequest request = new SubscribersControllerMarkAllNotificationsAsReadRequest(subscriberId, idempotencyKey, body);
+        RequestOperation<SubscribersControllerMarkAllNotificationsAsReadRequest, SubscribersControllerMarkAllNotificationsAsReadResponse> operation
+              = new SubscribersControllerMarkAllNotificationsAsRead.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Archive all read notifications
+     * 
+     * <p>Archive all read in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerArchiveAllReadNotificationsRequestBuilder archiveAllRead() {
+        return new SubscribersControllerArchiveAllReadNotificationsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Archive all read notifications
+     * 
+     * <p>Archive all read in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerArchiveAllReadNotificationsResponse archiveAllRead(@Nonnull String subscriberId, @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return archiveAllRead(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Archive all read notifications
+     * 
+     * <p>Archive all read in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerArchiveAllReadNotificationsResponse archiveAllRead(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body, @Nullable Options options) {
+        SubscribersControllerArchiveAllReadNotificationsRequest request = new SubscribersControllerArchiveAllReadNotificationsRequest(subscriberId, idempotencyKey, body);
+        RequestOperation<SubscribersControllerArchiveAllReadNotificationsRequest, SubscribersControllerArchiveAllReadNotificationsResponse> operation
+              = new SubscribersControllerArchiveAllReadNotifications.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Mark notifications as seen
+     * 
+     * <p>Mark specific and multiple in-app (inbox) notifications as seen. Supports context-based filtering.
+     * 
+     * @return The call builder
+     */
+    public SubscribersControllerMarkNotificationsAsSeenRequestBuilder markAsSeen() {
+        return new SubscribersControllerMarkNotificationsAsSeenRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Mark notifications as seen
+     * 
+     * <p>Mark specific and multiple in-app (inbox) notifications as seen. Supports context-based filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkNotificationsAsSeenResponse markAsSeen(@Nonnull String subscriberId, @Nonnull MarkSubscriberNotificationsAsSeenDto body) {
+        return markAsSeen(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Mark notifications as seen
+     * 
+     * <p>Mark specific and multiple in-app (inbox) notifications as seen. Supports context-based filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerMarkNotificationsAsSeenResponse markAsSeen(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull MarkSubscriberNotificationsAsSeenDto body, @Nullable Options options) {
+        SubscribersControllerMarkNotificationsAsSeenRequest request = new SubscribersControllerMarkNotificationsAsSeenRequest(subscriberId, idempotencyKey, body);
+        RequestOperation<SubscribersControllerMarkNotificationsAsSeenRequest, SubscribersControllerMarkNotificationsAsSeenResponse> operation
+              = new SubscribersControllerMarkNotificationsAsSeen.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve unseen notifications count
+     * 
+     * <p>Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * 
+     * @return The call builder
+     */
+    public SubscribersV1ControllerGetUnseenCountRequestBuilder getUnseenCount() {
+        return new SubscribersV1ControllerGetUnseenCountRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve unseen notifications count
+     * 
+     * <p>Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * 
+     * @param subscriberId 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerGetUnseenCountResponse getUnseenCount(@Nonnull String subscriberId) {
+        return getUnseenCount(subscriberId, null, null,
+            null, null);
+    }
+
+    /**
+     * Retrieve unseen notifications count
+     * 
+     * <p>Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * 
+     * @param subscriberId 
+     * @param seen Indicates whether to count seen notifications.
+     * @param limit The maximum number of notifications to return.
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerGetUnseenCountResponse getUnseenCount(
+            @Nonnull String subscriberId, @Nullable Boolean seen,
+            @Nullable Double limit, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        SubscribersV1ControllerGetUnseenCountRequest request = new SubscribersV1ControllerGetUnseenCountRequest(
+                subscriberId, seen, limit,
+                idempotencyKey);
+        RequestOperation<SubscribersV1ControllerGetUnseenCountRequest, SubscribersV1ControllerGetUnseenCountResponse> operation
+              = new SubscribersV1ControllerGetUnseenCount.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -16,7 +16,8 @@ import java.util.Optional;
 /**
  * UpdateLayoutDtoControlValues
  * 
- * <p>Control values for the layout
+ * <p>Control values for the layout. Omit to leave unchanged, or set to null to clear stored control
+ * values.
  */
 public class UpdateLayoutDtoControlValues {
     /**

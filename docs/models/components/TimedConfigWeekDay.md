@@ -1,5 +1,13 @@
 # TimedConfigWeekDay
 
+## Example Usage
+
+```java
+import co.novu.models.components.TimedConfigWeekDay;
+
+TimedConfigWeekDay value = TimedConfigWeekDay.MONDAY;
+```
+
 
 ## Values
 

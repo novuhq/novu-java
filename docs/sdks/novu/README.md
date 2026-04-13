@@ -57,7 +57,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -117,7 +117,7 @@ public class Application {
                 .call();
 
         if (res.boolean_().isPresent()) {
-            // handle response
+            System.out.println(res.boolean_().get());
         }
     }
 }
@@ -200,7 +200,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -286,7 +286,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDtos().get());
         }
     }
 }

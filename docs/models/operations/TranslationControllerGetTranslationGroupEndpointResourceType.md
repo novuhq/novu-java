@@ -2,6 +2,14 @@
 
 Resource type
 
+## Example Usage
+
+```java
+import co.novu.models.operations.TranslationControllerGetTranslationGroupEndpointResourceType;
+
+TranslationControllerGetTranslationGroupEndpointResourceType value = TranslationControllerGetTranslationGroupEndpointResourceType.WORKFLOW;
+```
+
 
 ## Values
 

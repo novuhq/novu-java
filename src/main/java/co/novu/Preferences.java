@@ -60,7 +60,7 @@ public class Preferences {
      * <p>Retrieve subscriber channel preferences by its unique key identifier **subscriberId**.
      * This API returns all five channels preferences for all workflows and global preferences.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -75,7 +75,7 @@ public class Preferences {
      * <p>Retrieve subscriber channel preferences by its unique key identifier **subscriberId**.
      * This API returns all five channels preferences for all workflows and global preferences.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param criticality 
      * @param contextKeys Context keys for filtering preferences (e.g., ["tenant:acme"])
      * @param idempotencyKey A header for idempotency purposes
@@ -113,7 +113,7 @@ public class Preferences {
      * <p>Bulk update subscriber preferences by its unique key identifier **subscriberId**.
      * This API allows updating multiple workflow preferences in a single request.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param body 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -129,7 +129,7 @@ public class Preferences {
      * <p>Bulk update subscriber preferences by its unique key identifier **subscriberId**.
      * This API allows updating multiple workflow preferences in a single request.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options

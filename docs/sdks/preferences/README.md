@@ -42,7 +42,7 @@ public class Application {
                 .call();
 
         if (res.getSubscriberPreferencesDto().isPresent()) {
-            // handle response
+            System.out.println(res.getSubscriberPreferencesDto().get());
         }
     }
 }
@@ -52,7 +52,7 @@ public class Application {
 
 | Parameter                                                        | Type                                                             | Required                                                         | Description                                                      | Example                                                          |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `subscriberId`                                                   | *String*                                                         | :heavy_check_mark:                                               | N/A                                                              |                                                                  |
+| `subscriberId`                                                   | *String*                                                         | :heavy_check_mark:                                               | The identifier of the subscriber                                 |                                                                  |
 | `criticality`                                                    | [Optional\<Criticality>](../../models/operations/Criticality.md) | :heavy_minus_sign:                                               | N/A                                                              |                                                                  |
 | `contextKeys`                                                    | List\<*String*>                                                  | :heavy_minus_sign:                                               | Context keys for filtering preferences (e.g., ["tenant:acme"])   | [<br/>"tenant:acme"<br/>]                                        |
 | `idempotencyKey`                                                 | *Optional\<String>*                                              | :heavy_minus_sign:                                               | A header for idempotency purposes                                |                                                                  |
@@ -110,7 +110,7 @@ public class Application {
                 .call();
 
         if (res.getPreferencesResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.getPreferencesResponseDtos().get());
         }
     }
 }
@@ -120,7 +120,7 @@ public class Application {
 
 | Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
 | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `subscriberId`                                                                                      | *String*                                                                                            | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| `subscriberId`                                                                                      | *String*                                                                                            | :heavy_check_mark:                                                                                  | The identifier of the subscriber                                                                    |
 | `idempotencyKey`                                                                                    | *Optional\<String>*                                                                                 | :heavy_minus_sign:                                                                                  | A header for idempotency purposes                                                                   |
 | `body`                                                                                              | [BulkUpdateSubscriberPreferencesDto](../../models/components/BulkUpdateSubscriberPreferencesDto.md) | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
 
