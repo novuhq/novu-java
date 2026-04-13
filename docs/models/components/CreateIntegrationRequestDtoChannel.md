@@ -2,6 +2,14 @@
 
 The channel type for the integration
 
+## Example Usage
+
+```java
+import co.novu.models.components.CreateIntegrationRequestDtoChannel;
+
+CreateIntegrationRequestDtoChannel value = CreateIntegrationRequestDtoChannel.IN_APP;
+```
+
 
 ## Values
 

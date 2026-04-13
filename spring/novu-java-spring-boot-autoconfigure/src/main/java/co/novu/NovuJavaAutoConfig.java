@@ -301,6 +301,17 @@ public class NovuJavaAutoConfig {
         return novu.workflows();
     }
     /**
+     * Creates a WorkflowsSteps sub-SDK bean if none exists.
+     *
+     * @param novu the main SDK instance
+     * @return A configured WorkflowsSteps instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public WorkflowsSteps workflowsSteps(Novu novu) {
+        return novu.workflowsSteps();
+    }
+    /**
      * Creates a ChannelConnections sub-SDK bean if none exists.
      *
      * @param novu the main SDK instance
@@ -321,6 +332,17 @@ public class NovuJavaAutoConfig {
     @ConditionalOnMissingBean
     public ChannelEndpoints channelEndpoints(Novu novu) {
         return novu.channelEndpoints();
+    }
+    /**
+     * Creates a EnvironmentVariables sub-SDK bean if none exists.
+     *
+     * @param novu the main SDK instance
+     * @return A configured EnvironmentVariables instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public EnvironmentVariables environmentVariables(Novu novu) {
+        return novu.environmentVariables();
     }
     /**
      * Creates a Integrations sub-SDK bean if none exists.
@@ -367,14 +389,14 @@ public class NovuJavaAutoConfig {
         return novu.subscribersMessages();
     }
     /**
-     * Creates a SubscribersNotifications1 sub-SDK bean if none exists.
+     * Creates a SubscribersNotifications2 sub-SDK bean if none exists.
      *
      * @param novu the main SDK instance
-     * @return A configured SubscribersNotifications1 instance
+     * @return A configured SubscribersNotifications2 instance
      */
     @Bean
     @ConditionalOnMissingBean
-    public SubscribersNotifications1 subscribersNotifications(Novu novu) {
+    public SubscribersNotifications2 subscribersNotifications(Novu novu) {
         return novu.subscribersNotifications();
     }
     /**
@@ -501,6 +523,17 @@ public class NovuJavaAutoConfig {
         return asyncNovu.workflows();
     }
     /**
+     * Creates an AsyncWorkflowsSteps sub-SDK bean if none exists.
+     *
+     * @param asyncNovu the async SDK instance
+     * @return A configured AsyncWorkflowsSteps instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncWorkflowsSteps asyncWorkflowsSteps(AsyncNovu asyncNovu) {
+        return asyncNovu.workflowsSteps();
+    }
+    /**
      * Creates an AsyncChannelConnections sub-SDK bean if none exists.
      *
      * @param asyncNovu the async SDK instance
@@ -521,6 +554,17 @@ public class NovuJavaAutoConfig {
     @ConditionalOnMissingBean
     public AsyncChannelEndpoints asyncChannelEndpoints(AsyncNovu asyncNovu) {
         return asyncNovu.channelEndpoints();
+    }
+    /**
+     * Creates an AsyncEnvironmentVariables sub-SDK bean if none exists.
+     *
+     * @param asyncNovu the async SDK instance
+     * @return A configured AsyncEnvironmentVariables instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncEnvironmentVariables asyncEnvironmentVariables(AsyncNovu asyncNovu) {
+        return asyncNovu.environmentVariables();
     }
     /**
      * Creates an AsyncIntegrations sub-SDK bean if none exists.
@@ -567,14 +611,14 @@ public class NovuJavaAutoConfig {
         return asyncNovu.subscribersMessages();
     }
     /**
-     * Creates an AsyncSubscribersNotifications1 sub-SDK bean if none exists.
+     * Creates an AsyncSubscribersNotifications2 sub-SDK bean if none exists.
      *
      * @param asyncNovu the async SDK instance
-     * @return A configured AsyncSubscribersNotifications1 instance
+     * @return A configured AsyncSubscribersNotifications2 instance
      */
     @Bean
     @ConditionalOnMissingBean
-    public AsyncSubscribersNotifications1 asyncSubscribersNotifications1(AsyncNovu asyncNovu) {
+    public AsyncSubscribersNotifications2 asyncSubscribersNotifications2(AsyncNovu asyncNovu) {
         return asyncNovu.subscribersNotifications();
     }
     /**

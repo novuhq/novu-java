@@ -58,6 +58,9 @@ public class ChannelEndpoints {
      * 
      * <p>List all channel endpoints for a resource based on query filters.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public ChannelEndpointsControllerListChannelEndpointsRequestBuilder list() {
@@ -68,6 +71,9 @@ public class ChannelEndpoints {
      * List all channel endpoints
      * 
      * <p>List all channel endpoints for a resource based on query filters.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -81,6 +87,9 @@ public class ChannelEndpoints {
      * List all channel endpoints
      * 
      * <p>List all channel endpoints for a resource based on query filters.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
@@ -98,6 +107,9 @@ public class ChannelEndpoints {
      * 
      * <p>Create a new channel endpoint for a resource.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public ChannelEndpointsControllerCreateChannelEndpointRequestBuilder create() {
@@ -108,6 +120,9 @@ public class ChannelEndpoints {
      * Create a channel endpoint
      * 
      * <p>Create a new channel endpoint for a resource.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param body Channel endpoint creation request. The structure varies based on the type field.
      * @return The response from the API call
@@ -121,6 +136,9 @@ public class ChannelEndpoints {
      * Create a channel endpoint
      * 
      * <p>Create a new channel endpoint for a resource.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body Channel endpoint creation request. The structure varies based on the type field.
@@ -142,6 +160,9 @@ public class ChannelEndpoints {
      * 
      * <p>Retrieve a specific channel endpoint by its unique identifier.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public ChannelEndpointsControllerGetChannelEndpointRequestBuilder get() {
@@ -152,6 +173,9 @@ public class ChannelEndpoints {
      * Retrieve a channel endpoint
      * 
      * <p>Retrieve a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @return The response from the API call
@@ -165,6 +189,9 @@ public class ChannelEndpoints {
      * Retrieve a channel endpoint
      * 
      * <p>Retrieve a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes
@@ -186,6 +213,9 @@ public class ChannelEndpoints {
      * 
      * <p>Update an existing channel endpoint by its unique identifier.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public ChannelEndpointsControllerUpdateChannelEndpointRequestBuilder update() {
@@ -196,6 +226,9 @@ public class ChannelEndpoints {
      * Update a channel endpoint
      * 
      * <p>Update an existing channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param body 
@@ -211,6 +244,9 @@ public class ChannelEndpoints {
      * Update a channel endpoint
      * 
      * <p>Update an existing channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes
@@ -233,6 +269,9 @@ public class ChannelEndpoints {
      * 
      * <p>Delete a specific channel endpoint by its unique identifier.
      * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
      * @return The call builder
      */
     public ChannelEndpointsControllerDeleteChannelEndpointRequestBuilder delete() {
@@ -243,6 +282,9 @@ public class ChannelEndpoints {
      * Delete a channel endpoint
      * 
      * <p>Delete a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @return The response from the API call
@@ -256,6 +298,9 @@ public class ChannelEndpoints {
      * Delete a channel endpoint
      * 
      * <p>Delete a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
      * 
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes

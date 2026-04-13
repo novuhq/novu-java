@@ -48,7 +48,7 @@ public class Application {
                 .call();
 
         if (res.messageResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.messageResponseDto().get());
         }
     }
 }

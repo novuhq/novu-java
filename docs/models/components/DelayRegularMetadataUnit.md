@@ -1,5 +1,16 @@
 # DelayRegularMetadataUnit
 
+## Example Usage
+
+```java
+import co.novu.models.components.DelayRegularMetadataUnit;
+
+DelayRegularMetadataUnit value = DelayRegularMetadataUnit.SECONDS;
+
+// Open enum: use .of() to create instances from custom string values
+DelayRegularMetadataUnit custom = DelayRegularMetadataUnit.of("custom_value");
+```
+
 
 ## Values
 

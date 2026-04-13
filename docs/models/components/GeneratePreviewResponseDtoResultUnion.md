@@ -1,0 +1,4 @@
+# GeneratePreviewResponseDtoResultUnion
+
+Preview result
+

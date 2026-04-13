@@ -14,7 +14,9 @@ import java.util.Optional;
 
 
 public class SubscribersControllerRemoveSubscriberRequest {
-
+    /**
+     * The identifier of the subscriber
+     */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=subscriberId")
     private String subscriberId;
 
@@ -38,6 +40,9 @@ public class SubscribersControllerRemoveSubscriberRequest {
         this(subscriberId, null);
     }
 
+    /**
+     * The identifier of the subscriber
+     */
     public String subscriberId() {
         return this.subscriberId;
     }
@@ -54,6 +59,9 @@ public class SubscribersControllerRemoveSubscriberRequest {
     }
 
 
+    /**
+     * The identifier of the subscriber
+     */
     public SubscribersControllerRemoveSubscriberRequest withSubscriberId(@Nonnull String subscriberId) {
         this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
         return this;
@@ -107,6 +115,9 @@ public class SubscribersControllerRemoveSubscriberRequest {
           // force use of static builder() method
         }
 
+        /**
+         * The identifier of the subscriber
+         */
         public Builder subscriberId(@Nonnull String subscriberId) {
             this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
             return this;

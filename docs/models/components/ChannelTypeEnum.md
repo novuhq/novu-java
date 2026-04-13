@@ -2,6 +2,17 @@
 
 Channel type through which the message is sent
 
+## Example Usage
+
+```java
+import co.novu.models.components.ChannelTypeEnum;
+
+ChannelTypeEnum value = ChannelTypeEnum.IN_APP;
+
+// Open enum: use .of() to create instances from custom string values
+ChannelTypeEnum custom = ChannelTypeEnum.of("custom_value");
+```
+
 
 ## Values
 

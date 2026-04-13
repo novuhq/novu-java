@@ -2,6 +2,14 @@
 
 Direction of sorting
 
+## Example Usage
+
+```java
+import co.novu.models.operations.SubscribersControllerListSubscriberTopicsOrderDirection;
+
+SubscribersControllerListSubscriberTopicsOrderDirection value = SubscribersControllerListSubscriberTopicsOrderDirection.ASC;
+```
+
 
 ## Values
 

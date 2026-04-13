@@ -73,7 +73,7 @@ public class Application {
                 .call();
 
         if (res.workflowResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.workflowResponseDto().get());
         }
     }
 }
@@ -135,7 +135,7 @@ public class Application {
                 .call();
 
         if (res.listWorkflowResponse().isPresent()) {
-            // handle response
+            System.out.println(res.listWorkflowResponse().get());
         }
     }
 }
@@ -220,7 +220,7 @@ public class Application {
                 .call();
 
         if (res.workflowResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.workflowResponseDto().get());
         }
     }
 }
@@ -277,7 +277,7 @@ public class Application {
                 .call();
 
         if (res.workflowResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.workflowResponseDto().get());
         }
     }
 }
@@ -391,7 +391,7 @@ public class Application {
                 .call();
 
         if (res.workflowResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.workflowResponseDto().get());
         }
     }
 }
@@ -452,7 +452,7 @@ public class Application {
                 .call();
 
         if (res.workflowResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.workflowResponseDto().get());
         }
     }
 }

@@ -1,5 +1,13 @@
 # DigestTimedConfigDtoWeekDay
 
+## Example Usage
+
+```java
+import co.novu.models.components.DigestTimedConfigDtoWeekDay;
+
+DigestTimedConfigDtoWeekDay value = DigestTimedConfigDtoWeekDay.MONDAY;
+```
+
 
 ## Values
 

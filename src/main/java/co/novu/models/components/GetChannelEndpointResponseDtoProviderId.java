@@ -82,6 +82,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId IMEDIA = new GetChannelEndpointResponseDtoProviderId("imedia");
     public static final GetChannelEndpointResponseDtoProviderId SINCH = new GetChannelEndpointResponseDtoProviderId("sinch");
     public static final GetChannelEndpointResponseDtoProviderId ISENDPRO_SMS = new GetChannelEndpointResponseDtoProviderId("isendpro-sms");
+    public static final GetChannelEndpointResponseDtoProviderId CM_TELECOM = new GetChannelEndpointResponseDtoProviderId("cm-telecom");
     public static final GetChannelEndpointResponseDtoProviderId FCM = new GetChannelEndpointResponseDtoProviderId("fcm");
     public static final GetChannelEndpointResponseDtoProviderId APNS = new GetChannelEndpointResponseDtoProviderId("apns");
     public static final GetChannelEndpointResponseDtoProviderId EXPO = new GetChannelEndpointResponseDtoProviderId("expo");
@@ -233,6 +234,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("imedia", IMEDIA);
         map.put("sinch", SINCH);
         map.put("isendpro-sms", ISENDPRO_SMS);
+        map.put("cm-telecom", CM_TELECOM);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -316,6 +318,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("imedia", GetChannelEndpointResponseDtoProviderIdEnum.IMEDIA);
         map.put("sinch", GetChannelEndpointResponseDtoProviderIdEnum.SINCH);
         map.put("isendpro-sms", GetChannelEndpointResponseDtoProviderIdEnum.ISENDPRO_SMS);
+        map.put("cm-telecom", GetChannelEndpointResponseDtoProviderIdEnum.CM_TELECOM);
         map.put("fcm", GetChannelEndpointResponseDtoProviderIdEnum.FCM);
         map.put("apns", GetChannelEndpointResponseDtoProviderIdEnum.APNS);
         map.put("expo", GetChannelEndpointResponseDtoProviderIdEnum.EXPO);
@@ -400,6 +403,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         IMEDIA("imedia"),
         SINCH("sinch"),
         ISENDPRO_SMS("isendpro-sms"),
+        CM_TELECOM("cm-telecom"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),

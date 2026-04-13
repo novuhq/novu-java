@@ -36,7 +36,7 @@ public class Application {
                 .call();
 
         if (res.topicSubscriberDto().isPresent()) {
-            // handle response
+            System.out.println(res.topicSubscriberDto().get());
         }
     }
 }

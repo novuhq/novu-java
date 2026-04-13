@@ -2,6 +2,14 @@
 
 Filter by channel type (email, sms, push, chat, etc.).
 
+## Example Usage
+
+```java
+import co.novu.models.operations.ChannelConnectionsControllerListChannelConnectionsChannel;
+
+ChannelConnectionsControllerListChannelConnectionsChannel value = ChannelConnectionsControllerListChannelConnectionsChannel.IN_APP;
+```
+
 
 ## Values
 

@@ -1,25 +1,26 @@
-# Subscribers.Notifications
+# SubscribersNotifications
 
 ## Overview
 
 ### Available Operations
 
-* [getUnseenCount](#getunseencount) - Retrieve unseen notifications count
+* [getFeed](#getfeed) - Retrieve subscriber notifications
 
-## getUnseenCount
+## getFeed
 
-Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier **subscriberId**.
+Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
 
 ### Example Usage
 
-<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_getUnseenCount" method="get" path="/v1/subscribers/{subscriberId}/notifications/unseen" -->
+<!-- UsageSnippet language="java" operationID="SubscribersV1Controller_getNotificationsFeed" method="get" path="/v1/subscribers/{subscriberId}/notifications/feed" -->
 ```java
 package hello.world;
 
 import co.novu.Novu;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
-import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountResponse;
+import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedRequest;
+import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedResponse;
 import java.lang.Exception;
 
 public class Application {
@@ -30,14 +31,18 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        SubscribersV1ControllerGetUnseenCountResponse res = sdk.subscribers().notifications().getUnseenCount()
+        SubscribersV1ControllerGetNotificationsFeedRequest req = SubscribersV1ControllerGetNotificationsFeedRequest.builder()
                 .subscriberId("<id>")
-                .seen(false)
-                .limit(100d)
+                .page(0d)
+                .payload("btoa(JSON.stringify({ foo: 123 })) results in base64 encoded string like eyJmb28iOjEyM30=")
+                .build();
+
+        SubscribersV1ControllerGetNotificationsFeedResponse res = sdk.subscribersNotifications().getFeed()
+                .request(req)
                 .call();
 
-        if (res.unseenCountResponse().isPresent()) {
-            // handle response
+        if (res.feedResponseDto().isPresent()) {
+            System.out.println(res.feedResponseDto().get());
         }
     }
 }
@@ -45,16 +50,13 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                      | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `subscriberId`                                 | *String*                                       | :heavy_check_mark:                             | N/A                                            |
-| `seen`                                         | *Optional\<Boolean>*                           | :heavy_minus_sign:                             | Indicates whether to count seen notifications. |
-| `limit`                                        | *Optional\<Double>*                            | :heavy_minus_sign:                             | The maximum number of notifications to return. |
-| `idempotencyKey`                               | *Optional\<String>*                            | :heavy_minus_sign:                             | A header for idempotency purposes              |
+| Parameter                                                                                                                           | Type                                                                                                                                | Required                                                                                                                            | Description                                                                                                                         |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                                           | [SubscribersV1ControllerGetNotificationsFeedRequest](../../models/operations/SubscribersV1ControllerGetNotificationsFeedRequest.md) | :heavy_check_mark:                                                                                                                  | The request object to use for the request.                                                                                          |
 
 ### Response
 
-**[SubscribersV1ControllerGetUnseenCountResponse](../../models/operations/SubscribersV1ControllerGetUnseenCountResponse.md)**
+**[SubscribersV1ControllerGetNotificationsFeedResponse](../../models/operations/SubscribersV1ControllerGetNotificationsFeedResponse.md)**
 
 ### Errors
 

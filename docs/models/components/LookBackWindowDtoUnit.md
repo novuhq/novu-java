@@ -2,6 +2,17 @@
 
 Unit of time for the look-back window.
 
+## Example Usage
+
+```java
+import co.novu.models.components.LookBackWindowDtoUnit;
+
+LookBackWindowDtoUnit value = LookBackWindowDtoUnit.SECONDS;
+
+// Open enum: use .of() to create instances from custom string values
+LookBackWindowDtoUnit custom = LookBackWindowDtoUnit.of("custom_value");
+```
+
 
 ## Values
 

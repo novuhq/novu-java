@@ -2,6 +2,17 @@
 
 Ordinal position for the digest
 
+## Example Usage
+
+```java
+import co.novu.models.components.OrdinalEnum;
+
+OrdinalEnum value = OrdinalEnum.ONE;
+
+// Open enum: use .of() to create instances from custom string values
+OrdinalEnum custom = OrdinalEnum.of("custom_value");
+```
+
 
 ## Values
 

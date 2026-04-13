@@ -82,6 +82,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum IMEDIA = new ProvidersIdEnum("imedia");
     public static final ProvidersIdEnum SINCH = new ProvidersIdEnum("sinch");
     public static final ProvidersIdEnum ISENDPRO_SMS = new ProvidersIdEnum("isendpro-sms");
+    public static final ProvidersIdEnum CM_TELECOM = new ProvidersIdEnum("cm-telecom");
     public static final ProvidersIdEnum FCM = new ProvidersIdEnum("fcm");
     public static final ProvidersIdEnum APNS = new ProvidersIdEnum("apns");
     public static final ProvidersIdEnum EXPO = new ProvidersIdEnum("expo");
@@ -233,6 +234,7 @@ public class ProvidersIdEnum {
         map.put("imedia", IMEDIA);
         map.put("sinch", SINCH);
         map.put("isendpro-sms", ISENDPRO_SMS);
+        map.put("cm-telecom", CM_TELECOM);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -316,6 +318,7 @@ public class ProvidersIdEnum {
         map.put("imedia", ProvidersIdEnumEnum.IMEDIA);
         map.put("sinch", ProvidersIdEnumEnum.SINCH);
         map.put("isendpro-sms", ProvidersIdEnumEnum.ISENDPRO_SMS);
+        map.put("cm-telecom", ProvidersIdEnumEnum.CM_TELECOM);
         map.put("fcm", ProvidersIdEnumEnum.FCM);
         map.put("apns", ProvidersIdEnumEnum.APNS);
         map.put("expo", ProvidersIdEnumEnum.EXPO);
@@ -400,6 +403,7 @@ public class ProvidersIdEnum {
         IMEDIA("imedia"),
         SINCH("sinch"),
         ISENDPRO_SMS("isendpro-sms"),
+        CM_TELECOM("cm-telecom"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),

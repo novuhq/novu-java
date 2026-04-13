@@ -1,5 +1,13 @@
 # DirectionEnum
 
+## Example Usage
+
+```java
+import co.novu.models.components.DirectionEnum;
+
+DirectionEnum value = DirectionEnum.ASC;
+```
+
 
 ## Values
 

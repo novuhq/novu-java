@@ -82,6 +82,7 @@ public class GetChannelConnectionResponseDtoProviderId {
     public static final GetChannelConnectionResponseDtoProviderId IMEDIA = new GetChannelConnectionResponseDtoProviderId("imedia");
     public static final GetChannelConnectionResponseDtoProviderId SINCH = new GetChannelConnectionResponseDtoProviderId("sinch");
     public static final GetChannelConnectionResponseDtoProviderId ISENDPRO_SMS = new GetChannelConnectionResponseDtoProviderId("isendpro-sms");
+    public static final GetChannelConnectionResponseDtoProviderId CM_TELECOM = new GetChannelConnectionResponseDtoProviderId("cm-telecom");
     public static final GetChannelConnectionResponseDtoProviderId FCM = new GetChannelConnectionResponseDtoProviderId("fcm");
     public static final GetChannelConnectionResponseDtoProviderId APNS = new GetChannelConnectionResponseDtoProviderId("apns");
     public static final GetChannelConnectionResponseDtoProviderId EXPO = new GetChannelConnectionResponseDtoProviderId("expo");
@@ -233,6 +234,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("imedia", IMEDIA);
         map.put("sinch", SINCH);
         map.put("isendpro-sms", ISENDPRO_SMS);
+        map.put("cm-telecom", CM_TELECOM);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -316,6 +318,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("imedia", GetChannelConnectionResponseDtoProviderIdEnum.IMEDIA);
         map.put("sinch", GetChannelConnectionResponseDtoProviderIdEnum.SINCH);
         map.put("isendpro-sms", GetChannelConnectionResponseDtoProviderIdEnum.ISENDPRO_SMS);
+        map.put("cm-telecom", GetChannelConnectionResponseDtoProviderIdEnum.CM_TELECOM);
         map.put("fcm", GetChannelConnectionResponseDtoProviderIdEnum.FCM);
         map.put("apns", GetChannelConnectionResponseDtoProviderIdEnum.APNS);
         map.put("expo", GetChannelConnectionResponseDtoProviderIdEnum.EXPO);
@@ -400,6 +403,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         IMEDIA("imedia"),
         SINCH("sinch"),
         ISENDPRO_SMS("isendpro-sms"),
+        CM_TELECOM("cm-telecom"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),

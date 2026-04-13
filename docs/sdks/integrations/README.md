@@ -44,7 +44,7 @@ public class Application {
                 .call();
 
         if (res.integrationResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.integrationResponseDtos().get());
         }
     }
 }
@@ -105,7 +105,7 @@ public class Application {
                 .call();
 
         if (res.integrationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.integrationResponseDto().get());
         }
     }
 }
@@ -165,7 +165,7 @@ public class Application {
                 .call();
 
         if (res.integrationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.integrationResponseDto().get());
         }
     }
 }
@@ -223,7 +223,7 @@ public class Application {
                 .call();
 
         if (res.integrationResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.integrationResponseDtos().get());
         }
     }
 }
@@ -280,7 +280,7 @@ public class Application {
                 .call();
 
         if (res.autoConfigureIntegrationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.autoConfigureIntegrationResponseDto().get());
         }
     }
 }
@@ -338,7 +338,7 @@ public class Application {
                 .call();
 
         if (res.integrationResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.integrationResponseDto().get());
         }
     }
 }
@@ -393,7 +393,7 @@ public class Application {
                 .call();
 
         if (res.integrationResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.integrationResponseDtos().get());
         }
     }
 }
@@ -468,7 +468,7 @@ public class Application {
                 .call();
 
         if (res.generateChatOAuthUrlResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.generateChatOAuthUrlResponseDto().get());
         }
     }
 }

@@ -1,5 +1,13 @@
 # LayoutResponseDtoSortField
 
+## Example Usage
+
+```java
+import co.novu.models.components.LayoutResponseDtoSortField;
+
+LayoutResponseDtoSortField value = LayoutResponseDtoSortField.CREATED_AT;
+```
+
 
 ## Values
 

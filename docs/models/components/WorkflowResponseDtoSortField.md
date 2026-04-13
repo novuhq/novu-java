@@ -1,5 +1,13 @@
 # WorkflowResponseDtoSortField
 
+## Example Usage
+
+```java
+import co.novu.models.components.WorkflowResponseDtoSortField;
+
+WorkflowResponseDtoSortField value = WorkflowResponseDtoSortField.CREATED_AT;
+```
+
 
 ## Values
 

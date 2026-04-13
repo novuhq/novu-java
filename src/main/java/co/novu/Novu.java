@@ -120,10 +120,16 @@ public class Novu {
     private final Workflows workflows;
 
 
+    private final WorkflowsSteps workflowsSteps;
+
+
     private final ChannelConnections channelConnections;
 
 
     private final ChannelEndpoints channelEndpoints;
+
+
+    private final EnvironmentVariables environmentVariables;
 
     /**
      * With the help of the Integration Store, you can easily integrate your favorite delivery provider.
@@ -150,7 +156,7 @@ public class Novu {
     private final SubscribersMessages2 subscribersMessages;
 
 
-    private final SubscribersNotifications1 subscribersNotifications;
+    private final SubscribersNotifications2 subscribersNotifications;
 
 
     private final SubscribersProperties subscribersProperties;
@@ -236,6 +242,11 @@ public class Novu {
     }
 
 
+    public WorkflowsSteps workflowsSteps() {
+        return workflowsSteps;
+    }
+
+
     public ChannelConnections channelConnections() {
         return channelConnections;
     }
@@ -243,6 +254,11 @@ public class Novu {
 
     public ChannelEndpoints channelEndpoints() {
         return channelEndpoints;
+    }
+
+
+    public EnvironmentVariables environmentVariables() {
+        return environmentVariables;
     }
 
     /**
@@ -278,7 +294,7 @@ public class Novu {
     }
 
 
-    public SubscribersNotifications1 subscribersNotifications() {
+    public SubscribersNotifications2 subscribersNotifications() {
         return subscribersNotifications;
     }
 
@@ -445,13 +461,15 @@ public class Novu {
         this.topics = new Topics(sdkConfiguration);
         this.translations = new Translations(sdkConfiguration);
         this.workflows = new Workflows(sdkConfiguration);
+        this.workflowsSteps = new WorkflowsSteps(sdkConfiguration);
         this.channelConnections = new ChannelConnections(sdkConfiguration);
         this.channelEndpoints = new ChannelEndpoints(sdkConfiguration);
+        this.environmentVariables = new EnvironmentVariables(sdkConfiguration);
         this.integrations = new Integrations(sdkConfiguration);
         this.messages = new Messages(sdkConfiguration);
         this.notifications = new Notifications(sdkConfiguration);
         this.subscribersMessages = new SubscribersMessages2(sdkConfiguration);
-        this.subscribersNotifications = new SubscribersNotifications1(sdkConfiguration);
+        this.subscribersNotifications = new SubscribersNotifications2(sdkConfiguration);
         this.subscribersProperties = new SubscribersProperties(sdkConfiguration);
         sdkConfiguration = sdkConfiguration.hooks().sdkInit(sdkConfiguration);
         this.asyncSDK = new AsyncNovu(this, sdkConfiguration);

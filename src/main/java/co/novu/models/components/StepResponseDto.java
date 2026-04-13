@@ -92,6 +92,13 @@ public class StepResponseDto {
     @JsonProperty("issues")
     private StepIssuesDto issues;
 
+    /**
+     * Hash identifying the deployed Cloudflare Worker for this step
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("stepResolverHash")
+    private String stepResolverHash;
+
     @JsonCreator
     public StepResponseDto(
             @JsonProperty("controls") @Nonnull ControlsMetadataDto controls,
@@ -105,7 +112,8 @@ public class StepResponseDto {
             @JsonProperty("origin") @Nonnull ResourceOriginEnum origin,
             @JsonProperty("workflowId") @Nonnull String workflowId,
             @JsonProperty("workflowDatabaseId") @Nonnull String workflowDatabaseId,
-            @JsonProperty("issues") @Nullable StepIssuesDto issues) {
+            @JsonProperty("issues") @Nullable StepIssuesDto issues,
+            @JsonProperty("stepResolverHash") @Nullable String stepResolverHash) {
         variables = Utils.emptyMapIfNull(variables);
         this.controls = Optional.ofNullable(controls)
             .orElseThrow(() -> new IllegalArgumentException("controls cannot be null"));
@@ -129,6 +137,7 @@ public class StepResponseDto {
         this.workflowDatabaseId = Optional.ofNullable(workflowDatabaseId)
             .orElseThrow(() -> new IllegalArgumentException("workflowDatabaseId cannot be null"));
         this.issues = issues;
+        this.stepResolverHash = stepResolverHash;
     }
     
     public StepResponseDto(
@@ -145,7 +154,8 @@ public class StepResponseDto {
         this(controls, null, variables,
             stepId, id, name,
             slug, type, origin,
-            workflowId, workflowDatabaseId, null);
+            workflowId, workflowDatabaseId, null,
+            null);
     }
 
     /**
@@ -230,6 +240,13 @@ public class StepResponseDto {
      */
     public Optional<StepIssuesDto> issues() {
         return Optional.ofNullable(this.issues);
+    }
+
+    /**
+     * Hash identifying the deployed Cloudflare Worker for this step
+     */
+    public Optional<String> stepResolverHash() {
+        return Optional.ofNullable(this.stepResolverHash);
     }
 
     public static Builder builder() {
@@ -345,6 +362,15 @@ public class StepResponseDto {
     }
 
 
+    /**
+     * Hash identifying the deployed Cloudflare Worker for this step
+     */
+    public StepResponseDto withStepResolverHash(@Nullable String stepResolverHash) {
+        this.stepResolverHash = stepResolverHash;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -366,7 +392,8 @@ public class StepResponseDto {
             Utils.enhancedDeepEquals(this.origin, other.origin) &&
             Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
             Utils.enhancedDeepEquals(this.workflowDatabaseId, other.workflowDatabaseId) &&
-            Utils.enhancedDeepEquals(this.issues, other.issues);
+            Utils.enhancedDeepEquals(this.issues, other.issues) &&
+            Utils.enhancedDeepEquals(this.stepResolverHash, other.stepResolverHash);
     }
     
     @Override
@@ -375,7 +402,8 @@ public class StepResponseDto {
             controls, controlValues, variables,
             stepId, id, name,
             slug, type, origin,
-            workflowId, workflowDatabaseId, issues);
+            workflowId, workflowDatabaseId, issues,
+            stepResolverHash);
     }
     
     @Override
@@ -392,7 +420,8 @@ public class StepResponseDto {
                 "origin", origin,
                 "workflowId", workflowId,
                 "workflowDatabaseId", workflowDatabaseId,
-                "issues", issues);
+                "issues", issues,
+                "stepResolverHash", stepResolverHash);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -421,6 +450,8 @@ public class StepResponseDto {
         private String workflowDatabaseId;
 
         private StepIssuesDto issues;
+
+        private String stepResolverHash;
 
         private Builder() {
           // force use of static builder() method
@@ -522,12 +553,21 @@ public class StepResponseDto {
             return this;
         }
 
+        /**
+         * Hash identifying the deployed Cloudflare Worker for this step
+         */
+        public Builder stepResolverHash(@Nullable String stepResolverHash) {
+            this.stepResolverHash = stepResolverHash;
+            return this;
+        }
+
         public StepResponseDto build() {
             return new StepResponseDto(
                 controls, controlValues, variables,
                 stepId, id, name,
                 slug, type, origin,
-                workflowId, workflowDatabaseId, issues);
+                workflowId, workflowDatabaseId, issues,
+                stepResolverHash);
         }
 
     }

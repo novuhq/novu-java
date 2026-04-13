@@ -57,8 +57,7 @@ public class IntegrationResponseDto {
     private String providerId;
 
     /**
-     * The channel type for the integration, which defines how the integration communicates (e.g., email,
-     * SMS).
+     * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
      */
     @JsonProperty("channel")
     private IntegrationResponseDtoChannel channel;
@@ -224,8 +223,7 @@ public class IntegrationResponseDto {
     }
 
     /**
-     * The channel type for the integration, which defines how the integration communicates (e.g., email,
-     * SMS).
+     * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
      */
     public IntegrationResponseDtoChannel channel() {
         return this.channel;
@@ -354,8 +352,7 @@ public class IntegrationResponseDto {
 
 
     /**
-     * The channel type for the integration, which defines how the integration communicates (e.g., email,
-     * SMS).
+     * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
      */
     public IntegrationResponseDto withChannel(@Nonnull IntegrationResponseDtoChannel channel) {
         this.channel = Utils.checkNotNull(channel, "channel");
@@ -585,8 +582,7 @@ public class IntegrationResponseDto {
         }
 
         /**
-         * The channel type for the integration, which defines how the integration communicates (e.g., email,
-         * SMS).
+         * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
          */
         public Builder channel(@Nonnull IntegrationResponseDtoChannel channel) {
             this.channel = Utils.checkNotNull(channel, "channel");

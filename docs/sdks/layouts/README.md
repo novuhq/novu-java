@@ -49,7 +49,7 @@ public class Application {
                 .call();
 
         if (res.layoutResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.layoutResponseDto().get());
         }
     }
 }
@@ -111,7 +111,7 @@ public class Application {
                 .call();
 
         if (res.listLayoutResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listLayoutResponseDto().get());
         }
     }
 }
@@ -170,7 +170,7 @@ public class Application {
                 .call();
 
         if (res.layoutResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.layoutResponseDto().get());
         }
     }
 }
@@ -227,7 +227,7 @@ public class Application {
                 .call();
 
         if (res.layoutResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.layoutResponseDto().get());
         }
     }
 }
@@ -341,7 +341,7 @@ public class Application {
                 .call();
 
         if (res.layoutResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.layoutResponseDto().get());
         }
     }
 }
@@ -424,7 +424,7 @@ public class Application {
                 .call();
 
         if (res.generateLayoutPreviewResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.generateLayoutPreviewResponseDto().get());
         }
     }
 }
@@ -481,7 +481,7 @@ public class Application {
                 .call();
 
         if (res.getLayoutUsageResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.getLayoutUsageResponseDto().get());
         }
     }
 }

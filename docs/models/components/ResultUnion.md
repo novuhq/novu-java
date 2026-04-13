@@ -1,4 +1,0 @@
-# ResultUnion
-
-Preview result
-

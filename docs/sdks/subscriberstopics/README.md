@@ -46,7 +46,7 @@ public class Application {
                 .call();
 
         if (res.listTopicSubscriptionsResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listTopicSubscriptionsResponseDto().get());
         }
     }
 }

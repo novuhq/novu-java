@@ -6,7 +6,15 @@ package co.novu;
 import static co.novu.operations.Operations.RequestOperation;
 
 import co.novu.models.components.CreateEnvironmentRequestDto;
+import co.novu.models.components.DiffEnvironmentRequestDto;
+import co.novu.models.components.PublishEnvironmentRequestDto;
 import co.novu.models.components.UpdateEnvironmentRequestDto;
+import co.novu.models.operations.EnvironmentsControllerDiffEnvironmentRequest;
+import co.novu.models.operations.EnvironmentsControllerDiffEnvironmentRequestBuilder;
+import co.novu.models.operations.EnvironmentsControllerDiffEnvironmentResponse;
+import co.novu.models.operations.EnvironmentsControllerPublishEnvironmentRequest;
+import co.novu.models.operations.EnvironmentsControllerPublishEnvironmentRequestBuilder;
+import co.novu.models.operations.EnvironmentsControllerPublishEnvironmentResponse;
 import co.novu.models.operations.EnvironmentsControllerV1CreateEnvironmentRequest;
 import co.novu.models.operations.EnvironmentsControllerV1CreateEnvironmentRequestBuilder;
 import co.novu.models.operations.EnvironmentsControllerV1CreateEnvironmentResponse;
@@ -19,6 +27,8 @@ import co.novu.models.operations.EnvironmentsControllerV1ListMyEnvironmentsRespo
 import co.novu.models.operations.EnvironmentsControllerV1UpdateMyEnvironmentRequest;
 import co.novu.models.operations.EnvironmentsControllerV1UpdateMyEnvironmentRequestBuilder;
 import co.novu.models.operations.EnvironmentsControllerV1UpdateMyEnvironmentResponse;
+import co.novu.operations.EnvironmentsControllerDiffEnvironment;
+import co.novu.operations.EnvironmentsControllerPublishEnvironment;
 import co.novu.operations.EnvironmentsControllerV1CreateEnvironment;
 import co.novu.operations.EnvironmentsControllerV1DeleteEnvironment;
 import co.novu.operations.EnvironmentsControllerV1ListMyEnvironments;
@@ -59,6 +69,106 @@ public class Environments {
      */
     public AsyncEnvironments async() {
         return asyncSDK;
+    }
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the source and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @return The call builder
+     */
+    public EnvironmentsControllerDiffEnvironmentRequestBuilder diff() {
+        return new EnvironmentsControllerDiffEnvironmentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the source and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentsControllerDiffEnvironmentResponse diff(@Nonnull String targetEnvironmentId, @Nonnull DiffEnvironmentRequestDto body) {
+        return diff(targetEnvironmentId, null, body,
+            null);
+    }
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the source and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentsControllerDiffEnvironmentResponse diff(
+            @Nonnull String targetEnvironmentId, @Nullable String idempotencyKey,
+            @Nonnull DiffEnvironmentRequestDto body, @Nullable Options options) {
+        EnvironmentsControllerDiffEnvironmentRequest request = new EnvironmentsControllerDiffEnvironmentRequest(targetEnvironmentId, idempotencyKey, body);
+        RequestOperation<EnvironmentsControllerDiffEnvironmentRequest, EnvironmentsControllerDiffEnvironmentResponse> operation
+              = new EnvironmentsControllerDiffEnvironment.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @return The call builder
+     */
+    public EnvironmentsControllerPublishEnvironmentRequestBuilder publish() {
+        return new EnvironmentsControllerPublishEnvironmentRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentsControllerPublishEnvironmentResponse publish(@Nonnull String targetEnvironmentId, @Nonnull PublishEnvironmentRequestDto body) {
+        return publish(targetEnvironmentId, null, body,
+            null);
+    }
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentsControllerPublishEnvironmentResponse publish(
+            @Nonnull String targetEnvironmentId, @Nullable String idempotencyKey,
+            @Nonnull PublishEnvironmentRequestDto body, @Nullable Options options) {
+        EnvironmentsControllerPublishEnvironmentRequest request = new EnvironmentsControllerPublishEnvironmentRequest(targetEnvironmentId, idempotencyKey, body);
+        RequestOperation<EnvironmentsControllerPublishEnvironmentRequest, EnvironmentsControllerPublishEnvironmentResponse> operation
+              = new EnvironmentsControllerPublishEnvironment.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
     }
 
     /**

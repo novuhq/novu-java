@@ -35,6 +35,7 @@ public class ActivityNotificationJobResponseDtoType {
     public static final ActivityNotificationJobResponseDtoType DELAY = new ActivityNotificationJobResponseDtoType("delay");
     public static final ActivityNotificationJobResponseDtoType THROTTLE = new ActivityNotificationJobResponseDtoType("throttle");
     public static final ActivityNotificationJobResponseDtoType CUSTOM = new ActivityNotificationJobResponseDtoType("custom");
+    public static final ActivityNotificationJobResponseDtoType HTTP_REQUEST = new ActivityNotificationJobResponseDtoType("http_request");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -118,6 +119,7 @@ public class ActivityNotificationJobResponseDtoType {
         map.put("delay", DELAY);
         map.put("throttle", THROTTLE);
         map.put("custom", CUSTOM);
+        map.put("http_request", HTTP_REQUEST);
         return map;
     }
 
@@ -133,6 +135,7 @@ public class ActivityNotificationJobResponseDtoType {
         map.put("delay", ActivityNotificationJobResponseDtoTypeEnum.DELAY);
         map.put("throttle", ActivityNotificationJobResponseDtoTypeEnum.THROTTLE);
         map.put("custom", ActivityNotificationJobResponseDtoTypeEnum.CUSTOM);
+        map.put("http_request", ActivityNotificationJobResponseDtoTypeEnum.HTTP_REQUEST);
         return map;
     }
     
@@ -148,7 +151,8 @@ public class ActivityNotificationJobResponseDtoType {
         TRIGGER("trigger"),
         DELAY("delay"),
         THROTTLE("throttle"),
-        CUSTOM("custom"),;
+        CUSTOM("custom"),
+        HTTP_REQUEST("http_request"),;
 
         private final String value;
 

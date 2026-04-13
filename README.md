@@ -44,7 +44,7 @@ For more information about the API: [Novu Documentation](https://docs.novu.co)
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [openapi](#openapi)
+* [JAVA Novu SDK](#java-novu-sdk)
   * [SDK Installation](#sdk-installation)
   * [SDK Example Usage](#sdk-example-usage)
   * [Asynchronous Support](#asynchronous-support)
@@ -56,6 +56,7 @@ For more information about the API: [Novu Documentation](https://docs.novu.co)
   * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
+  * [Jackson Configuration](#jackson-configuration)
 * [Development](#development)
   * [Maturity](#maturity)
   * [Contributions](#contributions)
@@ -73,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.14.0'
+implementation 'co.novu:novu-java:3.15.0'
 ```
 
 Maven:
@@ -81,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.14.0</version>
+    <version>3.15.0</version>
 </dependency>
 ```
 
@@ -140,7 +141,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -170,7 +171,7 @@ public class Application {
                 .call();
 
         if (res.boolean_().isPresent()) {
-            // handle response
+            System.out.println(res.boolean_().get());
         }
     }
 }
@@ -225,7 +226,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -281,7 +282,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDtos().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDtos().get());
         }
     }
 }
@@ -325,7 +326,7 @@ public class Application {
 
         resFut.thenAccept(res -> {
             if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+                System.out.println(res.triggerEventResponseDto().get());
             }
         });
     }
@@ -333,6 +334,15 @@ public class Application {
 ```
 
 [comp-fut]: https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html
+
+#### Union Consumption Patterns
+
+When a response field is a union model:
+
+- Discriminated unions: branch on the discriminator (`switch`) and then narrow to the concrete type.
+- Non-discriminated unions: use generated accessors (for example `string()`, `asLong()`, `simpleObject()`) to determine the active variant.
+
+For full model-specific examples (including Java 11/16/21 variants), see each union model's **Supported Types** section in the generated model docs.
 <!-- End SDK Example Usage [usage] -->
 
 <!-- Start Asynchronous Support [async-support] -->
@@ -448,7 +458,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -470,7 +480,7 @@ public class Application {
 
 ### [Activity](docs/sdks/activity/README.md)
 
-* [track](docs/sdks/activity/README.md#track) - Track activity and engagement events
+* [track](docs/sdks/activity/README.md#track) - Track provider activity and engagement events
 
 ### [ChannelConnections](docs/sdks/channelconnections/README.md)
 
@@ -496,8 +506,19 @@ public class Application {
 * [get](docs/sdks/contexts/README.md#get) - Retrieve a context
 * [delete](docs/sdks/contexts/README.md#delete) - Delete a context
 
+### [EnvironmentVariables](docs/sdks/environmentvariables/README.md)
+
+* [list](docs/sdks/environmentvariables/README.md#list) - List all variables
+* [create](docs/sdks/environmentvariables/README.md#create) - Create a variable
+* [retrieve](docs/sdks/environmentvariables/README.md#retrieve) - Get environment variable
+* [update](docs/sdks/environmentvariables/README.md#update) - Update a variable
+* [delete](docs/sdks/environmentvariables/README.md#delete) - Delete environment variable
+* [usage](docs/sdks/environmentvariables/README.md#usage) - Retrieve a variable usage
+
 ### [Environments](docs/sdks/environments/README.md)
 
+* [diff](docs/sdks/environments/README.md#diff) - Compare resources between environments
+* [publish](docs/sdks/environments/README.md#publish) - Publish resources to target environment
 * [create](docs/sdks/environments/README.md#create) - Create an environment
 * [list](docs/sdks/environments/README.md#list) - List all environments
 * [update](docs/sdks/environments/README.md#update) - Update an environment
@@ -553,6 +574,26 @@ public class Application {
 * [removeCredentials](docs/sdks/subscribers/README.md#removecredentials) - Delete provider credentials
 * [markAllMessages](docs/sdks/subscribers/README.md#markallmessages) - Update all notifications state
 
+#### [Subscribers.Notifications](docs/sdks/subscribersnotifications1/README.md)
+
+* [list](docs/sdks/subscribersnotifications1/README.md#list) - Retrieve subscriber notifications
+* [delete](docs/sdks/subscribersnotifications1/README.md#delete) - Delete a notification
+* [completeAction](docs/sdks/subscribersnotifications1/README.md#completeaction) - Complete a notification action
+* [revertAction](docs/sdks/subscribersnotifications1/README.md#revertaction) - Revert a notification action
+* [archive](docs/sdks/subscribersnotifications1/README.md#archive) - Archive a notification
+* [markAsRead](docs/sdks/subscribersnotifications1/README.md#markasread) - Mark a notification as read
+* [snooze](docs/sdks/subscribersnotifications1/README.md#snooze) - Snooze a notification
+* [unarchive](docs/sdks/subscribersnotifications1/README.md#unarchive) - Unarchive a notification
+* [markAsUnread](docs/sdks/subscribersnotifications1/README.md#markasunread) - Mark a notification as unread
+* [unsnooze](docs/sdks/subscribersnotifications1/README.md#unsnooze) - Unsnooze a notification
+* [archiveAll](docs/sdks/subscribersnotifications1/README.md#archiveall) - Archive all notifications
+* [count](docs/sdks/subscribersnotifications1/README.md#count) - Retrieve subscriber notifications count
+* [deleteAll](docs/sdks/subscribersnotifications1/README.md#deleteall) - Delete all notifications
+* [markAllAsRead](docs/sdks/subscribersnotifications1/README.md#markallasread) - Mark all notifications as read
+* [archiveAllRead](docs/sdks/subscribersnotifications1/README.md#archiveallread) - Archive all read notifications
+* [markAsSeen](docs/sdks/subscribersnotifications1/README.md#markasseen) - Mark notifications as seen
+* [getUnseenCount](docs/sdks/subscribersnotifications1/README.md#getunseencount) - Retrieve unseen notifications count
+
 ### [Subscribers.Credentials](docs/sdks/credentials/README.md)
 
 * [upsert](docs/sdks/credentials/README.md#upsert) - Upsert provider credentials
@@ -560,10 +601,6 @@ public class Application {
 ### [Subscribers.Messages](docs/sdks/subscribersmessages1/README.md)
 
 * [updateActionStatus](docs/sdks/subscribersmessages1/README.md#updateactionstatus) - Update notification action status
-
-### [Subscribers.Notifications](docs/sdks/subscribersnotifications2/README.md)
-
-* [getUnseenCount](docs/sdks/subscribersnotifications2/README.md#getunseencount) - Retrieve unseen notifications count
 
 ### [Subscribers.Preferences](docs/sdks/preferences/README.md)
 
@@ -574,9 +611,9 @@ public class Application {
 
 * [markAllAs](docs/sdks/subscribersmessages2/README.md#markallas) - Update notifications state
 
-### [SubscribersNotifications](docs/sdks/subscribersnotifications1/README.md)
+### [SubscribersNotifications](docs/sdks/subscribersnotifications2/README.md)
 
-* [getFeed](docs/sdks/subscribersnotifications1/README.md#getfeed) - Retrieve subscriber notifications
+* [getFeed](docs/sdks/subscribersnotifications2/README.md#getfeed) - Retrieve subscriber notifications
 
 ### [SubscribersProperties](docs/sdks/subscribersproperties/README.md)
 
@@ -631,6 +668,10 @@ public class Application {
 ### [Workflows.Steps](docs/sdks/steps/README.md)
 
 * [get](docs/sdks/steps/README.md#get) - Retrieve workflow step
+
+### [WorkflowsSteps](docs/sdks/workflowssteps/README.md)
+
+* [generatePreview](docs/sdks/workflowssteps/README.md#generatepreview) - Generate a step preview
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -738,7 +779,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -793,7 +834,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -857,7 +898,7 @@ public class Application {
                     .call();
 
             if (res.triggerEventResponseDto().isPresent()) {
-                // handle response
+                System.out.println(res.triggerEventResponseDto().get());
             }
         } catch (NovuException ex) { // all SDK exceptions inherit from NovuException
 
@@ -912,9 +953,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 93 methods.*
-* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 93 methods.*
-* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 93 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 118 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 118 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 118 methods.*
 
 
 </details>
@@ -972,7 +1013,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -1017,7 +1058,7 @@ public class Application {
                 .call();
 
         if (res.triggerEventResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.triggerEventResponseDto().get());
         }
     }
 }
@@ -1242,6 +1283,36 @@ __NOTE__: This is a convenience method that calls `HTTPClient.enableDebugLogging
 #### JDK HTTP Client Logging
 Another option is to set the System property `-Djdk.httpclient.HttpClient.log=all`. However, this option does not log request/response bodies.
 <!-- End Debugging [debug] -->
+
+<!-- Start Jackson Configuration [jackson] -->
+## Jackson Configuration
+
+The SDK ships with a pre-configured Jackson [`ObjectMapper`][jackson-databind] accessible via
+`JSON.getMapper()`. It is set up with type modules, strict deserializers, and the feature flags
+needed for full SDK compatibility (including ISO-8601 `OffsetDateTime` serialization):
+
+```java
+import co.novu.utils.JSON;
+
+String json = JSON.getMapper().writeValueAsString(response);
+```
+
+To compose with your own `ObjectMapper`, register the provided `NovuJavaJacksonModule`, which
+bundles all the same modules and feature flags as a single plug-and-play module:
+
+```java
+import co.novu.utils.NovuJavaJacksonModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+ObjectMapper myMapper = new ObjectMapper()
+    .registerModule(new NovuJavaJacksonModule());
+
+String json = myMapper.writeValueAsString(response);
+```
+
+[jackson-databind]: https://github.com/FasterXML/jackson-databind
+[jackson-jsr310]: https://github.com/FasterXML/jackson-modules-java8/tree/master/datetime
+<!-- End Jackson Configuration [jackson] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

@@ -2,6 +2,17 @@
 
 The type of the actor, indicating the role in the notification process.
 
+## Example Usage
+
+```java
+import co.novu.models.components.ActorTypeEnum;
+
+ActorTypeEnum value = ActorTypeEnum.NONE;
+
+// Open enum: use .of() to create instances from custom string values
+ActorTypeEnum custom = ActorTypeEnum.of("custom_value");
+```
+
 
 ## Values
 

@@ -3,13 +3,12 @@
  */
 package co.novu.models.components;
 
-import co.novu.utils.LazySingletonValue;
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.type.TypeReference;
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
@@ -18,14 +17,13 @@ import java.util.Optional;
 
 public class RedirectDto {
     /**
-     * URL for redirection. Must be a valid URL or start with / or &lbrace;&lbrace; variable &rbrace;&rbrace;.
+     * URL to redirect to
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("url")
     private String url;
 
     /**
-     * Target window for the redirection.
+     * Target attribute for the redirect link
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("target")
@@ -33,26 +31,27 @@ public class RedirectDto {
 
     @JsonCreator
     public RedirectDto(
-            @JsonProperty("url") @Nullable String url,
+            @JsonProperty("url") @Nonnull String url,
             @JsonProperty("target") @Nullable Target target) {
-        this.url = url;
-        this.target = Optional.ofNullable(target)
-            .orElse(Builder._SINGLETON_VALUE_Target.value());
+        this.url = Optional.ofNullable(url)
+            .orElseThrow(() -> new IllegalArgumentException("url cannot be null"));
+        this.target = target;
     }
     
-    public RedirectDto() {
-        this(null, null);
+    public RedirectDto(
+            @Nonnull String url) {
+        this(url, null);
     }
 
     /**
-     * URL for redirection. Must be a valid URL or start with / or &lbrace;&lbrace; variable &rbrace;&rbrace;.
+     * URL to redirect to
      */
-    public Optional<String> url() {
-        return Optional.ofNullable(this.url);
+    public String url() {
+        return this.url;
     }
 
     /**
-     * Target window for the redirection.
+     * Target attribute for the redirect link
      */
     public Optional<Target> target() {
         return Optional.ofNullable(this.target);
@@ -64,16 +63,16 @@ public class RedirectDto {
 
 
     /**
-     * URL for redirection. Must be a valid URL or start with / or &lbrace;&lbrace; variable &rbrace;&rbrace;.
+     * URL to redirect to
      */
-    public RedirectDto withUrl(@Nullable String url) {
-        this.url = url;
+    public RedirectDto withUrl(@Nonnull String url) {
+        this.url = Utils.checkNotNull(url, "url");
         return this;
     }
 
 
     /**
-     * Target window for the redirection.
+     * Target attribute for the redirect link
      */
     public RedirectDto withTarget(@Nullable Target target) {
         this.target = target;
@@ -120,15 +119,15 @@ public class RedirectDto {
         }
 
         /**
-         * URL for redirection. Must be a valid URL or start with / or &lbrace;&lbrace; variable &rbrace;&rbrace;.
+         * URL to redirect to
          */
-        public Builder url(@Nullable String url) {
-            this.url = url;
+        public Builder url(@Nonnull String url) {
+            this.url = Utils.checkNotNull(url, "url");
             return this;
         }
 
         /**
-         * Target window for the redirection.
+         * Target attribute for the redirect link
          */
         public Builder target(@Nullable Target target) {
             this.target = target;
@@ -140,11 +139,5 @@ public class RedirectDto {
                 url, target);
         }
 
-
-        private static final LazySingletonValue<Target> _SINGLETON_VALUE_Target =
-                new LazySingletonValue<>(
-                        "target",
-                        "\"_self\"",
-                        new TypeReference<Target>() {});
     }
 }

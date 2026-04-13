@@ -1,0 +1,4 @@
+# GenerateLayoutPreviewResponseDtoResultUnion
+
+Preview result
+

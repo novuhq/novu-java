@@ -43,6 +43,13 @@ public class TriggerEventResponseDto {
     @JsonProperty("transactionId")
     private String transactionId;
 
+    /**
+     * Link to the activity feed for this trigger event
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("activityFeedLink")
+    private String activityFeedLink;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("jobData")
@@ -54,12 +61,14 @@ public class TriggerEventResponseDto {
             @JsonProperty("status") @Nonnull TriggerEventResponseDtoStatus status,
             @JsonProperty("error") @Nullable List<String> error,
             @JsonProperty("transactionId") @Nullable String transactionId,
+            @JsonProperty("activityFeedLink") @Nullable String activityFeedLink,
             @JsonProperty("jobData") @Nullable JobData jobData) {
         this.acknowledged = acknowledged;
         this.status = Optional.ofNullable(status)
             .orElseThrow(() -> new IllegalArgumentException("status cannot be null"));
         this.error = error;
         this.transactionId = transactionId;
+        this.activityFeedLink = activityFeedLink;
         this.jobData = jobData;
     }
     
@@ -67,7 +76,7 @@ public class TriggerEventResponseDto {
             boolean acknowledged,
             @Nonnull TriggerEventResponseDtoStatus status) {
         this(acknowledged, status, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -96,6 +105,13 @@ public class TriggerEventResponseDto {
      */
     public Optional<String> transactionId() {
         return Optional.ofNullable(this.transactionId);
+    }
+
+    /**
+     * Link to the activity feed for this trigger event
+     */
+    public Optional<String> activityFeedLink() {
+        return Optional.ofNullable(this.activityFeedLink);
     }
 
     public Optional<JobData> jobData() {
@@ -143,6 +159,15 @@ public class TriggerEventResponseDto {
     }
 
 
+    /**
+     * Link to the activity feed for this trigger event
+     */
+    public TriggerEventResponseDto withActivityFeedLink(@Nullable String activityFeedLink) {
+        this.activityFeedLink = activityFeedLink;
+        return this;
+    }
+
+
     public TriggerEventResponseDto withJobData(@Nullable JobData jobData) {
         this.jobData = jobData;
         return this;
@@ -163,6 +188,7 @@ public class TriggerEventResponseDto {
             Utils.enhancedDeepEquals(this.status, other.status) &&
             Utils.enhancedDeepEquals(this.error, other.error) &&
             Utils.enhancedDeepEquals(this.transactionId, other.transactionId) &&
+            Utils.enhancedDeepEquals(this.activityFeedLink, other.activityFeedLink) &&
             Utils.enhancedDeepEquals(this.jobData, other.jobData);
     }
     
@@ -170,7 +196,7 @@ public class TriggerEventResponseDto {
     public int hashCode() {
         return Utils.enhancedHash(
             acknowledged, status, error,
-            transactionId, jobData);
+            transactionId, activityFeedLink, jobData);
     }
     
     @Override
@@ -180,6 +206,7 @@ public class TriggerEventResponseDto {
                 "status", status,
                 "error", error,
                 "transactionId", transactionId,
+                "activityFeedLink", activityFeedLink,
                 "jobData", jobData);
     }
 
@@ -193,6 +220,8 @@ public class TriggerEventResponseDto {
         private List<String> error;
 
         private String transactionId;
+
+        private String activityFeedLink;
 
         private JobData jobData;
 
@@ -232,6 +261,14 @@ public class TriggerEventResponseDto {
             return this;
         }
 
+        /**
+         * Link to the activity feed for this trigger event
+         */
+        public Builder activityFeedLink(@Nullable String activityFeedLink) {
+            this.activityFeedLink = activityFeedLink;
+            return this;
+        }
+
         public Builder jobData(@Nullable JobData jobData) {
             this.jobData = jobData;
             return this;
@@ -240,7 +277,7 @@ public class TriggerEventResponseDto {
         public TriggerEventResponseDto build() {
             return new TriggerEventResponseDto(
                 acknowledged, status, error,
-                transactionId, jobData);
+                transactionId, activityFeedLink, jobData);
         }
 
     }

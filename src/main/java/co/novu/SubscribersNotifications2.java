@@ -5,17 +5,14 @@ package co.novu;
 
 import static co.novu.operations.Operations.RequestOperation;
 
-import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountRequest;
-import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountRequestBuilder;
-import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountResponse;
-import co.novu.operations.SubscribersV1ControllerGetUnseenCount;
+import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedRequest;
+import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedRequestBuilder;
+import co.novu.models.operations.SubscribersV1ControllerGetNotificationsFeedResponse;
+import co.novu.operations.SubscribersV1ControllerGetNotificationsFeed;
 import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import java.lang.Boolean;
-import java.lang.Double;
-import java.lang.String;
 
 
 public class SubscribersNotifications2 {
@@ -38,55 +35,42 @@ public class SubscribersNotifications2 {
     }
 
     /**
-     * Retrieve unseen notifications count
+     * Retrieve subscriber notifications
      * 
-     * <p>Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier
-     * **subscriberId**.
+     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
      * 
      * @return The call builder
      */
-    public SubscribersV1ControllerGetUnseenCountRequestBuilder getUnseenCount() {
-        return new SubscribersV1ControllerGetUnseenCountRequestBuilder(sdkConfiguration);
+    public SubscribersV1ControllerGetNotificationsFeedRequestBuilder getFeed() {
+        return new SubscribersV1ControllerGetNotificationsFeedRequestBuilder(sdkConfiguration);
     }
 
     /**
-     * Retrieve unseen notifications count
+     * Retrieve subscriber notifications
      * 
-     * <p>Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier
-     * **subscriberId**.
+     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
      * 
-     * @param subscriberId 
+     * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public SubscribersV1ControllerGetUnseenCountResponse getUnseenCount(@Nonnull String subscriberId) {
-        return getUnseenCount(subscriberId, null, null,
-            null, null);
+    public SubscribersV1ControllerGetNotificationsFeedResponse getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request) {
+        return getFeed(request, null);
     }
 
     /**
-     * Retrieve unseen notifications count
+     * Retrieve subscriber notifications
      * 
-     * <p>Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier
-     * **subscriberId**.
+     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
      * 
-     * @param subscriberId 
-     * @param seen Indicates whether to count seen notifications.
-     * @param limit The maximum number of notifications to return.
-     * @param idempotencyKey A header for idempotency purposes
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public SubscribersV1ControllerGetUnseenCountResponse getUnseenCount(
-            @Nonnull String subscriberId, @Nullable Boolean seen,
-            @Nullable Double limit, @Nullable String idempotencyKey,
-            @Nullable Options options) {
-        SubscribersV1ControllerGetUnseenCountRequest request = new SubscribersV1ControllerGetUnseenCountRequest(
-                subscriberId, seen, limit,
-                idempotencyKey);
-        RequestOperation<SubscribersV1ControllerGetUnseenCountRequest, SubscribersV1ControllerGetUnseenCountResponse> operation
-              = new SubscribersV1ControllerGetUnseenCount.Sync(sdkConfiguration, options, _headers);
+    public SubscribersV1ControllerGetNotificationsFeedResponse getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request, @Nullable Options options) {
+        RequestOperation<SubscribersV1ControllerGetNotificationsFeedRequest, SubscribersV1ControllerGetNotificationsFeedResponse> operation
+              = new SubscribersV1ControllerGetNotificationsFeed.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

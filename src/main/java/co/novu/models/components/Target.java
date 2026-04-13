@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * Target
  * 
- * <p>Target window for the redirection.
+ * <p>Target attribute for the redirect link
  */
 public class Target {
 

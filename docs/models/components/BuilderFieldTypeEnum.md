@@ -1,5 +1,16 @@
 # BuilderFieldTypeEnum
 
+## Example Usage
+
+```java
+import co.novu.models.components.BuilderFieldTypeEnum;
+
+BuilderFieldTypeEnum value = BuilderFieldTypeEnum.BOOLEAN;
+
+// Open enum: use .of() to create instances from custom string values
+BuilderFieldTypeEnum custom = BuilderFieldTypeEnum.of("custom_value");
+```
+
 
 ## Values
 

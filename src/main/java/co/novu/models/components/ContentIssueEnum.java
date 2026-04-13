@@ -27,6 +27,7 @@ public class ContentIssueEnum {
 
     public static final ContentIssueEnum ILLEGAL_VARIABLE_IN_CONTROL_VALUE = new ContentIssueEnum("ILLEGAL_VARIABLE_IN_CONTROL_VALUE");
     public static final ContentIssueEnum INVALID_FILTER_ARG_IN_VARIABLE = new ContentIssueEnum("INVALID_FILTER_ARG_IN_VARIABLE");
+    public static final ContentIssueEnum INVALID_URL = new ContentIssueEnum("INVALID_URL");
     public static final ContentIssueEnum MISSING_VALUE = new ContentIssueEnum("MISSING_VALUE");
     public static final ContentIssueEnum TIER_LIMIT_EXCEEDED = new ContentIssueEnum("TIER_LIMIT_EXCEEDED");
 
@@ -104,6 +105,7 @@ public class ContentIssueEnum {
         Map<String, ContentIssueEnum> map = new LinkedHashMap<>();
         map.put("ILLEGAL_VARIABLE_IN_CONTROL_VALUE", ILLEGAL_VARIABLE_IN_CONTROL_VALUE);
         map.put("INVALID_FILTER_ARG_IN_VARIABLE", INVALID_FILTER_ARG_IN_VARIABLE);
+        map.put("INVALID_URL", INVALID_URL);
         map.put("MISSING_VALUE", MISSING_VALUE);
         map.put("TIER_LIMIT_EXCEEDED", TIER_LIMIT_EXCEEDED);
         return map;
@@ -113,6 +115,7 @@ public class ContentIssueEnum {
         Map<String, ContentIssueEnumEnum> map = new HashMap<>();
         map.put("ILLEGAL_VARIABLE_IN_CONTROL_VALUE", ContentIssueEnumEnum.ILLEGAL_VARIABLE_IN_CONTROL_VALUE);
         map.put("INVALID_FILTER_ARG_IN_VARIABLE", ContentIssueEnumEnum.INVALID_FILTER_ARG_IN_VARIABLE);
+        map.put("INVALID_URL", ContentIssueEnumEnum.INVALID_URL);
         map.put("MISSING_VALUE", ContentIssueEnumEnum.MISSING_VALUE);
         map.put("TIER_LIMIT_EXCEEDED", ContentIssueEnumEnum.TIER_LIMIT_EXCEEDED);
         return map;
@@ -123,6 +126,7 @@ public class ContentIssueEnum {
 
         ILLEGAL_VARIABLE_IN_CONTROL_VALUE("ILLEGAL_VARIABLE_IN_CONTROL_VALUE"),
         INVALID_FILTER_ARG_IN_VARIABLE("INVALID_FILTER_ARG_IN_VARIABLE"),
+        INVALID_URL("INVALID_URL"),
         MISSING_VALUE("MISSING_VALUE"),
         TIER_LIMIT_EXCEEDED("TIER_LIMIT_EXCEEDED"),;
 

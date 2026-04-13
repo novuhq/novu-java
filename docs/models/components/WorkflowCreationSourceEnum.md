@@ -2,6 +2,14 @@
 
 Source of workflow creation
 
+## Example Usage
+
+```java
+import co.novu.models.components.WorkflowCreationSourceEnum;
+
+WorkflowCreationSourceEnum value = WorkflowCreationSourceEnum.TEMPLATE_STORE;
+```
+
 
 ## Values
 

@@ -21,8 +21,7 @@ import java.util.Optional;
 /**
  * IntegrationResponseDtoChannel
  * 
- * <p>The channel type for the integration, which defines how the integration communicates (e.g., email,
- * SMS).
+ * <p>The channel type for the integration, which defines how it communicates (e.g., email, SMS).
  */
 public class IntegrationResponseDtoChannel {
 

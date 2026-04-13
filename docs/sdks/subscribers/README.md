@@ -53,7 +53,7 @@ public class Application {
                 .call();
 
         if (res.listSubscribersResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.listSubscribersResponseDto().get());
         }
     }
 }
@@ -118,7 +118,7 @@ public class Application {
                 .call();
 
         if (res.subscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriberResponseDto().get());
         }
     }
 }
@@ -177,7 +177,7 @@ public class Application {
                 .call();
 
         if (res.subscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriberResponseDto().get());
         }
     }
 }
@@ -187,7 +187,7 @@ public class Application {
 
 | Parameter                         | Type                              | Required                          | Description                       |
 | --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-| `subscriberId`                    | *String*                          | :heavy_check_mark:                | N/A                               |
+| `subscriberId`                    | *String*                          | :heavy_check_mark:                | The identifier of the subscriber  |
 | `idempotencyKey`                  | *Optional\<String>*               | :heavy_minus_sign:                | A header for idempotency purposes |
 
 ### Response
@@ -244,7 +244,7 @@ public class Application {
                 .call();
 
         if (res.subscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriberResponseDto().get());
         }
     }
 }
@@ -254,7 +254,7 @@ public class Application {
 
 | Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
 | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `subscriberId`                                                                    | *String*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
+| `subscriberId`                                                                    | *String*                                                                          | :heavy_check_mark:                                                                | The identifier of the subscriber                                                  |
 | `idempotencyKey`                                                                  | *Optional\<String>*                                                               | :heavy_minus_sign:                                                                | A header for idempotency purposes                                                 |
 | `body`                                                                            | [PatchSubscriberRequestDto](../../models/components/PatchSubscriberRequestDto.md) | :heavy_check_mark:                                                                | N/A                                                                               |
 
@@ -302,7 +302,7 @@ public class Application {
                 .call();
 
         if (res.removeSubscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.removeSubscriberResponseDto().get());
         }
     }
 }
@@ -312,7 +312,7 @@ public class Application {
 
 | Parameter                         | Type                              | Required                          | Description                       |
 | --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-| `subscriberId`                    | *String*                          | :heavy_check_mark:                | N/A                               |
+| `subscriberId`                    | *String*                          | :heavy_check_mark:                | The identifier of the subscriber  |
 | `idempotencyKey`                  | *Optional\<String>*               | :heavy_minus_sign:                | A header for idempotency purposes |
 
 ### Response
@@ -364,7 +364,7 @@ public class Application {
                 .call();
 
         if (res.bulkCreateSubscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.bulkCreateSubscriberResponseDto().get());
         }
     }
 }
@@ -490,7 +490,7 @@ public class Application {
                 .call();
 
         if (res.getSubscriberPreferencesDto().isPresent()) {
-            // handle response
+            System.out.println(res.getSubscriberPreferencesDto().get());
         }
     }
 }
@@ -500,7 +500,7 @@ public class Application {
 
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `subscriberId`                                                                            | *String*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
+| `subscriberId`                                                                            | *String*                                                                                  | :heavy_check_mark:                                                                        | The identifier of the subscriber                                                          |
 | `idempotencyKey`                                                                          | *Optional\<String>*                                                                       | :heavy_minus_sign:                                                                        | A header for idempotency purposes                                                         |
 | `body`                                                                                    | [PatchSubscriberPreferencesDto](../../models/components/PatchSubscriberPreferencesDto.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
 
@@ -566,7 +566,7 @@ public class Application {
                 .call();
 
         if (res.subscriberResponseDto().isPresent()) {
-            // handle response
+            System.out.println(res.subscriberResponseDto().get());
         }
     }
 }
@@ -685,7 +685,7 @@ public class Application {
                 .call();
 
         if (res.number().isPresent()) {
-            // handle response
+            System.out.println(res.number().get());
         }
     }
 }

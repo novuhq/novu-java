@@ -70,18 +70,22 @@ public class Subscribers {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
     private final AsyncSubscribers asyncSDK;
+    private final SubscribersNotifications1 notifications;
     private final Preferences preferences;
     private final Credentials credentials;
     private final SubscribersMessages1 messages;
-    private final SubscribersNotifications2 notifications;
 
     Subscribers(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.notifications = new SubscribersNotifications1(this.sdkConfiguration);
         this.preferences = new Preferences(this.sdkConfiguration);
         this.credentials = new Credentials(this.sdkConfiguration);
         this.messages = new SubscribersMessages1(this.sdkConfiguration);
-        this.notifications = new SubscribersNotifications2(this.sdkConfiguration);
         this.asyncSDK = new AsyncSubscribers(this, sdkConfiguration);
+    }
+
+    public final SubscribersNotifications1 notifications() {
+        return notifications;
     }
 
     public final Preferences preferences() {
@@ -94,10 +98,6 @@ public class Subscribers {
 
     public final SubscribersMessages1 messages() {
         return messages;
-    }
-
-    public final SubscribersNotifications2 notifications() {
-        return notifications;
     }
 
     /**
@@ -225,7 +225,7 @@ public class Subscribers {
      * <p>Retrieve a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** field is required.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -239,7 +239,7 @@ public class Subscribers {
      * <p>Retrieve a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** field is required.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
@@ -272,7 +272,7 @@ public class Subscribers {
      * <p>Update a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** is a required field, rest other fields are optional
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param body 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -288,7 +288,7 @@ public class Subscribers {
      * <p>Update a subscriber by its unique key identifier **subscriberId**.
      * **subscriberId** is a required field, rest other fields are optional
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options
@@ -324,7 +324,7 @@ public class Subscribers {
      * topic subscriptions.
      * **subscriberId** is a required field.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
@@ -339,7 +339,7 @@ public class Subscribers {
      * topic subscriptions.
      * **subscriberId** is a required field.
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
@@ -421,7 +421,7 @@ public class Subscribers {
      * **workflowId** is optional field, if provided, this API will update that workflow preference,
      * otherwise it will update global preferences
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param body 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -438,7 +438,7 @@ public class Subscribers {
      * **workflowId** is optional field, if provided, this API will update that workflow preference,
      * otherwise it will update global preferences
      * 
-     * @param subscriberId 
+     * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options

@@ -35,6 +35,7 @@ public class UiSchemaGroupEnum {
     public static final UiSchemaGroupEnum PUSH = new UiSchemaGroupEnum("PUSH");
     public static final UiSchemaGroupEnum SKIP = new UiSchemaGroupEnum("SKIP");
     public static final UiSchemaGroupEnum LAYOUT = new UiSchemaGroupEnum("LAYOUT");
+    public static final UiSchemaGroupEnum HTTP_REQUEST = new UiSchemaGroupEnum("HTTP_REQUEST");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -118,6 +119,7 @@ public class UiSchemaGroupEnum {
         map.put("PUSH", PUSH);
         map.put("SKIP", SKIP);
         map.put("LAYOUT", LAYOUT);
+        map.put("HTTP_REQUEST", HTTP_REQUEST);
         return map;
     }
 
@@ -133,6 +135,7 @@ public class UiSchemaGroupEnum {
         map.put("PUSH", UiSchemaGroupEnumEnum.PUSH);
         map.put("SKIP", UiSchemaGroupEnumEnum.SKIP);
         map.put("LAYOUT", UiSchemaGroupEnumEnum.LAYOUT);
+        map.put("HTTP_REQUEST", UiSchemaGroupEnumEnum.HTTP_REQUEST);
         return map;
     }
     
@@ -148,7 +151,8 @@ public class UiSchemaGroupEnum {
         CHAT("CHAT"),
         PUSH("PUSH"),
         SKIP("SKIP"),
-        LAYOUT("LAYOUT"),;
+        LAYOUT("LAYOUT"),
+        HTTP_REQUEST("HTTP_REQUEST"),;
 
         private final String value;
 

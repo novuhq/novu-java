@@ -15,7 +15,9 @@ import java.util.Optional;
 
 
 public class SubscribersControllerBulkUpdateSubscriberPreferencesRequest {
-
+    /**
+     * The identifier of the subscriber
+     */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=subscriberId")
     private String subscriberId;
 
@@ -47,6 +49,9 @@ public class SubscribersControllerBulkUpdateSubscriberPreferencesRequest {
         this(subscriberId, null, body);
     }
 
+    /**
+     * The identifier of the subscriber
+     */
     public String subscriberId() {
         return this.subscriberId;
     }
@@ -67,6 +72,9 @@ public class SubscribersControllerBulkUpdateSubscriberPreferencesRequest {
     }
 
 
+    /**
+     * The identifier of the subscriber
+     */
     public SubscribersControllerBulkUpdateSubscriberPreferencesRequest withSubscriberId(@Nonnull String subscriberId) {
         this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
         return this;
@@ -130,6 +138,9 @@ public class SubscribersControllerBulkUpdateSubscriberPreferencesRequest {
           // force use of static builder() method
         }
 
+        /**
+         * The identifier of the subscriber
+         */
         public Builder subscriberId(@Nonnull String subscriberId) {
             this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
             return this;

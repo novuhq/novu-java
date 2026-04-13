@@ -38,7 +38,7 @@ public class Activity {
     }
 
     /**
-     * Track activity and engagement events
+     * Track provider activity and engagement events
      * 
      * <p>Track activity and engagement events for a specific delivery provider
      * 
@@ -49,7 +49,7 @@ public class Activity {
     }
 
     /**
-     * Track activity and engagement events
+     * Track provider activity and engagement events
      * 
      * <p>Track activity and engagement events for a specific delivery provider
      * 
@@ -67,7 +67,7 @@ public class Activity {
     }
 
     /**
-     * Track activity and engagement events
+     * Track provider activity and engagement events
      * 
      * <p>Track activity and engagement events for a specific delivery provider
      * 

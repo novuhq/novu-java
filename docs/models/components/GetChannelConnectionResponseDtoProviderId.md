@@ -2,6 +2,17 @@
 
 The provider identifier (e.g., sendgrid, twilio, slack, etc.).
 
+## Example Usage
+
+```java
+import co.novu.models.components.GetChannelConnectionResponseDtoProviderId;
+
+GetChannelConnectionResponseDtoProviderId value = GetChannelConnectionResponseDtoProviderId.EMAILJS;
+
+// Open enum: use .of() to create instances from custom string values
+GetChannelConnectionResponseDtoProviderId custom = GetChannelConnectionResponseDtoProviderId.of("custom_value");
+```
+
 
 ## Values
 
@@ -64,6 +75,7 @@ The provider identifier (e.g., sendgrid, twilio, slack, etc.).
 | `IMEDIA`            | imedia              |
 | `SINCH`             | sinch               |
 | `ISENDPRO_SMS`      | isendpro-sms        |
+| `CM_TELECOM`        | cm-telecom          |
 | `FCM`               | fcm                 |
 | `APNS`              | apns                |
 | `EXPO`              | expo                |

@@ -2,6 +2,14 @@
 
 The ID of the chat or push provider.
 
+## Example Usage
+
+```java
+import co.novu.models.components.SubscriberChannelDtoProviderId;
+
+SubscriberChannelDtoProviderId value = SubscriberChannelDtoProviderId.SLACK;
+```
+
 
 ## Values
 
