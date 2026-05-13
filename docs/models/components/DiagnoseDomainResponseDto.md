@@ -1,0 +1,11 @@
+# DiagnoseDomainResponseDto
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ok`                                                                                   | *boolean*                                                                              | :heavy_check_mark:                                                                     | True when there are no error-severity issues                                           |
+| `runAt`                                                                                | *String*                                                                               | :heavy_check_mark:                                                                     | ISO timestamp when the diagnostic run finished                                         |
+| `checks`                                                                               | List\<[DomainDiagnosticCheckDto](../../models/components/DomainDiagnosticCheckDto.md)> | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `issues`                                                                               | List\<[DomainDiagnosticIssueDto](../../models/components/DomainDiagnosticIssueDto.md)> | :heavy_check_mark:                                                                     | N/A                                                                                    |

@@ -1,0 +1,13 @@
+# DomainConnectStatusResponseDto
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `available`                                                                    | *boolean*                                                                      | :heavy_check_mark:                                                             | N/A                                                                            |
+| `providerName`                                                                 | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | N/A                                                                            |
+| `providerId`                                                                   | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | N/A                                                                            |
+| `reason`                                                                       | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | N/A                                                                            |
+| `reasonCode`                                                                   | [Optional\<ReasonCode>](../../models/components/ReasonCode.md)                 | :heavy_minus_sign:                                                             | N/A                                                                            |
+| `manualRecords`                                                                | List\<[ExpectedDnsRecordDto](../../models/components/ExpectedDnsRecordDto.md)> | :heavy_check_mark:                                                             | N/A                                                                            |

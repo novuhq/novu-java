@@ -48,11 +48,11 @@ public class HttpRequestStepResponseDtoControlValues {
     private List<HttpRequestKeyValuePairDto> headers;
 
     /**
-     * Request body as key-value pairs
+     * Request body as a raw JSON string. Key-value arrays are supported for legacy workflows.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("body")
-    private List<HttpRequestKeyValuePairDto> body;
+    private HttpRequestStepResponseDtoBody body;
 
     /**
      * JSON schema to validate response body against
@@ -84,7 +84,7 @@ public class HttpRequestStepResponseDtoControlValues {
             @JsonProperty("method") @Nonnull HttpMethodEnum method,
             @JsonProperty("url") @Nonnull String url,
             @JsonProperty("headers") @Nullable List<HttpRequestKeyValuePairDto> headers,
-            @JsonProperty("body") @Nullable List<HttpRequestKeyValuePairDto> body,
+            @JsonProperty("body") @Nullable HttpRequestStepResponseDtoBody body,
             @JsonProperty("responseBodySchema") @Nullable Map<String, Object> responseBodySchema,
             @JsonProperty("enforceSchemaValidation") @Nullable Boolean enforceSchemaValidation,
             @JsonProperty("continueOnFailure") @Nullable Boolean continueOnFailure) {
@@ -130,9 +130,9 @@ public class HttpRequestStepResponseDtoControlValues {
     }
 
     /**
-     * Request body as key-value pairs
+     * Request body as a raw JSON string. Key-value arrays are supported for legacy workflows.
      */
-    public Optional<List<HttpRequestKeyValuePairDto>> body() {
+    public Optional<HttpRequestStepResponseDtoBody> body() {
         return Optional.ofNullable(this.body);
     }
 
@@ -195,9 +195,9 @@ public class HttpRequestStepResponseDtoControlValues {
 
 
     /**
-     * Request body as key-value pairs
+     * Request body as a raw JSON string. Key-value arrays are supported for legacy workflows.
      */
-    public HttpRequestStepResponseDtoControlValues withBody(@Nullable List<HttpRequestKeyValuePairDto> body) {
+    public HttpRequestStepResponseDtoControlValues withBody(@Nullable HttpRequestStepResponseDtoBody body) {
         this.body = body;
         return this;
     }
@@ -294,7 +294,7 @@ public class HttpRequestStepResponseDtoControlValues {
 
         private List<HttpRequestKeyValuePairDto> headers;
 
-        private List<HttpRequestKeyValuePairDto> body;
+        private HttpRequestStepResponseDtoBody body;
 
         private Map<String, Object> responseBodySchema;
 
@@ -333,9 +333,9 @@ public class HttpRequestStepResponseDtoControlValues {
         }
 
         /**
-         * Request body as key-value pairs
+         * Request body as a raw JSON string. Key-value arrays are supported for legacy workflows.
          */
-        public Builder body(@Nullable List<HttpRequestKeyValuePairDto> body) {
+        public Builder body(@Nullable HttpRequestStepResponseDtoBody body) {
             this.body = body;
             return this;
         }

@@ -14,7 +14,9 @@ With the help of the Integration Store, you can easily integrate your favorite d
 * [autoConfigure](#autoconfigure) - Auto-configure an integration for inbound webhooks
 * [setPrimary](#setprimary) - Update integration as primary
 * [listActive](#listactive) - List active integrations
-* [generateChatOAuthUrl](#generatechatoauthurl) - Generate chat OAuth URL
+* [generateConnectOAuthUrl](#generateconnectoauthurl) - Generate OAuth URL for a workspace/tenant connection
+* [generateLinkUserOAuthUrl](#generatelinkuseroauthurl) - Generate OAuth URL to link a subscriber user identity
+* [~~generateChatOAuthUrl~~](#generatechatoauthurl) - Generate chat OAuth URL :warning: **Deprecated**
 
 ## list
 
@@ -83,7 +85,6 @@ package hello.world;
 
 import co.novu.Novu;
 import co.novu.models.components.CreateIntegrationRequestDto;
-import co.novu.models.components.CreateIntegrationRequestDtoChannel;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationResponse;
@@ -99,8 +100,6 @@ public class Application {
 
         IntegrationsControllerCreateIntegrationResponse res = sdk.integrations().create()
                 .body(CreateIntegrationRequestDto.builder()
-                    .providerId("<id>")
-                    .channel(CreateIntegrationRequestDtoChannel.EMAIL)
                     .build())
                 .call();
 
@@ -419,11 +418,155 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## generateChatOAuthUrl
+## generateConnectOAuthUrl
 
-Generate an OAuth URL for chat integrations like Slack and MS Teams. 
+Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace install or MS Teams admin consent). 
+    The generated URL expires after 5 minutes.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="IntegrationsController_generateConnectOAuthUrl" method="post" path="/v1/integrations/channel-connections/oauth" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerGenerateConnectOAuthUrlResponse;
+import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        IntegrationsControllerGenerateConnectOAuthUrlResponse res = sdk.integrations().generateConnectOAuthUrl()
+                .body(GenerateConnectOauthUrlRequestDto.builder()
+                    .integrationIdentifier("<value>")
+                    .subscriberId("subscriber-123")
+                    .connectionIdentifier("slack-connection-abc123")
+                    .context(Map.ofEntries(
+                        Map.entry("key", GenerateConnectOauthUrlRequestDtoContextUnion.of("org-acme"))))
+                    .scope(List.of(
+                        "chat:write",
+                        "chat:write.public",
+                        "channels:read"))
+                    .connectionMode(GenerateConnectOauthUrlRequestDtoConnectionMode.SHARED)
+                    .autoLinkUser(true)
+                    .build())
+                .call();
+
+        if (res.generateChatOAuthUrlResponseDto().isPresent()) {
+            System.out.println(res.generateChatOAuthUrlResponseDto().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `idempotencyKey`                                                                                  | *Optional\<String>*                                                                               | :heavy_minus_sign:                                                                                | A header for idempotency purposes                                                                 |
+| `body`                                                                                            | [GenerateConnectOauthUrlRequestDto](../../models/components/GenerateConnectOauthUrlRequestDto.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |
+
+### Response
+
+**[IntegrationsControllerGenerateConnectOAuthUrlResponse](../../models/operations/IntegrationsControllerGenerateConnectOAuthUrlResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorDto                 | 414                                    | application/json                       |
+| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
+| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
+| models/errors/ErrorDto                 | 500                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## generateLinkUserOAuthUrl
+
+Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID or MS Teams user OID). 
+    The generated URL expires after 5 minutes.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="IntegrationsController_generateLinkUserOAuthUrl" method="post" path="/v1/integrations/channel-endpoints/oauth" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.GenerateLinkUserOauthUrlRequestDto;
+import co.novu.models.components.GenerateLinkUserOauthUrlRequestDtoContextUnion;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerGenerateLinkUserOAuthUrlResponse;
+import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        IntegrationsControllerGenerateLinkUserOAuthUrlResponse res = sdk.integrations().generateLinkUserOAuthUrl()
+                .body(GenerateLinkUserOauthUrlRequestDto.builder()
+                    .subscriberId("subscriber-123")
+                    .integrationIdentifier("<value>")
+                    .connectionIdentifier("slack-connection-abc123")
+                    .context(Map.ofEntries(
+                        Map.entry("key", GenerateLinkUserOauthUrlRequestDtoContextUnion.of("org-acme"))))
+                    .userScope(List.of(
+                        "identity.basic"))
+                    .build())
+                .call();
+
+        if (res.generateChatOAuthUrlResponseDto().isPresent()) {
+            System.out.println(res.generateChatOAuthUrlResponseDto().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `idempotencyKey`                                                                                    | *Optional\<String>*                                                                                 | :heavy_minus_sign:                                                                                  | A header for idempotency purposes                                                                   |
+| `body`                                                                                              | [GenerateLinkUserOauthUrlRequestDto](../../models/components/GenerateLinkUserOauthUrlRequestDto.md) | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+
+### Response
+
+**[IntegrationsControllerGenerateLinkUserOAuthUrlResponse](../../models/operations/IntegrationsControllerGenerateLinkUserOAuthUrlResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorDto                 | 414                                    | application/json                       |
+| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
+| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
+| models/errors/ErrorDto                 | 500                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## ~~generateChatOAuthUrl~~
+
+**Deprecated** — use `POST /integrations/channel-connections/oauth` (connect) or `POST /integrations/channel-endpoints/oauth` (link_user) instead.
+    Generate an OAuth URL for chat integrations like Slack and MS Teams. 
     This URL allows subscribers to authorize the integration, enabling the system to send messages 
     through their chat workspace. The generated URL expires after 5 minutes.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 
@@ -432,8 +575,7 @@ Generate an OAuth URL for chat integrations like Slack and MS Teams.
 package hello.world;
 
 import co.novu.Novu;
-import co.novu.models.components.GenerateChatOauthUrlRequestDto;
-import co.novu.models.components.GenerateChatOauthUrlRequestDtoContextUnion;
+import co.novu.models.components.*;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlResponse;
@@ -464,6 +606,11 @@ public class Application {
                         "users:read",
                         "users:read.email",
                         "incoming-webhook"))
+                    .userScope(List.of(
+                        "identity.basic"))
+                    .mode(Mode.LINK_USER)
+                    .connectionMode(GenerateChatOauthUrlRequestDtoConnectionMode.SHARED)
+                    .autoLinkUser(true)
                     .build())
                 .call();
 

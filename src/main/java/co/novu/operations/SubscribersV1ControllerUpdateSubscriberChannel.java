@@ -183,7 +183,7 @@ public class SubscribersV1ControllerUpdateSubscriberChannel {
                         }
                         try {
                             HttpResponse<InputStream> httpRes = client.send(r);
-                            if (Utils.statusCodeMatches(httpRes.statusCode(), "400", "401", "403", "404", "405", "409", "413", "414", "415", "422", "429", "4XX", "500", "503", "5XX")) {
+                            if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                                 return onError(httpRes, null);
                             }
                             return httpRes;
@@ -311,7 +311,7 @@ public class SubscribersV1ControllerUpdateSubscriberChannel {
                                 if (err != null) {
                                     return onError(null, err);
                                 }
-                                if (Utils.statusCodeMatches(resp.statusCode(), "400", "401", "403", "404", "405", "409", "413", "414", "415", "422", "429", "4XX", "500", "503", "5XX")) {
+                                if (Utils.statusCodeMatches(resp.statusCode(), "4XX", "5XX")) {
                                     return onError(resp, null);
                                 }
                                 return CompletableFuture.completedFuture(resp);

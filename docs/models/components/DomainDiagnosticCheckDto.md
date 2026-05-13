@@ -1,0 +1,10 @@
+# DomainDiagnosticCheckDto
+
+
+## Fields
+
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `code`                                                                                      | [DomainDiagnosticCheckDtoCode](../../models/components/DomainDiagnosticCheckDtoCode.md)     | :heavy_check_mark:                                                                          | N/A                                                                                         |
+| `status`                                                                                    | [DomainDiagnosticCheckDtoStatus](../../models/components/DomainDiagnosticCheckDtoStatus.md) | :heavy_check_mark:                                                                          | N/A                                                                                         |
+| `latencyMs`                                                                                 | *double*                                                                                    | :heavy_check_mark:                                                                          | Round-trip time for this check in milliseconds                                              |

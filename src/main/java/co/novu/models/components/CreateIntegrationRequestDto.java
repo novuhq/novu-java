@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Boolean;
 import java.lang.Override;
@@ -42,14 +41,24 @@ public class CreateIntegrationRequestDto {
     /**
      * The provider ID for the integration
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("providerId")
     private String providerId;
 
     /**
-     * The channel type for the integration
+     * The channel type for the integration. Not required for agent-kind integrations.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("channel")
     private CreateIntegrationRequestDtoChannel channel;
+
+    /**
+     * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+     * integrations do not require a channel.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("kind")
+    private CreateIntegrationRequestDtoKind kind;
 
     /**
      * The credentials for the integration
@@ -91,8 +100,9 @@ public class CreateIntegrationRequestDto {
             @JsonProperty("name") @Nullable String name,
             @JsonProperty("identifier") @Nullable String identifier,
             @JsonProperty("_environmentId") @Nullable String environmentId,
-            @JsonProperty("providerId") @Nonnull String providerId,
-            @JsonProperty("channel") @Nonnull CreateIntegrationRequestDtoChannel channel,
+            @JsonProperty("providerId") @Nullable String providerId,
+            @JsonProperty("channel") @Nullable CreateIntegrationRequestDtoChannel channel,
+            @JsonProperty("kind") @Nullable CreateIntegrationRequestDtoKind kind,
             @JsonProperty("credentials") @Nullable CredentialsDto credentials,
             @JsonProperty("active") @Nullable Boolean active,
             @JsonProperty("check") @Nullable Boolean check,
@@ -101,10 +111,9 @@ public class CreateIntegrationRequestDto {
         this.name = name;
         this.identifier = identifier;
         this.environmentId = environmentId;
-        this.providerId = Optional.ofNullable(providerId)
-            .orElseThrow(() -> new IllegalArgumentException("providerId cannot be null"));
-        this.channel = Optional.ofNullable(channel)
-            .orElseThrow(() -> new IllegalArgumentException("channel cannot be null"));
+        this.providerId = providerId;
+        this.channel = channel;
+        this.kind = kind;
         this.credentials = credentials;
         this.active = active;
         this.check = check;
@@ -112,13 +121,11 @@ public class CreateIntegrationRequestDto {
         this.configurations = configurations;
     }
     
-    public CreateIntegrationRequestDto(
-            @Nonnull String providerId,
-            @Nonnull CreateIntegrationRequestDtoChannel channel) {
+    public CreateIntegrationRequestDto() {
         this(null, null, null,
-            providerId, channel, null,
             null, null, null,
-            null);
+            null, null, null,
+            null, null);
     }
 
     /**
@@ -145,15 +152,23 @@ public class CreateIntegrationRequestDto {
     /**
      * The provider ID for the integration
      */
-    public String providerId() {
-        return this.providerId;
+    public Optional<String> providerId() {
+        return Optional.ofNullable(this.providerId);
     }
 
     /**
-     * The channel type for the integration
+     * The channel type for the integration. Not required for agent-kind integrations.
      */
-    public CreateIntegrationRequestDtoChannel channel() {
-        return this.channel;
+    public Optional<CreateIntegrationRequestDtoChannel> channel() {
+        return Optional.ofNullable(this.channel);
+    }
+
+    /**
+     * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+     * integrations do not require a channel.
+     */
+    public Optional<CreateIntegrationRequestDtoKind> kind() {
+        return Optional.ofNullable(this.kind);
     }
 
     /**
@@ -226,17 +241,27 @@ public class CreateIntegrationRequestDto {
     /**
      * The provider ID for the integration
      */
-    public CreateIntegrationRequestDto withProviderId(@Nonnull String providerId) {
-        this.providerId = Utils.checkNotNull(providerId, "providerId");
+    public CreateIntegrationRequestDto withProviderId(@Nullable String providerId) {
+        this.providerId = providerId;
         return this;
     }
 
 
     /**
-     * The channel type for the integration
+     * The channel type for the integration. Not required for agent-kind integrations.
      */
-    public CreateIntegrationRequestDto withChannel(@Nonnull CreateIntegrationRequestDtoChannel channel) {
-        this.channel = Utils.checkNotNull(channel, "channel");
+    public CreateIntegrationRequestDto withChannel(@Nullable CreateIntegrationRequestDtoChannel channel) {
+        this.channel = channel;
+        return this;
+    }
+
+
+    /**
+     * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+     * integrations do not require a channel.
+     */
+    public CreateIntegrationRequestDto withKind(@Nullable CreateIntegrationRequestDtoKind kind) {
+        this.kind = kind;
         return this;
     }
 
@@ -301,6 +326,7 @@ public class CreateIntegrationRequestDto {
             Utils.enhancedDeepEquals(this.environmentId, other.environmentId) &&
             Utils.enhancedDeepEquals(this.providerId, other.providerId) &&
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
+            Utils.enhancedDeepEquals(this.kind, other.kind) &&
             Utils.enhancedDeepEquals(this.credentials, other.credentials) &&
             Utils.enhancedDeepEquals(this.active, other.active) &&
             Utils.enhancedDeepEquals(this.check, other.check) &&
@@ -312,9 +338,9 @@ public class CreateIntegrationRequestDto {
     public int hashCode() {
         return Utils.enhancedHash(
             name, identifier, environmentId,
-            providerId, channel, credentials,
-            active, check, conditions,
-            configurations);
+            providerId, channel, kind,
+            credentials, active, check,
+            conditions, configurations);
     }
     
     @Override
@@ -325,6 +351,7 @@ public class CreateIntegrationRequestDto {
                 "environmentId", environmentId,
                 "providerId", providerId,
                 "channel", channel,
+                "kind", kind,
                 "credentials", credentials,
                 "active", active,
                 "check", check,
@@ -344,6 +371,8 @@ public class CreateIntegrationRequestDto {
         private String providerId;
 
         private CreateIntegrationRequestDtoChannel channel;
+
+        private CreateIntegrationRequestDtoKind kind;
 
         private CredentialsDto credentials;
 
@@ -386,16 +415,25 @@ public class CreateIntegrationRequestDto {
         /**
          * The provider ID for the integration
          */
-        public Builder providerId(@Nonnull String providerId) {
-            this.providerId = Utils.checkNotNull(providerId, "providerId");
+        public Builder providerId(@Nullable String providerId) {
+            this.providerId = providerId;
             return this;
         }
 
         /**
-         * The channel type for the integration
+         * The channel type for the integration. Not required for agent-kind integrations.
          */
-        public Builder channel(@Nonnull CreateIntegrationRequestDtoChannel channel) {
-            this.channel = Utils.checkNotNull(channel, "channel");
+        public Builder channel(@Nullable CreateIntegrationRequestDtoChannel channel) {
+            this.channel = channel;
+            return this;
+        }
+
+        /**
+         * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+         * integrations do not require a channel.
+         */
+        public Builder kind(@Nullable CreateIntegrationRequestDtoKind kind) {
+            this.kind = kind;
             return this;
         }
 
@@ -442,9 +480,9 @@ public class CreateIntegrationRequestDto {
         public CreateIntegrationRequestDto build() {
             return new CreateIntegrationRequestDto(
                 name, identifier, environmentId,
-                providerId, channel, credentials,
-                active, check, conditions,
-                configurations);
+                providerId, channel, kind,
+                credentials, active, check,
+                conditions, configurations);
         }
 
     }

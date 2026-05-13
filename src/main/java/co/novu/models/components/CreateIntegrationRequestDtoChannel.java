@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * CreateIntegrationRequestDtoChannel
  * 
- * <p>The channel type for the integration
+ * <p>The channel type for the integration. Not required for agent-kind integrations.
  */
 public enum CreateIntegrationRequestDtoChannel {
     IN_APP("in_app"),

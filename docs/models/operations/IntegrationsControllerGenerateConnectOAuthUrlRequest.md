@@ -1,0 +1,9 @@
+# IntegrationsControllerGenerateConnectOAuthUrlRequest
+
+
+## Fields
+
+| Field                                                                                             | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `idempotencyKey`                                                                                  | *Optional\<String>*                                                                               | :heavy_minus_sign:                                                                                | A header for idempotency purposes                                                                 |
+| `body`                                                                                            | [GenerateConnectOauthUrlRequestDto](../../models/components/GenerateConnectOauthUrlRequestDto.md) | :heavy_check_mark:                                                                                | N/A                                                                                               |

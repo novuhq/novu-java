@@ -46,6 +46,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId SPARKPOST = new GetChannelEndpointResponseDtoProviderId("sparkpost");
     public static final GetChannelEndpointResponseDtoProviderId EMAIL_WEBHOOK = new GetChannelEndpointResponseDtoProviderId("email-webhook");
     public static final GetChannelEndpointResponseDtoProviderId BRAZE = new GetChannelEndpointResponseDtoProviderId("braze");
+    public static final GetChannelEndpointResponseDtoProviderId NOVU_EMAIL_AGENT = new GetChannelEndpointResponseDtoProviderId("novu-email-agent");
     public static final GetChannelEndpointResponseDtoProviderId NEXMO = new GetChannelEndpointResponseDtoProviderId("nexmo");
     public static final GetChannelEndpointResponseDtoProviderId PLIVO = new GetChannelEndpointResponseDtoProviderId("plivo");
     public static final GetChannelEndpointResponseDtoProviderId SMS77 = new GetChannelEndpointResponseDtoProviderId("sms77");
@@ -104,6 +105,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId WHATSAPP_BUSINESS = new GetChannelEndpointResponseDtoProviderId("whatsapp-business");
     public static final GetChannelEndpointResponseDtoProviderId CHAT_WEBHOOK = new GetChannelEndpointResponseDtoProviderId("chat-webhook");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_SLACK = new GetChannelEndpointResponseDtoProviderId("novu-slack");
+    public static final GetChannelEndpointResponseDtoProviderId ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("anthropic");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -198,6 +200,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("sparkpost", SPARKPOST);
         map.put("email-webhook", EMAIL_WEBHOOK);
         map.put("braze", BRAZE);
+        map.put("novu-email-agent", NOVU_EMAIL_AGENT);
         map.put("nexmo", NEXMO);
         map.put("plivo", PLIVO);
         map.put("sms77", SMS77);
@@ -256,6 +259,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
+        map.put("anthropic", ANTHROPIC);
         return map;
     }
 
@@ -282,6 +286,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("sparkpost", GetChannelEndpointResponseDtoProviderIdEnum.SPARKPOST);
         map.put("email-webhook", GetChannelEndpointResponseDtoProviderIdEnum.EMAIL_WEBHOOK);
         map.put("braze", GetChannelEndpointResponseDtoProviderIdEnum.BRAZE);
+        map.put("novu-email-agent", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_EMAIL_AGENT);
         map.put("nexmo", GetChannelEndpointResponseDtoProviderIdEnum.NEXMO);
         map.put("plivo", GetChannelEndpointResponseDtoProviderIdEnum.PLIVO);
         map.put("sms77", GetChannelEndpointResponseDtoProviderIdEnum.SMS77);
@@ -340,6 +345,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("whatsapp-business", GetChannelEndpointResponseDtoProviderIdEnum.WHATSAPP_BUSINESS);
         map.put("chat-webhook", GetChannelEndpointResponseDtoProviderIdEnum.CHAT_WEBHOOK);
         map.put("novu-slack", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_SLACK);
+        map.put("anthropic", GetChannelEndpointResponseDtoProviderIdEnum.ANTHROPIC);
         return map;
     }
     
@@ -367,6 +373,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         SPARKPOST("sparkpost"),
         EMAIL_WEBHOOK("email-webhook"),
         BRAZE("braze"),
+        NOVU_EMAIL_AGENT("novu-email-agent"),
         NEXMO("nexmo"),
         PLIVO("plivo"),
         SMS77("sms77"),
@@ -424,7 +431,8 @@ public class GetChannelEndpointResponseDtoProviderId {
         ROCKET_CHAT("rocket-chat"),
         WHATSAPP_BUSINESS("whatsapp-business"),
         CHAT_WEBHOOK("chat-webhook"),
-        NOVU_SLACK("novu-slack"),;
+        NOVU_SLACK("novu-slack"),
+        ANTHROPIC("anthropic"),;
 
         private final String value;
 

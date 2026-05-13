@@ -97,6 +97,12 @@ public class AsyncNovu {
     private final AsyncChannelConnections channelConnections;
 
     private final AsyncChannelEndpoints channelEndpoints;
+    /**
+     * Used to manage your inbound email domains.
+     * 
+     * <p><a href="https://docs.novu.co/platform/domains">https://docs.novu.co/platform/domains</a>
+     */
+    private final AsyncDomains domains;
 
     private final AsyncEnvironmentVariables environmentVariables;
     /**
@@ -206,6 +212,14 @@ public class AsyncNovu {
     public AsyncChannelEndpoints channelEndpoints() {
         return channelEndpoints;
     }
+    /**
+     * Used to manage your inbound email domains.
+     * 
+     * <p><a href="https://docs.novu.co/platform/domains">https://docs.novu.co/platform/domains</a>
+     */
+    public AsyncDomains domains() {
+        return domains;
+    }
 
     public AsyncEnvironmentVariables environmentVariables() {
         return environmentVariables;
@@ -265,6 +279,7 @@ public class AsyncNovu {
         this.workflowsSteps = new AsyncWorkflowsSteps(syncSDK.workflowsSteps(), sdkConfiguration);
         this.channelConnections = new AsyncChannelConnections(syncSDK.channelConnections(), sdkConfiguration);
         this.channelEndpoints = new AsyncChannelEndpoints(syncSDK.channelEndpoints(), sdkConfiguration);
+        this.domains = new AsyncDomains(syncSDK.domains(), sdkConfiguration);
         this.environmentVariables = new AsyncEnvironmentVariables(syncSDK.environmentVariables(), sdkConfiguration);
         this.integrations = new AsyncIntegrations(syncSDK.integrations(), sdkConfiguration);
         this.messages = new AsyncMessages(syncSDK.messages(), sdkConfiguration);
