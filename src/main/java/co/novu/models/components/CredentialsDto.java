@@ -246,6 +246,26 @@ public class CredentialsDto {
     @JsonProperty("AppIOBaseUrl")
     private String appIOBaseUrl;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("signingSecret")
+    private String signingSecret;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("outboundIntegrationId")
+    private String outboundIntegrationId;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("useFromAddressOverride")
+    private Boolean useFromAddressOverride;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("fromAddressOverride")
+    private String fromAddressOverride;
+
     @JsonCreator
     public CredentialsDto(
             @JsonProperty("apiKey") @Nullable String apiKey,
@@ -293,7 +313,11 @@ public class CredentialsDto {
             @JsonProperty("appSid") @Nullable String appSid,
             @JsonProperty("senderId") @Nullable String senderId,
             @JsonProperty("tenantId") @Nullable String tenantId,
-            @JsonProperty("AppIOBaseUrl") @Nullable String appIOBaseUrl) {
+            @JsonProperty("AppIOBaseUrl") @Nullable String appIOBaseUrl,
+            @JsonProperty("signingSecret") @Nullable String signingSecret,
+            @JsonProperty("outboundIntegrationId") @Nullable String outboundIntegrationId,
+            @JsonProperty("useFromAddressOverride") @Nullable Boolean useFromAddressOverride,
+            @JsonProperty("fromAddressOverride") @Nullable String fromAddressOverride) {
         this.apiKey = apiKey;
         this.user = user;
         this.secretKey = secretKey;
@@ -340,6 +364,10 @@ public class CredentialsDto {
         this.senderId = senderId;
         this.tenantId = tenantId;
         this.appIOBaseUrl = appIOBaseUrl;
+        this.signingSecret = signingSecret;
+        this.outboundIntegrationId = outboundIntegrationId;
+        this.useFromAddressOverride = useFromAddressOverride;
+        this.fromAddressOverride = fromAddressOverride;
     }
     
     public CredentialsDto() {
@@ -358,7 +386,8 @@ public class CredentialsDto {
             null, null, null,
             null, null, null,
             null, null, null,
-            null);
+            null, null, null,
+            null, null);
     }
 
     public Optional<String> apiKey() {
@@ -543,6 +572,22 @@ public class CredentialsDto {
 
     public Optional<String> appIOBaseUrl() {
         return Optional.ofNullable(this.appIOBaseUrl);
+    }
+
+    public Optional<String> signingSecret() {
+        return Optional.ofNullable(this.signingSecret);
+    }
+
+    public Optional<String> outboundIntegrationId() {
+        return Optional.ofNullable(this.outboundIntegrationId);
+    }
+
+    public Optional<Boolean> useFromAddressOverride() {
+        return Optional.ofNullable(this.useFromAddressOverride);
+    }
+
+    public Optional<String> fromAddressOverride() {
+        return Optional.ofNullable(this.fromAddressOverride);
     }
 
     public static Builder builder() {
@@ -826,6 +871,30 @@ public class CredentialsDto {
     }
 
 
+    public CredentialsDto withSigningSecret(@Nullable String signingSecret) {
+        this.signingSecret = signingSecret;
+        return this;
+    }
+
+
+    public CredentialsDto withOutboundIntegrationId(@Nullable String outboundIntegrationId) {
+        this.outboundIntegrationId = outboundIntegrationId;
+        return this;
+    }
+
+
+    public CredentialsDto withUseFromAddressOverride(@Nullable Boolean useFromAddressOverride) {
+        this.useFromAddressOverride = useFromAddressOverride;
+        return this;
+    }
+
+
+    public CredentialsDto withFromAddressOverride(@Nullable String fromAddressOverride) {
+        this.fromAddressOverride = fromAddressOverride;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -881,7 +950,11 @@ public class CredentialsDto {
             Utils.enhancedDeepEquals(this.appSid, other.appSid) &&
             Utils.enhancedDeepEquals(this.senderId, other.senderId) &&
             Utils.enhancedDeepEquals(this.tenantId, other.tenantId) &&
-            Utils.enhancedDeepEquals(this.appIOBaseUrl, other.appIOBaseUrl);
+            Utils.enhancedDeepEquals(this.appIOBaseUrl, other.appIOBaseUrl) &&
+            Utils.enhancedDeepEquals(this.signingSecret, other.signingSecret) &&
+            Utils.enhancedDeepEquals(this.outboundIntegrationId, other.outboundIntegrationId) &&
+            Utils.enhancedDeepEquals(this.useFromAddressOverride, other.useFromAddressOverride) &&
+            Utils.enhancedDeepEquals(this.fromAddressOverride, other.fromAddressOverride);
     }
     
     @Override
@@ -902,7 +975,8 @@ public class CredentialsDto {
             imageUrl, state, externalLink,
             channelId, phoneNumberIdentification, accessKey,
             appSid, senderId, tenantId,
-            appIOBaseUrl);
+            appIOBaseUrl, signingSecret, outboundIntegrationId,
+            useFromAddressOverride, fromAddressOverride);
     }
     
     @Override
@@ -953,7 +1027,11 @@ public class CredentialsDto {
                 "appSid", appSid,
                 "senderId", senderId,
                 "tenantId", tenantId,
-                "appIOBaseUrl", appIOBaseUrl);
+                "appIOBaseUrl", appIOBaseUrl,
+                "signingSecret", signingSecret,
+                "outboundIntegrationId", outboundIntegrationId,
+                "useFromAddressOverride", useFromAddressOverride,
+                "fromAddressOverride", fromAddressOverride);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -1050,6 +1128,14 @@ public class CredentialsDto {
         private String tenantId;
 
         private String appIOBaseUrl;
+
+        private String signingSecret;
+
+        private String outboundIntegrationId;
+
+        private Boolean useFromAddressOverride;
+
+        private String fromAddressOverride;
 
         private Builder() {
           // force use of static builder() method
@@ -1285,6 +1371,26 @@ public class CredentialsDto {
             return this;
         }
 
+        public Builder signingSecret(@Nullable String signingSecret) {
+            this.signingSecret = signingSecret;
+            return this;
+        }
+
+        public Builder outboundIntegrationId(@Nullable String outboundIntegrationId) {
+            this.outboundIntegrationId = outboundIntegrationId;
+            return this;
+        }
+
+        public Builder useFromAddressOverride(@Nullable Boolean useFromAddressOverride) {
+            this.useFromAddressOverride = useFromAddressOverride;
+            return this;
+        }
+
+        public Builder fromAddressOverride(@Nullable String fromAddressOverride) {
+            this.fromAddressOverride = fromAddressOverride;
+            return this;
+        }
+
         public CredentialsDto build() {
             return new CredentialsDto(
                 apiKey, user, secretKey,
@@ -1302,7 +1408,8 @@ public class CredentialsDto {
                 imageUrl, state, externalLink,
                 channelId, phoneNumberIdentification, accessKey,
                 appSid, senderId, tenantId,
-                appIOBaseUrl);
+                appIOBaseUrl, signingSecret, outboundIntegrationId,
+                useFromAddressOverride, fromAddressOverride);
         }
 
     }

@@ -74,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.15.0'
+implementation 'co.novu:novu-java:3.16.0'
 ```
 
 Maven:
@@ -82,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.15.0</version>
+    <version>3.16.0</version>
 </dependency>
 ```
 
@@ -506,6 +506,30 @@ public class Application {
 * [get](docs/sdks/contexts/README.md#get) - Retrieve a context
 * [delete](docs/sdks/contexts/README.md#delete) - Delete a context
 
+### [Domains](docs/sdks/domains/README.md)
+
+* [list](docs/sdks/domains/README.md#list) - List domains for an environment
+* [create](docs/sdks/domains/README.md#create) - Create a domain
+* [retrieve](docs/sdks/domains/README.md#retrieve) - Retrieve a domain by name
+* [update](docs/sdks/domains/README.md#update) - Update a domain
+* [delete](docs/sdks/domains/README.md#delete) - Delete a domain
+* [diagnose](docs/sdks/domains/README.md#diagnose) - Diagnose inbound DNS for a domain
+* [verify](docs/sdks/domains/README.md#verify) - Verify a domain
+
+#### [Domains.AutoConfigure](docs/sdks/autoconfigure/README.md)
+
+* [retrieve](docs/sdks/autoconfigure/README.md#retrieve) - Retrieve auto-configuration availability
+* [start](docs/sdks/autoconfigure/README.md#start) - Start DNS auto-configuration
+
+#### [Domains.Routes](docs/sdks/routes/README.md)
+
+* [list](docs/sdks/routes/README.md#list) - List routes for a domain
+* [create](docs/sdks/routes/README.md#create) - Create a route
+* [retrieve](docs/sdks/routes/README.md#retrieve) - Retrieve a route by address
+* [update](docs/sdks/routes/README.md#update) - Update a route
+* [delete](docs/sdks/routes/README.md#delete) - Delete a route
+* [test](docs/sdks/routes/README.md#test) - Test an inbound route
+
 ### [EnvironmentVariables](docs/sdks/environmentvariables/README.md)
 
 * [list](docs/sdks/environmentvariables/README.md#list) - List all variables
@@ -537,7 +561,9 @@ public class Application {
 * [autoConfigure](docs/sdks/integrations/README.md#autoconfigure) - Auto-configure an integration for inbound webhooks
 * [setPrimary](docs/sdks/integrations/README.md#setprimary) - Update integration as primary
 * [listActive](docs/sdks/integrations/README.md#listactive) - List active integrations
-* [generateChatOAuthUrl](docs/sdks/integrations/README.md#generatechatoauthurl) - Generate chat OAuth URL
+* [generateConnectOAuthUrl](docs/sdks/integrations/README.md#generateconnectoauthurl) - Generate OAuth URL for a workspace/tenant connection
+* [generateLinkUserOAuthUrl](docs/sdks/integrations/README.md#generatelinkuseroauthurl) - Generate OAuth URL to link a subscriber user identity
+* [~~generateChatOAuthUrl~~](docs/sdks/integrations/README.md#generatechatoauthurl) - Generate chat OAuth URL :warning: **Deprecated**
 
 ### [Layouts](docs/sdks/layouts/README.md)
 
@@ -953,9 +979,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 118 methods.*
-* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 118 methods.*
-* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 118 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 135 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 135 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 135 methods.*
 
 
 </details>

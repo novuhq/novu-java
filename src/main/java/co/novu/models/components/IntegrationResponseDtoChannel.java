@@ -21,7 +21,8 @@ import java.util.Optional;
 /**
  * IntegrationResponseDtoChannel
  * 
- * <p>The channel type for the integration, which defines how it communicates (e.g., email, SMS).
+ * <p>The channel type for the integration, which defines how it communicates (e.g., email, SMS). Not set
+ * for agent-kind integrations.
  */
 public class IntegrationResponseDtoChannel {
 

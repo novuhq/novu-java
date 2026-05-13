@@ -26,6 +26,13 @@ public class DuplicateLayoutDto {
     private String name;
 
     /**
+     * Identifier for the duplicated layout. When omitted, it is derived from the name.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("layoutId")
+    private String layoutId;
+
+    /**
      * Enable or disable translations for this layout
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -35,16 +42,18 @@ public class DuplicateLayoutDto {
     @JsonCreator
     public DuplicateLayoutDto(
             @JsonProperty("name") @Nonnull String name,
+            @JsonProperty("layoutId") @Nullable String layoutId,
             @JsonProperty("isTranslationEnabled") @Nullable Boolean isTranslationEnabled) {
         this.name = Optional.ofNullable(name)
             .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
+        this.layoutId = layoutId;
         this.isTranslationEnabled = Optional.ofNullable(isTranslationEnabled)
             .orElse(Builder._SINGLETON_VALUE_IsTranslationEnabled.value());
     }
     
     public DuplicateLayoutDto(
             @Nonnull String name) {
-        this(name, null);
+        this(name, null, null);
     }
 
     /**
@@ -52,6 +61,13 @@ public class DuplicateLayoutDto {
      */
     public String name() {
         return this.name;
+    }
+
+    /**
+     * Identifier for the duplicated layout. When omitted, it is derived from the name.
+     */
+    public Optional<String> layoutId() {
+        return Optional.ofNullable(this.layoutId);
     }
 
     /**
@@ -76,6 +92,15 @@ public class DuplicateLayoutDto {
 
 
     /**
+     * Identifier for the duplicated layout. When omitted, it is derived from the name.
+     */
+    public DuplicateLayoutDto withLayoutId(@Nullable String layoutId) {
+        this.layoutId = layoutId;
+        return this;
+    }
+
+
+    /**
      * Enable or disable translations for this layout
      */
     public DuplicateLayoutDto withIsTranslationEnabled(@Nullable Boolean isTranslationEnabled) {
@@ -95,19 +120,21 @@ public class DuplicateLayoutDto {
         DuplicateLayoutDto other = (DuplicateLayoutDto) o;
         return 
             Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.layoutId, other.layoutId) &&
             Utils.enhancedDeepEquals(this.isTranslationEnabled, other.isTranslationEnabled);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            name, isTranslationEnabled);
+            name, layoutId, isTranslationEnabled);
     }
     
     @Override
     public String toString() {
         return Utils.toString(DuplicateLayoutDto.class,
                 "name", name,
+                "layoutId", layoutId,
                 "isTranslationEnabled", isTranslationEnabled);
     }
 
@@ -115,6 +142,8 @@ public class DuplicateLayoutDto {
     public final static class Builder {
 
         private String name;
+
+        private String layoutId;
 
         private Boolean isTranslationEnabled;
 
@@ -131,6 +160,14 @@ public class DuplicateLayoutDto {
         }
 
         /**
+         * Identifier for the duplicated layout. When omitted, it is derived from the name.
+         */
+        public Builder layoutId(@Nullable String layoutId) {
+            this.layoutId = layoutId;
+            return this;
+        }
+
+        /**
          * Enable or disable translations for this layout
          */
         public Builder isTranslationEnabled(@Nullable Boolean isTranslationEnabled) {
@@ -140,7 +177,7 @@ public class DuplicateLayoutDto {
 
         public DuplicateLayoutDto build() {
             return new DuplicateLayoutDto(
-                name, isTranslationEnabled);
+                name, layoutId, isTranslationEnabled);
         }
 
 

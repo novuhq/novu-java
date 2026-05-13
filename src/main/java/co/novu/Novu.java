@@ -128,6 +128,13 @@ public class Novu {
 
     private final ChannelEndpoints channelEndpoints;
 
+    /**
+     * Used to manage your inbound email domains.
+     * 
+     * <p><a href="https://docs.novu.co/platform/domains">https://docs.novu.co/platform/domains</a>
+     */
+    private final Domains domains;
+
 
     private final EnvironmentVariables environmentVariables;
 
@@ -254,6 +261,15 @@ public class Novu {
 
     public ChannelEndpoints channelEndpoints() {
         return channelEndpoints;
+    }
+
+    /**
+     * Used to manage your inbound email domains.
+     * 
+     * <p><a href="https://docs.novu.co/platform/domains">https://docs.novu.co/platform/domains</a>
+     */
+    public Domains domains() {
+        return domains;
     }
 
 
@@ -464,6 +480,7 @@ public class Novu {
         this.workflowsSteps = new WorkflowsSteps(sdkConfiguration);
         this.channelConnections = new ChannelConnections(sdkConfiguration);
         this.channelEndpoints = new ChannelEndpoints(sdkConfiguration);
+        this.domains = new Domains(sdkConfiguration);
         this.environmentVariables = new EnvironmentVariables(sdkConfiguration);
         this.integrations = new Integrations(sdkConfiguration);
         this.messages = new Messages(sdkConfiguration);

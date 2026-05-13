@@ -197,8 +197,10 @@ public class EnvironmentVariables {
     /**
      * Update a variable
      * 
-     * <p>Updates an existing environment variable. Providing values replaces all existing per-environment
-     * values.
+     * <p>Updates an existing environment variable. Providing `values` merges them into the existing
+     * per-environment values by `_environmentId`; envs not present in the request keep their stored value.
+     * Submitting the masked secret placeholder (the value returned by read endpoints for secret variables)
+     * as a real value is rejected.
      * 
      * @return The call builder
      */
@@ -209,8 +211,10 @@ public class EnvironmentVariables {
     /**
      * Update a variable
      * 
-     * <p>Updates an existing environment variable. Providing values replaces all existing per-environment
-     * values.
+     * <p>Updates an existing environment variable. Providing `values` merges them into the existing
+     * per-environment values by `_environmentId`; envs not present in the request keep their stored value.
+     * Submitting the masked secret placeholder (the value returned by read endpoints for secret variables)
+     * as a real value is rejected.
      * 
      * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
      * @param body 
@@ -225,8 +229,10 @@ public class EnvironmentVariables {
     /**
      * Update a variable
      * 
-     * <p>Updates an existing environment variable. Providing values replaces all existing per-environment
-     * values.
+     * <p>Updates an existing environment variable. Providing `values` merges them into the existing
+     * per-environment values by `_environmentId`; envs not present in the request keep their stored value.
+     * Submitting the masked secret placeholder (the value returned by read endpoints for secret variables)
+     * as a real value is rejected.
      * 
      * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
      * @param idempotencyKey A header for idempotency purposes

@@ -334,6 +334,17 @@ public class NovuJavaAutoConfig {
         return novu.channelEndpoints();
     }
     /**
+     * Creates a Domains sub-SDK bean if none exists.
+     *
+     * @param novu the main SDK instance
+     * @return A configured Domains instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public Domains domains(Novu novu) {
+        return novu.domains();
+    }
+    /**
      * Creates a EnvironmentVariables sub-SDK bean if none exists.
      *
      * @param novu the main SDK instance
@@ -554,6 +565,17 @@ public class NovuJavaAutoConfig {
     @ConditionalOnMissingBean
     public AsyncChannelEndpoints asyncChannelEndpoints(AsyncNovu asyncNovu) {
         return asyncNovu.channelEndpoints();
+    }
+    /**
+     * Creates an AsyncDomains sub-SDK bean if none exists.
+     *
+     * @param asyncNovu the async SDK instance
+     * @return A configured AsyncDomains instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncDomains asyncDomains(AsyncNovu asyncNovu) {
+        return asyncNovu.domains();
     }
     /**
      * Creates an AsyncEnvironmentVariables sub-SDK bean if none exists.

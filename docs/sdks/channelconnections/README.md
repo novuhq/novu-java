@@ -118,6 +118,7 @@ public class Application {
                     .subscriberId("subscriber-123")
                     .context(Map.ofEntries(
                         Map.entry("key", CreateChannelConnectionRequestDtoContextUnion.of("org-acme"))))
+                    .connectionMode(CreateChannelConnectionRequestDtoConnectionMode.SHARED)
                     .build())
                 .call();
 

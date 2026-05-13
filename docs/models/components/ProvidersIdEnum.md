@@ -39,6 +39,7 @@ ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
 | `SPARKPOST`         | sparkpost           |
 | `EMAIL_WEBHOOK`     | email-webhook       |
 | `BRAZE`             | braze               |
+| `NOVU_EMAIL_AGENT`  | novu-email-agent    |
 | `NEXMO`             | nexmo               |
 | `PLIVO`             | plivo               |
 | `SMS77`             | sms77               |
@@ -97,3 +98,4 @@ ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
 | `WHATSAPP_BUSINESS` | whatsapp-business   |
 | `CHAT_WEBHOOK`      | chat-webhook        |
 | `NOVU_SLACK`        | novu-slack          |
+| `ANTHROPIC`         | anthropic           |

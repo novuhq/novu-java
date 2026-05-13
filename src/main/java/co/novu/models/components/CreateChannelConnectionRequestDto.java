@@ -38,6 +38,15 @@ public class CreateChannelConnectionRequestDto {
     private Map<String, CreateChannelConnectionRequestDtoContextUnion> context;
 
     /**
+     * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+     * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+     * context instead of a subscriber — subscriberId will not be stored on the connection.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("connectionMode")
+    private CreateChannelConnectionRequestDtoConnectionMode connectionMode;
+
+    /**
      * The identifier of the integration to use for this channel connection.
      */
     @JsonProperty("integrationIdentifier")
@@ -56,12 +65,14 @@ public class CreateChannelConnectionRequestDto {
             @JsonProperty("identifier") @Nullable String identifier,
             @JsonProperty("subscriberId") @Nullable String subscriberId,
             @JsonProperty("context") @Nullable Map<String, CreateChannelConnectionRequestDtoContextUnion> context,
+            @JsonProperty("connectionMode") @Nullable CreateChannelConnectionRequestDtoConnectionMode connectionMode,
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
             @JsonProperty("workspace") @Nonnull WorkspaceDto workspace,
             @JsonProperty("auth") @Nonnull AuthDto auth) {
         this.identifier = identifier;
         this.subscriberId = subscriberId;
         this.context = context;
+        this.connectionMode = connectionMode;
         this.integrationIdentifier = Optional.ofNullable(integrationIdentifier)
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
         this.workspace = Optional.ofNullable(workspace)
@@ -75,7 +86,8 @@ public class CreateChannelConnectionRequestDto {
             @Nonnull WorkspaceDto workspace,
             @Nonnull AuthDto auth) {
         this(null, null, null,
-            integrationIdentifier, workspace, auth);
+            null, integrationIdentifier, workspace,
+            auth);
     }
 
     /**
@@ -95,6 +107,15 @@ public class CreateChannelConnectionRequestDto {
 
     public Optional<Map<String, CreateChannelConnectionRequestDtoContextUnion>> context() {
         return Optional.ofNullable(this.context);
+    }
+
+    /**
+     * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+     * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+     * context instead of a subscriber — subscriberId will not be stored on the connection.
+     */
+    public Optional<CreateChannelConnectionRequestDtoConnectionMode> connectionMode() {
+        return Optional.ofNullable(this.connectionMode);
     }
 
     /**
@@ -143,6 +164,17 @@ public class CreateChannelConnectionRequestDto {
 
 
     /**
+     * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+     * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+     * context instead of a subscriber — subscriberId will not be stored on the connection.
+     */
+    public CreateChannelConnectionRequestDto withConnectionMode(@Nullable CreateChannelConnectionRequestDtoConnectionMode connectionMode) {
+        this.connectionMode = connectionMode;
+        return this;
+    }
+
+
+    /**
      * The identifier of the integration to use for this channel connection.
      */
     public CreateChannelConnectionRequestDto withIntegrationIdentifier(@Nonnull String integrationIdentifier) {
@@ -176,6 +208,7 @@ public class CreateChannelConnectionRequestDto {
             Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
             Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
             Utils.enhancedDeepEquals(this.context, other.context) &&
+            Utils.enhancedDeepEquals(this.connectionMode, other.connectionMode) &&
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
             Utils.enhancedDeepEquals(this.workspace, other.workspace) &&
             Utils.enhancedDeepEquals(this.auth, other.auth);
@@ -185,7 +218,8 @@ public class CreateChannelConnectionRequestDto {
     public int hashCode() {
         return Utils.enhancedHash(
             identifier, subscriberId, context,
-            integrationIdentifier, workspace, auth);
+            connectionMode, integrationIdentifier, workspace,
+            auth);
     }
     
     @Override
@@ -194,6 +228,7 @@ public class CreateChannelConnectionRequestDto {
                 "identifier", identifier,
                 "subscriberId", subscriberId,
                 "context", context,
+                "connectionMode", connectionMode,
                 "integrationIdentifier", integrationIdentifier,
                 "workspace", workspace,
                 "auth", auth);
@@ -207,6 +242,8 @@ public class CreateChannelConnectionRequestDto {
         private String subscriberId;
 
         private Map<String, CreateChannelConnectionRequestDtoContextUnion> context;
+
+        private CreateChannelConnectionRequestDtoConnectionMode connectionMode;
 
         private String integrationIdentifier;
 
@@ -241,6 +278,16 @@ public class CreateChannelConnectionRequestDto {
         }
 
         /**
+         * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+         * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+         * context instead of a subscriber — subscriberId will not be stored on the connection.
+         */
+        public Builder connectionMode(@Nullable CreateChannelConnectionRequestDtoConnectionMode connectionMode) {
+            this.connectionMode = connectionMode;
+            return this;
+        }
+
+        /**
          * The identifier of the integration to use for this channel connection.
          */
         public Builder integrationIdentifier(@Nonnull String integrationIdentifier) {
@@ -261,7 +308,8 @@ public class CreateChannelConnectionRequestDto {
         public CreateChannelConnectionRequestDto build() {
             return new CreateChannelConnectionRequestDto(
                 identifier, subscriberId, context,
-                integrationIdentifier, workspace, auth);
+                connectionMode, integrationIdentifier, workspace,
+                auth);
         }
 
     }

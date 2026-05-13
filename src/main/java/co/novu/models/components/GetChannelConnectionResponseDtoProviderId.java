@@ -46,6 +46,7 @@ public class GetChannelConnectionResponseDtoProviderId {
     public static final GetChannelConnectionResponseDtoProviderId SPARKPOST = new GetChannelConnectionResponseDtoProviderId("sparkpost");
     public static final GetChannelConnectionResponseDtoProviderId EMAIL_WEBHOOK = new GetChannelConnectionResponseDtoProviderId("email-webhook");
     public static final GetChannelConnectionResponseDtoProviderId BRAZE = new GetChannelConnectionResponseDtoProviderId("braze");
+    public static final GetChannelConnectionResponseDtoProviderId NOVU_EMAIL_AGENT = new GetChannelConnectionResponseDtoProviderId("novu-email-agent");
     public static final GetChannelConnectionResponseDtoProviderId NEXMO = new GetChannelConnectionResponseDtoProviderId("nexmo");
     public static final GetChannelConnectionResponseDtoProviderId PLIVO = new GetChannelConnectionResponseDtoProviderId("plivo");
     public static final GetChannelConnectionResponseDtoProviderId SMS77 = new GetChannelConnectionResponseDtoProviderId("sms77");
@@ -104,6 +105,7 @@ public class GetChannelConnectionResponseDtoProviderId {
     public static final GetChannelConnectionResponseDtoProviderId WHATSAPP_BUSINESS = new GetChannelConnectionResponseDtoProviderId("whatsapp-business");
     public static final GetChannelConnectionResponseDtoProviderId CHAT_WEBHOOK = new GetChannelConnectionResponseDtoProviderId("chat-webhook");
     public static final GetChannelConnectionResponseDtoProviderId NOVU_SLACK = new GetChannelConnectionResponseDtoProviderId("novu-slack");
+    public static final GetChannelConnectionResponseDtoProviderId ANTHROPIC = new GetChannelConnectionResponseDtoProviderId("anthropic");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -198,6 +200,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("sparkpost", SPARKPOST);
         map.put("email-webhook", EMAIL_WEBHOOK);
         map.put("braze", BRAZE);
+        map.put("novu-email-agent", NOVU_EMAIL_AGENT);
         map.put("nexmo", NEXMO);
         map.put("plivo", PLIVO);
         map.put("sms77", SMS77);
@@ -256,6 +259,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
+        map.put("anthropic", ANTHROPIC);
         return map;
     }
 
@@ -282,6 +286,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("sparkpost", GetChannelConnectionResponseDtoProviderIdEnum.SPARKPOST);
         map.put("email-webhook", GetChannelConnectionResponseDtoProviderIdEnum.EMAIL_WEBHOOK);
         map.put("braze", GetChannelConnectionResponseDtoProviderIdEnum.BRAZE);
+        map.put("novu-email-agent", GetChannelConnectionResponseDtoProviderIdEnum.NOVU_EMAIL_AGENT);
         map.put("nexmo", GetChannelConnectionResponseDtoProviderIdEnum.NEXMO);
         map.put("plivo", GetChannelConnectionResponseDtoProviderIdEnum.PLIVO);
         map.put("sms77", GetChannelConnectionResponseDtoProviderIdEnum.SMS77);
@@ -340,6 +345,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("whatsapp-business", GetChannelConnectionResponseDtoProviderIdEnum.WHATSAPP_BUSINESS);
         map.put("chat-webhook", GetChannelConnectionResponseDtoProviderIdEnum.CHAT_WEBHOOK);
         map.put("novu-slack", GetChannelConnectionResponseDtoProviderIdEnum.NOVU_SLACK);
+        map.put("anthropic", GetChannelConnectionResponseDtoProviderIdEnum.ANTHROPIC);
         return map;
     }
     
@@ -367,6 +373,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         SPARKPOST("sparkpost"),
         EMAIL_WEBHOOK("email-webhook"),
         BRAZE("braze"),
+        NOVU_EMAIL_AGENT("novu-email-agent"),
         NEXMO("nexmo"),
         PLIVO("plivo"),
         SMS77("sms77"),
@@ -424,7 +431,8 @@ public class GetChannelConnectionResponseDtoProviderId {
         ROCKET_CHAT("rocket-chat"),
         WHATSAPP_BUSINESS("whatsapp-business"),
         CHAT_WEBHOOK("chat-webhook"),
-        NOVU_SLACK("novu-slack"),;
+        NOVU_SLACK("novu-slack"),
+        ANTHROPIC("anthropic"),;
 
         private final String value;
 

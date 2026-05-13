@@ -1,6 +1,6 @@
 # CreateIntegrationRequestDtoChannel
 
-The channel type for the integration
+The channel type for the integration. Not required for agent-kind integrations.
 
 ## Example Usage
 

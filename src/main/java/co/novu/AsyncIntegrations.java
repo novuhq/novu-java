@@ -7,9 +7,13 @@ import static co.novu.operations.Operations.AsyncRequestOperation;
 
 import co.novu.models.components.CreateIntegrationRequestDto;
 import co.novu.models.components.GenerateChatOauthUrlRequestDto;
+import co.novu.models.components.GenerateConnectOauthUrlRequestDto;
+import co.novu.models.components.GenerateLinkUserOauthUrlRequestDto;
 import co.novu.models.components.UpdateIntegrationRequestDto;
 import co.novu.models.operations.IntegrationsControllerAutoConfigureIntegrationRequest;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationRequest;
+import co.novu.models.operations.IntegrationsControllerGenerateConnectOAuthUrlRequest;
+import co.novu.models.operations.IntegrationsControllerGenerateLinkUserOAuthUrlRequest;
 import co.novu.models.operations.IntegrationsControllerGetActiveIntegrationsRequest;
 import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlRequest;
 import co.novu.models.operations.IntegrationsControllerListIntegrationsRequest;
@@ -20,6 +24,10 @@ import co.novu.models.operations.async.IntegrationsControllerAutoConfigureIntegr
 import co.novu.models.operations.async.IntegrationsControllerAutoConfigureIntegrationResponse;
 import co.novu.models.operations.async.IntegrationsControllerCreateIntegrationRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerCreateIntegrationResponse;
+import co.novu.models.operations.async.IntegrationsControllerGenerateConnectOAuthUrlRequestBuilder;
+import co.novu.models.operations.async.IntegrationsControllerGenerateConnectOAuthUrlResponse;
+import co.novu.models.operations.async.IntegrationsControllerGenerateLinkUserOAuthUrlRequestBuilder;
+import co.novu.models.operations.async.IntegrationsControllerGenerateLinkUserOAuthUrlResponse;
 import co.novu.models.operations.async.IntegrationsControllerGetActiveIntegrationsRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerGetActiveIntegrationsResponse;
 import co.novu.models.operations.async.IntegrationsControllerGetChatOAuthUrlRequestBuilder;
@@ -34,6 +42,8 @@ import co.novu.models.operations.async.IntegrationsControllerUpdateIntegrationBy
 import co.novu.models.operations.async.IntegrationsControllerUpdateIntegrationByIdResponse;
 import co.novu.operations.IntegrationsControllerAutoConfigureIntegration;
 import co.novu.operations.IntegrationsControllerCreateIntegration;
+import co.novu.operations.IntegrationsControllerGenerateConnectOAuthUrl;
+import co.novu.operations.IntegrationsControllerGenerateLinkUserOAuthUrl;
 import co.novu.operations.IntegrationsControllerGetActiveIntegrations;
 import co.novu.operations.IntegrationsControllerGetChatOAuthUrl;
 import co.novu.operations.IntegrationsControllerListIntegrations;
@@ -44,6 +54,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
 import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
@@ -414,14 +425,122 @@ public class AsyncIntegrations {
 
 
     /**
+     * Generate OAuth URL for a workspace/tenant connection
+     * 
+     * <p>Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace
+     * install or MS Teams admin consent).
+     * The generated URL expires after 5 minutes.
+     * 
+     * @return The async call builder
+     */
+    public IntegrationsControllerGenerateConnectOAuthUrlRequestBuilder generateConnectOAuthUrl() {
+        return new IntegrationsControllerGenerateConnectOAuthUrlRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Generate OAuth URL for a workspace/tenant connection
+     * 
+     * <p>Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace
+     * install or MS Teams admin consent).
+     * The generated URL expires after 5 minutes.
+     * 
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse> generateConnectOAuthUrl(@Nonnull GenerateConnectOauthUrlRequestDto body) {
+        return generateConnectOAuthUrl(null, body, null);
+    }
+
+    /**
+     * Generate OAuth URL for a workspace/tenant connection
+     * 
+     * <p>Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace
+     * install or MS Teams admin consent).
+     * The generated URL expires after 5 minutes.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return {@code CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse> generateConnectOAuthUrl(
+            @Nullable String idempotencyKey, @Nonnull GenerateConnectOauthUrlRequestDto body,
+            @Nullable Options options) {
+        IntegrationsControllerGenerateConnectOAuthUrlRequest request = new IntegrationsControllerGenerateConnectOAuthUrlRequest(idempotencyKey, body);
+        AsyncRequestOperation<IntegrationsControllerGenerateConnectOAuthUrlRequest, IntegrationsControllerGenerateConnectOAuthUrlResponse> operation
+              = new IntegrationsControllerGenerateConnectOAuthUrl.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Generate OAuth URL to link a subscriber user identity
+     * 
+     * <p>Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID or MS
+     * Teams user OID).
+     * The generated URL expires after 5 minutes.
+     * 
+     * @return The async call builder
+     */
+    public IntegrationsControllerGenerateLinkUserOAuthUrlRequestBuilder generateLinkUserOAuthUrl() {
+        return new IntegrationsControllerGenerateLinkUserOAuthUrlRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Generate OAuth URL to link a subscriber user identity
+     * 
+     * <p>Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID or MS
+     * Teams user OID).
+     * The generated URL expires after 5 minutes.
+     * 
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse> generateLinkUserOAuthUrl(@Nonnull GenerateLinkUserOauthUrlRequestDto body) {
+        return generateLinkUserOAuthUrl(null, body, null);
+    }
+
+    /**
+     * Generate OAuth URL to link a subscriber user identity
+     * 
+     * <p>Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID or MS
+     * Teams user OID).
+     * The generated URL expires after 5 minutes.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return {@code CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse> generateLinkUserOAuthUrl(
+            @Nullable String idempotencyKey, @Nonnull GenerateLinkUserOauthUrlRequestDto body,
+            @Nullable Options options) {
+        IntegrationsControllerGenerateLinkUserOAuthUrlRequest request = new IntegrationsControllerGenerateLinkUserOAuthUrlRequest(idempotencyKey, body);
+        AsyncRequestOperation<IntegrationsControllerGenerateLinkUserOAuthUrlRequest, IntegrationsControllerGenerateLinkUserOAuthUrlResponse> operation
+              = new IntegrationsControllerGenerateLinkUserOAuthUrl.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
      * Generate chat OAuth URL
      * 
-     * <p>Generate an OAuth URL for chat integrations like Slack and MS Teams.
+     * <p>**Deprecated** — use `POST /integrations/channel-connections/oauth` (connect) or `POST
+     * /integrations/channel-endpoints/oauth` (link_user) instead.
+     * Generate an OAuth URL for chat integrations like Slack and MS Teams.
      * This URL allows subscribers to authorize the integration, enabling the system to send messages
      * through their chat workspace. The generated URL expires after 5 minutes.
      * 
      * @return The async call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public IntegrationsControllerGetChatOAuthUrlRequestBuilder generateChatOAuthUrl() {
         return new IntegrationsControllerGetChatOAuthUrlRequestBuilder(sdkConfiguration);
     }
@@ -429,13 +548,17 @@ public class AsyncIntegrations {
     /**
      * Generate chat OAuth URL
      * 
-     * <p>Generate an OAuth URL for chat integrations like Slack and MS Teams.
+     * <p>**Deprecated** — use `POST /integrations/channel-connections/oauth` (connect) or `POST
+     * /integrations/channel-endpoints/oauth` (link_user) instead.
+     * Generate an OAuth URL for chat integrations like Slack and MS Teams.
      * This URL allows subscribers to authorize the integration, enabling the system to send messages
      * through their chat workspace. The generated URL expires after 5 minutes.
      * 
      * @param body 
      * @return {@code CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse> generateChatOAuthUrl(@Nonnull GenerateChatOauthUrlRequestDto body) {
         return generateChatOAuthUrl(null, body, null);
     }
@@ -443,7 +566,9 @@ public class AsyncIntegrations {
     /**
      * Generate chat OAuth URL
      * 
-     * <p>Generate an OAuth URL for chat integrations like Slack and MS Teams.
+     * <p>**Deprecated** — use `POST /integrations/channel-connections/oauth` (connect) or `POST
+     * /integrations/channel-endpoints/oauth` (link_user) instead.
+     * Generate an OAuth URL for chat integrations like Slack and MS Teams.
      * This URL allows subscribers to authorize the integration, enabling the system to send messages
      * through their chat workspace. The generated URL expires after 5 minutes.
      * 
@@ -451,7 +576,9 @@ public class AsyncIntegrations {
      * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse> generateChatOAuthUrl(
             @Nullable String idempotencyKey, @Nonnull GenerateChatOauthUrlRequestDto body,
             @Nullable Options options) {

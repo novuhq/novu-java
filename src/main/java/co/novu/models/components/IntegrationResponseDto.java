@@ -57,15 +57,28 @@ public class IntegrationResponseDto {
     private String providerId;
 
     /**
-     * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
+     * The channel type for the integration, which defines how it communicates (e.g., email, SMS). Not set
+     * for agent-kind integrations.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("channel")
     private IntegrationResponseDtoChannel channel;
 
     /**
-     * The credentials required for the integration to function, including API keys and other sensitive
-     * information.
+     * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+     * integrations do not have a channel.
      */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("kind")
+    private IntegrationResponseDtoKind kind;
+
+    /**
+     * The decrypted credentials required for the integration to function (e.g. provider API keys, signing
+     * secrets). Only returned to dashboard/session-token callers; API-key authenticated callers receive
+     * the integration metadata without this field to avoid amplifying API-key leaks into
+     * provider-credential leaks.
+     */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("credentials")
     private CredentialsDto credentials;
 
@@ -127,8 +140,9 @@ public class IntegrationResponseDto {
             @JsonProperty("name") @Nonnull String name,
             @JsonProperty("identifier") @Nonnull String identifier,
             @JsonProperty("providerId") @Nonnull String providerId,
-            @JsonProperty("channel") @Nonnull IntegrationResponseDtoChannel channel,
-            @JsonProperty("credentials") @Nonnull CredentialsDto credentials,
+            @JsonProperty("channel") @Nullable IntegrationResponseDtoChannel channel,
+            @JsonProperty("kind") @Nullable IntegrationResponseDtoKind kind,
+            @JsonProperty("credentials") @Nullable CredentialsDto credentials,
             @JsonProperty("configurations") @Nullable ConfigurationsDto configurations,
             @JsonProperty("active") boolean active,
             @JsonProperty("deleted") boolean deleted,
@@ -147,10 +161,9 @@ public class IntegrationResponseDto {
             .orElseThrow(() -> new IllegalArgumentException("identifier cannot be null"));
         this.providerId = Optional.ofNullable(providerId)
             .orElseThrow(() -> new IllegalArgumentException("providerId cannot be null"));
-        this.channel = Optional.ofNullable(channel)
-            .orElseThrow(() -> new IllegalArgumentException("channel cannot be null"));
-        this.credentials = Optional.ofNullable(credentials)
-            .orElseThrow(() -> new IllegalArgumentException("credentials cannot be null"));
+        this.channel = channel;
+        this.kind = kind;
+        this.credentials = credentials;
         this.configurations = configurations;
         this.active = active;
         this.deleted = deleted;
@@ -166,16 +179,15 @@ public class IntegrationResponseDto {
             @Nonnull String name,
             @Nonnull String identifier,
             @Nonnull String providerId,
-            @Nonnull IntegrationResponseDtoChannel channel,
-            @Nonnull CredentialsDto credentials,
             boolean active,
             boolean deleted,
             boolean primary) {
         this(null, environmentId, organizationId,
             name, identifier, providerId,
-            channel, credentials, null,
-            active, deleted, null,
-            null, primary, null);
+            null, null, null,
+            null, active, deleted,
+            null, null, primary,
+            null);
     }
 
     /**
@@ -223,18 +235,29 @@ public class IntegrationResponseDto {
     }
 
     /**
-     * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
+     * The channel type for the integration, which defines how it communicates (e.g., email, SMS). Not set
+     * for agent-kind integrations.
      */
-    public IntegrationResponseDtoChannel channel() {
-        return this.channel;
+    public Optional<IntegrationResponseDtoChannel> channel() {
+        return Optional.ofNullable(this.channel);
     }
 
     /**
-     * The credentials required for the integration to function, including API keys and other sensitive
-     * information.
+     * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+     * integrations do not have a channel.
      */
-    public CredentialsDto credentials() {
-        return this.credentials;
+    public Optional<IntegrationResponseDtoKind> kind() {
+        return Optional.ofNullable(this.kind);
+    }
+
+    /**
+     * The decrypted credentials required for the integration to function (e.g. provider API keys, signing
+     * secrets). Only returned to dashboard/session-token callers; API-key authenticated callers receive
+     * the integration metadata without this field to avoid amplifying API-key leaks into
+     * provider-credential leaks.
+     */
+    public Optional<CredentialsDto> credentials() {
+        return Optional.ofNullable(this.credentials);
     }
 
     /**
@@ -352,20 +375,33 @@ public class IntegrationResponseDto {
 
 
     /**
-     * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
+     * The channel type for the integration, which defines how it communicates (e.g., email, SMS). Not set
+     * for agent-kind integrations.
      */
-    public IntegrationResponseDto withChannel(@Nonnull IntegrationResponseDtoChannel channel) {
-        this.channel = Utils.checkNotNull(channel, "channel");
+    public IntegrationResponseDto withChannel(@Nullable IntegrationResponseDtoChannel channel) {
+        this.channel = channel;
         return this;
     }
 
 
     /**
-     * The credentials required for the integration to function, including API keys and other sensitive
-     * information.
+     * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+     * integrations do not have a channel.
      */
-    public IntegrationResponseDto withCredentials(@Nonnull CredentialsDto credentials) {
-        this.credentials = Utils.checkNotNull(credentials, "credentials");
+    public IntegrationResponseDto withKind(@Nullable IntegrationResponseDtoKind kind) {
+        this.kind = kind;
+        return this;
+    }
+
+
+    /**
+     * The decrypted credentials required for the integration to function (e.g. provider API keys, signing
+     * secrets). Only returned to dashboard/session-token callers; API-key authenticated callers receive
+     * the integration metadata without this field to avoid amplifying API-key leaks into
+     * provider-credential leaks.
+     */
+    public IntegrationResponseDto withCredentials(@Nullable CredentialsDto credentials) {
+        this.credentials = credentials;
         return this;
     }
 
@@ -454,6 +490,7 @@ public class IntegrationResponseDto {
             Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
             Utils.enhancedDeepEquals(this.providerId, other.providerId) &&
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
+            Utils.enhancedDeepEquals(this.kind, other.kind) &&
             Utils.enhancedDeepEquals(this.credentials, other.credentials) &&
             Utils.enhancedDeepEquals(this.configurations, other.configurations) &&
             Utils.enhancedDeepEquals(this.active, other.active) &&
@@ -469,9 +506,10 @@ public class IntegrationResponseDto {
         return Utils.enhancedHash(
             id, environmentId, organizationId,
             name, identifier, providerId,
-            channel, credentials, configurations,
-            active, deleted, deletedAt,
-            deletedBy, primary, conditions);
+            channel, kind, credentials,
+            configurations, active, deleted,
+            deletedAt, deletedBy, primary,
+            conditions);
     }
     
     @Override
@@ -484,6 +522,7 @@ public class IntegrationResponseDto {
                 "identifier", identifier,
                 "providerId", providerId,
                 "channel", channel,
+                "kind", kind,
                 "credentials", credentials,
                 "configurations", configurations,
                 "active", active,
@@ -510,6 +549,8 @@ public class IntegrationResponseDto {
         private String providerId;
 
         private IntegrationResponseDtoChannel channel;
+
+        private IntegrationResponseDtoKind kind;
 
         private CredentialsDto credentials;
 
@@ -582,19 +623,31 @@ public class IntegrationResponseDto {
         }
 
         /**
-         * The channel type for the integration, which defines how it communicates (e.g., email, SMS).
+         * The channel type for the integration, which defines how it communicates (e.g., email, SMS). Not set
+         * for agent-kind integrations.
          */
-        public Builder channel(@Nonnull IntegrationResponseDtoChannel channel) {
-            this.channel = Utils.checkNotNull(channel, "channel");
+        public Builder channel(@Nullable IntegrationResponseDtoChannel channel) {
+            this.channel = channel;
             return this;
         }
 
         /**
-         * The credentials required for the integration to function, including API keys and other sensitive
-         * information.
+         * Distinguishes delivery integrations from agent-runtime integrations. Defaults to "delivery". Agent
+         * integrations do not have a channel.
          */
-        public Builder credentials(@Nonnull CredentialsDto credentials) {
-            this.credentials = Utils.checkNotNull(credentials, "credentials");
+        public Builder kind(@Nullable IntegrationResponseDtoKind kind) {
+            this.kind = kind;
+            return this;
+        }
+
+        /**
+         * The decrypted credentials required for the integration to function (e.g. provider API keys, signing
+         * secrets). Only returned to dashboard/session-token callers; API-key authenticated callers receive
+         * the integration metadata without this field to avoid amplifying API-key leaks into
+         * provider-credential leaks.
+         */
+        public Builder credentials(@Nullable CredentialsDto credentials) {
+            this.credentials = credentials;
             return this;
         }
 
@@ -662,9 +715,10 @@ public class IntegrationResponseDto {
             return new IntegrationResponseDto(
                 id, environmentId, organizationId,
                 name, identifier, providerId,
-                channel, credentials, configurations,
-                active, deleted, deletedAt,
-                deletedBy, primary, conditions);
+                channel, kind, credentials,
+                configurations, active, deleted,
+                deletedAt, deletedBy, primary,
+                conditions);
         }
 
     }

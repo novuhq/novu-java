@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
@@ -59,25 +60,73 @@ public class GenerateChatOauthUrlRequestDto {
     @JsonProperty("scope")
     private List<String> scope;
 
+    /**
+     * **Slack only, link_user mode**: User-level OAuth scopes to request during authorization. Used when
+     * mode is "link_user" to identify the Slack user via "Sign in with Slack". If not specified, defaults
+     * to: identity.basic.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("userScope")
+    private List<String> userScope;
+
+    /**
+     * OAuth flow mode. Use "connect" (default) to create a workspace channel connection, or "link_user" to
+     * identify the subscriber's Slack user ID without creating a connection.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("mode")
+    private Mode mode;
+
+    /**
+     * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+     * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+     * context instead of a subscriber — subscriberId will not be stored on the connection.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("connectionMode")
+    private GenerateChatOauthUrlRequestDtoConnectionMode connectionMode;
+
+    /**
+     * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
+     * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
+     * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
+     * for delegated user-identity consent.
+     * 
+     * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
+     * default this to true.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("autoLinkUser")
+    private Boolean autoLinkUser;
+
     @JsonCreator
     public GenerateChatOauthUrlRequestDto(
             @JsonProperty("subscriberId") @Nullable String subscriberId,
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
             @JsonProperty("connectionIdentifier") @Nullable String connectionIdentifier,
             @JsonProperty("context") @Nullable Map<String, GenerateChatOauthUrlRequestDtoContextUnion> context,
-            @JsonProperty("scope") @Nullable List<String> scope) {
+            @JsonProperty("scope") @Nullable List<String> scope,
+            @JsonProperty("userScope") @Nullable List<String> userScope,
+            @JsonProperty("mode") @Nullable Mode mode,
+            @JsonProperty("connectionMode") @Nullable GenerateChatOauthUrlRequestDtoConnectionMode connectionMode,
+            @JsonProperty("autoLinkUser") @Nullable Boolean autoLinkUser) {
         this.subscriberId = subscriberId;
         this.integrationIdentifier = Optional.ofNullable(integrationIdentifier)
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
         this.connectionIdentifier = connectionIdentifier;
         this.context = context;
         this.scope = scope;
+        this.userScope = userScope;
+        this.mode = mode;
+        this.connectionMode = connectionMode;
+        this.autoLinkUser = autoLinkUser;
     }
     
     public GenerateChatOauthUrlRequestDto(
             @Nonnull String integrationIdentifier) {
         this(null, integrationIdentifier, null,
-            null, null);
+            null, null, null,
+            null, null, null);
     }
 
     /**
@@ -119,6 +168,45 @@ public class GenerateChatOauthUrlRequestDto {
      */
     public Optional<List<String>> scope() {
         return Optional.ofNullable(this.scope);
+    }
+
+    /**
+     * **Slack only, link_user mode**: User-level OAuth scopes to request during authorization. Used when
+     * mode is "link_user" to identify the Slack user via "Sign in with Slack". If not specified, defaults
+     * to: identity.basic.
+     */
+    public Optional<List<String>> userScope() {
+        return Optional.ofNullable(this.userScope);
+    }
+
+    /**
+     * OAuth flow mode. Use "connect" (default) to create a workspace channel connection, or "link_user" to
+     * identify the subscriber's Slack user ID without creating a connection.
+     */
+    public Optional<Mode> mode() {
+        return Optional.ofNullable(this.mode);
+    }
+
+    /**
+     * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+     * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+     * context instead of a subscriber — subscriberId will not be stored on the connection.
+     */
+    public Optional<GenerateChatOauthUrlRequestDtoConnectionMode> connectionMode() {
+        return Optional.ofNullable(this.connectionMode);
+    }
+
+    /**
+     * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
+     * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
+     * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
+     * for delegated user-identity consent.
+     * 
+     * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
+     * default this to true.
+     */
+    public Optional<Boolean> autoLinkUser() {
+        return Optional.ofNullable(this.autoLinkUser);
     }
 
     public static Builder builder() {
@@ -177,6 +265,53 @@ public class GenerateChatOauthUrlRequestDto {
     }
 
 
+    /**
+     * **Slack only, link_user mode**: User-level OAuth scopes to request during authorization. Used when
+     * mode is "link_user" to identify the Slack user via "Sign in with Slack". If not specified, defaults
+     * to: identity.basic.
+     */
+    public GenerateChatOauthUrlRequestDto withUserScope(@Nullable List<String> userScope) {
+        this.userScope = userScope;
+        return this;
+    }
+
+
+    /**
+     * OAuth flow mode. Use "connect" (default) to create a workspace channel connection, or "link_user" to
+     * identify the subscriber's Slack user ID without creating a connection.
+     */
+    public GenerateChatOauthUrlRequestDto withMode(@Nullable Mode mode) {
+        this.mode = mode;
+        return this;
+    }
+
+
+    /**
+     * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+     * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+     * context instead of a subscriber — subscriberId will not be stored on the connection.
+     */
+    public GenerateChatOauthUrlRequestDto withConnectionMode(@Nullable GenerateChatOauthUrlRequestDtoConnectionMode connectionMode) {
+        this.connectionMode = connectionMode;
+        return this;
+    }
+
+
+    /**
+     * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
+     * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
+     * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
+     * for delegated user-identity consent.
+     * 
+     * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
+     * default this to true.
+     */
+    public GenerateChatOauthUrlRequestDto withAutoLinkUser(@Nullable Boolean autoLinkUser) {
+        this.autoLinkUser = autoLinkUser;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -191,14 +326,19 @@ public class GenerateChatOauthUrlRequestDto {
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
             Utils.enhancedDeepEquals(this.connectionIdentifier, other.connectionIdentifier) &&
             Utils.enhancedDeepEquals(this.context, other.context) &&
-            Utils.enhancedDeepEquals(this.scope, other.scope);
+            Utils.enhancedDeepEquals(this.scope, other.scope) &&
+            Utils.enhancedDeepEquals(this.userScope, other.userScope) &&
+            Utils.enhancedDeepEquals(this.mode, other.mode) &&
+            Utils.enhancedDeepEquals(this.connectionMode, other.connectionMode) &&
+            Utils.enhancedDeepEquals(this.autoLinkUser, other.autoLinkUser);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             subscriberId, integrationIdentifier, connectionIdentifier,
-            context, scope);
+            context, scope, userScope,
+            mode, connectionMode, autoLinkUser);
     }
     
     @Override
@@ -208,7 +348,11 @@ public class GenerateChatOauthUrlRequestDto {
                 "integrationIdentifier", integrationIdentifier,
                 "connectionIdentifier", connectionIdentifier,
                 "context", context,
-                "scope", scope);
+                "scope", scope,
+                "userScope", userScope,
+                "mode", mode,
+                "connectionMode", connectionMode,
+                "autoLinkUser", autoLinkUser);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -223,6 +367,14 @@ public class GenerateChatOauthUrlRequestDto {
         private Map<String, GenerateChatOauthUrlRequestDtoContextUnion> context;
 
         private List<String> scope;
+
+        private List<String> userScope;
+
+        private Mode mode;
+
+        private GenerateChatOauthUrlRequestDtoConnectionMode connectionMode;
+
+        private Boolean autoLinkUser;
 
         private Builder() {
           // force use of static builder() method
@@ -274,10 +426,54 @@ public class GenerateChatOauthUrlRequestDto {
             return this;
         }
 
+        /**
+         * **Slack only, link_user mode**: User-level OAuth scopes to request during authorization. Used when
+         * mode is "link_user" to identify the Slack user via "Sign in with Slack". If not specified, defaults
+         * to: identity.basic.
+         */
+        public Builder userScope(@Nullable List<String> userScope) {
+            this.userScope = userScope;
+            return this;
+        }
+
+        /**
+         * OAuth flow mode. Use "connect" (default) to create a workspace channel connection, or "link_user" to
+         * identify the subscriber's Slack user ID without creating a connection.
+         */
+        public Builder mode(@Nullable Mode mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        /**
+         * Connection mode that determines how the channel connection is scoped. Use "subscriber" (default) to
+         * associate the connection with a specific subscriber. Use "shared" to associate the connection with a
+         * context instead of a subscriber — subscriberId will not be stored on the connection.
+         */
+        public Builder connectionMode(@Nullable GenerateChatOauthUrlRequestDtoConnectionMode connectionMode) {
+            this.connectionMode = connectionMode;
+            return this;
+        }
+
+        /**
+         * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
+         * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
+         * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
+         * for delegated user-identity consent.
+         * 
+         * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
+         * default this to true.
+         */
+        public Builder autoLinkUser(@Nullable Boolean autoLinkUser) {
+            this.autoLinkUser = autoLinkUser;
+            return this;
+        }
+
         public GenerateChatOauthUrlRequestDto build() {
             return new GenerateChatOauthUrlRequestDto(
                 subscriberId, integrationIdentifier, connectionIdentifier,
-                context, scope);
+                context, scope, userScope,
+                mode, connectionMode, autoLinkUser);
         }
 
     }

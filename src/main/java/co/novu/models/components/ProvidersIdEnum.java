@@ -46,6 +46,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum SPARKPOST = new ProvidersIdEnum("sparkpost");
     public static final ProvidersIdEnum EMAIL_WEBHOOK = new ProvidersIdEnum("email-webhook");
     public static final ProvidersIdEnum BRAZE = new ProvidersIdEnum("braze");
+    public static final ProvidersIdEnum NOVU_EMAIL_AGENT = new ProvidersIdEnum("novu-email-agent");
     public static final ProvidersIdEnum NEXMO = new ProvidersIdEnum("nexmo");
     public static final ProvidersIdEnum PLIVO = new ProvidersIdEnum("plivo");
     public static final ProvidersIdEnum SMS77 = new ProvidersIdEnum("sms77");
@@ -104,6 +105,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum WHATSAPP_BUSINESS = new ProvidersIdEnum("whatsapp-business");
     public static final ProvidersIdEnum CHAT_WEBHOOK = new ProvidersIdEnum("chat-webhook");
     public static final ProvidersIdEnum NOVU_SLACK = new ProvidersIdEnum("novu-slack");
+    public static final ProvidersIdEnum ANTHROPIC = new ProvidersIdEnum("anthropic");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -198,6 +200,7 @@ public class ProvidersIdEnum {
         map.put("sparkpost", SPARKPOST);
         map.put("email-webhook", EMAIL_WEBHOOK);
         map.put("braze", BRAZE);
+        map.put("novu-email-agent", NOVU_EMAIL_AGENT);
         map.put("nexmo", NEXMO);
         map.put("plivo", PLIVO);
         map.put("sms77", SMS77);
@@ -256,6 +259,7 @@ public class ProvidersIdEnum {
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
+        map.put("anthropic", ANTHROPIC);
         return map;
     }
 
@@ -282,6 +286,7 @@ public class ProvidersIdEnum {
         map.put("sparkpost", ProvidersIdEnumEnum.SPARKPOST);
         map.put("email-webhook", ProvidersIdEnumEnum.EMAIL_WEBHOOK);
         map.put("braze", ProvidersIdEnumEnum.BRAZE);
+        map.put("novu-email-agent", ProvidersIdEnumEnum.NOVU_EMAIL_AGENT);
         map.put("nexmo", ProvidersIdEnumEnum.NEXMO);
         map.put("plivo", ProvidersIdEnumEnum.PLIVO);
         map.put("sms77", ProvidersIdEnumEnum.SMS77);
@@ -340,6 +345,7 @@ public class ProvidersIdEnum {
         map.put("whatsapp-business", ProvidersIdEnumEnum.WHATSAPP_BUSINESS);
         map.put("chat-webhook", ProvidersIdEnumEnum.CHAT_WEBHOOK);
         map.put("novu-slack", ProvidersIdEnumEnum.NOVU_SLACK);
+        map.put("anthropic", ProvidersIdEnumEnum.ANTHROPIC);
         return map;
     }
     
@@ -367,6 +373,7 @@ public class ProvidersIdEnum {
         SPARKPOST("sparkpost"),
         EMAIL_WEBHOOK("email-webhook"),
         BRAZE("braze"),
+        NOVU_EMAIL_AGENT("novu-email-agent"),
         NEXMO("nexmo"),
         PLIVO("plivo"),
         SMS77("sms77"),
@@ -424,7 +431,8 @@ public class ProvidersIdEnum {
         ROCKET_CHAT("rocket-chat"),
         WHATSAPP_BUSINESS("whatsapp-business"),
         CHAT_WEBHOOK("chat-webhook"),
-        NOVU_SLACK("novu-slack"),;
+        NOVU_SLACK("novu-slack"),
+        ANTHROPIC("anthropic"),;
 
         private final String value;
 
