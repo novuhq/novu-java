@@ -31,6 +31,7 @@ public class GetChannelEndpointResponseDtoType {
     public static final GetChannelEndpointResponseDtoType PHONE = new GetChannelEndpointResponseDtoType("phone");
     public static final GetChannelEndpointResponseDtoType MS_TEAMS_CHANNEL = new GetChannelEndpointResponseDtoType("ms_teams_channel");
     public static final GetChannelEndpointResponseDtoType MS_TEAMS_USER = new GetChannelEndpointResponseDtoType("ms_teams_user");
+    public static final GetChannelEndpointResponseDtoType TELEGRAM_CHAT = new GetChannelEndpointResponseDtoType("telegram_chat");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -110,6 +111,7 @@ public class GetChannelEndpointResponseDtoType {
         map.put("phone", PHONE);
         map.put("ms_teams_channel", MS_TEAMS_CHANNEL);
         map.put("ms_teams_user", MS_TEAMS_USER);
+        map.put("telegram_chat", TELEGRAM_CHAT);
         return map;
     }
 
@@ -121,6 +123,7 @@ public class GetChannelEndpointResponseDtoType {
         map.put("phone", GetChannelEndpointResponseDtoTypeEnum.PHONE);
         map.put("ms_teams_channel", GetChannelEndpointResponseDtoTypeEnum.MS_TEAMS_CHANNEL);
         map.put("ms_teams_user", GetChannelEndpointResponseDtoTypeEnum.MS_TEAMS_USER);
+        map.put("telegram_chat", GetChannelEndpointResponseDtoTypeEnum.TELEGRAM_CHAT);
         return map;
     }
     
@@ -132,7 +135,8 @@ public class GetChannelEndpointResponseDtoType {
         WEBHOOK("webhook"),
         PHONE("phone"),
         MS_TEAMS_CHANNEL("ms_teams_channel"),
-        MS_TEAMS_USER("ms_teams_user"),;
+        MS_TEAMS_USER("ms_teams_user"),
+        TELEGRAM_CHAT("telegram_chat"),;
 
         private final String value;
 

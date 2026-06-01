@@ -30,6 +30,7 @@ public class ChannelEndpointsControllerCreateChannelEndpointRequestBodyTypeIdRes
         registerType("phone", co.novu.models.components.CreatePhoneEndpointDto.class);
         registerType("ms_teams_channel", co.novu.models.components.CreateMsTeamsChannelEndpointDto.class);
         registerType("ms_teams_user", co.novu.models.components.CreateMsTeamsUserEndpointDto.class);
+        registerType("telegram_chat", co.novu.models.components.CreateTelegramChatEndpointDto.class);
     }
 
     @Override

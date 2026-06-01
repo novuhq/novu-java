@@ -27,6 +27,7 @@ SubscriberChannelDtoProviderId value = SubscriberChannelDtoProviderId.SLACK;
 | `WHATSAPP_BUSINESS` | whatsapp-business   |
 | `CHAT_WEBHOOK`      | chat-webhook        |
 | `NOVU_SLACK`        | novu-slack          |
+| `TELEGRAM`          | telegram            |
 | `FCM`               | fcm                 |
 | `APNS`              | apns                |
 | `EXPO`              | expo                |
