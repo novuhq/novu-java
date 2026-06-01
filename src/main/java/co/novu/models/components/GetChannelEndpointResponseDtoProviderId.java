@@ -105,7 +105,10 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId WHATSAPP_BUSINESS = new GetChannelEndpointResponseDtoProviderId("whatsapp-business");
     public static final GetChannelEndpointResponseDtoProviderId CHAT_WEBHOOK = new GetChannelEndpointResponseDtoProviderId("chat-webhook");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_SLACK = new GetChannelEndpointResponseDtoProviderId("novu-slack");
+    public static final GetChannelEndpointResponseDtoProviderId TELEGRAM = new GetChannelEndpointResponseDtoProviderId("telegram");
     public static final GetChannelEndpointResponseDtoProviderId ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("anthropic");
+    public static final GetChannelEndpointResponseDtoProviderId NOVU_ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("novu-anthropic");
+    public static final GetChannelEndpointResponseDtoProviderId ANTHROPIC_AWS = new GetChannelEndpointResponseDtoProviderId("anthropic-aws");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -259,7 +262,10 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
+        map.put("telegram", TELEGRAM);
         map.put("anthropic", ANTHROPIC);
+        map.put("novu-anthropic", NOVU_ANTHROPIC);
+        map.put("anthropic-aws", ANTHROPIC_AWS);
         return map;
     }
 
@@ -345,7 +351,10 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("whatsapp-business", GetChannelEndpointResponseDtoProviderIdEnum.WHATSAPP_BUSINESS);
         map.put("chat-webhook", GetChannelEndpointResponseDtoProviderIdEnum.CHAT_WEBHOOK);
         map.put("novu-slack", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_SLACK);
+        map.put("telegram", GetChannelEndpointResponseDtoProviderIdEnum.TELEGRAM);
         map.put("anthropic", GetChannelEndpointResponseDtoProviderIdEnum.ANTHROPIC);
+        map.put("novu-anthropic", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_ANTHROPIC);
+        map.put("anthropic-aws", GetChannelEndpointResponseDtoProviderIdEnum.ANTHROPIC_AWS);
         return map;
     }
     
@@ -432,7 +441,10 @@ public class GetChannelEndpointResponseDtoProviderId {
         WHATSAPP_BUSINESS("whatsapp-business"),
         CHAT_WEBHOOK("chat-webhook"),
         NOVU_SLACK("novu-slack"),
-        ANTHROPIC("anthropic"),;
+        TELEGRAM("telegram"),
+        ANTHROPIC("anthropic"),
+        NOVU_ANTHROPIC("novu-anthropic"),
+        ANTHROPIC_AWS("anthropic-aws"),;
 
         private final String value;
 

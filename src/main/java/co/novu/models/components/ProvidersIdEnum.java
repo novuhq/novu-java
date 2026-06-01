@@ -105,7 +105,10 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum WHATSAPP_BUSINESS = new ProvidersIdEnum("whatsapp-business");
     public static final ProvidersIdEnum CHAT_WEBHOOK = new ProvidersIdEnum("chat-webhook");
     public static final ProvidersIdEnum NOVU_SLACK = new ProvidersIdEnum("novu-slack");
+    public static final ProvidersIdEnum TELEGRAM = new ProvidersIdEnum("telegram");
     public static final ProvidersIdEnum ANTHROPIC = new ProvidersIdEnum("anthropic");
+    public static final ProvidersIdEnum NOVU_ANTHROPIC = new ProvidersIdEnum("novu-anthropic");
+    public static final ProvidersIdEnum ANTHROPIC_AWS = new ProvidersIdEnum("anthropic-aws");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -259,7 +262,10 @@ public class ProvidersIdEnum {
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
+        map.put("telegram", TELEGRAM);
         map.put("anthropic", ANTHROPIC);
+        map.put("novu-anthropic", NOVU_ANTHROPIC);
+        map.put("anthropic-aws", ANTHROPIC_AWS);
         return map;
     }
 
@@ -345,7 +351,10 @@ public class ProvidersIdEnum {
         map.put("whatsapp-business", ProvidersIdEnumEnum.WHATSAPP_BUSINESS);
         map.put("chat-webhook", ProvidersIdEnumEnum.CHAT_WEBHOOK);
         map.put("novu-slack", ProvidersIdEnumEnum.NOVU_SLACK);
+        map.put("telegram", ProvidersIdEnumEnum.TELEGRAM);
         map.put("anthropic", ProvidersIdEnumEnum.ANTHROPIC);
+        map.put("novu-anthropic", ProvidersIdEnumEnum.NOVU_ANTHROPIC);
+        map.put("anthropic-aws", ProvidersIdEnumEnum.ANTHROPIC_AWS);
         return map;
     }
     
@@ -432,7 +441,10 @@ public class ProvidersIdEnum {
         WHATSAPP_BUSINESS("whatsapp-business"),
         CHAT_WEBHOOK("chat-webhook"),
         NOVU_SLACK("novu-slack"),
-        ANTHROPIC("anthropic"),;
+        TELEGRAM("telegram"),
+        ANTHROPIC("anthropic"),
+        NOVU_ANTHROPIC("novu-anthropic"),
+        ANTHROPIC_AWS("anthropic-aws"),;
 
         private final String value;
 

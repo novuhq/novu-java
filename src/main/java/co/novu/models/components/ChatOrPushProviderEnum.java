@@ -37,6 +37,7 @@ public class ChatOrPushProviderEnum {
     public static final ChatOrPushProviderEnum WHATSAPP_BUSINESS = new ChatOrPushProviderEnum("whatsapp-business");
     public static final ChatOrPushProviderEnum CHAT_WEBHOOK = new ChatOrPushProviderEnum("chat-webhook");
     public static final ChatOrPushProviderEnum NOVU_SLACK = new ChatOrPushProviderEnum("novu-slack");
+    public static final ChatOrPushProviderEnum TELEGRAM = new ChatOrPushProviderEnum("telegram");
     public static final ChatOrPushProviderEnum FCM = new ChatOrPushProviderEnum("fcm");
     public static final ChatOrPushProviderEnum APNS = new ChatOrPushProviderEnum("apns");
     public static final ChatOrPushProviderEnum EXPO = new ChatOrPushProviderEnum("expo");
@@ -130,6 +131,7 @@ public class ChatOrPushProviderEnum {
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
+        map.put("telegram", TELEGRAM);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -155,6 +157,7 @@ public class ChatOrPushProviderEnum {
         map.put("whatsapp-business", ChatOrPushProviderEnumEnum.WHATSAPP_BUSINESS);
         map.put("chat-webhook", ChatOrPushProviderEnumEnum.CHAT_WEBHOOK);
         map.put("novu-slack", ChatOrPushProviderEnumEnum.NOVU_SLACK);
+        map.put("telegram", ChatOrPushProviderEnumEnum.TELEGRAM);
         map.put("fcm", ChatOrPushProviderEnumEnum.FCM);
         map.put("apns", ChatOrPushProviderEnumEnum.APNS);
         map.put("expo", ChatOrPushProviderEnumEnum.EXPO);
@@ -181,6 +184,7 @@ public class ChatOrPushProviderEnum {
         WHATSAPP_BUSINESS("whatsapp-business"),
         CHAT_WEBHOOK("chat-webhook"),
         NOVU_SLACK("novu-slack"),
+        TELEGRAM("telegram"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),

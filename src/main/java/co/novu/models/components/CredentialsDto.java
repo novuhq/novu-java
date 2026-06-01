@@ -266,6 +266,41 @@ public class CredentialsDto {
     @JsonProperty("fromAddressOverride")
     private String fromAddressOverride;
 
+    /**
+     * Agent default shared inbox slug prefix used in `{emailSlugPrefix}-{agentId}@&lt;shared-domain&gt;`.
+     * Only meaningful on the NovuAgent email integration.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("emailSlugPrefix")
+    private String emailSlugPrefix;
+
+    /**
+     * Claude Managed Agents: ID of the Anthropic environment tied to this integration. Hydrated by the API
+     * at integration provisioning time.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("externalEnvironmentId")
+    private String externalEnvironmentId;
+
+    /**
+     * Claude Managed Agents: ID of the Anthropic vault (`vlt_…`) tied to this integration. Hydrated by the
+     * API at integration provisioning time and used to push OAuth-completed MCP credentials to the
+     * per-vault credentials API.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("externalVaultId")
+    private String externalVaultId;
+
+    /**
+     * Claude Managed Agents: id of the Anthropic workspace used in console deep links. Defaults to
+     * `'default'` (the Default Workspace). Set this when the API key is scoped to a custom workspace (e.g.
+     * 
+     * <p>`wrkspc_…`).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("externalWorkspaceId")
+    private String externalWorkspaceId;
+
     @JsonCreator
     public CredentialsDto(
             @JsonProperty("apiKey") @Nullable String apiKey,
@@ -317,7 +352,11 @@ public class CredentialsDto {
             @JsonProperty("signingSecret") @Nullable String signingSecret,
             @JsonProperty("outboundIntegrationId") @Nullable String outboundIntegrationId,
             @JsonProperty("useFromAddressOverride") @Nullable Boolean useFromAddressOverride,
-            @JsonProperty("fromAddressOverride") @Nullable String fromAddressOverride) {
+            @JsonProperty("fromAddressOverride") @Nullable String fromAddressOverride,
+            @JsonProperty("emailSlugPrefix") @Nullable String emailSlugPrefix,
+            @JsonProperty("externalEnvironmentId") @Nullable String externalEnvironmentId,
+            @JsonProperty("externalVaultId") @Nullable String externalVaultId,
+            @JsonProperty("externalWorkspaceId") @Nullable String externalWorkspaceId) {
         this.apiKey = apiKey;
         this.user = user;
         this.secretKey = secretKey;
@@ -368,6 +407,10 @@ public class CredentialsDto {
         this.outboundIntegrationId = outboundIntegrationId;
         this.useFromAddressOverride = useFromAddressOverride;
         this.fromAddressOverride = fromAddressOverride;
+        this.emailSlugPrefix = emailSlugPrefix;
+        this.externalEnvironmentId = externalEnvironmentId;
+        this.externalVaultId = externalVaultId;
+        this.externalWorkspaceId = externalWorkspaceId;
     }
     
     public CredentialsDto() {
@@ -387,7 +430,8 @@ public class CredentialsDto {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null);
+            null, null, null,
+            null, null, null);
     }
 
     public Optional<String> apiKey() {
@@ -588,6 +632,41 @@ public class CredentialsDto {
 
     public Optional<String> fromAddressOverride() {
         return Optional.ofNullable(this.fromAddressOverride);
+    }
+
+    /**
+     * Agent default shared inbox slug prefix used in `{emailSlugPrefix}-{agentId}@&lt;shared-domain&gt;`.
+     * Only meaningful on the NovuAgent email integration.
+     */
+    public Optional<String> emailSlugPrefix() {
+        return Optional.ofNullable(this.emailSlugPrefix);
+    }
+
+    /**
+     * Claude Managed Agents: ID of the Anthropic environment tied to this integration. Hydrated by the API
+     * at integration provisioning time.
+     */
+    public Optional<String> externalEnvironmentId() {
+        return Optional.ofNullable(this.externalEnvironmentId);
+    }
+
+    /**
+     * Claude Managed Agents: ID of the Anthropic vault (`vlt_…`) tied to this integration. Hydrated by the
+     * API at integration provisioning time and used to push OAuth-completed MCP credentials to the
+     * per-vault credentials API.
+     */
+    public Optional<String> externalVaultId() {
+        return Optional.ofNullable(this.externalVaultId);
+    }
+
+    /**
+     * Claude Managed Agents: id of the Anthropic workspace used in console deep links. Defaults to
+     * `'default'` (the Default Workspace). Set this when the API key is scoped to a custom workspace (e.g.
+     * 
+     * <p>`wrkspc_…`).
+     */
+    public Optional<String> externalWorkspaceId() {
+        return Optional.ofNullable(this.externalWorkspaceId);
     }
 
     public static Builder builder() {
@@ -895,6 +974,49 @@ public class CredentialsDto {
     }
 
 
+    /**
+     * Agent default shared inbox slug prefix used in `{emailSlugPrefix}-{agentId}@&lt;shared-domain&gt;`.
+     * Only meaningful on the NovuAgent email integration.
+     */
+    public CredentialsDto withEmailSlugPrefix(@Nullable String emailSlugPrefix) {
+        this.emailSlugPrefix = emailSlugPrefix;
+        return this;
+    }
+
+
+    /**
+     * Claude Managed Agents: ID of the Anthropic environment tied to this integration. Hydrated by the API
+     * at integration provisioning time.
+     */
+    public CredentialsDto withExternalEnvironmentId(@Nullable String externalEnvironmentId) {
+        this.externalEnvironmentId = externalEnvironmentId;
+        return this;
+    }
+
+
+    /**
+     * Claude Managed Agents: ID of the Anthropic vault (`vlt_…`) tied to this integration. Hydrated by the
+     * API at integration provisioning time and used to push OAuth-completed MCP credentials to the
+     * per-vault credentials API.
+     */
+    public CredentialsDto withExternalVaultId(@Nullable String externalVaultId) {
+        this.externalVaultId = externalVaultId;
+        return this;
+    }
+
+
+    /**
+     * Claude Managed Agents: id of the Anthropic workspace used in console deep links. Defaults to
+     * `'default'` (the Default Workspace). Set this when the API key is scoped to a custom workspace (e.g.
+     * 
+     * <p>`wrkspc_…`).
+     */
+    public CredentialsDto withExternalWorkspaceId(@Nullable String externalWorkspaceId) {
+        this.externalWorkspaceId = externalWorkspaceId;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -954,7 +1076,11 @@ public class CredentialsDto {
             Utils.enhancedDeepEquals(this.signingSecret, other.signingSecret) &&
             Utils.enhancedDeepEquals(this.outboundIntegrationId, other.outboundIntegrationId) &&
             Utils.enhancedDeepEquals(this.useFromAddressOverride, other.useFromAddressOverride) &&
-            Utils.enhancedDeepEquals(this.fromAddressOverride, other.fromAddressOverride);
+            Utils.enhancedDeepEquals(this.fromAddressOverride, other.fromAddressOverride) &&
+            Utils.enhancedDeepEquals(this.emailSlugPrefix, other.emailSlugPrefix) &&
+            Utils.enhancedDeepEquals(this.externalEnvironmentId, other.externalEnvironmentId) &&
+            Utils.enhancedDeepEquals(this.externalVaultId, other.externalVaultId) &&
+            Utils.enhancedDeepEquals(this.externalWorkspaceId, other.externalWorkspaceId);
     }
     
     @Override
@@ -976,7 +1102,8 @@ public class CredentialsDto {
             channelId, phoneNumberIdentification, accessKey,
             appSid, senderId, tenantId,
             appIOBaseUrl, signingSecret, outboundIntegrationId,
-            useFromAddressOverride, fromAddressOverride);
+            useFromAddressOverride, fromAddressOverride, emailSlugPrefix,
+            externalEnvironmentId, externalVaultId, externalWorkspaceId);
     }
     
     @Override
@@ -1031,7 +1158,11 @@ public class CredentialsDto {
                 "signingSecret", signingSecret,
                 "outboundIntegrationId", outboundIntegrationId,
                 "useFromAddressOverride", useFromAddressOverride,
-                "fromAddressOverride", fromAddressOverride);
+                "fromAddressOverride", fromAddressOverride,
+                "emailSlugPrefix", emailSlugPrefix,
+                "externalEnvironmentId", externalEnvironmentId,
+                "externalVaultId", externalVaultId,
+                "externalWorkspaceId", externalWorkspaceId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -1136,6 +1267,14 @@ public class CredentialsDto {
         private Boolean useFromAddressOverride;
 
         private String fromAddressOverride;
+
+        private String emailSlugPrefix;
+
+        private String externalEnvironmentId;
+
+        private String externalVaultId;
+
+        private String externalWorkspaceId;
 
         private Builder() {
           // force use of static builder() method
@@ -1391,6 +1530,45 @@ public class CredentialsDto {
             return this;
         }
 
+        /**
+         * Agent default shared inbox slug prefix used in `{emailSlugPrefix}-{agentId}@&lt;shared-domain&gt;`.
+         * Only meaningful on the NovuAgent email integration.
+         */
+        public Builder emailSlugPrefix(@Nullable String emailSlugPrefix) {
+            this.emailSlugPrefix = emailSlugPrefix;
+            return this;
+        }
+
+        /**
+         * Claude Managed Agents: ID of the Anthropic environment tied to this integration. Hydrated by the API
+         * at integration provisioning time.
+         */
+        public Builder externalEnvironmentId(@Nullable String externalEnvironmentId) {
+            this.externalEnvironmentId = externalEnvironmentId;
+            return this;
+        }
+
+        /**
+         * Claude Managed Agents: ID of the Anthropic vault (`vlt_…`) tied to this integration. Hydrated by the
+         * API at integration provisioning time and used to push OAuth-completed MCP credentials to the
+         * per-vault credentials API.
+         */
+        public Builder externalVaultId(@Nullable String externalVaultId) {
+            this.externalVaultId = externalVaultId;
+            return this;
+        }
+
+        /**
+         * Claude Managed Agents: id of the Anthropic workspace used in console deep links. Defaults to
+         * `'default'` (the Default Workspace). Set this when the API key is scoped to a custom workspace (e.g.
+         * 
+         * <p>`wrkspc_…`).
+         */
+        public Builder externalWorkspaceId(@Nullable String externalWorkspaceId) {
+            this.externalWorkspaceId = externalWorkspaceId;
+            return this;
+        }
+
         public CredentialsDto build() {
             return new CredentialsDto(
                 apiKey, user, secretKey,
@@ -1409,7 +1587,8 @@ public class CredentialsDto {
                 channelId, phoneNumberIdentification, accessKey,
                 appSid, senderId, tenantId,
                 appIOBaseUrl, signingSecret, outboundIntegrationId,
-                useFromAddressOverride, fromAddressOverride);
+                useFromAddressOverride, fromAddressOverride, emailSlugPrefix,
+                externalEnvironmentId, externalVaultId, externalWorkspaceId);
         }
 
     }

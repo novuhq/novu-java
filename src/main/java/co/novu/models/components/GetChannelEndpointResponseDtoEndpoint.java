@@ -51,6 +51,21 @@ public class GetChannelEndpointResponseDtoEndpoint {
         Utils.checkNotNull(value, "value");
         return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(MsTeamsChannelEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(MsTeamsUserEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(TelegramChatEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
     
     /**
      * Returns an {@link Optional} containing the value if it is of type {@code SlackChannelEndpointDto},
@@ -103,6 +118,45 @@ public class GetChannelEndpointResponseDtoEndpoint {
         }
         return Optional.empty();
     }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code MsTeamsChannelEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code MsTeamsChannelEndpointDto} value, or empty if not of this type
+     */
+    public Optional<MsTeamsChannelEndpointDto> msTeamsChannelEndpointDto() {
+        if (value.value() instanceof MsTeamsChannelEndpointDto) {
+            return Optional.of((MsTeamsChannelEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code MsTeamsUserEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code MsTeamsUserEndpointDto} value, or empty if not of this type
+     */
+    public Optional<MsTeamsUserEndpointDto> msTeamsUserEndpointDto() {
+        if (value.value() instanceof MsTeamsUserEndpointDto) {
+            return Optional.of((MsTeamsUserEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code TelegramChatEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code TelegramChatEndpointDto} value, or empty if not of this type
+     */
+    public Optional<TelegramChatEndpointDto> telegramChatEndpointDto() {
+        if (value.value() instanceof TelegramChatEndpointDto) {
+            return Optional.of((TelegramChatEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
    /**
     * Returns an {@link Optional} containing the value as a {@code JsonNode}.
     * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
@@ -141,7 +195,10 @@ public class GetChannelEndpointResponseDtoEndpoint {
                   TypeReferenceWithShape.of(new TypeReference<SlackChannelEndpointDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<SlackUserEndpointDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<WebhookEndpointDto>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<PhoneEndpointDto>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<PhoneEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<MsTeamsChannelEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<MsTeamsUserEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<TelegramChatEndpointDto>() {}, JsonShape.DEFAULT));
         }
     }
     
