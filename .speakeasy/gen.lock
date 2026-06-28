@@ -1,25 +1,25 @@
 lockVersion: 2.0.0
 id: caaab73e-db12-4a8b-93a0-536b113afa44
 management:
-  docChecksum: a6d899fa0802551816ac9c793c978c3b
-  docVersion: 3.15.0
-  speakeasyVersion: 1.769.1
-  generationVersion: 2.892.1
-  releaseVersion: 3.17.0
-  configChecksum: 2ee5eecca66c724d5f6a167d8a63dacc
+  docChecksum: 72ab257f62537b4e38aa762cab9a51ad
+  docVersion: 3.17.1
+  speakeasyVersion: 1.786.1
+  generationVersion: 2.913.3
+  releaseVersion: 3.18.0
+  configChecksum: f6c3cd4b4b7518a61a4a5b2b75470ef7
   repoURL: https://github.com/novuhq/novu-java.git
   installationURL: https://github.com/novuhq/novu-java
   published: true
 persistentEdits:
-  generation_id: c136aac9-c17d-4a16-8ea8-f73d2d4cdaf8
-  pristine_commit_hash: b31a195cab769bd711478bd74ac7dae58341316a
-  pristine_tree_hash: 060984cea768ca303ba854b1882353d5bc8d6a8d
+  generation_id: bd77a99b-86c4-450d-9322-7505856fc393
+  pristine_commit_hash: 009ae50a7dd4792d40ba53820a43a54c04ba9343
+  pristine_tree_hash: 30f1e49060430b4e0df8f9e265ffa5ab226efbd2
 features:
   java:
     additionalDependencies: 0.1.0
     additionalProperties: 0.0.1
     constsAndDefaults: 0.1.3
-    core: 3.55.26
+    core: 3.55.28
     deprecations: 2.81.2
     examples: 2.81.9
     flattening: 2.81.1
@@ -31,7 +31,7 @@ features:
     nameOverrides: 2.81.5
     nullables: 0.1.0
     openEnums: 0.2.0
-    retries: 0.1.2
+    retries: 0.1.3
     sdkHooks: 1.2.0
     unions: 0.3.6
     uploadStreams: 0.1.0
@@ -46,8 +46,8 @@ trackedFiles:
     pristine_git_object: 533d9067d3fbdc59e36ef1479b483d80580d7b70
   build.gradle:
     id: f07866736216
-    last_write_checksum: sha1:4c522639341bdb9f6641811f1c8cc89a7bbbd350
-    pristine_git_object: c6424be02a6c81f6e361f1b917fd9541b501fae2
+    last_write_checksum: sha1:e671e4877056bb3bae5fa7f986c14423c7f18829
+    pristine_git_object: d48de06cd4e7ab6e410d9a184a395b6d1e6d9227
   docs/models/components/ActionDto.md:
     id: c282c9d8a8c4
     last_write_checksum: sha1:c267b0718b481fac54cdba11596f9ef21cb6d2ad
@@ -3710,8 +3710,8 @@ trackedFiles:
     pristine_git_object: 1ffdb592eec097e25b9ae565485767290d2ef6b6
   docs/sdks/integrations/README.md:
     id: 7b29664808c0
-    last_write_checksum: sha1:4812f8282b29f43151f3361b4e0cc15f3b7f0b98
-    pristine_git_object: aa7171b8b171c6dda245208fb650c5449f84388b
+    last_write_checksum: sha1:4ceabd78889728ae8f1ac2386d35abf8445fbf9f
+    pristine_git_object: 398f2b2486c2427036e29892f74d360e62fbea73
   docs/sdks/layouts/README.md:
     id: 9cae4f89dc39
     last_write_checksum: sha1:a36abf1f450b6f2d3e3eea19d6251aef288a5484
@@ -3742,24 +3742,24 @@ trackedFiles:
     pristine_git_object: a641bf9243d13882e05b2d741422704266974d99
   docs/sdks/subscribers/README.md:
     id: 14c599d74195
-    last_write_checksum: sha1:5ae1f587673293d975862c5af002583f5d96cdbc
-    pristine_git_object: a29ca102f6eb38a708f1a6ad84dd0376dc4d32f4
+    last_write_checksum: sha1:8c89923312afc62280ba11e5cd6750f954a71bf2
+    pristine_git_object: de9338193ef0d8da713af0489b3bb10fa6420420
   docs/sdks/subscribersmessages1/README.md:
     id: cad1e73a3892
-    last_write_checksum: sha1:d6e7568f1a5454023a9f53d672d42b15bb0549aa
-    pristine_git_object: 069b8d34c2693fa0e188199385c70c5bf32c6b6f
+    last_write_checksum: sha1:58589b95620c0ef3d3f5d3f7a5fafd77d0e01440
+    pristine_git_object: bcb28472afef2c0b623490fe0f9e5b6adb073ba4
   docs/sdks/subscribersmessages2/README.md:
     id: 44404bd9eafc
-    last_write_checksum: sha1:6e38f61f96dd069fc121e69e3f98fac87dbb10f8
-    pristine_git_object: 7493615d87252ffd1d4d231468c8cb1a87e41d62
+    last_write_checksum: sha1:f04668dec61d7f4cd46b3beef14306e6cbb94aed
+    pristine_git_object: c5faf13fb41b8039f3fd81e648e60e674398420e
   docs/sdks/subscribersnotifications1/README.md:
     id: 47d2849a4d27
-    last_write_checksum: sha1:dd9f9dcf1a03624ea85dbf9aff6454acf9778057
-    pristine_git_object: 69ace30e31eb929de9c83eeb4d6c35aceb80d74b
+    last_write_checksum: sha1:1c775edfd6e803a397ff8735ac0fc86f9830c4ad
+    pristine_git_object: 1106f4846395b2580491467c1ad0728e1ab75642
   docs/sdks/subscribersnotifications2/README.md:
     id: a3a143202791
-    last_write_checksum: sha1:959202fa83684e5f8aa33bf469cc8c1c68ab47c3
-    pristine_git_object: f531b9359b7ecd4ba113a54d0bf78af10d0ef080
+    last_write_checksum: sha1:ed7d34f187b60f81fa2f5b0ef946abbfbb6eecee
+    pristine_git_object: 309121a151da15306aed5f010ffa11ae41321724
   docs/sdks/subscribersproperties/README.md:
     id: 304c640f892f
     last_write_checksum: sha1:fe743996f899529b164c82387781c692048fdd7b
@@ -3802,8 +3802,8 @@ trackedFiles:
     pristine_git_object: ebaa3566af4ce4249639e5a2dd8bca0edd2979bf
   gradle.properties:
     id: 2afbb999f001
-    last_write_checksum: sha1:7ea7f4af62d53bb2b217fbb3a73bc7e647077fa2
-    pristine_git_object: 08b3884240f5f32e2451fcfb7a91868323c82112
+    last_write_checksum: sha1:2f574109fccf755ba383d57cb394b7c07d23e4be
+    pristine_git_object: 3f9288ab862910c41778ec9ff3b158cdcbc5db7d
   gradle/wrapper/gradle-wrapper.jar:
     id: ec27dae6e852
     last_write_checksum: sha1:f725fb1467084142d74fd7cd8eab691ab3442611
@@ -3826,36 +3826,8 @@ trackedFiles:
     pristine_git_object: f11400667f1cfa44ce25be9007a51d535c1b9e83
   settings.gradle:
     id: 05efc8b16577
-    last_write_checksum: sha1:dcc1260c393aa56c16bd5cc476cdd9926f4420aa
-    pristine_git_object: 16aa3a1243290c30419f62016496e7d629856726
-  spring/novu-java-spring-boot-autoconfigure/build.gradle:
-    id: bd1629b7c2a6
-    last_write_checksum: sha1:47aa0b93f84388df53f0e5968796daf0271e7a11
-    pristine_git_object: f3afd827a430decf116379fa5a8fd5785c01b2c9
-  spring/novu-java-spring-boot-autoconfigure/src/main/java/co/novu/ConditionalOnPropertyPrefix.java:
-    id: 60ef87e355de
-    last_write_checksum: sha1:e8385ba43e78dc210472d98f648aca283588897a
-    pristine_git_object: f34f2d19c30aa20e4a74b5ccf68befbeb3d5c382
-  spring/novu-java-spring-boot-autoconfigure/src/main/java/co/novu/NovuJavaAutoConfig.java:
-    id: c93c006e52f0
-    last_write_checksum: sha1:307460afc29457dc8e091500c8acd4e571d125b1
-    pristine_git_object: 69f1694a173e745b07a5196afb9d3be711084cd8
-  spring/novu-java-spring-boot-autoconfigure/src/main/java/co/novu/NovuJavaAutoConfigProperties.java:
-    id: 27a940a4055d
-    last_write_checksum: sha1:c9aba66120ef4a720a0ddd2797948e475b53290a
-    pristine_git_object: 1d36ba06ec9a9a35679666538ea0558910a82460
-  spring/novu-java-spring-boot-autoconfigure/src/main/java/co/novu/OnPropertyPrefixCondition.java:
-    id: 2f00d8737bca
-    last_write_checksum: sha1:a63c701893d9fdd6dd96afbb958c4f06a022dbef
-    pristine_git_object: 3692922e3601f3465ebb02ea4bd679cdccd8340d
-  ? spring/novu-java-spring-boot-autoconfigure/src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
-  : id: 43b762dce868
-    last_write_checksum: sha1:00e50c2ea6d3789673da282a8a946365d2b6e29c
-    pristine_git_object: d87e30b00dd4caa83f163947081f2ca41d9ecf86
-  spring/novu-java-spring-boot-starter/build.gradle:
-    id: 7365543060ac
-    last_write_checksum: sha1:9e816893a7a481f96b379a71da21492a85ae761a
-    pristine_git_object: a2a22dd4b5338095cd42665ed1236181fa9ce0ea
+    last_write_checksum: sha1:8b34354bb8b069d4b48ceab39893691ff6c6b4dc
+    pristine_git_object: 4eebe5e11d781069ba4feaf79c86e1c35ecde5f4
   src/main/java/co/novu/Activity.java:
     id: f21d05d4db93
     last_write_checksum: sha1:3c6c810bec430b5fac0f15646ec7e6734879a912
@@ -3898,8 +3870,8 @@ trackedFiles:
     pristine_git_object: f3afdef6bca6885dd2567d8d92dfb3119cf328b7
   src/main/java/co/novu/AsyncIntegrations.java:
     id: a6ef8277c4d3
-    last_write_checksum: sha1:7e0860eda1ec8c3d1dc509e0676589788eda116b
-    pristine_git_object: 275f9403cc88d399bfd1aadd59cd0b1ce0f78009
+    last_write_checksum: sha1:622dc87e2d8305eeeeaa38d379f6c6b4d0d04f24
+    pristine_git_object: 72e64588e54ed0dfaba15dcf0339c03ccf01a138
   src/main/java/co/novu/AsyncLayouts.java:
     id: 158f212db8b3
     last_write_checksum: sha1:bca5eb86181da1a1bfa2ad19b6e8ab495901dde2
@@ -3930,24 +3902,24 @@ trackedFiles:
     pristine_git_object: ba88046730f671db9e5e893ca5abe1e9a6c4d4e1
   src/main/java/co/novu/AsyncSubscribers.java:
     id: 09ff40d6a4a5
-    last_write_checksum: sha1:25e93b834cd8f8dfafb502f0629e6b185f08a7e0
-    pristine_git_object: 06c3c1bfc6aa26c07d0fba3b7cf96274e56bebd8
+    last_write_checksum: sha1:595887476f3ce260c0286f2db2434154760300a3
+    pristine_git_object: ddd1bb287430fa913cd42a0325620b3f052ecf5b
   src/main/java/co/novu/AsyncSubscribersMessages1.java:
     id: 9eaf02044a98
-    last_write_checksum: sha1:a81f93988e72e6988e8985773aecce3011e2ae11
-    pristine_git_object: 077c66d336a2a5a62bbb32d7919e464798701a54
+    last_write_checksum: sha1:1db0a0928a28adca55a61fc65527760ed876cc98
+    pristine_git_object: 5ba4d11ddceba95a9b0e4473c8d5f9587aa1ef52
   src/main/java/co/novu/AsyncSubscribersMessages2.java:
     id: 90465daef767
-    last_write_checksum: sha1:c5132ee4b0d035568f50935f3a420df9bdba0ee7
-    pristine_git_object: 1dfe4e9c284dbd999aa4219a86be7b0e91138c5e
+    last_write_checksum: sha1:0de64c5d6f73ae52df78766e0632094a6e8a27a4
+    pristine_git_object: e781ffbb22c686fbee67a36a4bec54458d75506f
   src/main/java/co/novu/AsyncSubscribersNotifications1.java:
     id: 4c7c126324f7
-    last_write_checksum: sha1:5089979e61cbb3603039aaba4271242e8ee9ad6a
-    pristine_git_object: d017ff360e4415f31230a75d72e2b930090c7e00
+    last_write_checksum: sha1:6b18358963166996a9abfda38357d76199900ad1
+    pristine_git_object: bd4522318fdb11b2a9341b484550915325ee4ea8
   src/main/java/co/novu/AsyncSubscribersNotifications2.java:
     id: 5c9659a22891
-    last_write_checksum: sha1:b34667ffb427920b251e3af3c12ebbf3df698ee4
-    pristine_git_object: 8b53ad1ed18a7fe93f9ad4efa960f1f71fabf3ca
+    last_write_checksum: sha1:4a63c29a2283a125b347ce39829a6a38e6fdf34f
+    pristine_git_object: db9b7cdde7e9f08c85fb2dea882dc85d59528513
   src/main/java/co/novu/AsyncSubscribersProperties.java:
     id: 6c51acb34d0b
     last_write_checksum: sha1:59020a2bfd21a1b83c8829ffea92590ea2846e2e
@@ -4018,8 +3990,8 @@ trackedFiles:
     pristine_git_object: af39c7045adf37600225de8f7abe074a4916b8dc
   src/main/java/co/novu/Integrations.java:
     id: b7633f63704d
-    last_write_checksum: sha1:31ebf338b5ef9ed92ff5d76335263484a9190e60
-    pristine_git_object: 22eeb9b0263296cb85fbfda876e27ccac20b083c
+    last_write_checksum: sha1:4febbf82c5de450193bf8f1b2c8854751dab791e
+    pristine_git_object: 1ddb0897f51f10689f8a4bacc3d5c388cf0c6e79
   src/main/java/co/novu/Layouts.java:
     id: 445a041f5611
     last_write_checksum: sha1:56b41c7d327067f76eac9ad2e1f8a4a8f14a04b0
@@ -4034,8 +4006,8 @@ trackedFiles:
     pristine_git_object: 7a5536e807a4bb48b23aac23d0983127a27c6459
   src/main/java/co/novu/Novu.java:
     id: 11b62371bd26
-    last_write_checksum: sha1:2e1bbd500b698dd4b442e510306890c6ad3fea9e
-    pristine_git_object: 67e0ddeaaa9233cf022c42b0d9883b94b35f5af9
+    last_write_checksum: sha1:756fc4bdf43f2a41f59ed43ed56e834dfee757d5
+    pristine_git_object: f548a456b042da175e69a3078c21d39eff96f8c8
   src/main/java/co/novu/Preferences.java:
     id: 40bb45282f6a
     last_write_checksum: sha1:0a43c6c3a2cacc874e1ab6cc0ac7ed1fc6d14f55
@@ -4046,8 +4018,8 @@ trackedFiles:
     pristine_git_object: 0bc7879c4969a671f7b07828c633f616543adfd5
   src/main/java/co/novu/SDKConfiguration.java:
     id: c8d0f1a7e696
-    last_write_checksum: sha1:a250d404eadfb8866eaa69d603e3b44e291c9d85
-    pristine_git_object: 67083179bcc2d99ff2644d21a3cfb034ea9d5165
+    last_write_checksum: sha1:1941e8eb1cd960f13b45ce4b83476861b3a4f004
+    pristine_git_object: 73491acf1cc3a04e9e610f70f41163a5b6348b60
   src/main/java/co/novu/SecuritySource.java:
     id: 8b19fc2daaf0
     last_write_checksum: sha1:b876d0191046515ce80a9ea832f7c9b06bcfaa40
@@ -4058,24 +4030,24 @@ trackedFiles:
     pristine_git_object: 1d176108e99a3fcf79219f253fe1aaa26b90e936
   src/main/java/co/novu/Subscribers.java:
     id: 5a5ebfabb771
-    last_write_checksum: sha1:9b120610ff767429a2b8a30e2f4528542ff87559
-    pristine_git_object: 6722b11f9055702b2f0634453e3e0d498e9bfe97
+    last_write_checksum: sha1:77b31b0d2a5cad72a3d64d17a7e7a5b75ae63e94
+    pristine_git_object: 67a190b46211e65959b6cddf8723a95312960b81
   src/main/java/co/novu/SubscribersMessages1.java:
     id: e176ec83c434
-    last_write_checksum: sha1:30a570df99be6490650e121cfa7f5b964ea90dd9
-    pristine_git_object: 039e848b5cdc95591b641d69862c183873f4eed7
+    last_write_checksum: sha1:4f1be40f681e8d48c43c891eb8da2febbc13bcca
+    pristine_git_object: 59baa68ea3ccb25081e73eade790d13862aeae87
   src/main/java/co/novu/SubscribersMessages2.java:
     id: 770b311939b5
-    last_write_checksum: sha1:2c5c259a3ccc9c109fc0e272896630b97d3cdba9
-    pristine_git_object: 646ae3f5028bd19e7db56d398caeb1078e83658c
+    last_write_checksum: sha1:13843a644ed3a023bcddeb90f06c36878ad98b8f
+    pristine_git_object: 68facf49ad458126639efd730f21fc01b472d642
   src/main/java/co/novu/SubscribersNotifications1.java:
     id: c127d78b24e5
-    last_write_checksum: sha1:350e94a75081f7947a938b1fe0825331e2c69fc3
-    pristine_git_object: 82c5c96965d7a3886bf6463222e432572398dff9
+    last_write_checksum: sha1:24fcc6140bb8c354a972e412966dfd13e6ba2744
+    pristine_git_object: f6f74aa42748f689cd6bafa62165d02183166e40
   src/main/java/co/novu/SubscribersNotifications2.java:
     id: 12b7e2dfcae3
-    last_write_checksum: sha1:dbbc01c68bbac761337be16b5179f7b786f4ccf6
-    pristine_git_object: 013ca882a90c235821543ffa24f177d2800d34d1
+    last_write_checksum: sha1:9a03943e4c1237d24f04bd6d704ca8360878624d
+    pristine_git_object: a8bfefd8266d95fe640d533f0cb03c19cba9cc22
   src/main/java/co/novu/SubscribersProperties.java:
     id: 590a942d9a52
     last_write_checksum: sha1:51a2939a0ba8f93c820abc07a86d01b3c55ee1b6
@@ -6114,8 +6086,8 @@ trackedFiles:
     pristine_git_object: eee0794903c0b6572f1f7adaaa20e800f571dffc
   src/main/java/co/novu/models/components/ThrottleStepUpsertDto.java:
     id: ca6a984c616d
-    last_write_checksum: sha1:553cd89eb562f60aac8a411c41b7a10e264232fa
-    pristine_git_object: 5a6dc87826d599cc5d8bc7e3a3a0143a3d646941
+    last_write_checksum: sha1:662e6015c5e48926d7a039d065042c1954bd9221
+    pristine_git_object: 7f8305600c2a6f38ce1beaee734b3e35dd790fcf
   src/main/java/co/novu/models/components/ThrottleStepUpsertDtoControlValues.java:
     id: bf55ae12dcbe
     last_write_checksum: sha1:99da143640f1d374c008804e85a75444e9965983
@@ -6414,8 +6386,8 @@ trackedFiles:
     pristine_git_object: c389e7060b8e2bd80464059f25d3bdc3a8f0786e
   src/main/java/co/novu/models/components/UpdateWorkflowDtoStepTypeIdResolver.java:
     id: 3c014df61808
-    last_write_checksum: sha1:8a3c47dd803db340004bc5e508ec417058d512af
-    pristine_git_object: 86f1b7157ee49d839be50455250cba183b55b774
+    last_write_checksum: sha1:892f470dcc0b43160beaa18a8c868c5c429dcfcc
+    pristine_git_object: 0cce53622bc951da13bbe2eb1203442eca7d3b6f
   src/main/java/co/novu/models/components/UpdatedSubscriberDto.java:
     id: 6f08c7b9d3e9
     last_write_checksum: sha1:7175f92001c5cf618752f18d82bcf42285d24f99
@@ -9962,8 +9934,8 @@ trackedFiles:
     pristine_git_object: d6f1e93db1032daa3409743a9fd04fe85dc090b3
   src/main/java/co/novu/utils/AsyncRetries.java:
     id: 41e642a22bc6
-    last_write_checksum: sha1:51bf58992a60326d8a5489b46da9638c9e0f76ec
-    pristine_git_object: 8d49a25be1db224b737369221b5e39389154efd3
+    last_write_checksum: sha1:f08d87c8fcedbecd3b30ec95daa368a156793426
+    pristine_git_object: b219710d9daac38a1d0d73d7fe5e0c99e827473d
   src/main/java/co/novu/utils/AsyncRetryableException.java:
     id: 78a8085f0eea
     last_write_checksum: sha1:24148c6fef8e647e021ba8abb57e3d08a6361349
@@ -10146,8 +10118,8 @@ trackedFiles:
     pristine_git_object: 8109c1fa4fc3350218f957319acb39876f47cda5
   src/main/java/co/novu/utils/Retries.java:
     id: 9f6b383d0294
-    last_write_checksum: sha1:19c4d80c212198c2a70d7bdeee955e09a4853d90
-    pristine_git_object: ee9a1b500b4c692596f05356f0ae811d637436a0
+    last_write_checksum: sha1:00f4c0bde00d5bb75d93438c26f8aa9184408a78
+    pristine_git_object: 58e80937be37be1c9a805003ebac1cbb566170f3
   src/main/java/co/novu/utils/RetryConfig.java:
     id: 129e37909ec5
     last_write_checksum: sha1:02091f8e58d3a574ab964dae697294dbf3400022
@@ -10186,8 +10158,8 @@ trackedFiles:
     pristine_git_object: 7b1bbfd9ab9d747d385a734809bed4887c964f27
   src/main/java/co/novu/utils/StreamingParser.java:
     id: 26c06d644d58
-    last_write_checksum: sha1:fb327eef9afc34290db9cb5e7706d9319772f779
-    pristine_git_object: 759322653a15af1b9f41b6ca0c1e0d7a20887b75
+    last_write_checksum: sha1:f0c08394cb38c76442824afd01c6d927ead430ef
+    pristine_git_object: 17475b0cb03477baba1a20be309227acc358e5dd
   src/main/java/co/novu/utils/TypedObject.java:
     id: 69cc6ad85e2f
     last_write_checksum: sha1:0a870efb02cb74fd7ed10c5cd370681f8ec24fa2
@@ -12448,4 +12420,4 @@ examples:
         "500":
           application/json: {"statusCode": 404, "timestamp": "2024-12-12T13:00:00Z", "path": "/api/v1/resource", "message": "xx xx xx ", "ctx": {"workflowId": "some_wf_id", "stepId": "some_wf_id"}, "errorId": "abc123"}
 examplesVersion: 1.0.2
-releaseNotes: "## Java SDK Changes:\n* `novu.channelEndpoints.list()`: \n  *  `request.providerId` **Changed**\n  *  `response.data[]` **Changed** (Breaking ⚠️)\n* `novu.channelEndpoints.update()`:  `response` **Changed** (Breaking ⚠️)\n* `novu.channelEndpoints.get()`:  `response` **Changed** (Breaking ⚠️)\n* `novu.channelEndpoints.create()`: \n  *  `request.body.union(telegram_chat)` **Added**\n  *  `response` **Changed** (Breaking ⚠️)\n* `novu.channelConnections.retrieve()`:  `response.providerId` **Changed**\n* `novu.layouts.generatePreview()`: \n  *  `request.body.previewPayload.subscriber.channels[].providerId.enum(telegram)` **Added**\n  *  `response.previewPayloadExample.subscriber.channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribers.get()`:  `response.channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribers.update()`:  `response.channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribers.updateCredentials()`: \n  *  `request.body.providerId.enum(telegram)` **Added**\n  *  `response.channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribers.credentials.upsert()`: \n  *  `request.body.providerId.enum(telegram)` **Added**\n  *  `response.channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribers.messages.updateActionStatus()`:  `response.subscriber.channels[].providerId.enum(telegram)` **Added**\n* `novu.workflowsSteps.generatePreview()`: \n  *  `request.body.previewPayload.subscriber.channels[].providerId.enum(telegram)` **Added**\n  *  `response.previewPayloadExample.subscriber.channels[].providerId.enum(telegram)` **Added**\n* `novu.channelConnections.list()`: \n  *  `request.providerId` **Changed**\n  *  `response.data[].providerId` **Changed**\n* `novu.channelConnections.create()`:  `response.providerId` **Changed**\n* `novu.trigger()`: \n  *  `request.body.to.union(Array<>)[].union(SubscriberPayloadDto).channels[].providerId.enum(telegram)` **Added**\n* `novu.channelConnections.update()`:  `response.providerId` **Changed**\n* `novu.subscribers.search()`:  `response.data[].channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribers.create()`: \n  *  `response.channels[].providerId.enum(telegram)` **Added**\n  *  `error.channels[].providerId.enum(telegram)` **Added**\n* `novu.triggerBulk()`: \n  *  `request.body.events[].to.union(Array<>)[].union(SubscriberPayloadDto).channels[].providerId.enum(telegram)` **Added**\n* `novu.broadcast()`: \n  *  `request.body.actor.union(SubscriberPayloadDto).channels[].providerId.enum(telegram)` **Added**\n* `novu.integrations.list()`:  `response.[].credentials` **Changed**\n* `novu.integrations.create()`: \n  *  `request.body.credentials` **Changed**\n  *  `response.credentials` **Changed**\n* `novu.integrations.update()`: \n  *  `request.body.credentials` **Changed**\n  *  `response.credentials` **Changed**\n* `novu.integrations.delete()`:  `response.[].credentials` **Changed**\n* `novu.integrations.setPrimary()`:  `response.credentials` **Changed**\n* `novu.integrations.listActive()`:  `response.[].credentials` **Changed**\n* `novu.messages.list()`:  `response.data[].subscriber.channels[].providerId.enum(telegram)` **Added**\n* `novu.notifications.list()`:  `response.data[].jobs[].executionDetails[].providerId` **Changed**\n* `novu.notifications.get()`:  `response.jobs[].executionDetails[].providerId` **Changed**\n* `novu.subscribersMessages.markAllAs()`:  `response.[].subscriber.channels[].providerId.enum(telegram)` **Added**\n* `novu.subscribersProperties.updateOnlineStatus()`:  `response.channels[].providerId.enum(telegram)` **Added**\n"
+releaseNotes: "## Java SDK Changes:\n* `novu.subscribers.markAllMessages()`: **Deprecated**\n* `novu.subscribers.notifications.getUnseenCount()`: **Deprecated**\n* `novu.subscribers.messages.updateActionStatus()`: **Deprecated**\n* `novu.workflows.update()`: \n  *  `request.body.steps[].union(throttle)` **Added**\n* `novu.subscribersMessages.markAllAs()`: **Deprecated**\n* `novu.subscribersNotifications.getFeed()`: **Deprecated**\n"

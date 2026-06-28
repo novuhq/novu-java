@@ -98,6 +98,15 @@ public class AsyncRetries {
     }
 
     private static long retryAfterMs(HttpResponse<Blob> response) {
+        String retryAfterMs = response.headers().firstValue("retry-after-ms").orElse(null);
+        if (retryAfterMs != null && !retryAfterMs.isEmpty()) {
+            try {
+                long milliseconds = Long.parseLong(retryAfterMs);
+                return milliseconds < 0 ? 0 : milliseconds;
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
         String retryAfter = response.headers().firstValue("retry-after").orElse(null);
         if (retryAfter == null || retryAfter.isEmpty()) {
             return 0;
@@ -152,7 +161,7 @@ public class AsyncRetries {
             String reason = e instanceof AsyncRetryableException
                 ? "status " + ((AsyncRetryableException) e).response().statusCode()
                 : e.getClass().getSimpleName();
-            logger.trace("Async retrying due to {} - waiting {}ms before attempt {}", intervalMs, state.count() + 1);
+            logger.trace("Async retrying due to {} - waiting {}ms before attempt {}", reason, intervalMs, state.count() + 1);
         }
 
         scheduler.schedule(

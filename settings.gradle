@@ -9,12 +9,6 @@
 
 rootProject.name = 'novu-java'
 
-include 'novu-java-spring-boot-autoconfigure'
-include 'novu-java-spring-boot-starter'
-
-project(':novu-java-spring-boot-autoconfigure').projectDir = file('spring/novu-java-spring-boot-autoconfigure')
-project(':novu-java-spring-boot-starter').projectDir = file('spring/novu-java-spring-boot-starter')
-
 // Apply additional settings if the file exists
 if (file('settings-extra.gradle').exists()) {
     apply from: 'settings-extra.gradle'

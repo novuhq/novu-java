@@ -1,14 +1,19 @@
-# SubscribersNotifications
+# ~~SubscribersNotifications~~
+
+> [!WARNING]
+> This SDK is **DEPRECATED**
 
 ## Overview
 
 ### Available Operations
 
-* [getFeed](#getfeed) - Retrieve subscriber notifications
+* [~~getFeed~~](#getfeed) - Retrieve subscriber notifications :warning: **Deprecated**
 
-## getFeed
+## ~~getFeed~~
 
-Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique key identifier **subscriberId**.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 

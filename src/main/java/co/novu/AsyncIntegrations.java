@@ -88,7 +88,8 @@ public class AsyncIntegrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -99,7 +100,8 @@ public class AsyncIntegrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @return {@code CompletableFuture<IntegrationsControllerListIntegrationsResponse>} - The async response
      */
@@ -110,7 +112,8 @@ public class AsyncIntegrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
@@ -132,6 +135,7 @@ public class AsyncIntegrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -144,6 +148,7 @@ public class AsyncIntegrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param body 
      * @return {@code CompletableFuture<IntegrationsControllerCreateIntegrationResponse>} - The async response
@@ -157,6 +162,7 @@ public class AsyncIntegrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
@@ -181,6 +187,7 @@ public class AsyncIntegrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -193,6 +200,7 @@ public class AsyncIntegrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param body 
@@ -209,6 +217,7 @@ public class AsyncIntegrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -233,7 +242,8 @@ public class AsyncIntegrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @return The async call builder
      */
@@ -245,7 +255,8 @@ public class AsyncIntegrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @param integrationId 
      * @return {@code CompletableFuture<IntegrationsControllerRemoveIntegrationResponse>} - The async response
@@ -258,7 +269,8 @@ public class AsyncIntegrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -283,7 +295,8 @@ public class AsyncIntegrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -296,7 +309,8 @@ public class AsyncIntegrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @return {@code CompletableFuture<IntegrationsControllerAutoConfigureIntegrationResponse>} - The async response
@@ -310,7 +324,8 @@ public class AsyncIntegrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -336,6 +351,7 @@ public class AsyncIntegrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -349,6 +365,7 @@ public class AsyncIntegrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @return {@code CompletableFuture<IntegrationsControllerSetIntegrationAsPrimaryResponse>} - The async response
@@ -363,6 +380,7 @@ public class AsyncIntegrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -385,7 +403,8 @@ public class AsyncIntegrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -396,7 +415,8 @@ public class AsyncIntegrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @return {@code CompletableFuture<IntegrationsControllerGetActiveIntegrationsResponse>} - The async response
      */
@@ -407,7 +427,8 @@ public class AsyncIntegrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options

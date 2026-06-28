@@ -20,7 +20,7 @@
 * [markAllAsRead](#markallasread) - Mark all notifications as read
 * [archiveAllRead](#archiveallread) - Archive all read notifications
 * [markAsSeen](#markasseen) - Mark notifications as seen
-* [getUnseenCount](#getunseencount) - Retrieve unseen notifications count
+* [~~getUnseenCount~~](#getunseencount) - Retrieve unseen notifications count :warning: **Deprecated**
 
 ## list
 
@@ -975,9 +975,11 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## getUnseenCount
+## ~~getUnseenCount~~
 
-Retrieve unseen in-app (inbox) notifications count for a subscriber by its unique key identifier **subscriberId**.
+This API is deprecated, use v2 API instead. Retrieve unseen in-app notifications count for a subscriber by its unique key identifier **subscriberId**.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 

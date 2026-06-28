@@ -15,7 +15,7 @@ import java.lang.String;
 import java.util.Optional;
 
 
-public class ThrottleStepUpsertDto implements CreateWorkflowDtoStep {
+public class ThrottleStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowDtoStep {
     /**
      * Database identifier of the step. Used for updating the step.
      */
