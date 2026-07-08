@@ -26,6 +26,7 @@ public class UpdateWorkflowDtoStepTypeIdResolver extends GenericTypeIdResolver<U
         registerType("chat", ChatStepUpsertDto.class);
         registerType("delay", DelayStepUpsertDto.class);
         registerType("digest", DigestStepUpsertDto.class);
+        registerType("throttle", ThrottleStepUpsertDto.class);
         registerType("custom", CustomStepUpsertDto.class);
         registerType("http_request", HttpRequestStepUpsertDto.class);
     }

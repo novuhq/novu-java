@@ -1,15 +1,20 @@
-# SubscribersMessages
+# ~~SubscribersMessages~~
+
+> [!WARNING]
+> This SDK is **DEPRECATED**
 
 ## Overview
 
 ### Available Operations
 
-* [markAllAs](#markallas) - Update notifications state
+* [~~markAllAs~~](#markallas) - Update notifications state :warning: **Deprecated**
 
-## markAllAs
+## ~~markAllAs~~
 
-Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread by **subscriberId**. 
-      **messageId** is of type mongodbId of notifications
+This API is deprecated, use v2 API instead. Update subscriber's multiple in-app notifications state such as seen, read, unseen or unread by **subscriberId**. 
+      **messageId** is of type mongodbId of notifications.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 

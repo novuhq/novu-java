@@ -13,6 +13,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
 
 
 public class SubscribersNotifications2 {
@@ -37,10 +38,13 @@ public class SubscribersNotifications2 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique
+     * key identifier **subscriberId**.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerGetNotificationsFeedRequestBuilder getFeed() {
         return new SubscribersV1ControllerGetNotificationsFeedRequestBuilder(sdkConfiguration);
     }
@@ -48,12 +52,15 @@ public class SubscribersNotifications2 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique
+     * key identifier **subscriberId**.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerGetNotificationsFeedResponse getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request) {
         return getFeed(request, null);
     }
@@ -61,13 +68,16 @@ public class SubscribersNotifications2 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique
+     * key identifier **subscriberId**.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerGetNotificationsFeedResponse getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request, @Nullable Options options) {
         RequestOperation<SubscribersV1ControllerGetNotificationsFeedRequest, SubscribersV1ControllerGetNotificationsFeedResponse> operation
               = new SubscribersV1ControllerGetNotificationsFeed.Sync(sdkConfiguration, options, _headers);

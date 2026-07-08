@@ -16,7 +16,7 @@ A subscriber in Novu represents someone who should receive a message. A subscrib
 * [updatePreferences](#updatepreferences) - Update subscriber preferences
 * [updateCredentials](#updatecredentials) - Update provider credentials
 * [removeCredentials](#removecredentials) - Delete provider credentials
-* [markAllMessages](#markallmessages) - Update all notifications state
+* [~~markAllMessages~~](#markallmessages) - Update all notifications state :warning: **Deprecated**
 
 ## search
 
@@ -651,9 +651,11 @@ public class Application {
 | models/errors/ErrorDto                 | 500                                    | application/json                       |
 | models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
-## markAllMessages
+## ~~markAllMessages~~
 
-Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by **subscriberId**.
+This API is deprecated, use v2 API instead. Update all subscriber in-app notifications state such as read, unread, seen or unseen by **subscriberId**.
+
+> :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ### Example Usage
 

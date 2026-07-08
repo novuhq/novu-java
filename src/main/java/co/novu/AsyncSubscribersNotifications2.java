@@ -13,6 +13,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -39,10 +40,13 @@ public class AsyncSubscribersNotifications2 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique
+     * key identifier **subscriberId**.
      * 
      * @return The async call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerGetNotificationsFeedRequestBuilder getFeed() {
         return new SubscribersV1ControllerGetNotificationsFeedRequestBuilder(sdkConfiguration);
     }
@@ -50,11 +54,14 @@ public class AsyncSubscribersNotifications2 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique
+     * key identifier **subscriberId**.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<SubscribersV1ControllerGetNotificationsFeedResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CompletableFuture<SubscribersV1ControllerGetNotificationsFeedResponse> getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request) {
         return getFeed(request, null);
     }
@@ -62,12 +69,15 @@ public class AsyncSubscribersNotifications2 {
     /**
      * Retrieve subscriber notifications
      * 
-     * <p>Retrieve subscriber in-app (inbox) notifications by its unique key identifier **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Retrieve subscriber in-app notifications by its unique
+     * key identifier **subscriberId**.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerGetNotificationsFeedResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CompletableFuture<SubscribersV1ControllerGetNotificationsFeedResponse> getFeed(@Nonnull SubscribersV1ControllerGetNotificationsFeedRequest request, @Nullable Options options) {
         AsyncRequestOperation<SubscribersV1ControllerGetNotificationsFeedRequest, SubscribersV1ControllerGetNotificationsFeedResponse> operation
               = new SubscribersV1ControllerGetNotificationsFeed.Async(

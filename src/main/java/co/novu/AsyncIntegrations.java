@@ -9,19 +9,28 @@ import co.novu.models.components.CreateIntegrationRequestDto;
 import co.novu.models.components.GenerateChatOauthUrlRequestDto;
 import co.novu.models.components.GenerateConnectOauthUrlRequestDto;
 import co.novu.models.components.GenerateLinkUserOauthUrlRequestDto;
+import co.novu.models.components.IssueIntegrationMobileLinkRequestDto;
+import co.novu.models.components.LinkChannelEndpointRequestDto;
 import co.novu.models.components.UpdateIntegrationRequestDto;
 import co.novu.models.operations.IntegrationsControllerAutoConfigureIntegrationRequest;
+import co.novu.models.operations.IntegrationsControllerConfigureIntegrationWebhookRequest;
+import co.novu.models.operations.IntegrationsControllerCreateIntegrationMobileLinkRequest;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationRequest;
 import co.novu.models.operations.IntegrationsControllerGenerateConnectOAuthUrlRequest;
 import co.novu.models.operations.IntegrationsControllerGenerateLinkUserOAuthUrlRequest;
 import co.novu.models.operations.IntegrationsControllerGetActiveIntegrationsRequest;
 import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlRequest;
+import co.novu.models.operations.IntegrationsControllerLinkChannelEndpointRequest;
 import co.novu.models.operations.IntegrationsControllerListIntegrationsRequest;
 import co.novu.models.operations.IntegrationsControllerRemoveIntegrationRequest;
 import co.novu.models.operations.IntegrationsControllerSetIntegrationAsPrimaryRequest;
 import co.novu.models.operations.IntegrationsControllerUpdateIntegrationByIdRequest;
 import co.novu.models.operations.async.IntegrationsControllerAutoConfigureIntegrationRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerAutoConfigureIntegrationResponse;
+import co.novu.models.operations.async.IntegrationsControllerConfigureIntegrationWebhookRequestBuilder;
+import co.novu.models.operations.async.IntegrationsControllerConfigureIntegrationWebhookResponse;
+import co.novu.models.operations.async.IntegrationsControllerCreateIntegrationMobileLinkRequestBuilder;
+import co.novu.models.operations.async.IntegrationsControllerCreateIntegrationMobileLinkResponse;
 import co.novu.models.operations.async.IntegrationsControllerCreateIntegrationRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerCreateIntegrationResponse;
 import co.novu.models.operations.async.IntegrationsControllerGenerateConnectOAuthUrlRequestBuilder;
@@ -32,6 +41,8 @@ import co.novu.models.operations.async.IntegrationsControllerGetActiveIntegratio
 import co.novu.models.operations.async.IntegrationsControllerGetActiveIntegrationsResponse;
 import co.novu.models.operations.async.IntegrationsControllerGetChatOAuthUrlRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerGetChatOAuthUrlResponse;
+import co.novu.models.operations.async.IntegrationsControllerLinkChannelEndpointRequestBuilder;
+import co.novu.models.operations.async.IntegrationsControllerLinkChannelEndpointResponse;
 import co.novu.models.operations.async.IntegrationsControllerListIntegrationsRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerListIntegrationsResponse;
 import co.novu.models.operations.async.IntegrationsControllerRemoveIntegrationRequestBuilder;
@@ -41,11 +52,14 @@ import co.novu.models.operations.async.IntegrationsControllerSetIntegrationAsPri
 import co.novu.models.operations.async.IntegrationsControllerUpdateIntegrationByIdRequestBuilder;
 import co.novu.models.operations.async.IntegrationsControllerUpdateIntegrationByIdResponse;
 import co.novu.operations.IntegrationsControllerAutoConfigureIntegration;
+import co.novu.operations.IntegrationsControllerConfigureIntegrationWebhook;
 import co.novu.operations.IntegrationsControllerCreateIntegration;
+import co.novu.operations.IntegrationsControllerCreateIntegrationMobileLink;
 import co.novu.operations.IntegrationsControllerGenerateConnectOAuthUrl;
 import co.novu.operations.IntegrationsControllerGenerateLinkUserOAuthUrl;
 import co.novu.operations.IntegrationsControllerGetActiveIntegrations;
 import co.novu.operations.IntegrationsControllerGetChatOAuthUrl;
+import co.novu.operations.IntegrationsControllerLinkChannelEndpoint;
 import co.novu.operations.IntegrationsControllerListIntegrations;
 import co.novu.operations.IntegrationsControllerRemoveIntegration;
 import co.novu.operations.IntegrationsControllerSetIntegrationAsPrimary;
@@ -88,7 +102,8 @@ public class AsyncIntegrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -99,7 +114,8 @@ public class AsyncIntegrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @return {@code CompletableFuture<IntegrationsControllerListIntegrationsResponse>} - The async response
      */
@@ -110,7 +126,8 @@ public class AsyncIntegrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
@@ -132,6 +149,7 @@ public class AsyncIntegrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -144,6 +162,7 @@ public class AsyncIntegrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param body 
      * @return {@code CompletableFuture<IntegrationsControllerCreateIntegrationResponse>} - The async response
@@ -157,6 +176,7 @@ public class AsyncIntegrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
@@ -181,6 +201,7 @@ public class AsyncIntegrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -193,6 +214,7 @@ public class AsyncIntegrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param body 
@@ -209,6 +231,7 @@ public class AsyncIntegrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -233,7 +256,8 @@ public class AsyncIntegrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @return The async call builder
      */
@@ -245,7 +269,8 @@ public class AsyncIntegrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @param integrationId 
      * @return {@code CompletableFuture<IntegrationsControllerRemoveIntegrationResponse>} - The async response
@@ -258,7 +283,8 @@ public class AsyncIntegrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -283,7 +309,8 @@ public class AsyncIntegrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -296,7 +323,8 @@ public class AsyncIntegrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @return {@code CompletableFuture<IntegrationsControllerAutoConfigureIntegrationResponse>} - The async response
@@ -310,7 +338,8 @@ public class AsyncIntegrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -336,6 +365,7 @@ public class AsyncIntegrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -349,6 +379,7 @@ public class AsyncIntegrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @return {@code CompletableFuture<IntegrationsControllerSetIntegrationAsPrimaryResponse>} - The async response
@@ -363,6 +394,7 @@ public class AsyncIntegrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -383,9 +415,112 @@ public class AsyncIntegrations {
 
 
     /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @return The async call builder
+     */
+    public IntegrationsControllerCreateIntegrationMobileLinkRequestBuilder createMobileLink() {
+        return new IntegrationsControllerCreateIntegrationMobileLinkRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse> createMobileLink(@Nonnull String integrationIdentifier, @Nonnull IssueIntegrationMobileLinkRequestDto body) {
+        return createMobileLink(
+                integrationIdentifier, null, body,
+                null);
+    }
+
+    /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return {@code CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse> createMobileLink(
+            @Nonnull String integrationIdentifier, @Nullable String idempotencyKey,
+            @Nonnull IssueIntegrationMobileLinkRequestDto body, @Nullable Options options) {
+        IntegrationsControllerCreateIntegrationMobileLinkRequest request = new IntegrationsControllerCreateIntegrationMobileLinkRequest(integrationIdentifier, idempotencyKey, body);
+        AsyncRequestOperation<IntegrationsControllerCreateIntegrationMobileLinkRequest, IntegrationsControllerCreateIntegrationMobileLinkResponse> operation
+              = new IntegrationsControllerCreateIntegrationMobileLink.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @return The async call builder
+     */
+    public IntegrationsControllerConfigureIntegrationWebhookRequestBuilder integrationsControllerConfigureIntegrationWebhook() {
+        return new IntegrationsControllerConfigureIntegrationWebhookRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @return {@code CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse> integrationsControllerConfigureIntegrationWebhook(@Nonnull String integrationIdentifier) {
+        return integrationsControllerConfigureIntegrationWebhook(integrationIdentifier, null, null);
+    }
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return {@code CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse> integrationsControllerConfigureIntegrationWebhook(
+            @Nonnull String integrationIdentifier, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        IntegrationsControllerConfigureIntegrationWebhookRequest request = new IntegrationsControllerConfigureIntegrationWebhookRequest(integrationIdentifier, idempotencyKey);
+        AsyncRequestOperation<IntegrationsControllerConfigureIntegrationWebhookRequest, IntegrationsControllerConfigureIntegrationWebhookResponse> operation
+              = new IntegrationsControllerConfigureIntegrationWebhook.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @return The async call builder
      */
@@ -396,7 +531,8 @@ public class AsyncIntegrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @return {@code CompletableFuture<IntegrationsControllerGetActiveIntegrationsResponse>} - The async response
      */
@@ -407,7 +543,8 @@ public class AsyncIntegrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
@@ -469,6 +606,55 @@ public class AsyncIntegrations {
         IntegrationsControllerGenerateConnectOAuthUrlRequest request = new IntegrationsControllerGenerateConnectOAuthUrlRequest(idempotencyKey, body);
         AsyncRequestOperation<IntegrationsControllerGenerateConnectOAuthUrlRequest, IntegrationsControllerGenerateConnectOAuthUrlResponse> operation
               = new IntegrationsControllerGenerateConnectOAuthUrl.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @return The async call builder
+     */
+    public IntegrationsControllerLinkChannelEndpointRequestBuilder linkChannelEndpoint() {
+        return new IntegrationsControllerLinkChannelEndpointRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse> linkChannelEndpoint(@Nonnull LinkChannelEndpointRequestDto body) {
+        return linkChannelEndpoint(null, body, null);
+    }
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return {@code CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse> linkChannelEndpoint(
+            @Nullable String idempotencyKey, @Nonnull LinkChannelEndpointRequestDto body,
+            @Nullable Options options) {
+        IntegrationsControllerLinkChannelEndpointRequest request = new IntegrationsControllerLinkChannelEndpointRequest(idempotencyKey, body);
+        AsyncRequestOperation<IntegrationsControllerLinkChannelEndpointRequest, IntegrationsControllerLinkChannelEndpointResponse> operation
+              = new IntegrationsControllerLinkChannelEndpoint.Async(
                                     sdkConfiguration, options, sdkConfiguration.retryScheduler(),
                                     _headers);
         return operation.doRequest(request)

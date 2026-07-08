@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 3.17.0
+  version: 3.18.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: novu-java

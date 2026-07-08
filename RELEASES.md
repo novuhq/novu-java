@@ -49,3 +49,13 @@ Based on:
 - [java v3.17.0] .
 ### Releases
 - [Maven Central v3.17.0] https://central.sonatype.com/artifact/co.novu/novu-java/3.17.0 - .
+
+## 2026-07-08 12:21:20
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.789.0 (2.916.2) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [java v3.18.0] .
+### Releases
+- [Maven Central v3.18.0] https://central.sonatype.com/artifact/co.novu/novu-java/3.18.0 - .

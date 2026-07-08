@@ -25,6 +25,13 @@ public class PreviewPayloadDto {
     private SubscriberResponseDtoOptional subscriber;
 
     /**
+     * Partial actor information
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("actor")
+    private SubscriberResponseDtoOptional actor;
+
+    /**
      * Payload data
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -53,11 +60,13 @@ public class PreviewPayloadDto {
     @JsonCreator
     public PreviewPayloadDto(
             @JsonProperty("subscriber") @Nullable SubscriberResponseDtoOptional subscriber,
+            @JsonProperty("actor") @Nullable SubscriberResponseDtoOptional actor,
             @JsonProperty("payload") @Nullable Map<String, Object> payload,
             @JsonProperty("steps") @Nullable Map<String, Object> steps,
             @JsonProperty("context") @Nullable Map<String, PreviewPayloadDtoContextUnion> context,
             @JsonProperty("env") @Nullable Map<String, Object> env) {
         this.subscriber = subscriber;
+        this.actor = actor;
         this.payload = payload;
         this.steps = steps;
         this.context = context;
@@ -66,7 +75,7 @@ public class PreviewPayloadDto {
     
     public PreviewPayloadDto() {
         this(null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -74,6 +83,13 @@ public class PreviewPayloadDto {
      */
     public Optional<SubscriberResponseDtoOptional> subscriber() {
         return Optional.ofNullable(this.subscriber);
+    }
+
+    /**
+     * Partial actor information
+     */
+    public Optional<SubscriberResponseDtoOptional> actor() {
+        return Optional.ofNullable(this.actor);
     }
 
     /**
@@ -111,6 +127,15 @@ public class PreviewPayloadDto {
      */
     public PreviewPayloadDto withSubscriber(@Nullable SubscriberResponseDtoOptional subscriber) {
         this.subscriber = subscriber;
+        return this;
+    }
+
+
+    /**
+     * Partial actor information
+     */
+    public PreviewPayloadDto withActor(@Nullable SubscriberResponseDtoOptional actor) {
+        this.actor = actor;
         return this;
     }
 
@@ -159,6 +184,7 @@ public class PreviewPayloadDto {
         PreviewPayloadDto other = (PreviewPayloadDto) o;
         return 
             Utils.enhancedDeepEquals(this.subscriber, other.subscriber) &&
+            Utils.enhancedDeepEquals(this.actor, other.actor) &&
             Utils.enhancedDeepEquals(this.payload, other.payload) &&
             Utils.enhancedDeepEquals(this.steps, other.steps) &&
             Utils.enhancedDeepEquals(this.context, other.context) &&
@@ -168,14 +194,15 @@ public class PreviewPayloadDto {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            subscriber, payload, steps,
-            context, env);
+            subscriber, actor, payload,
+            steps, context, env);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PreviewPayloadDto.class,
                 "subscriber", subscriber,
+                "actor", actor,
                 "payload", payload,
                 "steps", steps,
                 "context", context,
@@ -186,6 +213,8 @@ public class PreviewPayloadDto {
     public final static class Builder {
 
         private SubscriberResponseDtoOptional subscriber;
+
+        private SubscriberResponseDtoOptional actor;
 
         private Map<String, Object> payload;
 
@@ -204,6 +233,14 @@ public class PreviewPayloadDto {
          */
         public Builder subscriber(@Nullable SubscriberResponseDtoOptional subscriber) {
             this.subscriber = subscriber;
+            return this;
+        }
+
+        /**
+         * Partial actor information
+         */
+        public Builder actor(@Nullable SubscriberResponseDtoOptional actor) {
+            this.actor = actor;
             return this;
         }
 
@@ -238,8 +275,8 @@ public class PreviewPayloadDto {
 
         public PreviewPayloadDto build() {
             return new PreviewPayloadDto(
-                subscriber, payload, steps,
-                context, env);
+                subscriber, actor, payload,
+                steps, context, env);
         }
 
     }

@@ -466,7 +466,7 @@ public class Novu {
         return new Builder();
     }
 
-    public Novu(SDKConfiguration sdkConfiguration) {
+    private Novu(SDKConfiguration sdkConfiguration) {
         sdkConfiguration.initialize();
         this.contexts = new Contexts(sdkConfiguration);
         this.environments = new Environments(sdkConfiguration);
