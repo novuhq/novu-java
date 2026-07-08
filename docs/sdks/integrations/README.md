@@ -13,14 +13,17 @@ With the help of the Integration Store, you can easily integrate your favorite d
 * [delete](#delete) - Delete an integration
 * [autoConfigure](#autoconfigure) - Auto-configure an integration for inbound webhooks
 * [setPrimary](#setprimary) - Update integration as primary
+* [createMobileLink](#createmobilelink) - Issue a short-lived mobile setup link for an existing integration
+* [integrationsControllerConfigureIntegrationWebhook](#integrationscontrollerconfigureintegrationwebhook) - Configure a chat integration webhook
 * [listActive](#listactive) - List active integrations
 * [generateConnectOAuthUrl](#generateconnectoauthurl) - Generate OAuth URL for a workspace/tenant connection
+* [linkChannelEndpoint](#linkchannelendpoint) - Issue a URL to link a subscriber chat identity
 * [generateLinkUserOAuthUrl](#generatelinkuseroauthurl) - Generate OAuth URL to link a subscriber user identity
 * [~~generateChatOAuthUrl~~](#generatechatoauthurl) - Generate chat OAuth URL :warning: **Deprecated**
 
 ## list
 
-List all the channels integrations created in the organization
+List all the channels integrations created in the organization. Only integration metadata is returned, credentials field is returned as an empty object.
 
 ### Example Usage
 
@@ -75,7 +78,7 @@ public class Application {
 ## create
 
 Create an integration for the current environment the user is based on the API key provided. 
-    Each provider supports different credentials, check the provider documentation for more details.
+    Each provider supports different credentials, check the provider documentation for more details. Only integration metadata is returned, credentials field is returned as an empty object.
 
 ### Example Usage
 
@@ -134,7 +137,7 @@ public class Application {
 ## update
 
 Update an integration by its unique key identifier **integrationId**. 
-    Each provider supports different credentials, check the provider documentation for more details.
+    Each provider supports different credentials, check the provider documentation for more details. Only integration metadata is returned, credentials field is returned as an empty object.
 
 ### Example Usage
 
@@ -195,7 +198,7 @@ public class Application {
 ## delete
 
 Delete an integration by its unique key identifier **integrationId**. 
-    This action is irreversible.
+    This action is irreversible. Only integration metadata is returned, credentials field is returned as empty object.
 
 ### Example Usage
 
@@ -252,7 +255,7 @@ public class Application {
 ## autoConfigure
 
 Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook support. 
-    This will automatically generate required webhook signing keys and configure webhook endpoints.
+    This will automatically generate required webhook signing keys and configure webhook endpoints. Only integration metadata is returned, credentials field is returned as an empty object.
 
 ### Example Usage
 
@@ -310,7 +313,8 @@ public class Application {
 
 Update an integration as **primary** by its unique key identifier **integrationId**. 
     This API will set the integration as primary for that channel in the current environment. 
-    Primary integration is used to deliver notification for sms and email channels in the workflow.
+    Primary integration is used to deliver notification for sms and email channels in the workflow. 
+    Only integration metadata is returned, credentials field is returned as an empty object.
 
 ### Example Usage
 
@@ -364,9 +368,126 @@ public class Application {
 | models/errors/ErrorDto            | 500                               | application/json                  |
 | models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
+## createMobileLink
+
+Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat integration. Telegram is the only supported provider initially.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="IntegrationsController_createIntegrationMobileLink" method="post" path="/v1/integrations/{integrationIdentifier}/mobile-link" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.IssueIntegrationMobileLinkRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerCreateIntegrationMobileLinkResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        IntegrationsControllerCreateIntegrationMobileLinkResponse res = sdk.integrations().createMobileLink()
+                .integrationIdentifier("<value>")
+                .body(IssueIntegrationMobileLinkRequestDto.builder()
+                    .subscriberId("subscriber-123")
+                    .build())
+                .call();
+
+        if (res.issueTelegramMobileLinkResponseDto().isPresent()) {
+            System.out.println(res.issueTelegramMobileLinkResponseDto().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `integrationIdentifier`                                                                                 | *String*                                                                                                | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
+| `idempotencyKey`                                                                                        | *Optional\<String>*                                                                                     | :heavy_minus_sign:                                                                                      | A header for idempotency purposes                                                                       |
+| `body`                                                                                                  | [IssueIntegrationMobileLinkRequestDto](../../models/components/IssueIntegrationMobileLinkRequestDto.md) | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
+
+### Response
+
+**[IntegrationsControllerCreateIntegrationMobileLinkResponse](../../models/operations/IntegrationsControllerCreateIntegrationMobileLinkResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorDto                 | 414                                    | application/json                       |
+| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
+| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
+| models/errors/ErrorDto                 | 500                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## integrationsControllerConfigureIntegrationWebhook
+
+Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the only supported provider initially.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="IntegrationsController_configureIntegrationWebhook" method="post" path="/v1/integrations/{integrationIdentifier}/webhook/configure" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerConfigureIntegrationWebhookResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        IntegrationsControllerConfigureIntegrationWebhookResponse res = sdk.integrations().integrationsControllerConfigureIntegrationWebhook()
+                .integrationIdentifier("<value>")
+                .call();
+
+        if (res.configureTelegramWebhookResponseDto().isPresent()) {
+            System.out.println(res.configureTelegramWebhookResponseDto().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                         | Type                              | Required                          | Description                       |
+| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
+| `integrationIdentifier`           | *String*                          | :heavy_check_mark:                | N/A                               |
+| `idempotencyKey`                  | *Optional\<String>*               | :heavy_minus_sign:                | A header for idempotency purposes |
+
+### Response
+
+**[IntegrationsControllerConfigureIntegrationWebhookResponse](../../models/operations/IntegrationsControllerConfigureIntegrationWebhookResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorDto                 | 414                                    | application/json                       |
+| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
+| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
+| models/errors/ErrorDto                 | 500                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
 ## listActive
 
-List all the active integrations created in the organization
+List all the active integrations created in the organization. Only integration metadata is returned, credentials field is returned as an empty object.
 
 ### Example Usage
 
@@ -479,6 +600,66 @@ public class Application {
 ### Response
 
 **[IntegrationsControllerGenerateConnectOAuthUrlResponse](../../models/operations/IntegrationsControllerGenerateConnectOAuthUrlResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/ErrorDto                 | 414                                    | application/json                       |
+| models/errors/ErrorDto                 | 400, 401, 403, 404, 405, 409, 413, 415 | application/json                       |
+| models/errors/ValidationErrorDto       | 422                                    | application/json                       |
+| models/errors/ErrorDto                 | 500                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## linkChannelEndpoint
+
+Returns a provider-specific URL the subscriber opens to link their chat identity. The integration provider is resolved from integrationIdentifier; Telegram returns a deep link.
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="IntegrationsController_linkChannelEndpoint" method="post" path="/v1/integrations/channel-endpoints/link" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.LinkChannelEndpointRequestDto;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.IntegrationsControllerLinkChannelEndpointResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        IntegrationsControllerLinkChannelEndpointResponse res = sdk.integrations().linkChannelEndpoint()
+                .body(LinkChannelEndpointRequestDto.builder()
+                    .integrationIdentifier("telegram-bot")
+                    .subscriberId("subscriber-123")
+                    .build())
+                .call();
+
+        if (res.linkChannelEndpointResponseDto().isPresent()) {
+            System.out.println(res.linkChannelEndpointResponseDto().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `idempotencyKey`                                                                          | *Optional\<String>*                                                                       | :heavy_minus_sign:                                                                        | A header for idempotency purposes                                                         |
+| `body`                                                                                    | [LinkChannelEndpointRequestDto](../../models/components/LinkChannelEndpointRequestDto.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
+
+### Response
+
+**[IntegrationsControllerLinkChannelEndpointResponse](../../models/operations/IntegrationsControllerLinkChannelEndpointResponse.md)**
 
 ### Errors
 

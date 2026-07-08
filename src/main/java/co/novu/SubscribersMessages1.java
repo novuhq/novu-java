@@ -13,6 +13,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
 
 
 public class SubscribersMessages1 {
@@ -37,12 +38,14 @@ public class SubscribersMessages1 {
     /**
      * Update notification action status
      * 
-     * <p>Update in-app (inbox) notification's action status by its unique key identifier **messageId** and
-     * type field **type**.
+     * <p>This API is deprecated, use v2 API instead. Update in-app notification's action status by its unique
+     * key identifier **messageId** and type field **type**.
      * **type** field can be **primary** or **secondary**
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkActionAsSeenRequestBuilder updateActionStatus() {
         return new SubscribersV1ControllerMarkActionAsSeenRequestBuilder(sdkConfiguration);
     }
@@ -50,14 +53,16 @@ public class SubscribersMessages1 {
     /**
      * Update notification action status
      * 
-     * <p>Update in-app (inbox) notification's action status by its unique key identifier **messageId** and
-     * type field **type**.
+     * <p>This API is deprecated, use v2 API instead. Update in-app notification's action status by its unique
+     * key identifier **messageId** and type field **type**.
      * **type** field can be **primary** or **secondary**
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkActionAsSeenResponse updateActionStatus(@Nonnull SubscribersV1ControllerMarkActionAsSeenRequest request) {
         return updateActionStatus(request, null);
     }
@@ -65,15 +70,17 @@ public class SubscribersMessages1 {
     /**
      * Update notification action status
      * 
-     * <p>Update in-app (inbox) notification's action status by its unique key identifier **messageId** and
-     * type field **type**.
+     * <p>This API is deprecated, use v2 API instead. Update in-app notification's action status by its unique
+     * key identifier **messageId** and type field **type**.
      * **type** field can be **primary** or **secondary**
      * 
      * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkActionAsSeenResponse updateActionStatus(@Nonnull SubscribersV1ControllerMarkActionAsSeenRequest request, @Nullable Options options) {
         RequestOperation<SubscribersV1ControllerMarkActionAsSeenRequest, SubscribersV1ControllerMarkActionAsSeenResponse> operation
               = new SubscribersV1ControllerMarkActionAsSeen.Sync(sdkConfiguration, options, _headers);

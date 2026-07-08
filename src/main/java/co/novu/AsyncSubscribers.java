@@ -56,6 +56,7 @@ import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Boolean;
+import java.lang.Deprecated;
 import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
@@ -588,11 +589,13 @@ public class AsyncSubscribers {
     /**
      * Update all notifications state
      * 
-     * <p>Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by
-     * **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Update all subscriber in-app notifications state such as
+     * read, unread, seen or unseen by **subscriberId**.
      * 
      * @return The async call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkAllUnreadAsReadRequestBuilder markAllMessages() {
         return new SubscribersV1ControllerMarkAllUnreadAsReadRequestBuilder(sdkConfiguration);
     }
@@ -600,13 +603,15 @@ public class AsyncSubscribers {
     /**
      * Update all notifications state
      * 
-     * <p>Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by
-     * **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Update all subscriber in-app notifications state such as
+     * read, unread, seen or unseen by **subscriberId**.
      * 
      * @param subscriberId 
      * @param body 
      * @return {@code CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse> markAllMessages(@Nonnull String subscriberId, @Nonnull MarkAllMessageAsRequestDto body) {
         return markAllMessages(
                 subscriberId, null, body,
@@ -616,15 +621,17 @@ public class AsyncSubscribers {
     /**
      * Update all notifications state
      * 
-     * <p>Update all subscriber in-app (inbox) notifications state such as read, unread, seen or unseen by
-     * **subscriberId**.
+     * <p>This API is deprecated, use v2 API instead. Update all subscriber in-app notifications state such as
+     * read, unread, seen or unseen by **subscriberId**.
      * 
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse> markAllMessages(
             @Nonnull String subscriberId, @Nullable String idempotencyKey,
             @Nonnull MarkAllMessageAsRequestDto body, @Nullable Options options) {

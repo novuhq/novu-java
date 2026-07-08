@@ -14,6 +14,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
 import java.lang.String;
 
 
@@ -39,12 +40,14 @@ public class SubscribersMessages2 {
     /**
      * Update notifications state
      * 
-     * <p>Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread
-     * by **subscriberId**.
-     * **messageId** is of type mongodbId of notifications
+     * <p>This API is deprecated, use v2 API instead. Update subscriber's multiple in-app notifications state
+     * such as seen, read, unseen or unread by **subscriberId**.
+     * **messageId** is of type mongodbId of notifications.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkMessagesAsRequestBuilder markAllAs() {
         return new SubscribersV1ControllerMarkMessagesAsRequestBuilder(sdkConfiguration);
     }
@@ -52,15 +55,17 @@ public class SubscribersMessages2 {
     /**
      * Update notifications state
      * 
-     * <p>Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread
-     * by **subscriberId**.
-     * **messageId** is of type mongodbId of notifications
+     * <p>This API is deprecated, use v2 API instead. Update subscriber's multiple in-app notifications state
+     * such as seen, read, unseen or unread by **subscriberId**.
+     * **messageId** is of type mongodbId of notifications.
      * 
      * @param subscriberId 
      * @param body 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkMessagesAsResponse markAllAs(@Nonnull String subscriberId, @Nonnull MessageMarkAsRequestDto body) {
         return markAllAs(subscriberId, null, body,
             null);
@@ -69,9 +74,9 @@ public class SubscribersMessages2 {
     /**
      * Update notifications state
      * 
-     * <p>Update subscriber's multiple in-app (inbox) notifications state such as seen, read, unseen or unread
-     * by **subscriberId**.
-     * **messageId** is of type mongodbId of notifications
+     * <p>This API is deprecated, use v2 API instead. Update subscriber's multiple in-app notifications state
+     * such as seen, read, unseen or unread by **subscriberId**.
+     * **messageId** is of type mongodbId of notifications.
      * 
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
@@ -79,7 +84,9 @@ public class SubscribersMessages2 {
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public SubscribersV1ControllerMarkMessagesAsResponse markAllAs(
             @Nonnull String subscriberId, @Nullable String idempotencyKey,
             @Nonnull MessageMarkAsRequestDto body, @Nullable Options options) {

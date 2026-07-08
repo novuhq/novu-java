@@ -258,6 +258,11 @@ public class CredentialsDto {
 
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("outboundConnectedAt")
+    private String outboundConnectedAt;
+
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("useFromAddressOverride")
     private Boolean useFromAddressOverride;
 
@@ -351,6 +356,7 @@ public class CredentialsDto {
             @JsonProperty("AppIOBaseUrl") @Nullable String appIOBaseUrl,
             @JsonProperty("signingSecret") @Nullable String signingSecret,
             @JsonProperty("outboundIntegrationId") @Nullable String outboundIntegrationId,
+            @JsonProperty("outboundConnectedAt") @Nullable String outboundConnectedAt,
             @JsonProperty("useFromAddressOverride") @Nullable Boolean useFromAddressOverride,
             @JsonProperty("fromAddressOverride") @Nullable String fromAddressOverride,
             @JsonProperty("emailSlugPrefix") @Nullable String emailSlugPrefix,
@@ -405,6 +411,7 @@ public class CredentialsDto {
         this.appIOBaseUrl = appIOBaseUrl;
         this.signingSecret = signingSecret;
         this.outboundIntegrationId = outboundIntegrationId;
+        this.outboundConnectedAt = outboundConnectedAt;
         this.useFromAddressOverride = useFromAddressOverride;
         this.fromAddressOverride = fromAddressOverride;
         this.emailSlugPrefix = emailSlugPrefix;
@@ -431,7 +438,8 @@ public class CredentialsDto {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     public Optional<String> apiKey() {
@@ -624,6 +632,10 @@ public class CredentialsDto {
 
     public Optional<String> outboundIntegrationId() {
         return Optional.ofNullable(this.outboundIntegrationId);
+    }
+
+    public Optional<String> outboundConnectedAt() {
+        return Optional.ofNullable(this.outboundConnectedAt);
     }
 
     public Optional<Boolean> useFromAddressOverride() {
@@ -962,6 +974,12 @@ public class CredentialsDto {
     }
 
 
+    public CredentialsDto withOutboundConnectedAt(@Nullable String outboundConnectedAt) {
+        this.outboundConnectedAt = outboundConnectedAt;
+        return this;
+    }
+
+
     public CredentialsDto withUseFromAddressOverride(@Nullable Boolean useFromAddressOverride) {
         this.useFromAddressOverride = useFromAddressOverride;
         return this;
@@ -1075,6 +1093,7 @@ public class CredentialsDto {
             Utils.enhancedDeepEquals(this.appIOBaseUrl, other.appIOBaseUrl) &&
             Utils.enhancedDeepEquals(this.signingSecret, other.signingSecret) &&
             Utils.enhancedDeepEquals(this.outboundIntegrationId, other.outboundIntegrationId) &&
+            Utils.enhancedDeepEquals(this.outboundConnectedAt, other.outboundConnectedAt) &&
             Utils.enhancedDeepEquals(this.useFromAddressOverride, other.useFromAddressOverride) &&
             Utils.enhancedDeepEquals(this.fromAddressOverride, other.fromAddressOverride) &&
             Utils.enhancedDeepEquals(this.emailSlugPrefix, other.emailSlugPrefix) &&
@@ -1102,8 +1121,9 @@ public class CredentialsDto {
             channelId, phoneNumberIdentification, accessKey,
             appSid, senderId, tenantId,
             appIOBaseUrl, signingSecret, outboundIntegrationId,
-            useFromAddressOverride, fromAddressOverride, emailSlugPrefix,
-            externalEnvironmentId, externalVaultId, externalWorkspaceId);
+            outboundConnectedAt, useFromAddressOverride, fromAddressOverride,
+            emailSlugPrefix, externalEnvironmentId, externalVaultId,
+            externalWorkspaceId);
     }
     
     @Override
@@ -1157,6 +1177,7 @@ public class CredentialsDto {
                 "appIOBaseUrl", appIOBaseUrl,
                 "signingSecret", signingSecret,
                 "outboundIntegrationId", outboundIntegrationId,
+                "outboundConnectedAt", outboundConnectedAt,
                 "useFromAddressOverride", useFromAddressOverride,
                 "fromAddressOverride", fromAddressOverride,
                 "emailSlugPrefix", emailSlugPrefix,
@@ -1263,6 +1284,8 @@ public class CredentialsDto {
         private String signingSecret;
 
         private String outboundIntegrationId;
+
+        private String outboundConnectedAt;
 
         private Boolean useFromAddressOverride;
 
@@ -1520,6 +1543,11 @@ public class CredentialsDto {
             return this;
         }
 
+        public Builder outboundConnectedAt(@Nullable String outboundConnectedAt) {
+            this.outboundConnectedAt = outboundConnectedAt;
+            return this;
+        }
+
         public Builder useFromAddressOverride(@Nullable Boolean useFromAddressOverride) {
             this.useFromAddressOverride = useFromAddressOverride;
             return this;
@@ -1587,8 +1615,9 @@ public class CredentialsDto {
                 channelId, phoneNumberIdentification, accessKey,
                 appSid, senderId, tenantId,
                 appIOBaseUrl, signingSecret, outboundIntegrationId,
-                useFromAddressOverride, fromAddressOverride, emailSlugPrefix,
-                externalEnvironmentId, externalVaultId, externalWorkspaceId);
+                outboundConnectedAt, useFromAddressOverride, fromAddressOverride,
+                emailSlugPrefix, externalEnvironmentId, externalVaultId,
+                externalWorkspaceId);
         }
 
     }

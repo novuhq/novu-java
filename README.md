@@ -74,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.17.0'
+implementation 'co.novu:novu-java:3.18.0'
 ```
 
 Maven:
@@ -82,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.17.0</version>
+    <version>3.18.0</version>
 </dependency>
 ```
 
@@ -560,8 +560,11 @@ public class Application {
 * [delete](docs/sdks/integrations/README.md#delete) - Delete an integration
 * [autoConfigure](docs/sdks/integrations/README.md#autoconfigure) - Auto-configure an integration for inbound webhooks
 * [setPrimary](docs/sdks/integrations/README.md#setprimary) - Update integration as primary
+* [createMobileLink](docs/sdks/integrations/README.md#createmobilelink) - Issue a short-lived mobile setup link for an existing integration
+* [integrationsControllerConfigureIntegrationWebhook](docs/sdks/integrations/README.md#integrationscontrollerconfigureintegrationwebhook) - Configure a chat integration webhook
 * [listActive](docs/sdks/integrations/README.md#listactive) - List active integrations
 * [generateConnectOAuthUrl](docs/sdks/integrations/README.md#generateconnectoauthurl) - Generate OAuth URL for a workspace/tenant connection
+* [linkChannelEndpoint](docs/sdks/integrations/README.md#linkchannelendpoint) - Issue a URL to link a subscriber chat identity
 * [generateLinkUserOAuthUrl](docs/sdks/integrations/README.md#generatelinkuseroauthurl) - Generate OAuth URL to link a subscriber user identity
 * [~~generateChatOAuthUrl~~](docs/sdks/integrations/README.md#generatechatoauthurl) - Generate chat OAuth URL :warning: **Deprecated**
 
@@ -598,7 +601,7 @@ public class Application {
 * [updatePreferences](docs/sdks/subscribers/README.md#updatepreferences) - Update subscriber preferences
 * [updateCredentials](docs/sdks/subscribers/README.md#updatecredentials) - Update provider credentials
 * [removeCredentials](docs/sdks/subscribers/README.md#removecredentials) - Delete provider credentials
-* [markAllMessages](docs/sdks/subscribers/README.md#markallmessages) - Update all notifications state
+* [~~markAllMessages~~](docs/sdks/subscribers/README.md#markallmessages) - Update all notifications state :warning: **Deprecated**
 
 #### [Subscribers.Notifications](docs/sdks/subscribersnotifications1/README.md)
 
@@ -618,28 +621,28 @@ public class Application {
 * [markAllAsRead](docs/sdks/subscribersnotifications1/README.md#markallasread) - Mark all notifications as read
 * [archiveAllRead](docs/sdks/subscribersnotifications1/README.md#archiveallread) - Archive all read notifications
 * [markAsSeen](docs/sdks/subscribersnotifications1/README.md#markasseen) - Mark notifications as seen
-* [getUnseenCount](docs/sdks/subscribersnotifications1/README.md#getunseencount) - Retrieve unseen notifications count
+* [~~getUnseenCount~~](docs/sdks/subscribersnotifications1/README.md#getunseencount) - Retrieve unseen notifications count :warning: **Deprecated**
 
 ### [Subscribers.Credentials](docs/sdks/credentials/README.md)
 
 * [upsert](docs/sdks/credentials/README.md#upsert) - Upsert provider credentials
 
-### [Subscribers.Messages](docs/sdks/subscribersmessages1/README.md)
+### [~~Subscribers.Messages~~](docs/sdks/subscribersmessages1/README.md)
 
-* [updateActionStatus](docs/sdks/subscribersmessages1/README.md#updateactionstatus) - Update notification action status
+* [~~updateActionStatus~~](docs/sdks/subscribersmessages1/README.md#updateactionstatus) - Update notification action status :warning: **Deprecated**
 
 ### [Subscribers.Preferences](docs/sdks/preferences/README.md)
 
 * [list](docs/sdks/preferences/README.md#list) - Retrieve subscriber preferences
 * [bulkUpdate](docs/sdks/preferences/README.md#bulkupdate) - Bulk update subscriber preferences
 
-### [SubscribersMessages](docs/sdks/subscribersmessages2/README.md)
+### [~~SubscribersMessages~~](docs/sdks/subscribersmessages2/README.md)
 
-* [markAllAs](docs/sdks/subscribersmessages2/README.md#markallas) - Update notifications state
+* [~~markAllAs~~](docs/sdks/subscribersmessages2/README.md#markallas) - Update notifications state :warning: **Deprecated**
 
-### [SubscribersNotifications](docs/sdks/subscribersnotifications2/README.md)
+### [~~SubscribersNotifications~~](docs/sdks/subscribersnotifications2/README.md)
 
-* [getFeed](docs/sdks/subscribersnotifications2/README.md#getfeed) - Retrieve subscriber notifications
+* [~~getFeed~~](docs/sdks/subscribersnotifications2/README.md#getfeed) - Retrieve subscriber notifications :warning: **Deprecated**
 
 ### [SubscribersProperties](docs/sdks/subscribersproperties/README.md)
 
@@ -979,9 +982,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 135 methods.*
-* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 135 methods.*
-* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 135 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 138 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 138 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 138 methods.*
 
 
 </details>

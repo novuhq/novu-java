@@ -16,7 +16,6 @@ plugins {
     id 'signing'
     // V2 publishing plugin (Sonatype Central Portal)
     id 'cl.franciscosolis.sonatype-central-upload' version '1.0.3'
-    id "io.spring.dependency-management" version "1.1.6" apply false
 }
 
 compileJava.options.encoding = "UTF-8"
@@ -75,57 +74,16 @@ javadocJar {
 }
 
 dependencies {
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.18.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.2'
+    api 'com.fasterxml.jackson.core:jackson-annotations:2.22'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.22.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.22.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.22.0'
     api('org.openapitools:jackson-databind-nullable:0.2.6') {exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'}
     implementation 'commons-io:commons-io:2.18.0'
     implementation 'jakarta.annotation:jakarta.annotation-api:3.0.0'
     api 'org.slf4j:slf4j-api:2.0.9'
     testImplementation 'org.slf4j:slf4j-simple:2.0.9'
     api 'org.reactivestreams:reactive-streams:1.0.4'
-}
-
-ext {
-    springBootVersion = '2.7.18'
-}
-
-subprojects {
-    if (name in [
-            'novu-java-spring-boot-autoconfigure',
-            'novu-java-spring-boot-starter'
-    ]) {
-        // Ensure subprojects use the same group and version as root project
-        group = rootProject.group
-        version = rootProject.version
-
-        apply {
-            plugin "java-library"
-            plugin "io.spring.dependency-management"
-            plugin "maven-publish"
-            plugin "signing"
-            plugin "cl.franciscosolis.sonatype-central-upload"
-        }
-        dependencyManagement {
-            imports {
-                mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.springBootVersion}"
-            }
-        }
-        repositories {
-            mavenCentral()
-        }
-        java {
-            withSourcesJar()
-            withJavadocJar()
-        }
-        tasks.withType(JavaCompile).configureEach {
-            options.release = 11
-        }
-
-        // Apply publishing configuration to all subprojects - they'll check for publishingConfig internally
-        apply from: rootProject.file('publishing.gradle')
-    }
 }
 
 ext {

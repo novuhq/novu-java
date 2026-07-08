@@ -9,10 +9,18 @@ import co.novu.models.components.CreateIntegrationRequestDto;
 import co.novu.models.components.GenerateChatOauthUrlRequestDto;
 import co.novu.models.components.GenerateConnectOauthUrlRequestDto;
 import co.novu.models.components.GenerateLinkUserOauthUrlRequestDto;
+import co.novu.models.components.IssueIntegrationMobileLinkRequestDto;
+import co.novu.models.components.LinkChannelEndpointRequestDto;
 import co.novu.models.components.UpdateIntegrationRequestDto;
 import co.novu.models.operations.IntegrationsControllerAutoConfigureIntegrationRequest;
 import co.novu.models.operations.IntegrationsControllerAutoConfigureIntegrationRequestBuilder;
 import co.novu.models.operations.IntegrationsControllerAutoConfigureIntegrationResponse;
+import co.novu.models.operations.IntegrationsControllerConfigureIntegrationWebhookRequest;
+import co.novu.models.operations.IntegrationsControllerConfigureIntegrationWebhookRequestBuilder;
+import co.novu.models.operations.IntegrationsControllerConfigureIntegrationWebhookResponse;
+import co.novu.models.operations.IntegrationsControllerCreateIntegrationMobileLinkRequest;
+import co.novu.models.operations.IntegrationsControllerCreateIntegrationMobileLinkRequestBuilder;
+import co.novu.models.operations.IntegrationsControllerCreateIntegrationMobileLinkResponse;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationRequest;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationRequestBuilder;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationResponse;
@@ -28,6 +36,9 @@ import co.novu.models.operations.IntegrationsControllerGetActiveIntegrationsResp
 import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlRequest;
 import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlRequestBuilder;
 import co.novu.models.operations.IntegrationsControllerGetChatOAuthUrlResponse;
+import co.novu.models.operations.IntegrationsControllerLinkChannelEndpointRequest;
+import co.novu.models.operations.IntegrationsControllerLinkChannelEndpointRequestBuilder;
+import co.novu.models.operations.IntegrationsControllerLinkChannelEndpointResponse;
 import co.novu.models.operations.IntegrationsControllerListIntegrationsRequest;
 import co.novu.models.operations.IntegrationsControllerListIntegrationsRequestBuilder;
 import co.novu.models.operations.IntegrationsControllerListIntegrationsResponse;
@@ -41,11 +52,14 @@ import co.novu.models.operations.IntegrationsControllerUpdateIntegrationByIdRequ
 import co.novu.models.operations.IntegrationsControllerUpdateIntegrationByIdRequestBuilder;
 import co.novu.models.operations.IntegrationsControllerUpdateIntegrationByIdResponse;
 import co.novu.operations.IntegrationsControllerAutoConfigureIntegration;
+import co.novu.operations.IntegrationsControllerConfigureIntegrationWebhook;
 import co.novu.operations.IntegrationsControllerCreateIntegration;
+import co.novu.operations.IntegrationsControllerCreateIntegrationMobileLink;
 import co.novu.operations.IntegrationsControllerGenerateConnectOAuthUrl;
 import co.novu.operations.IntegrationsControllerGenerateLinkUserOAuthUrl;
 import co.novu.operations.IntegrationsControllerGetActiveIntegrations;
 import co.novu.operations.IntegrationsControllerGetChatOAuthUrl;
+import co.novu.operations.IntegrationsControllerLinkChannelEndpoint;
 import co.novu.operations.IntegrationsControllerListIntegrations;
 import co.novu.operations.IntegrationsControllerRemoveIntegration;
 import co.novu.operations.IntegrationsControllerSetIntegrationAsPrimary;
@@ -86,7 +100,8 @@ public class Integrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @return The call builder
      */
@@ -97,7 +112,8 @@ public class Integrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -109,7 +125,8 @@ public class Integrations {
     /**
      * List all integrations
      * 
-     * <p>List all the channels integrations created in the organization
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
@@ -128,6 +145,7 @@ public class Integrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The call builder
      */
@@ -140,6 +158,7 @@ public class Integrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param body 
      * @return The response from the API call
@@ -154,6 +173,7 @@ public class Integrations {
      * 
      * <p>Create an integration for the current environment the user is based on the API key provided.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
@@ -175,6 +195,7 @@ public class Integrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The call builder
      */
@@ -187,6 +208,7 @@ public class Integrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param body 
@@ -203,6 +225,7 @@ public class Integrations {
      * 
      * <p>Update an integration by its unique key identifier **integrationId**.
      * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -224,7 +247,8 @@ public class Integrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @return The call builder
      */
@@ -236,7 +260,8 @@ public class Integrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @param integrationId 
      * @return The response from the API call
@@ -250,7 +275,8 @@ public class Integrations {
      * Delete an integration
      * 
      * <p>Delete an integration by its unique key identifier **integrationId**.
-     * This action is irreversible.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -272,7 +298,8 @@ public class Integrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The call builder
      */
@@ -285,7 +312,8 @@ public class Integrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @return The response from the API call
@@ -300,7 +328,8 @@ public class Integrations {
      * 
      * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
      * support.
-     * This will automatically generate required webhook signing keys and configure webhook endpoints.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -323,6 +352,7 @@ public class Integrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @return The call builder
      */
@@ -336,6 +366,7 @@ public class Integrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @return The response from the API call
@@ -351,6 +382,7 @@ public class Integrations {
      * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
      * This API will set the integration as primary for that channel in the current environment.
      * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
@@ -368,9 +400,107 @@ public class Integrations {
     }
 
     /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @return The call builder
+     */
+    public IntegrationsControllerCreateIntegrationMobileLinkRequestBuilder createMobileLink() {
+        return new IntegrationsControllerCreateIntegrationMobileLinkRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public IntegrationsControllerCreateIntegrationMobileLinkResponse createMobileLink(@Nonnull String integrationIdentifier, @Nonnull IssueIntegrationMobileLinkRequestDto body) {
+        return createMobileLink(integrationIdentifier, null, body,
+            null);
+    }
+
+    /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public IntegrationsControllerCreateIntegrationMobileLinkResponse createMobileLink(
+            @Nonnull String integrationIdentifier, @Nullable String idempotencyKey,
+            @Nonnull IssueIntegrationMobileLinkRequestDto body, @Nullable Options options) {
+        IntegrationsControllerCreateIntegrationMobileLinkRequest request = new IntegrationsControllerCreateIntegrationMobileLinkRequest(integrationIdentifier, idempotencyKey, body);
+        RequestOperation<IntegrationsControllerCreateIntegrationMobileLinkRequest, IntegrationsControllerCreateIntegrationMobileLinkResponse> operation
+              = new IntegrationsControllerCreateIntegrationMobileLink.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @return The call builder
+     */
+    public IntegrationsControllerConfigureIntegrationWebhookRequestBuilder integrationsControllerConfigureIntegrationWebhook() {
+        return new IntegrationsControllerConfigureIntegrationWebhookRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public IntegrationsControllerConfigureIntegrationWebhookResponse integrationsControllerConfigureIntegrationWebhook(@Nonnull String integrationIdentifier) {
+        return integrationsControllerConfigureIntegrationWebhook(integrationIdentifier, null, null);
+    }
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public IntegrationsControllerConfigureIntegrationWebhookResponse integrationsControllerConfigureIntegrationWebhook(
+            @Nonnull String integrationIdentifier, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        IntegrationsControllerConfigureIntegrationWebhookRequest request = new IntegrationsControllerConfigureIntegrationWebhookRequest(integrationIdentifier, idempotencyKey);
+        RequestOperation<IntegrationsControllerConfigureIntegrationWebhookRequest, IntegrationsControllerConfigureIntegrationWebhookResponse> operation
+              = new IntegrationsControllerConfigureIntegrationWebhook.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @return The call builder
      */
@@ -381,7 +511,8 @@ public class Integrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -393,7 +524,8 @@ public class Integrations {
     /**
      * List active integrations
      * 
-     * <p>List all the active integrations created in the organization
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
@@ -454,6 +586,53 @@ public class Integrations {
         IntegrationsControllerGenerateConnectOAuthUrlRequest request = new IntegrationsControllerGenerateConnectOAuthUrlRequest(idempotencyKey, body);
         RequestOperation<IntegrationsControllerGenerateConnectOAuthUrlRequest, IntegrationsControllerGenerateConnectOAuthUrlResponse> operation
               = new IntegrationsControllerGenerateConnectOAuthUrl.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @return The call builder
+     */
+    public IntegrationsControllerLinkChannelEndpointRequestBuilder linkChannelEndpoint() {
+        return new IntegrationsControllerLinkChannelEndpointRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public IntegrationsControllerLinkChannelEndpointResponse linkChannelEndpoint(@Nonnull LinkChannelEndpointRequestDto body) {
+        return linkChannelEndpoint(null, body, null);
+    }
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public IntegrationsControllerLinkChannelEndpointResponse linkChannelEndpoint(
+            @Nullable String idempotencyKey, @Nonnull LinkChannelEndpointRequestDto body,
+            @Nullable Options options) {
+        IntegrationsControllerLinkChannelEndpointRequest request = new IntegrationsControllerLinkChannelEndpointRequest(idempotencyKey, body);
+        RequestOperation<IntegrationsControllerLinkChannelEndpointRequest, IntegrationsControllerLinkChannelEndpointResponse> operation
+              = new IntegrationsControllerLinkChannelEndpoint.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

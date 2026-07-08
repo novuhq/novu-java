@@ -58,6 +58,26 @@ public class Application {
                                     .integrationId("<id>")
                                     .build()))
                             .build())
+                        .actor(SubscriberResponseDtoOptional.builder()
+                            .channels(List.of(
+                                ChannelSettingsDto.builder()
+                                    .providerId(ChatOrPushProviderEnum.TELEGRAM)
+                                    .credentials(ChannelCredentials.builder()
+                                        .webhookUrl("https://example.com/webhook")
+                                        .channel("general")
+                                        .deviceTokens(List.of(
+                                            "token1",
+                                            "token2",
+                                            "token3"))
+                                        .alertUid("12345-abcde")
+                                        .title("Critical Alert")
+                                        .imageUrl("https://example.com/image.png")
+                                        .state("resolved")
+                                        .externalUrl("https://example.com/details")
+                                        .build())
+                                    .integrationId("<id>")
+                                    .build()))
+                            .build())
                         .context(Map.ofEntries(
                             Map.entry("key", PreviewPayloadDtoContextUnion.of("org-acme"))))
                         .build())
