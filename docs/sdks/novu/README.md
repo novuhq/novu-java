@@ -43,11 +43,12 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
@@ -262,7 +263,7 @@ public class Application {
                     .events(List.of(
                         TriggerEventRequestDto.builder()
                             .workflowId("workflow_identifier")
-                            .to(To2.of("SUBSCRIBER_ID"))
+                            .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                             .payload(Map.ofEntries(
                                 Map.entry("comment_id", "string"),
                                 Map.entry("post", Map.ofEntries(

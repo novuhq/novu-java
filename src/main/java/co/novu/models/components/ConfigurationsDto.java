@@ -26,16 +26,25 @@ public class ConfigurationsDto {
     @JsonProperty("inboundWebhookSigningKey")
     private String inboundWebhookSigningKey;
 
+    /**
+     * JSON Schema describing the payload accepted by this integration.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("payloadSchema")
+    private String payloadSchema;
+
     @JsonCreator
     public ConfigurationsDto(
             @JsonProperty("inboundWebhookEnabled") @Nullable Boolean inboundWebhookEnabled,
-            @JsonProperty("inboundWebhookSigningKey") @Nullable String inboundWebhookSigningKey) {
+            @JsonProperty("inboundWebhookSigningKey") @Nullable String inboundWebhookSigningKey,
+            @JsonProperty("payloadSchema") @Nullable String payloadSchema) {
         this.inboundWebhookEnabled = inboundWebhookEnabled;
         this.inboundWebhookSigningKey = inboundWebhookSigningKey;
+        this.payloadSchema = payloadSchema;
     }
     
     public ConfigurationsDto() {
-        this(null, null);
+        this(null, null, null);
     }
 
     public Optional<Boolean> inboundWebhookEnabled() {
@@ -44,6 +53,13 @@ public class ConfigurationsDto {
 
     public Optional<String> inboundWebhookSigningKey() {
         return Optional.ofNullable(this.inboundWebhookSigningKey);
+    }
+
+    /**
+     * JSON Schema describing the payload accepted by this integration.
+     */
+    public Optional<String> payloadSchema() {
+        return Optional.ofNullable(this.payloadSchema);
     }
 
     public static Builder builder() {
@@ -63,6 +79,15 @@ public class ConfigurationsDto {
     }
 
 
+    /**
+     * JSON Schema describing the payload accepted by this integration.
+     */
+    public ConfigurationsDto withPayloadSchema(@Nullable String payloadSchema) {
+        this.payloadSchema = payloadSchema;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -74,20 +99,22 @@ public class ConfigurationsDto {
         ConfigurationsDto other = (ConfigurationsDto) o;
         return 
             Utils.enhancedDeepEquals(this.inboundWebhookEnabled, other.inboundWebhookEnabled) &&
-            Utils.enhancedDeepEquals(this.inboundWebhookSigningKey, other.inboundWebhookSigningKey);
+            Utils.enhancedDeepEquals(this.inboundWebhookSigningKey, other.inboundWebhookSigningKey) &&
+            Utils.enhancedDeepEquals(this.payloadSchema, other.payloadSchema);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            inboundWebhookEnabled, inboundWebhookSigningKey);
+            inboundWebhookEnabled, inboundWebhookSigningKey, payloadSchema);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ConfigurationsDto.class,
                 "inboundWebhookEnabled", inboundWebhookEnabled,
-                "inboundWebhookSigningKey", inboundWebhookSigningKey);
+                "inboundWebhookSigningKey", inboundWebhookSigningKey,
+                "payloadSchema", payloadSchema);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -96,6 +123,8 @@ public class ConfigurationsDto {
         private Boolean inboundWebhookEnabled;
 
         private String inboundWebhookSigningKey;
+
+        private String payloadSchema;
 
         private Builder() {
           // force use of static builder() method
@@ -111,9 +140,17 @@ public class ConfigurationsDto {
             return this;
         }
 
+        /**
+         * JSON Schema describing the payload accepted by this integration.
+         */
+        public Builder payloadSchema(@Nullable String payloadSchema) {
+            this.payloadSchema = payloadSchema;
+            return this;
+        }
+
         public ConfigurationsDto build() {
             return new ConfigurationsDto(
-                inboundWebhookEnabled, inboundWebhookSigningKey);
+                inboundWebhookEnabled, inboundWebhookSigningKey, payloadSchema);
         }
 
     }

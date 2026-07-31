@@ -122,6 +122,14 @@ public class Novu {
 
     private final WorkflowsSteps workflowsSteps;
 
+    /**
+     * Agents are conversational assistants that receive inbound messages from connected channels and
+     * respond through a custom code bridge or a managed runtime provider.
+     * 
+     * <p><a href="https://docs.novu.co/agents">https://docs.novu.co/agents</a>
+     */
+    private final Agents agents;
+
 
     private final ChannelConnections channelConnections;
 
@@ -251,6 +259,16 @@ public class Novu {
 
     public WorkflowsSteps workflowsSteps() {
         return workflowsSteps;
+    }
+
+    /**
+     * Agents are conversational assistants that receive inbound messages from connected channels and
+     * respond through a custom code bridge or a managed runtime provider.
+     * 
+     * <p><a href="https://docs.novu.co/agents">https://docs.novu.co/agents</a>
+     */
+    public Agents agents() {
+        return agents;
     }
 
 
@@ -478,6 +496,7 @@ public class Novu {
         this.translations = new Translations(sdkConfiguration);
         this.workflows = new Workflows(sdkConfiguration);
         this.workflowsSteps = new WorkflowsSteps(sdkConfiguration);
+        this.agents = new Agents(sdkConfiguration);
         this.channelConnections = new ChannelConnections(sdkConfiguration);
         this.channelEndpoints = new ChannelEndpoints(sdkConfiguration);
         this.domains = new Domains(sdkConfiguration);

@@ -541,7 +541,8 @@ public class Application {
 
 ## generateConnectOAuthUrl
 
-Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace install or MS Teams admin consent). 
+Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace install, MS Teams admin consent, or Webex integration authorization).
+
     The generated URL expires after 5 minutes.
 
 ### Example Usage
@@ -574,6 +575,7 @@ public class Application {
                     .connectionIdentifier("slack-connection-abc123")
                     .context(Map.ofEntries(
                         Map.entry("key", GenerateConnectOauthUrlRequestDtoContextUnion.of("org-acme"))))
+                    .contextHash("a1b2c3d4e5f6...")
                     .scope(List.of(
                         "chat:write",
                         "chat:write.public",
@@ -623,10 +625,12 @@ package hello.world;
 
 import co.novu.Novu;
 import co.novu.models.components.LinkChannelEndpointRequestDto;
+import co.novu.models.components.LinkChannelEndpointRequestDtoContextUnion;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.IntegrationsControllerLinkChannelEndpointResponse;
 import java.lang.Exception;
+import java.util.Map;
 
 public class Application {
 
@@ -640,6 +644,8 @@ public class Application {
                 .body(LinkChannelEndpointRequestDto.builder()
                     .integrationIdentifier("telegram-bot")
                     .subscriberId("subscriber-123")
+                    .context(Map.ofEntries(
+                        Map.entry("key", LinkChannelEndpointRequestDtoContextUnion.of("org-acme"))))
                     .build())
                 .call();
 
@@ -673,7 +679,8 @@ public class Application {
 
 ## generateLinkUserOAuthUrl
 
-Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID or MS Teams user OID). 
+Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID, MS Teams user OID, or Webex person).
+
     The generated URL expires after 5 minutes.
 
 ### Example Usage
@@ -707,6 +714,7 @@ public class Application {
                     .connectionIdentifier("slack-connection-abc123")
                     .context(Map.ofEntries(
                         Map.entry("key", GenerateLinkUserOauthUrlRequestDtoContextUnion.of("org-acme"))))
+                    .contextHash("a1b2c3d4e5f6...")
                     .userScope(List.of(
                         "identity.basic"))
                     .build())
@@ -743,7 +751,7 @@ public class Application {
 ## ~~generateChatOAuthUrl~~
 
 **Deprecated** — use `POST /integrations/channel-connections/oauth` (connect) or `POST /integrations/channel-endpoints/oauth` (link_user) instead.
-    Generate an OAuth URL for chat integrations like Slack and MS Teams. 
+    Generate an OAuth URL for chat integrations like Slack, MS Teams, and Webex.
     This URL allows subscribers to authorize the integration, enabling the system to send messages 
     through their chat workspace. The generated URL expires after 5 minutes.
 

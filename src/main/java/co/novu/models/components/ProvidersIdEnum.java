@@ -25,6 +25,7 @@ import java.util.Optional;
  */
 public class ProvidersIdEnum {
 
+    public static final ProvidersIdEnum ANYPOST = new ProvidersIdEnum("anypost");
     public static final ProvidersIdEnum EMAILJS = new ProvidersIdEnum("emailjs");
     public static final ProvidersIdEnum MAILGUN = new ProvidersIdEnum("mailgun");
     public static final ProvidersIdEnum MAILJET = new ProvidersIdEnum("mailjet");
@@ -84,6 +85,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum SINCH = new ProvidersIdEnum("sinch");
     public static final ProvidersIdEnum ISENDPRO_SMS = new ProvidersIdEnum("isendpro-sms");
     public static final ProvidersIdEnum CM_TELECOM = new ProvidersIdEnum("cm-telecom");
+    public static final ProvidersIdEnum RUACH_SMS = new ProvidersIdEnum("ruach-sms");
     public static final ProvidersIdEnum FCM = new ProvidersIdEnum("fcm");
     public static final ProvidersIdEnum APNS = new ProvidersIdEnum("apns");
     public static final ProvidersIdEnum EXPO = new ProvidersIdEnum("expo");
@@ -96,6 +98,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum SLACK = new ProvidersIdEnum("slack");
     public static final ProvidersIdEnum DISCORD = new ProvidersIdEnum("discord");
     public static final ProvidersIdEnum MSTEAMS = new ProvidersIdEnum("msteams");
+    public static final ProvidersIdEnum WEBEX_MESSAGING = new ProvidersIdEnum("webex-messaging");
     public static final ProvidersIdEnum MATTERMOST = new ProvidersIdEnum("mattermost");
     public static final ProvidersIdEnum RYVER = new ProvidersIdEnum("ryver");
     public static final ProvidersIdEnum ZULIP = new ProvidersIdEnum("zulip");
@@ -103,12 +106,19 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum GETSTREAM = new ProvidersIdEnum("getstream");
     public static final ProvidersIdEnum ROCKET_CHAT = new ProvidersIdEnum("rocket-chat");
     public static final ProvidersIdEnum WHATSAPP_BUSINESS = new ProvidersIdEnum("whatsapp-business");
+    public static final ProvidersIdEnum LINE = new ProvidersIdEnum("line");
     public static final ProvidersIdEnum CHAT_WEBHOOK = new ProvidersIdEnum("chat-webhook");
     public static final ProvidersIdEnum NOVU_SLACK = new ProvidersIdEnum("novu-slack");
     public static final ProvidersIdEnum TELEGRAM = new ProvidersIdEnum("telegram");
+    public static final ProvidersIdEnum SENDBLUE = new ProvidersIdEnum("sendblue");
+    public static final ProvidersIdEnum NOVU_WEB_CHAT = new ProvidersIdEnum("novu-web-chat");
     public static final ProvidersIdEnum ANTHROPIC = new ProvidersIdEnum("anthropic");
     public static final ProvidersIdEnum NOVU_ANTHROPIC = new ProvidersIdEnum("novu-anthropic");
     public static final ProvidersIdEnum ANTHROPIC_AWS = new ProvidersIdEnum("anthropic-aws");
+    public static final ProvidersIdEnum PAGERDUTY = new ProvidersIdEnum("pagerduty");
+    public static final ProvidersIdEnum OPSGENIE = new ProvidersIdEnum("opsgenie");
+    public static final ProvidersIdEnum GRAFANA = new ProvidersIdEnum("grafana");
+    public static final ProvidersIdEnum TOOL_WEBHOOK = new ProvidersIdEnum("tool-webhook");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -182,6 +192,7 @@ public class ProvidersIdEnum {
 
     private static final Map<String, ProvidersIdEnum> createValuesMap() {
         Map<String, ProvidersIdEnum> map = new LinkedHashMap<>();
+        map.put("anypost", ANYPOST);
         map.put("emailjs", EMAILJS);
         map.put("mailgun", MAILGUN);
         map.put("mailjet", MAILJET);
@@ -241,6 +252,7 @@ public class ProvidersIdEnum {
         map.put("sinch", SINCH);
         map.put("isendpro-sms", ISENDPRO_SMS);
         map.put("cm-telecom", CM_TELECOM);
+        map.put("ruach-sms", RUACH_SMS);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -253,6 +265,7 @@ public class ProvidersIdEnum {
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
         map.put("msteams", MSTEAMS);
+        map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
         map.put("ryver", RYVER);
         map.put("zulip", ZULIP);
@@ -260,17 +273,25 @@ public class ProvidersIdEnum {
         map.put("getstream", GETSTREAM);
         map.put("rocket-chat", ROCKET_CHAT);
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
+        map.put("line", LINE);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
+        map.put("sendblue", SENDBLUE);
+        map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("anthropic", ANTHROPIC);
         map.put("novu-anthropic", NOVU_ANTHROPIC);
         map.put("anthropic-aws", ANTHROPIC_AWS);
+        map.put("pagerduty", PAGERDUTY);
+        map.put("opsgenie", OPSGENIE);
+        map.put("grafana", GRAFANA);
+        map.put("tool-webhook", TOOL_WEBHOOK);
         return map;
     }
 
     private static final Map<String, ProvidersIdEnumEnum> createEnumsMap() {
         Map<String, ProvidersIdEnumEnum> map = new HashMap<>();
+        map.put("anypost", ProvidersIdEnumEnum.ANYPOST);
         map.put("emailjs", ProvidersIdEnumEnum.EMAILJS);
         map.put("mailgun", ProvidersIdEnumEnum.MAILGUN);
         map.put("mailjet", ProvidersIdEnumEnum.MAILJET);
@@ -330,6 +351,7 @@ public class ProvidersIdEnum {
         map.put("sinch", ProvidersIdEnumEnum.SINCH);
         map.put("isendpro-sms", ProvidersIdEnumEnum.ISENDPRO_SMS);
         map.put("cm-telecom", ProvidersIdEnumEnum.CM_TELECOM);
+        map.put("ruach-sms", ProvidersIdEnumEnum.RUACH_SMS);
         map.put("fcm", ProvidersIdEnumEnum.FCM);
         map.put("apns", ProvidersIdEnumEnum.APNS);
         map.put("expo", ProvidersIdEnumEnum.EXPO);
@@ -342,6 +364,7 @@ public class ProvidersIdEnum {
         map.put("slack", ProvidersIdEnumEnum.SLACK);
         map.put("discord", ProvidersIdEnumEnum.DISCORD);
         map.put("msteams", ProvidersIdEnumEnum.MSTEAMS);
+        map.put("webex-messaging", ProvidersIdEnumEnum.WEBEX_MESSAGING);
         map.put("mattermost", ProvidersIdEnumEnum.MATTERMOST);
         map.put("ryver", ProvidersIdEnumEnum.RYVER);
         map.put("zulip", ProvidersIdEnumEnum.ZULIP);
@@ -349,18 +372,26 @@ public class ProvidersIdEnum {
         map.put("getstream", ProvidersIdEnumEnum.GETSTREAM);
         map.put("rocket-chat", ProvidersIdEnumEnum.ROCKET_CHAT);
         map.put("whatsapp-business", ProvidersIdEnumEnum.WHATSAPP_BUSINESS);
+        map.put("line", ProvidersIdEnumEnum.LINE);
         map.put("chat-webhook", ProvidersIdEnumEnum.CHAT_WEBHOOK);
         map.put("novu-slack", ProvidersIdEnumEnum.NOVU_SLACK);
         map.put("telegram", ProvidersIdEnumEnum.TELEGRAM);
+        map.put("sendblue", ProvidersIdEnumEnum.SENDBLUE);
+        map.put("novu-web-chat", ProvidersIdEnumEnum.NOVU_WEB_CHAT);
         map.put("anthropic", ProvidersIdEnumEnum.ANTHROPIC);
         map.put("novu-anthropic", ProvidersIdEnumEnum.NOVU_ANTHROPIC);
         map.put("anthropic-aws", ProvidersIdEnumEnum.ANTHROPIC_AWS);
+        map.put("pagerduty", ProvidersIdEnumEnum.PAGERDUTY);
+        map.put("opsgenie", ProvidersIdEnumEnum.OPSGENIE);
+        map.put("grafana", ProvidersIdEnumEnum.GRAFANA);
+        map.put("tool-webhook", ProvidersIdEnumEnum.TOOL_WEBHOOK);
         return map;
     }
     
     
     public enum ProvidersIdEnumEnum {
 
+        ANYPOST("anypost"),
         EMAILJS("emailjs"),
         MAILGUN("mailgun"),
         MAILJET("mailjet"),
@@ -420,6 +451,7 @@ public class ProvidersIdEnum {
         SINCH("sinch"),
         ISENDPRO_SMS("isendpro-sms"),
         CM_TELECOM("cm-telecom"),
+        RUACH_SMS("ruach-sms"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),
@@ -432,6 +464,7 @@ public class ProvidersIdEnum {
         SLACK("slack"),
         DISCORD("discord"),
         MSTEAMS("msteams"),
+        WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
         RYVER("ryver"),
         ZULIP("zulip"),
@@ -439,12 +472,19 @@ public class ProvidersIdEnum {
         GETSTREAM("getstream"),
         ROCKET_CHAT("rocket-chat"),
         WHATSAPP_BUSINESS("whatsapp-business"),
+        LINE("line"),
         CHAT_WEBHOOK("chat-webhook"),
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
+        SENDBLUE("sendblue"),
+        NOVU_WEB_CHAT("novu-web-chat"),
         ANTHROPIC("anthropic"),
         NOVU_ANTHROPIC("novu-anthropic"),
-        ANTHROPIC_AWS("anthropic-aws"),;
+        ANTHROPIC_AWS("anthropic-aws"),
+        PAGERDUTY("pagerduty"),
+        OPSGENIE("opsgenie"),
+        GRAFANA("grafana"),
+        TOOL_WEBHOOK("tool-webhook"),;
 
         private final String value;
 

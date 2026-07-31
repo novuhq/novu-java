@@ -39,7 +39,8 @@ public class SubscriptionPreferenceDto {
     private boolean enabled;
 
     /**
-     * Optional condition using JSON Logic rules
+     * Optional JSON Logic condition evaluated against the trigger payload at fan-out time (for example, `{
+     * "var": "payload.tier" }`)
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("condition")
@@ -88,7 +89,8 @@ public class SubscriptionPreferenceDto {
     }
 
     /**
-     * Optional condition using JSON Logic rules
+     * Optional JSON Logic condition evaluated against the trigger payload at fan-out time (for example, `{
+     * "var": "payload.tier" }`)
      */
     public Optional<Map<String, Object>> condition() {
         return Optional.ofNullable(this.condition);
@@ -127,7 +129,8 @@ public class SubscriptionPreferenceDto {
 
 
     /**
-     * Optional condition using JSON Logic rules
+     * Optional JSON Logic condition evaluated against the trigger payload at fan-out time (for example, `{
+     * "var": "payload.tier" }`)
      */
     public SubscriptionPreferenceDto withCondition(@Nullable Map<String, Object> condition) {
         this.condition = condition;
@@ -207,7 +210,8 @@ public class SubscriptionPreferenceDto {
         }
 
         /**
-         * Optional condition using JSON Logic rules
+         * Optional JSON Logic condition evaluated against the trigger payload at fan-out time (for example, `{
+         * "var": "payload.tier" }`)
          */
         public Builder condition(@Nullable Map<String, Object> condition) {
             this.condition = condition;

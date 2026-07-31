@@ -93,6 +93,7 @@ public class UpdateWorkflowDto {
     /**
      * Origin of the layout
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("origin")
     private ResourceOriginEnum origin;
 
@@ -115,7 +116,7 @@ public class UpdateWorkflowDto {
             @JsonProperty("workflowId") @Nullable String workflowId,
             @JsonProperty("steps") @Nonnull List<UpdateWorkflowDtoStep> steps,
             @JsonProperty("preferences") @Nonnull PreferencesRequestDto preferences,
-            @JsonProperty("origin") @Nonnull ResourceOriginEnum origin,
+            @JsonProperty("origin") @Nullable ResourceOriginEnum origin,
             @JsonProperty("severity") @Nullable SeverityLevelEnum severity) {
         this.name = Optional.ofNullable(name)
             .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
@@ -133,20 +134,18 @@ public class UpdateWorkflowDto {
             .orElseThrow(() -> new IllegalArgumentException("steps cannot be null"));
         this.preferences = Optional.ofNullable(preferences)
             .orElseThrow(() -> new IllegalArgumentException("preferences cannot be null"));
-        this.origin = Optional.ofNullable(origin)
-            .orElseThrow(() -> new IllegalArgumentException("origin cannot be null"));
+        this.origin = origin;
         this.severity = severity;
     }
     
     public UpdateWorkflowDto(
             @Nonnull String name,
             @Nonnull List<UpdateWorkflowDtoStep> steps,
-            @Nonnull PreferencesRequestDto preferences,
-            @Nonnull ResourceOriginEnum origin) {
+            @Nonnull PreferencesRequestDto preferences) {
         this(name, null, null,
             null, null, null,
             null, null, steps,
-            preferences, origin, null);
+            preferences, null, null);
     }
 
     /**
@@ -222,8 +221,8 @@ public class UpdateWorkflowDto {
     /**
      * Origin of the layout
      */
-    public ResourceOriginEnum origin() {
-        return this.origin;
+    public Optional<ResourceOriginEnum> origin() {
+        return Optional.ofNullable(this.origin);
     }
 
     /**
@@ -331,8 +330,8 @@ public class UpdateWorkflowDto {
     /**
      * Origin of the layout
      */
-    public UpdateWorkflowDto withOrigin(@Nonnull ResourceOriginEnum origin) {
-        this.origin = Utils.checkNotNull(origin, "origin");
+    public UpdateWorkflowDto withOrigin(@Nullable ResourceOriginEnum origin) {
+        this.origin = origin;
         return this;
     }
 
@@ -510,8 +509,8 @@ public class UpdateWorkflowDto {
         /**
          * Origin of the layout
          */
-        public Builder origin(@Nonnull ResourceOriginEnum origin) {
-            this.origin = Utils.checkNotNull(origin, "origin");
+        public Builder origin(@Nullable ResourceOriginEnum origin) {
+            this.origin = origin;
             return this;
         }
 

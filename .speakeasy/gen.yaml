@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 3.18.0
+  version: 3.19.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: novu-java
@@ -53,8 +53,10 @@ java:
   generateOptionalUnionAccessors: true
   generateSpringBootStarter: true
   generateUnionDocs: false
+  getterStyle: presence-aware
   githubURL: github.com/novuhq/novu-java
   groupID: co.novu
+  httpClient: jdk
   imports:
     option: openapi
     paths:

@@ -36,6 +36,17 @@ public class TriggerEventRequestDto {
     private Map<String, Object> payload;
 
     /**
+     * Optional Bridge Endpoint URL used to route this trigger to a specific Bridge application. Useful
+     * during local development when multiple engineers share an organization: set this to your personal
+     * tunnel URL from `npx novu@latest dev` (for example via NOVU_BRIDGE_URL) so app-fired triggers hit
+     * your machine instead of the environment's synced Bridge URL. Must be a publicly reachable https URL
+     * — private or localhost addresses are rejected.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("bridgeUrl")
+    private String bridgeUrl;
+
+    /**
      * This could be used to override provider specific configurations
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -47,7 +58,7 @@ public class TriggerEventRequestDto {
      * 100.
      */
     @JsonProperty("to")
-    private To2 to;
+    private TriggerEventRequestDtoTo2 to;
 
     /**
      * A unique identifier for deduplication. If the same **transactionId** is sent again,
@@ -84,8 +95,9 @@ public class TriggerEventRequestDto {
     public TriggerEventRequestDto(
             @JsonProperty("name") @Nonnull String workflowId,
             @JsonProperty("payload") @Nullable Map<String, Object> payload,
+            @JsonProperty("bridgeUrl") @Nullable String bridgeUrl,
             @JsonProperty("overrides") @Nullable TriggerEventRequestDtoOverrides overrides,
-            @JsonProperty("to") @Nonnull To2 to,
+            @JsonProperty("to") @Nonnull TriggerEventRequestDtoTo2 to,
             @JsonProperty("transactionId") @Nullable String transactionId,
             @JsonProperty("actor") @Nullable TriggerEventRequestDtoActor actor,
             @JsonProperty("tenant") @Nullable TriggerEventRequestDtoTenant tenant,
@@ -93,6 +105,7 @@ public class TriggerEventRequestDto {
         this.workflowId = Optional.ofNullable(workflowId)
             .orElseThrow(() -> new IllegalArgumentException("workflowId cannot be null"));
         this.payload = payload;
+        this.bridgeUrl = bridgeUrl;
         this.overrides = overrides;
         this.to = Optional.ofNullable(to)
             .orElseThrow(() -> new IllegalArgumentException("to cannot be null"));
@@ -104,10 +117,10 @@ public class TriggerEventRequestDto {
     
     public TriggerEventRequestDto(
             @Nonnull String workflowId,
-            @Nonnull To2 to) {
+            @Nonnull TriggerEventRequestDtoTo2 to) {
         this(workflowId, null, null,
-            to, null, null,
-            null, null);
+            null, to, null,
+            null, null, null);
     }
 
     /**
@@ -129,6 +142,17 @@ public class TriggerEventRequestDto {
     }
 
     /**
+     * Optional Bridge Endpoint URL used to route this trigger to a specific Bridge application. Useful
+     * during local development when multiple engineers share an organization: set this to your personal
+     * tunnel URL from `npx novu@latest dev` (for example via NOVU_BRIDGE_URL) so app-fired triggers hit
+     * your machine instead of the environment's synced Bridge URL. Must be a publicly reachable https URL
+     * — private or localhost addresses are rejected.
+     */
+    public Optional<String> bridgeUrl() {
+        return Optional.ofNullable(this.bridgeUrl);
+    }
+
+    /**
      * This could be used to override provider specific configurations
      */
     public Optional<TriggerEventRequestDtoOverrides> overrides() {
@@ -139,7 +163,7 @@ public class TriggerEventRequestDto {
      * The recipients list of people who will receive the notification. Maximum number of recipients can be
      * 100.
      */
-    public To2 to() {
+    public TriggerEventRequestDtoTo2 to() {
         return this.to;
     }
 
@@ -201,6 +225,19 @@ public class TriggerEventRequestDto {
 
 
     /**
+     * Optional Bridge Endpoint URL used to route this trigger to a specific Bridge application. Useful
+     * during local development when multiple engineers share an organization: set this to your personal
+     * tunnel URL from `npx novu@latest dev` (for example via NOVU_BRIDGE_URL) so app-fired triggers hit
+     * your machine instead of the environment's synced Bridge URL. Must be a publicly reachable https URL
+     * — private or localhost addresses are rejected.
+     */
+    public TriggerEventRequestDto withBridgeUrl(@Nullable String bridgeUrl) {
+        this.bridgeUrl = bridgeUrl;
+        return this;
+    }
+
+
+    /**
      * This could be used to override provider specific configurations
      */
     public TriggerEventRequestDto withOverrides(@Nullable TriggerEventRequestDtoOverrides overrides) {
@@ -213,7 +250,7 @@ public class TriggerEventRequestDto {
      * The recipients list of people who will receive the notification. Maximum number of recipients can be
      * 100.
      */
-    public TriggerEventRequestDto withTo(@Nonnull To2 to) {
+    public TriggerEventRequestDto withTo(@Nonnull TriggerEventRequestDtoTo2 to) {
         this.to = Utils.checkNotNull(to, "to");
         return this;
     }
@@ -269,6 +306,7 @@ public class TriggerEventRequestDto {
         return 
             Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
             Utils.enhancedDeepEquals(this.payload, other.payload) &&
+            Utils.enhancedDeepEquals(this.bridgeUrl, other.bridgeUrl) &&
             Utils.enhancedDeepEquals(this.overrides, other.overrides) &&
             Utils.enhancedDeepEquals(this.to, other.to) &&
             Utils.enhancedDeepEquals(this.transactionId, other.transactionId) &&
@@ -280,9 +318,9 @@ public class TriggerEventRequestDto {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            workflowId, payload, overrides,
-            to, transactionId, actor,
-            tenant, context);
+            workflowId, payload, bridgeUrl,
+            overrides, to, transactionId,
+            actor, tenant, context);
     }
     
     @Override
@@ -290,6 +328,7 @@ public class TriggerEventRequestDto {
         return Utils.toString(TriggerEventRequestDto.class,
                 "workflowId", workflowId,
                 "payload", payload,
+                "bridgeUrl", bridgeUrl,
                 "overrides", overrides,
                 "to", to,
                 "transactionId", transactionId,
@@ -305,9 +344,11 @@ public class TriggerEventRequestDto {
 
         private Map<String, Object> payload;
 
+        private String bridgeUrl;
+
         private TriggerEventRequestDtoOverrides overrides;
 
-        private To2 to;
+        private TriggerEventRequestDtoTo2 to;
 
         private String transactionId;
 
@@ -342,6 +383,18 @@ public class TriggerEventRequestDto {
         }
 
         /**
+         * Optional Bridge Endpoint URL used to route this trigger to a specific Bridge application. Useful
+         * during local development when multiple engineers share an organization: set this to your personal
+         * tunnel URL from `npx novu@latest dev` (for example via NOVU_BRIDGE_URL) so app-fired triggers hit
+         * your machine instead of the environment's synced Bridge URL. Must be a publicly reachable https URL
+         * — private or localhost addresses are rejected.
+         */
+        public Builder bridgeUrl(@Nullable String bridgeUrl) {
+            this.bridgeUrl = bridgeUrl;
+            return this;
+        }
+
+        /**
          * This could be used to override provider specific configurations
          */
         public Builder overrides(@Nullable TriggerEventRequestDtoOverrides overrides) {
@@ -353,7 +406,7 @@ public class TriggerEventRequestDto {
          * The recipients list of people who will receive the notification. Maximum number of recipients can be
          * 100.
          */
-        public Builder to(@Nonnull To2 to) {
+        public Builder to(@Nonnull TriggerEventRequestDtoTo2 to) {
             this.to = Utils.checkNotNull(to, "to");
             return this;
         }
@@ -394,9 +447,9 @@ public class TriggerEventRequestDto {
 
         public TriggerEventRequestDto build() {
             return new TriggerEventRequestDto(
-                workflowId, payload, overrides,
-                to, transactionId, actor,
-                tenant, context);
+                workflowId, payload, bridgeUrl,
+                overrides, to, transactionId,
+                actor, tenant, context);
         }
 
     }

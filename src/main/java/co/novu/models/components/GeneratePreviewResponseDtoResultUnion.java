@@ -78,6 +78,11 @@ public class GeneratePreviewResponseDtoResultUnion {
         Utils.checkNotNull(value, "value");
         return new GeneratePreviewResponseDtoResultUnion(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
+
+    public static GeneratePreviewResponseDtoResultUnion of(GeneratePreviewResponseDtoResult9 value) {
+        Utils.checkNotNull(value, "value");
+        return new GeneratePreviewResponseDtoResultUnion(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
     
     /**
      * Returns an {@link Optional} containing the value if it is of type {@code Map<String, Object>},
@@ -196,6 +201,19 @@ public class GeneratePreviewResponseDtoResultUnion {
         }
         return Optional.empty();
     }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code GeneratePreviewResponseDtoResult9},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code GeneratePreviewResponseDtoResult9} value, or empty if not of this type
+     */
+    public Optional<GeneratePreviewResponseDtoResult9> generatePreviewResponseDtoResult9() {
+        if (value.value() instanceof GeneratePreviewResponseDtoResult9) {
+            return Optional.of((GeneratePreviewResponseDtoResult9) value.value());
+        }
+        return Optional.empty();
+    }
    /**
     * Returns an {@link Optional} containing the value as a {@code JsonNode}.
     * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
@@ -239,7 +257,8 @@ public class GeneratePreviewResponseDtoResultUnion {
                   TypeReferenceWithShape.of(new TypeReference<GeneratePreviewResponseDtoResult5>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<GeneratePreviewResponseDtoResult6>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<GeneratePreviewResponseDtoResult7>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<GeneratePreviewResponseDtoResult8>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<GeneratePreviewResponseDtoResult8>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<GeneratePreviewResponseDtoResult9>() {}, JsonShape.DEFAULT));
         }
     }
     

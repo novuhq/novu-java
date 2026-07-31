@@ -25,18 +25,25 @@ public class WorkspaceDto {
     @JsonProperty("name")
     private String name;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("botUserId")
+    private String botUserId;
+
     @JsonCreator
     public WorkspaceDto(
             @JsonProperty("id") @Nonnull String id,
-            @JsonProperty("name") @Nullable String name) {
+            @JsonProperty("name") @Nullable String name,
+            @JsonProperty("botUserId") @Nullable String botUserId) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.name = name;
+        this.botUserId = botUserId;
     }
     
     public WorkspaceDto(
             @Nonnull String id) {
-        this(id, null);
+        this(id, null, null);
     }
 
     public String id() {
@@ -45,6 +52,10 @@ public class WorkspaceDto {
 
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
+    }
+
+    public Optional<String> botUserId() {
+        return Optional.ofNullable(this.botUserId);
     }
 
     public static Builder builder() {
@@ -64,6 +75,12 @@ public class WorkspaceDto {
     }
 
 
+    public WorkspaceDto withBotUserId(@Nullable String botUserId) {
+        this.botUserId = botUserId;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -75,20 +92,22 @@ public class WorkspaceDto {
         WorkspaceDto other = (WorkspaceDto) o;
         return 
             Utils.enhancedDeepEquals(this.id, other.id) &&
-            Utils.enhancedDeepEquals(this.name, other.name);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.botUserId, other.botUserId);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id, name);
+            id, name, botUserId);
     }
     
     @Override
     public String toString() {
         return Utils.toString(WorkspaceDto.class,
                 "id", id,
-                "name", name);
+                "name", name,
+                "botUserId", botUserId);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -97,6 +116,8 @@ public class WorkspaceDto {
         private String id;
 
         private String name;
+
+        private String botUserId;
 
         private Builder() {
           // force use of static builder() method
@@ -112,9 +133,14 @@ public class WorkspaceDto {
             return this;
         }
 
+        public Builder botUserId(@Nullable String botUserId) {
+            this.botUserId = botUserId;
+            return this;
+        }
+
         public WorkspaceDto build() {
             return new WorkspaceDto(
-                id, name);
+                id, name, botUserId);
         }
 
     }

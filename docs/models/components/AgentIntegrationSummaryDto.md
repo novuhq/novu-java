@@ -1,0 +1,13 @@
+# AgentIntegrationSummaryDto
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `integrationId`                                                          | *String*                                                                 | :heavy_check_mark:                                                       | Integration document id.                                                 |
+| `providerId`                                                             | *String*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
+| `name`                                                                   | *String*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
+| `identifier`                                                             | *String*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
+| `channel`                                                                | [Optional\<ChannelTypeEnum>](../../models/components/ChannelTypeEnum.md) | :heavy_minus_sign:                                                       | Channel type through which the message is sent                           |
+| `active`                                                                 | *boolean*                                                                | :heavy_check_mark:                                                       | N/A                                                                      |

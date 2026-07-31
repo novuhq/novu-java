@@ -215,7 +215,6 @@ public class Application {
                                     .build())))
                             .build())
                         .build())
-                    .origin(ResourceOriginEnum.EXTERNAL)
                     .build())
                 .call();
 

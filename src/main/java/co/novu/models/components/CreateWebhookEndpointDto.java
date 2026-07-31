@@ -3,20 +3,24 @@
  */
 package co.novu.models.components;
 
+import co.novu.models.operations.ChannelEndpointsControllerCreateChannelEndpointRequestBody;
+import co.novu.utils.LazySingletonValue;
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
 
 
-public class CreateWebhookEndpointDto implements co.novu.models.operations.ChannelEndpointsControllerCreateChannelEndpointRequestBody {
+public class CreateWebhookEndpointDto implements ChannelEndpointsControllerCreateChannelEndpointRequestBody {
     /**
      * The unique identifier for the channel endpoint. If not provided, one will be generated
      * automatically.
@@ -30,6 +34,14 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
      */
     @JsonProperty("subscriberId")
     private String subscriberId;
+
+    /**
+     * When true, the subscriber is created if it does not exist yet (existing subscribers are never
+     * modified). When false or omitted, an unknown subscriberId returns 404.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("createSubscriberIfMissing")
+    private Boolean createSubscriberIfMissing;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -65,6 +77,7 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
     public CreateWebhookEndpointDto(
             @JsonProperty("identifier") @Nullable String identifier,
             @JsonProperty("subscriberId") @Nonnull String subscriberId,
+            @JsonProperty("createSubscriberIfMissing") @Nullable Boolean createSubscriberIfMissing,
             @JsonProperty("context") @Nullable Map<String, CreateWebhookEndpointDtoContextUnion> context,
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
             @JsonProperty("connectionIdentifier") @Nullable String connectionIdentifier,
@@ -73,6 +86,8 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
         this.identifier = identifier;
         this.subscriberId = Optional.ofNullable(subscriberId)
             .orElseThrow(() -> new IllegalArgumentException("subscriberId cannot be null"));
+        this.createSubscriberIfMissing = Optional.ofNullable(createSubscriberIfMissing)
+            .orElse(Builder._SINGLETON_VALUE_CreateSubscriberIfMissing.value());
         this.context = context;
         this.integrationIdentifier = Optional.ofNullable(integrationIdentifier)
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
@@ -89,8 +104,8 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
             @Nonnull CreateWebhookEndpointDtoType type,
             @Nonnull WebhookEndpointDto endpoint) {
         this(null, subscriberId, null,
-            integrationIdentifier, null, type,
-            endpoint);
+            null, integrationIdentifier, null,
+            type, endpoint);
     }
 
     /**
@@ -106,6 +121,14 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
      */
     public String subscriberId() {
         return this.subscriberId;
+    }
+
+    /**
+     * When true, the subscriber is created if it does not exist yet (existing subscribers are never
+     * modified). When false or omitted, an unknown subscriberId returns 404.
+     */
+    public Optional<Boolean> createSubscriberIfMissing() {
+        return Optional.ofNullable(this.createSubscriberIfMissing);
     }
 
     public Optional<Map<String, CreateWebhookEndpointDtoContextUnion>> context() {
@@ -165,6 +188,16 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
     }
 
 
+    /**
+     * When true, the subscriber is created if it does not exist yet (existing subscribers are never
+     * modified). When false or omitted, an unknown subscriberId returns 404.
+     */
+    public CreateWebhookEndpointDto withCreateSubscriberIfMissing(@Nullable Boolean createSubscriberIfMissing) {
+        this.createSubscriberIfMissing = createSubscriberIfMissing;
+        return this;
+    }
+
+
     public CreateWebhookEndpointDto withContext(@Nullable Map<String, CreateWebhookEndpointDtoContextUnion> context) {
         this.context = context;
         return this;
@@ -219,6 +252,7 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
         return 
             Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
             Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
+            Utils.enhancedDeepEquals(this.createSubscriberIfMissing, other.createSubscriberIfMissing) &&
             Utils.enhancedDeepEquals(this.context, other.context) &&
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
             Utils.enhancedDeepEquals(this.connectionIdentifier, other.connectionIdentifier) &&
@@ -229,9 +263,9 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            identifier, subscriberId, context,
-            integrationIdentifier, connectionIdentifier, type,
-            endpoint);
+            identifier, subscriberId, createSubscriberIfMissing,
+            context, integrationIdentifier, connectionIdentifier,
+            type, endpoint);
     }
     
     @Override
@@ -239,6 +273,7 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
         return Utils.toString(CreateWebhookEndpointDto.class,
                 "identifier", identifier,
                 "subscriberId", subscriberId,
+                "createSubscriberIfMissing", createSubscriberIfMissing,
                 "context", context,
                 "integrationIdentifier", integrationIdentifier,
                 "connectionIdentifier", connectionIdentifier,
@@ -252,6 +287,8 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
         private String identifier;
 
         private String subscriberId;
+
+        private Boolean createSubscriberIfMissing;
 
         private Map<String, CreateWebhookEndpointDtoContextUnion> context;
 
@@ -281,6 +318,15 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
          */
         public Builder subscriberId(@Nonnull String subscriberId) {
             this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
+            return this;
+        }
+
+        /**
+         * When true, the subscriber is created if it does not exist yet (existing subscribers are never
+         * modified). When false or omitted, an unknown subscriberId returns 404.
+         */
+        public Builder createSubscriberIfMissing(@Nullable Boolean createSubscriberIfMissing) {
+            this.createSubscriberIfMissing = createSubscriberIfMissing;
             return this;
         }
 
@@ -323,10 +369,16 @@ public class CreateWebhookEndpointDto implements co.novu.models.operations.Chann
 
         public CreateWebhookEndpointDto build() {
             return new CreateWebhookEndpointDto(
-                identifier, subscriberId, context,
-                integrationIdentifier, connectionIdentifier, type,
-                endpoint);
+                identifier, subscriberId, createSubscriberIfMissing,
+                context, integrationIdentifier, connectionIdentifier,
+                type, endpoint);
         }
 
+
+        private static final LazySingletonValue<Boolean> _SINGLETON_VALUE_CreateSubscriberIfMissing =
+                new LazySingletonValue<>(
+                        "createSubscriberIfMissing",
+                        "false",
+                        new TypeReference<Boolean>() {});
     }
 }

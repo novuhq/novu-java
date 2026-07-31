@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -18,31 +20,42 @@ public class GeneratePreviewResponseDtoResult7 {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("type")
-    private TypeDelay type;
+    private TypeTool type;
 
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("preview")
-    private DigestRegularOutput preview;
+    private Map<String, Object> preview;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("error")
+    private PreviewErrorDto error;
 
     @JsonCreator
     public GeneratePreviewResponseDtoResult7(
-            @JsonProperty("type") @Nullable TypeDelay type,
-            @JsonProperty("preview") @Nullable DigestRegularOutput preview) {
+            @JsonProperty("type") @Nullable TypeTool type,
+            @JsonProperty("preview") @Nullable Map<String, Object> preview,
+            @JsonProperty("error") @Nullable PreviewErrorDto error) {
         this.type = type;
         this.preview = preview;
+        this.error = error;
     }
     
     public GeneratePreviewResponseDtoResult7() {
-        this(null, null);
+        this(null, null, null);
     }
 
-    public Optional<TypeDelay> type() {
+    public Optional<TypeTool> type() {
         return Optional.ofNullable(this.type);
     }
 
-    public Optional<DigestRegularOutput> preview() {
+    public Optional<Map<String, Object>> preview() {
         return Optional.ofNullable(this.preview);
+    }
+
+    public Optional<PreviewErrorDto> error() {
+        return Optional.ofNullable(this.error);
     }
 
     public static Builder builder() {
@@ -50,14 +63,20 @@ public class GeneratePreviewResponseDtoResult7 {
     }
 
 
-    public GeneratePreviewResponseDtoResult7 withType(@Nullable TypeDelay type) {
+    public GeneratePreviewResponseDtoResult7 withType(@Nullable TypeTool type) {
         this.type = type;
         return this;
     }
 
 
-    public GeneratePreviewResponseDtoResult7 withPreview(@Nullable DigestRegularOutput preview) {
+    public GeneratePreviewResponseDtoResult7 withPreview(@Nullable Map<String, Object> preview) {
         this.preview = preview;
+        return this;
+    }
+
+
+    public GeneratePreviewResponseDtoResult7 withError(@Nullable PreviewErrorDto error) {
+        this.error = error;
         return this;
     }
 
@@ -73,46 +92,55 @@ public class GeneratePreviewResponseDtoResult7 {
         GeneratePreviewResponseDtoResult7 other = (GeneratePreviewResponseDtoResult7) o;
         return 
             Utils.enhancedDeepEquals(this.type, other.type) &&
-            Utils.enhancedDeepEquals(this.preview, other.preview);
+            Utils.enhancedDeepEquals(this.preview, other.preview) &&
+            Utils.enhancedDeepEquals(this.error, other.error);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            type, preview);
+            type, preview, error);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GeneratePreviewResponseDtoResult7.class,
                 "type", type,
-                "preview", preview);
+                "preview", preview,
+                "error", error);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private TypeDelay type;
+        private TypeTool type;
 
-        private DigestRegularOutput preview;
+        private Map<String, Object> preview;
+
+        private PreviewErrorDto error;
 
         private Builder() {
           // force use of static builder() method
         }
 
-        public Builder type(@Nullable TypeDelay type) {
+        public Builder type(@Nullable TypeTool type) {
             this.type = type;
             return this;
         }
 
-        public Builder preview(@Nullable DigestRegularOutput preview) {
+        public Builder preview(@Nullable Map<String, Object> preview) {
             this.preview = preview;
+            return this;
+        }
+
+        public Builder error(@Nullable PreviewErrorDto error) {
+            this.error = error;
             return this;
         }
 
         public GeneratePreviewResponseDtoResult7 build() {
             return new GeneratePreviewResponseDtoResult7(
-                type, preview);
+                type, preview, error);
         }
 
     }

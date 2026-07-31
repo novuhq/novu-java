@@ -5,10 +5,14 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -25,14 +29,27 @@ public class LinkChannelEndpointRequestDto {
     @JsonProperty("subscriberId")
     private String subscriberId;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("context")
+    private Map<String, LinkChannelEndpointRequestDtoContextUnion> context;
+
     @JsonCreator
     public LinkChannelEndpointRequestDto(
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
-            @JsonProperty("subscriberId") @Nonnull String subscriberId) {
+            @JsonProperty("subscriberId") @Nonnull String subscriberId,
+            @JsonProperty("context") @Nullable Map<String, LinkChannelEndpointRequestDtoContextUnion> context) {
         this.integrationIdentifier = Optional.ofNullable(integrationIdentifier)
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
         this.subscriberId = Optional.ofNullable(subscriberId)
             .orElseThrow(() -> new IllegalArgumentException("subscriberId cannot be null"));
+        this.context = context;
+    }
+    
+    public LinkChannelEndpointRequestDto(
+            @Nonnull String integrationIdentifier,
+            @Nonnull String subscriberId) {
+        this(integrationIdentifier, subscriberId, null);
     }
 
     /**
@@ -47,6 +64,10 @@ public class LinkChannelEndpointRequestDto {
      */
     public String subscriberId() {
         return this.subscriberId;
+    }
+
+    public Optional<Map<String, LinkChannelEndpointRequestDtoContextUnion>> context() {
+        return Optional.ofNullable(this.context);
     }
 
     public static Builder builder() {
@@ -72,6 +93,12 @@ public class LinkChannelEndpointRequestDto {
     }
 
 
+    public LinkChannelEndpointRequestDto withContext(@Nullable Map<String, LinkChannelEndpointRequestDtoContextUnion> context) {
+        this.context = context;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -83,20 +110,22 @@ public class LinkChannelEndpointRequestDto {
         LinkChannelEndpointRequestDto other = (LinkChannelEndpointRequestDto) o;
         return 
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
-            Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId);
+            Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
+            Utils.enhancedDeepEquals(this.context, other.context);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            integrationIdentifier, subscriberId);
+            integrationIdentifier, subscriberId, context);
     }
     
     @Override
     public String toString() {
         return Utils.toString(LinkChannelEndpointRequestDto.class,
                 "integrationIdentifier", integrationIdentifier,
-                "subscriberId", subscriberId);
+                "subscriberId", subscriberId,
+                "context", context);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -105,6 +134,8 @@ public class LinkChannelEndpointRequestDto {
         private String integrationIdentifier;
 
         private String subscriberId;
+
+        private Map<String, LinkChannelEndpointRequestDtoContextUnion> context;
 
         private Builder() {
           // force use of static builder() method
@@ -126,9 +157,14 @@ public class LinkChannelEndpointRequestDto {
             return this;
         }
 
+        public Builder context(@Nullable Map<String, LinkChannelEndpointRequestDtoContextUnion> context) {
+            this.context = context;
+            return this;
+        }
+
         public LinkChannelEndpointRequestDto build() {
             return new LinkChannelEndpointRequestDto(
-                integrationIdentifier, subscriberId);
+                integrationIdentifier, subscriberId, context);
         }
 
     }

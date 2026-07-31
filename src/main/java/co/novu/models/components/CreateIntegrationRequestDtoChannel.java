@@ -18,7 +18,8 @@ public enum CreateIntegrationRequestDtoChannel {
     EMAIL("email"),
     SMS("sms"),
     CHAT("chat"),
-    PUSH("push");
+    PUSH("push"),
+    TOOL("tool");
 
     @JsonValue
     private final String value;

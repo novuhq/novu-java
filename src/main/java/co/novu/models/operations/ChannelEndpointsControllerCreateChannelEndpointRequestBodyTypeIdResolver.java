@@ -4,6 +4,20 @@
 
 package co.novu.models.operations;
 
+import co.novu.models.components.CreateGrafanaOnCallIntegrationEndpointDto;
+import co.novu.models.components.CreateLineUserEndpointDto;
+import co.novu.models.components.CreateMsTeamsChannelEndpointDto;
+import co.novu.models.components.CreateMsTeamsUserEndpointDto;
+import co.novu.models.components.CreateOpsgenieIntegrationEndpointDto;
+import co.novu.models.components.CreatePagerDutyServiceEndpointDto;
+import co.novu.models.components.CreatePhoneEndpointDto;
+import co.novu.models.components.CreateSlackChannelEndpointDto;
+import co.novu.models.components.CreateSlackUserEndpointDto;
+import co.novu.models.components.CreateTelegramChatEndpointDto;
+import co.novu.models.components.CreateToolWebhookEndpointDto;
+import co.novu.models.components.CreateWebexPersonEndpointDto;
+import co.novu.models.components.CreateWebexRoomEndpointDto;
+import co.novu.models.components.CreateWebhookEndpointDto;
 import co.novu.utils.GenericTypeIdResolver;
 import java.lang.IllegalArgumentException;
 import java.lang.Object;
@@ -24,13 +38,20 @@ public class ChannelEndpointsControllerCreateChannelEndpointRequestBodyTypeIdRes
     }
 
     private void initializeTypeMap() {
-        registerType("slack_channel", co.novu.models.components.CreateSlackChannelEndpointDto.class);
-        registerType("slack_user", co.novu.models.components.CreateSlackUserEndpointDto.class);
-        registerType("webhook", co.novu.models.components.CreateWebhookEndpointDto.class);
-        registerType("phone", co.novu.models.components.CreatePhoneEndpointDto.class);
-        registerType("ms_teams_channel", co.novu.models.components.CreateMsTeamsChannelEndpointDto.class);
-        registerType("ms_teams_user", co.novu.models.components.CreateMsTeamsUserEndpointDto.class);
-        registerType("telegram_chat", co.novu.models.components.CreateTelegramChatEndpointDto.class);
+        registerType("slack_channel", CreateSlackChannelEndpointDto.class);
+        registerType("slack_user", CreateSlackUserEndpointDto.class);
+        registerType("webhook", CreateWebhookEndpointDto.class);
+        registerType("phone", CreatePhoneEndpointDto.class);
+        registerType("ms_teams_channel", CreateMsTeamsChannelEndpointDto.class);
+        registerType("ms_teams_user", CreateMsTeamsUserEndpointDto.class);
+        registerType("telegram_chat", CreateTelegramChatEndpointDto.class);
+        registerType("webex_room", CreateWebexRoomEndpointDto.class);
+        registerType("webex_person", CreateWebexPersonEndpointDto.class);
+        registerType("line_user", CreateLineUserEndpointDto.class);
+        registerType("pagerduty_service", CreatePagerDutyServiceEndpointDto.class);
+        registerType("opsgenie_integration", CreateOpsgenieIntegrationEndpointDto.class);
+        registerType("grafana_oncall_integration", CreateGrafanaOnCallIntegrationEndpointDto.class);
+        registerType("tool_webhook", CreateToolWebhookEndpointDto.class);
     }
 
     @Override

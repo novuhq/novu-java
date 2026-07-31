@@ -23,6 +23,7 @@ ActivityNotificationJobResponseDtoType custom = ActivityNotificationJobResponseD
 | `SMS`          | sms            |
 | `CHAT`         | chat           |
 | `PUSH`         | push           |
+| `TOOL`         | tool           |
 | `DIGEST`       | digest         |
 | `TRIGGER`      | trigger        |
 | `DELAY`        | delay          |

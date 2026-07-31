@@ -51,23 +51,32 @@ public class PatchPreferenceChannelsDto {
     @JsonProperty("chat")
     private Boolean chat;
 
+    /**
+     * Tool channel preference
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tool")
+    private Boolean tool;
+
     @JsonCreator
     public PatchPreferenceChannelsDto(
             @JsonProperty("email") @Nullable Boolean email,
             @JsonProperty("sms") @Nullable Boolean sms,
             @JsonProperty("in_app") @Nullable Boolean inApp,
             @JsonProperty("push") @Nullable Boolean push,
-            @JsonProperty("chat") @Nullable Boolean chat) {
+            @JsonProperty("chat") @Nullable Boolean chat,
+            @JsonProperty("tool") @Nullable Boolean tool) {
         this.email = email;
         this.sms = sms;
         this.inApp = inApp;
         this.push = push;
         this.chat = chat;
+        this.tool = tool;
     }
     
     public PatchPreferenceChannelsDto() {
         this(null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -103,6 +112,13 @@ public class PatchPreferenceChannelsDto {
      */
     public Optional<Boolean> chat() {
         return Optional.ofNullable(this.chat);
+    }
+
+    /**
+     * Tool channel preference
+     */
+    public Optional<Boolean> tool() {
+        return Optional.ofNullable(this.tool);
     }
 
     public static Builder builder() {
@@ -155,6 +171,15 @@ public class PatchPreferenceChannelsDto {
     }
 
 
+    /**
+     * Tool channel preference
+     */
+    public PatchPreferenceChannelsDto withTool(@Nullable Boolean tool) {
+        this.tool = tool;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -169,14 +194,15 @@ public class PatchPreferenceChannelsDto {
             Utils.enhancedDeepEquals(this.sms, other.sms) &&
             Utils.enhancedDeepEquals(this.inApp, other.inApp) &&
             Utils.enhancedDeepEquals(this.push, other.push) &&
-            Utils.enhancedDeepEquals(this.chat, other.chat);
+            Utils.enhancedDeepEquals(this.chat, other.chat) &&
+            Utils.enhancedDeepEquals(this.tool, other.tool);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             email, sms, inApp,
-            push, chat);
+            push, chat, tool);
     }
     
     @Override
@@ -186,7 +212,8 @@ public class PatchPreferenceChannelsDto {
                 "sms", sms,
                 "inApp", inApp,
                 "push", push,
-                "chat", chat);
+                "chat", chat,
+                "tool", tool);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -201,6 +228,8 @@ public class PatchPreferenceChannelsDto {
         private Boolean push;
 
         private Boolean chat;
+
+        private Boolean tool;
 
         private Builder() {
           // force use of static builder() method
@@ -246,10 +275,18 @@ public class PatchPreferenceChannelsDto {
             return this;
         }
 
+        /**
+         * Tool channel preference
+         */
+        public Builder tool(@Nullable Boolean tool) {
+            this.tool = tool;
+            return this;
+        }
+
         public PatchPreferenceChannelsDto build() {
             return new PatchPreferenceChannelsDto(
                 email, sms, inApp,
-                push, chat);
+                push, chat, tool);
         }
 
     }

@@ -30,6 +30,7 @@ public class ActivityNotificationJobResponseDtoType {
     public static final ActivityNotificationJobResponseDtoType SMS = new ActivityNotificationJobResponseDtoType("sms");
     public static final ActivityNotificationJobResponseDtoType CHAT = new ActivityNotificationJobResponseDtoType("chat");
     public static final ActivityNotificationJobResponseDtoType PUSH = new ActivityNotificationJobResponseDtoType("push");
+    public static final ActivityNotificationJobResponseDtoType TOOL = new ActivityNotificationJobResponseDtoType("tool");
     public static final ActivityNotificationJobResponseDtoType DIGEST = new ActivityNotificationJobResponseDtoType("digest");
     public static final ActivityNotificationJobResponseDtoType TRIGGER = new ActivityNotificationJobResponseDtoType("trigger");
     public static final ActivityNotificationJobResponseDtoType DELAY = new ActivityNotificationJobResponseDtoType("delay");
@@ -114,6 +115,7 @@ public class ActivityNotificationJobResponseDtoType {
         map.put("sms", SMS);
         map.put("chat", CHAT);
         map.put("push", PUSH);
+        map.put("tool", TOOL);
         map.put("digest", DIGEST);
         map.put("trigger", TRIGGER);
         map.put("delay", DELAY);
@@ -130,6 +132,7 @@ public class ActivityNotificationJobResponseDtoType {
         map.put("sms", ActivityNotificationJobResponseDtoTypeEnum.SMS);
         map.put("chat", ActivityNotificationJobResponseDtoTypeEnum.CHAT);
         map.put("push", ActivityNotificationJobResponseDtoTypeEnum.PUSH);
+        map.put("tool", ActivityNotificationJobResponseDtoTypeEnum.TOOL);
         map.put("digest", ActivityNotificationJobResponseDtoTypeEnum.DIGEST);
         map.put("trigger", ActivityNotificationJobResponseDtoTypeEnum.TRIGGER);
         map.put("delay", ActivityNotificationJobResponseDtoTypeEnum.DELAY);
@@ -147,6 +150,7 @@ public class ActivityNotificationJobResponseDtoType {
         SMS("sms"),
         CHAT("chat"),
         PUSH("push"),
+        TOOL("tool"),
         DIGEST("digest"),
         TRIGGER("trigger"),
         DELAY("delay"),
