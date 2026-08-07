@@ -74,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.18.0'
+implementation 'co.novu:novu-java:3.19.0'
 ```
 
 Maven:
@@ -82,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.18.0</version>
+    <version>3.19.0</version>
 </dependency>
 ```
 
@@ -127,13 +127,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -210,6 +212,7 @@ public class Application {
                                 Map.entry("data", Map.ofEntries(
                                     Map.entry("key", "value")))))))
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventToAllRequestDtoActor.of(SubscriberPayloadDto.builder()
                         .subscriberId("<id>")
                         .firstName("John")
@@ -258,7 +261,7 @@ public class Application {
                     .events(List.of(
                         TriggerEventRequestDto.builder()
                             .workflowId("workflow_identifier")
-                            .to(To2.of("SUBSCRIBER_ID"))
+                            .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                             .payload(Map.ofEntries(
                                 Map.entry("comment_id", "string"),
                                 Map.entry("post", Map.ofEntries(
@@ -287,6 +290,44 @@ public class Application {
     }
 }
 ```
+
+### Send an agent reply
+
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.AgentReplyControllerHandleAgentReplyHandlerResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        AgentReplyControllerHandleAgentReplyHandlerResponse res = sdk.agents().sendReply()
+                .agentId("support-agent")
+                .body(AgentReplyPayloadDto.builder()
+                    .conversationId("64f5a1c2e8b7a3d9f0c1b2a3")
+                    .integrationIdentifier("slack-support")
+                    .reply(Reply.of(MarkdownReplyContentDto.builder()
+                        .markdown("**Report ready.** Your weekly summary is attached.")
+                        .build()))
+                    .build())
+                .call();
+
+        if (res.object().isPresent()) {
+            System.out.println(res.object().get());
+        }
+    }
+}
+```
 #### Asynchronous Call
 An asynchronous SDK client is also available that returns a [`CompletableFuture<T>`][comp-fut]. See [Asynchronous Support](#asynchronous-support) for more details on async benefits and reactive library integration.
 ```java
@@ -311,13 +352,15 @@ public class Application {
         CompletableFuture<EventsControllerTriggerResponse> resFut = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -444,13 +487,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -481,6 +526,23 @@ public class Application {
 ### [Activity](docs/sdks/activity/README.md)
 
 * [track](docs/sdks/activity/README.md#track) - Track provider activity and engagement events
+
+### [Agents](docs/sdks/agents/README.md)
+
+* [create](docs/sdks/agents/README.md#create) - Create an agent
+* [list](docs/sdks/agents/README.md#list) - List all agents
+* [sendReply](docs/sdks/agents/README.md#sendreply) - Send an agent reply
+* [retrieve](docs/sdks/agents/README.md#retrieve) - Retrieve an agent
+* [update](docs/sdks/agents/README.md#update) - Update an agent
+* [delete](docs/sdks/agents/README.md#delete) - Delete an agent
+* [updateBridge](docs/sdks/agents/README.md#updatebridge) - Update an agent bridge
+
+#### [Agents.Integrations](docs/sdks/agentsintegrations/README.md)
+
+* [create](docs/sdks/agentsintegrations/README.md#create) - Create an agent integration
+* [list](docs/sdks/agentsintegrations/README.md#list) - List agent integrations
+* [update](docs/sdks/agentsintegrations/README.md#update) - Update an agent integration
+* [delete](docs/sdks/agentsintegrations/README.md#delete) - Delete an agent integration
 
 ### [ChannelConnections](docs/sdks/channelconnections/README.md)
 
@@ -794,13 +856,15 @@ public class Application {
                     .build())
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -849,13 +913,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -913,13 +979,15 @@ public class Application {
             EventsControllerTriggerResponse res = sdk.trigger()
                     .body(TriggerEventRequestDto.builder()
                         .workflowId("workflow_identifier")
-                        .to(To2.of("SUBSCRIBER_ID"))
+                        .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                         .payload(Map.ofEntries(
                             Map.entry("comment_id", "string"),
                             Map.entry("post", Map.ofEntries(
                                 Map.entry("text", "string")))))
+                        .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                         .overrides(TriggerEventRequestDtoOverrides.builder()
                             .build())
+                        .agentId("support-agent")
                         .actor(TriggerEventRequestDtoActor.of("<value>"))
                         .context(Map.ofEntries(
                             Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -982,9 +1050,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 138 methods.*
-* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 138 methods.*
-* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 138 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 149 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 149 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 149 methods.*
 
 
 </details>
@@ -1028,13 +1096,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -1073,13 +1143,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))

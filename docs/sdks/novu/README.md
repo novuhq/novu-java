@@ -43,13 +43,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -184,6 +186,7 @@ public class Application {
                                 Map.entry("data", Map.ofEntries(
                                     Map.entry("key", "value")))))))
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventToAllRequestDtoActor.of(SubscriberPayloadDto.builder()
                         .subscriberId("<id>")
                         .firstName("John")
@@ -262,7 +265,7 @@ public class Application {
                     .events(List.of(
                         TriggerEventRequestDto.builder()
                             .workflowId("workflow_identifier")
-                            .to(To2.of("SUBSCRIBER_ID"))
+                            .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                             .payload(Map.ofEntries(
                                 Map.entry("comment_id", "string"),
                                 Map.entry("post", Map.ofEntries(

@@ -5,32 +5,56 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
 public class ChatRenderOutput {
     /**
-     * Body of the chat message
+     * Body of the chat message. Mutually exclusive with `card`.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("body")
     private String body;
 
+    /**
+     * Rich Chat: compiled provider-agnostic card DSL. Mutually exclusive with `body`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("card")
+    private Map<String, Object> card;
+
     @JsonCreator
     public ChatRenderOutput(
-            @JsonProperty("body") @Nonnull String body) {
-        this.body = Optional.ofNullable(body)
-            .orElseThrow(() -> new IllegalArgumentException("body cannot be null"));
+            @JsonProperty("body") @Nullable String body,
+            @JsonProperty("card") @Nullable Map<String, Object> card) {
+        this.body = body;
+        this.card = card;
+    }
+    
+    public ChatRenderOutput() {
+        this(null, null);
     }
 
     /**
-     * Body of the chat message
+     * Body of the chat message. Mutually exclusive with `card`.
      */
-    public String body() {
-        return this.body;
+    public Optional<String> body() {
+        return Optional.ofNullable(this.body);
+    }
+
+    /**
+     * Rich Chat: compiled provider-agnostic card DSL. Mutually exclusive with `body`.
+     */
+    public Optional<Map<String, Object>> card() {
+        return Optional.ofNullable(this.card);
     }
 
     public static Builder builder() {
@@ -39,10 +63,19 @@ public class ChatRenderOutput {
 
 
     /**
-     * Body of the chat message
+     * Body of the chat message. Mutually exclusive with `card`.
      */
-    public ChatRenderOutput withBody(@Nonnull String body) {
-        this.body = Utils.checkNotNull(body, "body");
+    public ChatRenderOutput withBody(@Nullable String body) {
+        this.body = body;
+        return this;
+    }
+
+
+    /**
+     * Rich Chat: compiled provider-agnostic card DSL. Mutually exclusive with `body`.
+     */
+    public ChatRenderOutput withCard(@Nullable Map<String, Object> card) {
+        this.card = card;
         return this;
     }
 
@@ -57,19 +90,21 @@ public class ChatRenderOutput {
         }
         ChatRenderOutput other = (ChatRenderOutput) o;
         return 
-            Utils.enhancedDeepEquals(this.body, other.body);
+            Utils.enhancedDeepEquals(this.body, other.body) &&
+            Utils.enhancedDeepEquals(this.card, other.card);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            body);
+            body, card);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ChatRenderOutput.class,
-                "body", body);
+                "body", body,
+                "card", card);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -77,21 +112,31 @@ public class ChatRenderOutput {
 
         private String body;
 
+        private Map<String, Object> card;
+
         private Builder() {
           // force use of static builder() method
         }
 
         /**
-         * Body of the chat message
+         * Body of the chat message. Mutually exclusive with `card`.
          */
-        public Builder body(@Nonnull String body) {
-            this.body = Utils.checkNotNull(body, "body");
+        public Builder body(@Nullable String body) {
+            this.body = body;
+            return this;
+        }
+
+        /**
+         * Rich Chat: compiled provider-agnostic card DSL. Mutually exclusive with `body`.
+         */
+        public Builder card(@Nullable Map<String, Object> card) {
+            this.card = card;
             return this;
         }
 
         public ChatRenderOutput build() {
             return new ChatRenderOutput(
-                body);
+                body, card);
         }
 
     }

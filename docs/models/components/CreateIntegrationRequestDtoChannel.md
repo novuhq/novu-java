@@ -20,3 +20,4 @@ CreateIntegrationRequestDtoChannel value = CreateIntegrationRequestDtoChannel.IN
 | `SMS`    | sms      |
 | `CHAT`   | chat     |
 | `PUSH`   | push     |
+| `TOOL`   | tool     |

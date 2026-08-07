@@ -20,3 +20,4 @@ ChannelConnectionsControllerListChannelConnectionsChannel value = ChannelConnect
 | `SMS`    | sms      |
 | `CHAT`   | chat     |
 | `PUSH`   | push     |
+| `TOOL`   | tool     |

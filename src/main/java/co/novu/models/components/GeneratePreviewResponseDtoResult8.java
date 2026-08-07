@@ -18,7 +18,7 @@ public class GeneratePreviewResponseDtoResult8 {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("type")
-    private TypeDigest type;
+    private TypeDelay type;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -27,7 +27,7 @@ public class GeneratePreviewResponseDtoResult8 {
 
     @JsonCreator
     public GeneratePreviewResponseDtoResult8(
-            @JsonProperty("type") @Nullable TypeDigest type,
+            @JsonProperty("type") @Nullable TypeDelay type,
             @JsonProperty("preview") @Nullable DigestRegularOutput preview) {
         this.type = type;
         this.preview = preview;
@@ -37,7 +37,7 @@ public class GeneratePreviewResponseDtoResult8 {
         this(null, null);
     }
 
-    public Optional<TypeDigest> type() {
+    public Optional<TypeDelay> type() {
         return Optional.ofNullable(this.type);
     }
 
@@ -50,7 +50,7 @@ public class GeneratePreviewResponseDtoResult8 {
     }
 
 
-    public GeneratePreviewResponseDtoResult8 withType(@Nullable TypeDigest type) {
+    public GeneratePreviewResponseDtoResult8 withType(@Nullable TypeDelay type) {
         this.type = type;
         return this;
     }
@@ -92,7 +92,7 @@ public class GeneratePreviewResponseDtoResult8 {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private TypeDigest type;
+        private TypeDelay type;
 
         private DigestRegularOutput preview;
 
@@ -100,7 +100,7 @@ public class GeneratePreviewResponseDtoResult8 {
           // force use of static builder() method
         }
 
-        public Builder type(@Nullable TypeDigest type) {
+        public Builder type(@Nullable TypeDelay type) {
             this.type = type;
             return this;
         }

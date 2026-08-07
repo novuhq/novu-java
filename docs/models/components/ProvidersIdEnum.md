@@ -7,7 +7,7 @@ Provider ID of the job
 ```java
 import co.novu.models.components.ProvidersIdEnum;
 
-ProvidersIdEnum value = ProvidersIdEnum.EMAILJS;
+ProvidersIdEnum value = ProvidersIdEnum.ANYPOST;
 
 // Open enum: use .of() to create instances from custom string values
 ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
@@ -18,6 +18,7 @@ ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
 
 | Name                | Value               |
 | ------------------- | ------------------- |
+| `ANYPOST`           | anypost             |
 | `EMAILJS`           | emailjs             |
 | `MAILGUN`           | mailgun             |
 | `MAILJET`           | mailjet             |
@@ -77,6 +78,7 @@ ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
 | `SINCH`             | sinch               |
 | `ISENDPRO_SMS`      | isendpro-sms        |
 | `CM_TELECOM`        | cm-telecom          |
+| `RUACH_SMS`         | ruach-sms           |
 | `FCM`               | fcm                 |
 | `APNS`              | apns                |
 | `EXPO`              | expo                |
@@ -89,6 +91,7 @@ ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
 | `SLACK`             | slack               |
 | `DISCORD`           | discord             |
 | `MSTEAMS`           | msteams             |
+| `WEBEX_MESSAGING`   | webex-messaging     |
 | `MATTERMOST`        | mattermost          |
 | `RYVER`             | ryver               |
 | `ZULIP`             | zulip               |
@@ -96,9 +99,16 @@ ProvidersIdEnum custom = ProvidersIdEnum.of("custom_value");
 | `GETSTREAM`         | getstream           |
 | `ROCKET_CHAT`       | rocket-chat         |
 | `WHATSAPP_BUSINESS` | whatsapp-business   |
+| `LINE`              | line                |
 | `CHAT_WEBHOOK`      | chat-webhook        |
 | `NOVU_SLACK`        | novu-slack          |
 | `TELEGRAM`          | telegram            |
+| `SENDBLUE`          | sendblue            |
+| `NOVU_WEB_CHAT`     | novu-web-chat       |
 | `ANTHROPIC`         | anthropic           |
 | `NOVU_ANTHROPIC`    | novu-anthropic      |
 | `ANTHROPIC_AWS`     | anthropic-aws       |
+| `PAGERDUTY`         | pagerduty           |
+| `OPSGENIE`          | opsgenie            |
+| `GRAFANA`           | grafana             |
+| `TOOL_WEBHOOK`      | tool-webhook        |

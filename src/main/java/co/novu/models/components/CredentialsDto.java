@@ -261,6 +261,14 @@ public class CredentialsDto {
     @JsonProperty("outboundConnectedAt")
     private String outboundConnectedAt;
 
+    /**
+     * ISO timestamp marking Layer-2 What's next completion (Connected badge + guide hide). WhatsApp
+     * Business: stamped on post-connect Access Token rotation or manual confirm.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("whatsNextCompletedAt")
+    private String whatsNextCompletedAt;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("useFromAddressOverride")
@@ -357,6 +365,7 @@ public class CredentialsDto {
             @JsonProperty("signingSecret") @Nullable String signingSecret,
             @JsonProperty("outboundIntegrationId") @Nullable String outboundIntegrationId,
             @JsonProperty("outboundConnectedAt") @Nullable String outboundConnectedAt,
+            @JsonProperty("whatsNextCompletedAt") @Nullable String whatsNextCompletedAt,
             @JsonProperty("useFromAddressOverride") @Nullable Boolean useFromAddressOverride,
             @JsonProperty("fromAddressOverride") @Nullable String fromAddressOverride,
             @JsonProperty("emailSlugPrefix") @Nullable String emailSlugPrefix,
@@ -412,6 +421,7 @@ public class CredentialsDto {
         this.signingSecret = signingSecret;
         this.outboundIntegrationId = outboundIntegrationId;
         this.outboundConnectedAt = outboundConnectedAt;
+        this.whatsNextCompletedAt = whatsNextCompletedAt;
         this.useFromAddressOverride = useFromAddressOverride;
         this.fromAddressOverride = fromAddressOverride;
         this.emailSlugPrefix = emailSlugPrefix;
@@ -439,7 +449,7 @@ public class CredentialsDto {
             null, null, null,
             null, null, null,
             null, null, null,
-            null);
+            null, null);
     }
 
     public Optional<String> apiKey() {
@@ -636,6 +646,14 @@ public class CredentialsDto {
 
     public Optional<String> outboundConnectedAt() {
         return Optional.ofNullable(this.outboundConnectedAt);
+    }
+
+    /**
+     * ISO timestamp marking Layer-2 What's next completion (Connected badge + guide hide). WhatsApp
+     * Business: stamped on post-connect Access Token rotation or manual confirm.
+     */
+    public Optional<String> whatsNextCompletedAt() {
+        return Optional.ofNullable(this.whatsNextCompletedAt);
     }
 
     public Optional<Boolean> useFromAddressOverride() {
@@ -980,6 +998,16 @@ public class CredentialsDto {
     }
 
 
+    /**
+     * ISO timestamp marking Layer-2 What's next completion (Connected badge + guide hide). WhatsApp
+     * Business: stamped on post-connect Access Token rotation or manual confirm.
+     */
+    public CredentialsDto withWhatsNextCompletedAt(@Nullable String whatsNextCompletedAt) {
+        this.whatsNextCompletedAt = whatsNextCompletedAt;
+        return this;
+    }
+
+
     public CredentialsDto withUseFromAddressOverride(@Nullable Boolean useFromAddressOverride) {
         this.useFromAddressOverride = useFromAddressOverride;
         return this;
@@ -1094,6 +1122,7 @@ public class CredentialsDto {
             Utils.enhancedDeepEquals(this.signingSecret, other.signingSecret) &&
             Utils.enhancedDeepEquals(this.outboundIntegrationId, other.outboundIntegrationId) &&
             Utils.enhancedDeepEquals(this.outboundConnectedAt, other.outboundConnectedAt) &&
+            Utils.enhancedDeepEquals(this.whatsNextCompletedAt, other.whatsNextCompletedAt) &&
             Utils.enhancedDeepEquals(this.useFromAddressOverride, other.useFromAddressOverride) &&
             Utils.enhancedDeepEquals(this.fromAddressOverride, other.fromAddressOverride) &&
             Utils.enhancedDeepEquals(this.emailSlugPrefix, other.emailSlugPrefix) &&
@@ -1121,9 +1150,9 @@ public class CredentialsDto {
             channelId, phoneNumberIdentification, accessKey,
             appSid, senderId, tenantId,
             appIOBaseUrl, signingSecret, outboundIntegrationId,
-            outboundConnectedAt, useFromAddressOverride, fromAddressOverride,
-            emailSlugPrefix, externalEnvironmentId, externalVaultId,
-            externalWorkspaceId);
+            outboundConnectedAt, whatsNextCompletedAt, useFromAddressOverride,
+            fromAddressOverride, emailSlugPrefix, externalEnvironmentId,
+            externalVaultId, externalWorkspaceId);
     }
     
     @Override
@@ -1178,6 +1207,7 @@ public class CredentialsDto {
                 "signingSecret", signingSecret,
                 "outboundIntegrationId", outboundIntegrationId,
                 "outboundConnectedAt", outboundConnectedAt,
+                "whatsNextCompletedAt", whatsNextCompletedAt,
                 "useFromAddressOverride", useFromAddressOverride,
                 "fromAddressOverride", fromAddressOverride,
                 "emailSlugPrefix", emailSlugPrefix,
@@ -1286,6 +1316,8 @@ public class CredentialsDto {
         private String outboundIntegrationId;
 
         private String outboundConnectedAt;
+
+        private String whatsNextCompletedAt;
 
         private Boolean useFromAddressOverride;
 
@@ -1548,6 +1580,15 @@ public class CredentialsDto {
             return this;
         }
 
+        /**
+         * ISO timestamp marking Layer-2 What's next completion (Connected badge + guide hide). WhatsApp
+         * Business: stamped on post-connect Access Token rotation or manual confirm.
+         */
+        public Builder whatsNextCompletedAt(@Nullable String whatsNextCompletedAt) {
+            this.whatsNextCompletedAt = whatsNextCompletedAt;
+            return this;
+        }
+
         public Builder useFromAddressOverride(@Nullable Boolean useFromAddressOverride) {
             this.useFromAddressOverride = useFromAddressOverride;
             return this;
@@ -1615,9 +1656,9 @@ public class CredentialsDto {
                 channelId, phoneNumberIdentification, accessKey,
                 appSid, senderId, tenantId,
                 appIOBaseUrl, signingSecret, outboundIntegrationId,
-                outboundConnectedAt, useFromAddressOverride, fromAddressOverride,
-                emailSlugPrefix, externalEnvironmentId, externalVaultId,
-                externalWorkspaceId);
+                outboundConnectedAt, whatsNextCompletedAt, useFromAddressOverride,
+                fromAddressOverride, emailSlugPrefix, externalEnvironmentId,
+                externalVaultId, externalWorkspaceId);
         }
 
     }

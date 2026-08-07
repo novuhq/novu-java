@@ -21,9 +21,10 @@ import java.util.Optional;
 public class GenerateConnectOauthUrlRequestDto {
     /**
      * The subscriber ID to associate with the channel connection. For Slack: optional for workspace
-     * connections (required only for incoming-webhook scope). For MS Teams: optional.
+     * connections (required only for incoming-webhook scope). For Webex: optional for workspace
+     * connections.
      * 
-     * <p>Admin consent is tenant-wide.
+     * <p>For MS Teams: optional. Admin consent is tenant-wide.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("subscriberId")
@@ -48,9 +49,22 @@ public class GenerateConnectOauthUrlRequestDto {
     private Map<String, GenerateConnectOauthUrlRequestDtoContextUnion> context;
 
     /**
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+     * the session did not already HMAC-verify the context. Establishes that the context/tenant binding was
+     * minted by an authenticated backend rather than forged in the browser.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("contextHash")
+    private String contextHash;
+
+    /**
      * **Slack only**: OAuth scopes to request during authorization. If not specified, default scopes will
      * be used: chat:write, chat:write.public, channels:read, groups:read, users:read, users:read.email.
-     * **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
+     * **Webex**: OAuth scopes to request during authorization.
+     * 
+     * <p>Defaults to: spark:messages_write, spark:rooms_read, spark:people_read, spark:memberships_read,
+     * spark:kms. **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scope")
@@ -68,10 +82,11 @@ public class GenerateConnectOauthUrlRequestDto {
     /**
      * When true (default when connectionMode is "subscriber"), after the workspace/tenant connection is
      * created the OAuth flow also links the subscriber who clicked "Connect" as a personal endpoint. For
-     * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For MS Teams,
-     * triggers a second OAuth redirect for delegated user-identity consent.
+     * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For Webex, uses the
+     * authenticated Webex person returned by people/me — no extra redirect.
      * 
-     * <p>Set to false to only create the workspace connection without linking the individual user.
+     * <p>For MS Teams, triggers a second OAuth redirect for delegated user-identity consent. Set to false to
+     * only create the workspace connection without linking the individual user.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("autoLinkUser")
@@ -83,6 +98,7 @@ public class GenerateConnectOauthUrlRequestDto {
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
             @JsonProperty("connectionIdentifier") @Nullable String connectionIdentifier,
             @JsonProperty("context") @Nullable Map<String, GenerateConnectOauthUrlRequestDtoContextUnion> context,
+            @JsonProperty("contextHash") @Nullable String contextHash,
             @JsonProperty("scope") @Nullable List<String> scope,
             @JsonProperty("connectionMode") @Nullable GenerateConnectOauthUrlRequestDtoConnectionMode connectionMode,
             @JsonProperty("autoLinkUser") @Nullable Boolean autoLinkUser) {
@@ -91,6 +107,7 @@ public class GenerateConnectOauthUrlRequestDto {
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
         this.connectionIdentifier = connectionIdentifier;
         this.context = context;
+        this.contextHash = contextHash;
         this.scope = scope;
         this.connectionMode = connectionMode;
         this.autoLinkUser = autoLinkUser;
@@ -100,14 +117,15 @@ public class GenerateConnectOauthUrlRequestDto {
             @Nonnull String integrationIdentifier) {
         this(null, integrationIdentifier, null,
             null, null, null,
-            null);
+            null, null);
     }
 
     /**
      * The subscriber ID to associate with the channel connection. For Slack: optional for workspace
-     * connections (required only for incoming-webhook scope). For MS Teams: optional.
+     * connections (required only for incoming-webhook scope). For Webex: optional for workspace
+     * connections.
      * 
-     * <p>Admin consent is tenant-wide.
+     * <p>For MS Teams: optional. Admin consent is tenant-wide.
      */
     public Optional<String> subscriberId() {
         return Optional.ofNullable(this.subscriberId);
@@ -132,9 +150,22 @@ public class GenerateConnectOauthUrlRequestDto {
     }
 
     /**
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+     * the session did not already HMAC-verify the context. Establishes that the context/tenant binding was
+     * minted by an authenticated backend rather than forged in the browser.
+     */
+    public Optional<String> contextHash() {
+        return Optional.ofNullable(this.contextHash);
+    }
+
+    /**
      * **Slack only**: OAuth scopes to request during authorization. If not specified, default scopes will
      * be used: chat:write, chat:write.public, channels:read, groups:read, users:read, users:read.email.
-     * **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
+     * **Webex**: OAuth scopes to request during authorization.
+     * 
+     * <p>Defaults to: spark:messages_write, spark:rooms_read, spark:people_read, spark:memberships_read,
+     * spark:kms. **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
      */
     public Optional<List<String>> scope() {
         return Optional.ofNullable(this.scope);
@@ -152,10 +183,11 @@ public class GenerateConnectOauthUrlRequestDto {
     /**
      * When true (default when connectionMode is "subscriber"), after the workspace/tenant connection is
      * created the OAuth flow also links the subscriber who clicked "Connect" as a personal endpoint. For
-     * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For MS Teams,
-     * triggers a second OAuth redirect for delegated user-identity consent.
+     * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For Webex, uses the
+     * authenticated Webex person returned by people/me — no extra redirect.
      * 
-     * <p>Set to false to only create the workspace connection without linking the individual user.
+     * <p>For MS Teams, triggers a second OAuth redirect for delegated user-identity consent. Set to false to
+     * only create the workspace connection without linking the individual user.
      */
     public Optional<Boolean> autoLinkUser() {
         return Optional.ofNullable(this.autoLinkUser);
@@ -168,9 +200,10 @@ public class GenerateConnectOauthUrlRequestDto {
 
     /**
      * The subscriber ID to associate with the channel connection. For Slack: optional for workspace
-     * connections (required only for incoming-webhook scope). For MS Teams: optional.
+     * connections (required only for incoming-webhook scope). For Webex: optional for workspace
+     * connections.
      * 
-     * <p>Admin consent is tenant-wide.
+     * <p>For MS Teams: optional. Admin consent is tenant-wide.
      */
     public GenerateConnectOauthUrlRequestDto withSubscriberId(@Nullable String subscriberId) {
         this.subscriberId = subscriberId;
@@ -203,9 +236,24 @@ public class GenerateConnectOauthUrlRequestDto {
 
 
     /**
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+     * the session did not already HMAC-verify the context. Establishes that the context/tenant binding was
+     * minted by an authenticated backend rather than forged in the browser.
+     */
+    public GenerateConnectOauthUrlRequestDto withContextHash(@Nullable String contextHash) {
+        this.contextHash = contextHash;
+        return this;
+    }
+
+
+    /**
      * **Slack only**: OAuth scopes to request during authorization. If not specified, default scopes will
      * be used: chat:write, chat:write.public, channels:read, groups:read, users:read, users:read.email.
-     * **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
+     * **Webex**: OAuth scopes to request during authorization.
+     * 
+     * <p>Defaults to: spark:messages_write, spark:rooms_read, spark:people_read, spark:memberships_read,
+     * spark:kms. **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
      */
     public GenerateConnectOauthUrlRequestDto withScope(@Nullable List<String> scope) {
         this.scope = scope;
@@ -227,10 +275,11 @@ public class GenerateConnectOauthUrlRequestDto {
     /**
      * When true (default when connectionMode is "subscriber"), after the workspace/tenant connection is
      * created the OAuth flow also links the subscriber who clicked "Connect" as a personal endpoint. For
-     * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For MS Teams,
-     * triggers a second OAuth redirect for delegated user-identity consent.
+     * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For Webex, uses the
+     * authenticated Webex person returned by people/me — no extra redirect.
      * 
-     * <p>Set to false to only create the workspace connection without linking the individual user.
+     * <p>For MS Teams, triggers a second OAuth redirect for delegated user-identity consent. Set to false to
+     * only create the workspace connection without linking the individual user.
      */
     public GenerateConnectOauthUrlRequestDto withAutoLinkUser(@Nullable Boolean autoLinkUser) {
         this.autoLinkUser = autoLinkUser;
@@ -252,6 +301,7 @@ public class GenerateConnectOauthUrlRequestDto {
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
             Utils.enhancedDeepEquals(this.connectionIdentifier, other.connectionIdentifier) &&
             Utils.enhancedDeepEquals(this.context, other.context) &&
+            Utils.enhancedDeepEquals(this.contextHash, other.contextHash) &&
             Utils.enhancedDeepEquals(this.scope, other.scope) &&
             Utils.enhancedDeepEquals(this.connectionMode, other.connectionMode) &&
             Utils.enhancedDeepEquals(this.autoLinkUser, other.autoLinkUser);
@@ -261,8 +311,8 @@ public class GenerateConnectOauthUrlRequestDto {
     public int hashCode() {
         return Utils.enhancedHash(
             subscriberId, integrationIdentifier, connectionIdentifier,
-            context, scope, connectionMode,
-            autoLinkUser);
+            context, contextHash, scope,
+            connectionMode, autoLinkUser);
     }
     
     @Override
@@ -272,6 +322,7 @@ public class GenerateConnectOauthUrlRequestDto {
                 "integrationIdentifier", integrationIdentifier,
                 "connectionIdentifier", connectionIdentifier,
                 "context", context,
+                "contextHash", contextHash,
                 "scope", scope,
                 "connectionMode", connectionMode,
                 "autoLinkUser", autoLinkUser);
@@ -288,6 +339,8 @@ public class GenerateConnectOauthUrlRequestDto {
 
         private Map<String, GenerateConnectOauthUrlRequestDtoContextUnion> context;
 
+        private String contextHash;
+
         private List<String> scope;
 
         private GenerateConnectOauthUrlRequestDtoConnectionMode connectionMode;
@@ -300,9 +353,10 @@ public class GenerateConnectOauthUrlRequestDto {
 
         /**
          * The subscriber ID to associate with the channel connection. For Slack: optional for workspace
-         * connections (required only for incoming-webhook scope). For MS Teams: optional.
+         * connections (required only for incoming-webhook scope). For Webex: optional for workspace
+         * connections.
          * 
-         * <p>Admin consent is tenant-wide.
+         * <p>For MS Teams: optional. Admin consent is tenant-wide.
          */
         public Builder subscriberId(@Nullable String subscriberId) {
             this.subscriberId = subscriberId;
@@ -331,9 +385,23 @@ public class GenerateConnectOauthUrlRequestDto {
         }
 
         /**
+         * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+         * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+         * the session did not already HMAC-verify the context. Establishes that the context/tenant binding was
+         * minted by an authenticated backend rather than forged in the browser.
+         */
+        public Builder contextHash(@Nullable String contextHash) {
+            this.contextHash = contextHash;
+            return this;
+        }
+
+        /**
          * **Slack only**: OAuth scopes to request during authorization. If not specified, default scopes will
          * be used: chat:write, chat:write.public, channels:read, groups:read, users:read, users:read.email.
-         * **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
+         * **Webex**: OAuth scopes to request during authorization.
+         * 
+         * <p>Defaults to: spark:messages_write, spark:rooms_read, spark:people_read, spark:memberships_read,
+         * spark:kms. **MS Teams**: ignored — uses admin consent with pre-configured Azure AD permissions.
          */
         public Builder scope(@Nullable List<String> scope) {
             this.scope = scope;
@@ -353,10 +421,11 @@ public class GenerateConnectOauthUrlRequestDto {
         /**
          * When true (default when connectionMode is "subscriber"), after the workspace/tenant connection is
          * created the OAuth flow also links the subscriber who clicked "Connect" as a personal endpoint. For
-         * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For MS Teams,
-         * triggers a second OAuth redirect for delegated user-identity consent.
+         * Slack, uses the authed_user.id returned by oauth.v2.access — no extra redirect. For Webex, uses the
+         * authenticated Webex person returned by people/me — no extra redirect.
          * 
-         * <p>Set to false to only create the workspace connection without linking the individual user.
+         * <p>For MS Teams, triggers a second OAuth redirect for delegated user-identity consent. Set to false to
+         * only create the workspace connection without linking the individual user.
          */
         public Builder autoLinkUser(@Nullable Boolean autoLinkUser) {
             this.autoLinkUser = autoLinkUser;
@@ -366,8 +435,8 @@ public class GenerateConnectOauthUrlRequestDto {
         public GenerateConnectOauthUrlRequestDto build() {
             return new GenerateConnectOauthUrlRequestDto(
                 subscriberId, integrationIdentifier, connectionIdentifier,
-                context, scope, connectionMode,
-                autoLinkUser);
+                context, contextHash, scope,
+                connectionMode, autoLinkUser);
         }
 
     }

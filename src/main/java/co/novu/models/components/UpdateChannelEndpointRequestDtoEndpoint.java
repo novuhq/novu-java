@@ -51,6 +51,21 @@ public class UpdateChannelEndpointRequestDtoEndpoint {
         Utils.checkNotNull(value, "value");
         return new UpdateChannelEndpointRequestDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
+
+    public static UpdateChannelEndpointRequestDtoEndpoint of(WebexRoomEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new UpdateChannelEndpointRequestDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static UpdateChannelEndpointRequestDtoEndpoint of(WebexPersonEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new UpdateChannelEndpointRequestDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static UpdateChannelEndpointRequestDtoEndpoint of(ToolWebhookEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new UpdateChannelEndpointRequestDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
     
     /**
      * Returns an {@link Optional} containing the value if it is of type {@code SlackChannelEndpointDto},
@@ -103,6 +118,45 @@ public class UpdateChannelEndpointRequestDtoEndpoint {
         }
         return Optional.empty();
     }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code WebexRoomEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code WebexRoomEndpointDto} value, or empty if not of this type
+     */
+    public Optional<WebexRoomEndpointDto> webexRoomEndpointDto() {
+        if (value.value() instanceof WebexRoomEndpointDto) {
+            return Optional.of((WebexRoomEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code WebexPersonEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code WebexPersonEndpointDto} value, or empty if not of this type
+     */
+    public Optional<WebexPersonEndpointDto> webexPersonEndpointDto() {
+        if (value.value() instanceof WebexPersonEndpointDto) {
+            return Optional.of((WebexPersonEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code ToolWebhookEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code ToolWebhookEndpointDto} value, or empty if not of this type
+     */
+    public Optional<ToolWebhookEndpointDto> toolWebhookEndpointDto() {
+        if (value.value() instanceof ToolWebhookEndpointDto) {
+            return Optional.of((ToolWebhookEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
    /**
     * Returns an {@link Optional} containing the value as a {@code JsonNode}.
     * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
@@ -141,7 +195,10 @@ public class UpdateChannelEndpointRequestDtoEndpoint {
                   TypeReferenceWithShape.of(new TypeReference<SlackChannelEndpointDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<SlackUserEndpointDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<WebhookEndpointDto>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<PhoneEndpointDto>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<PhoneEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<WebexRoomEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<WebexPersonEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<ToolWebhookEndpointDto>() {}, JsonShape.DEFAULT));
         }
     }
     

@@ -27,6 +27,7 @@ public class CreateWorkflowDtoStepTypeIdResolver extends GenericTypeIdResolver<C
         registerType("delay", DelayStepUpsertDto.class);
         registerType("digest", DigestStepUpsertDto.class);
         registerType("throttle", ThrottleStepUpsertDto.class);
+        registerType("tool", ToolStepUpsertDto.class);
         registerType("custom", CustomStepUpsertDto.class);
         registerType("http_request", HttpRequestStepUpsertDto.class);
     }

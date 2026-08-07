@@ -54,6 +54,13 @@ public class TopicSubscriptionResponseDto {
     @JsonProperty("contextKeys")
     private List<String> contextKeys;
 
+    /**
+     * The preferences for workflows in this subscription
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("preferences")
+    private List<SubscriptionPreferenceDto> preferences;
+
     @JsonCreator
     public TopicSubscriptionResponseDto(
             @JsonProperty("_id") @Nonnull String id,
@@ -61,7 +68,8 @@ public class TopicSubscriptionResponseDto {
             @JsonProperty("createdAt") @Nonnull String createdAt,
             @JsonProperty("topic") @Nonnull TopicResponseDto topic,
             @JsonProperty("subscriber") @Nonnull SubscriberDto subscriber,
-            @JsonProperty("contextKeys") @Nullable List<String> contextKeys) {
+            @JsonProperty("contextKeys") @Nullable List<String> contextKeys,
+            @JsonProperty("preferences") @Nullable List<SubscriptionPreferenceDto> preferences) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.identifier = Optional.ofNullable(identifier)
@@ -73,6 +81,7 @@ public class TopicSubscriptionResponseDto {
         this.subscriber = Optional.ofNullable(subscriber)
             .orElseThrow(() -> new IllegalArgumentException("subscriber cannot be null"));
         this.contextKeys = contextKeys;
+        this.preferences = preferences;
     }
     
     public TopicSubscriptionResponseDto(
@@ -82,7 +91,8 @@ public class TopicSubscriptionResponseDto {
             @Nonnull TopicResponseDto topic,
             @Nonnull SubscriberDto subscriber) {
         this(id, identifier, createdAt,
-            topic, subscriber, null);
+            topic, subscriber, null,
+            null);
     }
 
     /**
@@ -125,6 +135,13 @@ public class TopicSubscriptionResponseDto {
      */
     public Optional<List<String>> contextKeys() {
         return Optional.ofNullable(this.contextKeys);
+    }
+
+    /**
+     * The preferences for workflows in this subscription
+     */
+    public Optional<List<SubscriptionPreferenceDto>> preferences() {
+        return Optional.ofNullable(this.preferences);
     }
 
     public static Builder builder() {
@@ -186,6 +203,15 @@ public class TopicSubscriptionResponseDto {
     }
 
 
+    /**
+     * The preferences for workflows in this subscription
+     */
+    public TopicSubscriptionResponseDto withPreferences(@Nullable List<SubscriptionPreferenceDto> preferences) {
+        this.preferences = preferences;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -201,14 +227,16 @@ public class TopicSubscriptionResponseDto {
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.topic, other.topic) &&
             Utils.enhancedDeepEquals(this.subscriber, other.subscriber) &&
-            Utils.enhancedDeepEquals(this.contextKeys, other.contextKeys);
+            Utils.enhancedDeepEquals(this.contextKeys, other.contextKeys) &&
+            Utils.enhancedDeepEquals(this.preferences, other.preferences);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             id, identifier, createdAt,
-            topic, subscriber, contextKeys);
+            topic, subscriber, contextKeys,
+            preferences);
     }
     
     @Override
@@ -219,7 +247,8 @@ public class TopicSubscriptionResponseDto {
                 "createdAt", createdAt,
                 "topic", topic,
                 "subscriber", subscriber,
-                "contextKeys", contextKeys);
+                "contextKeys", contextKeys,
+                "preferences", preferences);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -236,6 +265,8 @@ public class TopicSubscriptionResponseDto {
         private SubscriberDto subscriber;
 
         private List<String> contextKeys;
+
+        private List<SubscriptionPreferenceDto> preferences;
 
         private Builder() {
           // force use of static builder() method
@@ -289,10 +320,19 @@ public class TopicSubscriptionResponseDto {
             return this;
         }
 
+        /**
+         * The preferences for workflows in this subscription
+         */
+        public Builder preferences(@Nullable List<SubscriptionPreferenceDto> preferences) {
+            this.preferences = preferences;
+            return this;
+        }
+
         public TopicSubscriptionResponseDto build() {
             return new TopicSubscriptionResponseDto(
                 id, identifier, createdAt,
-                topic, subscriber, contextKeys);
+                topic, subscriber, contextKeys,
+                preferences);
         }
 
     }

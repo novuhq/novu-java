@@ -119,7 +119,7 @@ public class MessageResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("content")
-    private JsonNullable<Content> content;
+    private JsonNullable<MessageResponseDtoContent> content;
 
     /**
      * Transaction ID associated with the message
@@ -271,7 +271,7 @@ public class MessageResponseDto {
             @JsonProperty("deliveredAt") @Nullable List<String> deliveredAt,
             @JsonProperty("lastSeenDate") @Nullable String lastSeenDate,
             @JsonProperty("lastReadDate") @Nullable String lastReadDate,
-            @JsonProperty("content") @Nullable JsonNullable<Content> content,
+            @JsonProperty("content") @Nullable JsonNullable<MessageResponseDtoContent> content,
             @JsonProperty("transactionId") @Nonnull String transactionId,
             @JsonProperty("subject") @Nullable String subject,
             @JsonProperty("channel") @Nonnull ChannelTypeEnum channel,
@@ -470,7 +470,7 @@ public class MessageResponseDto {
     /**
      * Content of the message, can be an email block or a string
      */
-    public JsonNullable<Content> content() {
+    public JsonNullable<MessageResponseDtoContent> content() {
         return this.content;
     }
 
@@ -749,7 +749,7 @@ public class MessageResponseDto {
     /**
      * Content of the message, can be an email block or a string
      */
-    public MessageResponseDto withContent(@Nullable Content content) {
+    public MessageResponseDto withContent(@Nullable MessageResponseDtoContent content) {
         this.content = JsonNullable.of(content);
         return this;
     }
@@ -1070,7 +1070,7 @@ public class MessageResponseDto {
 
         private String lastReadDate;
 
-        private JsonNullable<Content> content;
+        private JsonNullable<MessageResponseDtoContent> content;
 
         private String transactionId;
 
@@ -1232,7 +1232,7 @@ public class MessageResponseDto {
         /**
          * Content of the message, can be an email block or a string
          */
-        public Builder content(@Nullable Content content) {
+        public Builder content(@Nullable MessageResponseDtoContent content) {
             this.content = JsonNullable.of(content);
             return this;
         }

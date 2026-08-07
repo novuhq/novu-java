@@ -53,8 +53,12 @@ public class GenerateChatOauthUrlRequestDto {
      * Slack integration will have. If not specified, default scopes will be used: chat:write,
      * chat:write.public, channels:read, groups:read, users:read, users:read.email.
      * 
-     * <p>**MS Teams**: This parameter is ignored. MS Teams uses admin consent with pre-configured permissions
-     * in Azure AD. Note: The generated OAuth URL expires after 5 minutes.
+     * <p>**Webex**: OAuth scopes to request during authorization. Defaults to: spark:messages_write,
+     * spark:rooms_read, spark:people_read, spark:memberships_read, spark:kms. **MS Teams**: This parameter
+     * is ignored.
+     * 
+     * <p>MS Teams uses admin consent with pre-configured permissions in Azure AD. Note: The generated OAuth
+     * URL expires after 5 minutes.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("scope")
@@ -89,11 +93,12 @@ public class GenerateChatOauthUrlRequestDto {
     /**
      * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
      * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
-     * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
-     * for delegated user-identity consent.
+     * returned by oauth.v2.access — no extra redirect. For Webex, this uses the authenticated Webex person
+     * returned by people/me — no extra redirect.
      * 
-     * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
-     * default this to true.
+     * <p>For MS Teams, this triggers a second OAuth redirect for delegated user-identity consent. Defaults to
+     * false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components default this to
+     * true.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("autoLinkUser")
@@ -163,8 +168,12 @@ public class GenerateChatOauthUrlRequestDto {
      * Slack integration will have. If not specified, default scopes will be used: chat:write,
      * chat:write.public, channels:read, groups:read, users:read, users:read.email.
      * 
-     * <p>**MS Teams**: This parameter is ignored. MS Teams uses admin consent with pre-configured permissions
-     * in Azure AD. Note: The generated OAuth URL expires after 5 minutes.
+     * <p>**Webex**: OAuth scopes to request during authorization. Defaults to: spark:messages_write,
+     * spark:rooms_read, spark:people_read, spark:memberships_read, spark:kms. **MS Teams**: This parameter
+     * is ignored.
+     * 
+     * <p>MS Teams uses admin consent with pre-configured permissions in Azure AD. Note: The generated OAuth
+     * URL expires after 5 minutes.
      */
     public Optional<List<String>> scope() {
         return Optional.ofNullable(this.scope);
@@ -199,11 +208,12 @@ public class GenerateChatOauthUrlRequestDto {
     /**
      * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
      * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
-     * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
-     * for delegated user-identity consent.
+     * returned by oauth.v2.access — no extra redirect. For Webex, this uses the authenticated Webex person
+     * returned by people/me — no extra redirect.
      * 
-     * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
-     * default this to true.
+     * <p>For MS Teams, this triggers a second OAuth redirect for delegated user-identity consent. Defaults to
+     * false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components default this to
+     * true.
      */
     public Optional<Boolean> autoLinkUser() {
         return Optional.ofNullable(this.autoLinkUser);
@@ -256,8 +266,12 @@ public class GenerateChatOauthUrlRequestDto {
      * Slack integration will have. If not specified, default scopes will be used: chat:write,
      * chat:write.public, channels:read, groups:read, users:read, users:read.email.
      * 
-     * <p>**MS Teams**: This parameter is ignored. MS Teams uses admin consent with pre-configured permissions
-     * in Azure AD. Note: The generated OAuth URL expires after 5 minutes.
+     * <p>**Webex**: OAuth scopes to request during authorization. Defaults to: spark:messages_write,
+     * spark:rooms_read, spark:people_read, spark:memberships_read, spark:kms. **MS Teams**: This parameter
+     * is ignored.
+     * 
+     * <p>MS Teams uses admin consent with pre-configured permissions in Azure AD. Note: The generated OAuth
+     * URL expires after 5 minutes.
      */
     public GenerateChatOauthUrlRequestDto withScope(@Nullable List<String> scope) {
         this.scope = scope;
@@ -300,11 +314,12 @@ public class GenerateChatOauthUrlRequestDto {
     /**
      * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
      * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
-     * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
-     * for delegated user-identity consent.
+     * returned by oauth.v2.access — no extra redirect. For Webex, this uses the authenticated Webex person
+     * returned by people/me — no extra redirect.
      * 
-     * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
-     * default this to true.
+     * <p>For MS Teams, this triggers a second OAuth redirect for delegated user-identity consent. Defaults to
+     * false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components default this to
+     * true.
      */
     public GenerateChatOauthUrlRequestDto withAutoLinkUser(@Nullable Boolean autoLinkUser) {
         this.autoLinkUser = autoLinkUser;
@@ -418,8 +433,12 @@ public class GenerateChatOauthUrlRequestDto {
          * Slack integration will have. If not specified, default scopes will be used: chat:write,
          * chat:write.public, channels:read, groups:read, users:read, users:read.email.
          * 
-         * <p>**MS Teams**: This parameter is ignored. MS Teams uses admin consent with pre-configured permissions
-         * in Azure AD. Note: The generated OAuth URL expires after 5 minutes.
+         * <p>**Webex**: OAuth scopes to request during authorization. Defaults to: spark:messages_write,
+         * spark:rooms_read, spark:people_read, spark:memberships_read, spark:kms. **MS Teams**: This parameter
+         * is ignored.
+         * 
+         * <p>MS Teams uses admin consent with pre-configured permissions in Azure AD. Note: The generated OAuth
+         * URL expires after 5 minutes.
          */
         public Builder scope(@Nullable List<String> scope) {
             this.scope = scope;
@@ -458,11 +477,12 @@ public class GenerateChatOauthUrlRequestDto {
         /**
          * When true, after the workspace/tenant connection is created the OAuth flow also links the subscriber
          * who clicked "Connect" as a personal endpoint. For Slack, this uses the authed_user.id already
-         * returned by oauth.v2.access — no extra redirect. For MS Teams, this triggers a second OAuth redirect
-         * for delegated user-identity consent.
+         * returned by oauth.v2.access — no extra redirect. For Webex, this uses the authenticated Webex person
+         * returned by people/me — no extra redirect.
          * 
-         * <p>Defaults to false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components
-         * default this to true.
+         * <p>For MS Teams, this triggers a second OAuth redirect for delegated user-identity consent. Defaults to
+         * false when omitted; the SlackConnectButton and MsTeamsConnectButton SDK components default this to
+         * true.
          */
         public Builder autoLinkUser(@Nullable Boolean autoLinkUser) {
             this.autoLinkUser = autoLinkUser;

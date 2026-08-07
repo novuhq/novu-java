@@ -30,6 +30,7 @@ public class ContentIssueEnum {
     public static final ContentIssueEnum INVALID_URL = new ContentIssueEnum("INVALID_URL");
     public static final ContentIssueEnum MISSING_VALUE = new ContentIssueEnum("MISSING_VALUE");
     public static final ContentIssueEnum TIER_LIMIT_EXCEEDED = new ContentIssueEnum("TIER_LIMIT_EXCEEDED");
+    public static final ContentIssueEnum UNSUPPORTED_PROPERTY = new ContentIssueEnum("UNSUPPORTED_PROPERTY");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -108,6 +109,7 @@ public class ContentIssueEnum {
         map.put("INVALID_URL", INVALID_URL);
         map.put("MISSING_VALUE", MISSING_VALUE);
         map.put("TIER_LIMIT_EXCEEDED", TIER_LIMIT_EXCEEDED);
+        map.put("UNSUPPORTED_PROPERTY", UNSUPPORTED_PROPERTY);
         return map;
     }
 
@@ -118,6 +120,7 @@ public class ContentIssueEnum {
         map.put("INVALID_URL", ContentIssueEnumEnum.INVALID_URL);
         map.put("MISSING_VALUE", ContentIssueEnumEnum.MISSING_VALUE);
         map.put("TIER_LIMIT_EXCEEDED", ContentIssueEnumEnum.TIER_LIMIT_EXCEEDED);
+        map.put("UNSUPPORTED_PROPERTY", ContentIssueEnumEnum.UNSUPPORTED_PROPERTY);
         return map;
     }
     
@@ -128,7 +131,8 @@ public class ContentIssueEnum {
         INVALID_FILTER_ARG_IN_VARIABLE("INVALID_FILTER_ARG_IN_VARIABLE"),
         INVALID_URL("INVALID_URL"),
         MISSING_VALUE("MISSING_VALUE"),
-        TIER_LIMIT_EXCEEDED("TIER_LIMIT_EXCEEDED"),;
+        TIER_LIMIT_EXCEEDED("TIER_LIMIT_EXCEEDED"),
+        UNSUPPORTED_PROPERTY("UNSUPPORTED_PROPERTY"),;
 
         private final String value;
 

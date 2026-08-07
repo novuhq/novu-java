@@ -27,6 +27,8 @@ public class DependencyReasonEnum {
 
     public static final DependencyReasonEnum LAYOUT_REQUIRED_FOR_WORKFLOW = new DependencyReasonEnum("LAYOUT_REQUIRED_FOR_WORKFLOW");
     public static final DependencyReasonEnum LAYOUT_EXISTS_IN_TARGET = new DependencyReasonEnum("LAYOUT_EXISTS_IN_TARGET");
+    public static final DependencyReasonEnum AGENT_REQUIRED_FOR_WORKFLOW = new DependencyReasonEnum("AGENT_REQUIRED_FOR_WORKFLOW");
+    public static final DependencyReasonEnum AGENT_EXISTS_IN_TARGET = new DependencyReasonEnum("AGENT_EXISTS_IN_TARGET");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -102,6 +104,8 @@ public class DependencyReasonEnum {
         Map<String, DependencyReasonEnum> map = new LinkedHashMap<>();
         map.put("LAYOUT_REQUIRED_FOR_WORKFLOW", LAYOUT_REQUIRED_FOR_WORKFLOW);
         map.put("LAYOUT_EXISTS_IN_TARGET", LAYOUT_EXISTS_IN_TARGET);
+        map.put("AGENT_REQUIRED_FOR_WORKFLOW", AGENT_REQUIRED_FOR_WORKFLOW);
+        map.put("AGENT_EXISTS_IN_TARGET", AGENT_EXISTS_IN_TARGET);
         return map;
     }
 
@@ -109,6 +113,8 @@ public class DependencyReasonEnum {
         Map<String, DependencyReasonEnumEnum> map = new HashMap<>();
         map.put("LAYOUT_REQUIRED_FOR_WORKFLOW", DependencyReasonEnumEnum.LAYOUT_REQUIRED_FOR_WORKFLOW);
         map.put("LAYOUT_EXISTS_IN_TARGET", DependencyReasonEnumEnum.LAYOUT_EXISTS_IN_TARGET);
+        map.put("AGENT_REQUIRED_FOR_WORKFLOW", DependencyReasonEnumEnum.AGENT_REQUIRED_FOR_WORKFLOW);
+        map.put("AGENT_EXISTS_IN_TARGET", DependencyReasonEnumEnum.AGENT_EXISTS_IN_TARGET);
         return map;
     }
     
@@ -116,7 +122,9 @@ public class DependencyReasonEnum {
     public enum DependencyReasonEnumEnum {
 
         LAYOUT_REQUIRED_FOR_WORKFLOW("LAYOUT_REQUIRED_FOR_WORKFLOW"),
-        LAYOUT_EXISTS_IN_TARGET("LAYOUT_EXISTS_IN_TARGET"),;
+        LAYOUT_EXISTS_IN_TARGET("LAYOUT_EXISTS_IN_TARGET"),
+        AGENT_REQUIRED_FOR_WORKFLOW("AGENT_REQUIRED_FOR_WORKFLOW"),
+        AGENT_EXISTS_IN_TARGET("AGENT_EXISTS_IN_TARGET"),;
 
         private final String value;
 

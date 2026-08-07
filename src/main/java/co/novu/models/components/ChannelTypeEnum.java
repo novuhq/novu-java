@@ -30,6 +30,7 @@ public class ChannelTypeEnum {
     public static final ChannelTypeEnum SMS = new ChannelTypeEnum("sms");
     public static final ChannelTypeEnum CHAT = new ChannelTypeEnum("chat");
     public static final ChannelTypeEnum PUSH = new ChannelTypeEnum("push");
+    public static final ChannelTypeEnum TOOL = new ChannelTypeEnum("tool");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -108,6 +109,7 @@ public class ChannelTypeEnum {
         map.put("sms", SMS);
         map.put("chat", CHAT);
         map.put("push", PUSH);
+        map.put("tool", TOOL);
         return map;
     }
 
@@ -118,6 +120,7 @@ public class ChannelTypeEnum {
         map.put("sms", ChannelTypeEnumEnum.SMS);
         map.put("chat", ChannelTypeEnumEnum.CHAT);
         map.put("push", ChannelTypeEnumEnum.PUSH);
+        map.put("tool", ChannelTypeEnumEnum.TOOL);
         return map;
     }
     
@@ -128,7 +131,8 @@ public class ChannelTypeEnum {
         EMAIL("email"),
         SMS("sms"),
         CHAT("chat"),
-        PUSH("push"),;
+        PUSH("push"),
+        TOOL("tool"),;
 
         private final String value;
 

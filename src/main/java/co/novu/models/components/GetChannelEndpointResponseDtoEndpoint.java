@@ -66,6 +66,41 @@ public class GetChannelEndpointResponseDtoEndpoint {
         Utils.checkNotNull(value, "value");
         return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(WebexRoomEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(WebexPersonEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(LineUserEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(PagerDutyServiceEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(OpsgenieIntegrationEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(GrafanaOnCallIntegrationEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static GetChannelEndpointResponseDtoEndpoint of(ToolWebhookEndpointDto value) {
+        Utils.checkNotNull(value, "value");
+        return new GetChannelEndpointResponseDtoEndpoint(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
     
     /**
      * Returns an {@link Optional} containing the value if it is of type {@code SlackChannelEndpointDto},
@@ -157,6 +192,97 @@ public class GetChannelEndpointResponseDtoEndpoint {
         }
         return Optional.empty();
     }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code WebexRoomEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code WebexRoomEndpointDto} value, or empty if not of this type
+     */
+    public Optional<WebexRoomEndpointDto> webexRoomEndpointDto() {
+        if (value.value() instanceof WebexRoomEndpointDto) {
+            return Optional.of((WebexRoomEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code WebexPersonEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code WebexPersonEndpointDto} value, or empty if not of this type
+     */
+    public Optional<WebexPersonEndpointDto> webexPersonEndpointDto() {
+        if (value.value() instanceof WebexPersonEndpointDto) {
+            return Optional.of((WebexPersonEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code LineUserEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code LineUserEndpointDto} value, or empty if not of this type
+     */
+    public Optional<LineUserEndpointDto> lineUserEndpointDto() {
+        if (value.value() instanceof LineUserEndpointDto) {
+            return Optional.of((LineUserEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code PagerDutyServiceEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code PagerDutyServiceEndpointDto} value, or empty if not of this type
+     */
+    public Optional<PagerDutyServiceEndpointDto> pagerDutyServiceEndpointDto() {
+        if (value.value() instanceof PagerDutyServiceEndpointDto) {
+            return Optional.of((PagerDutyServiceEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code OpsgenieIntegrationEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code OpsgenieIntegrationEndpointDto} value, or empty if not of this type
+     */
+    public Optional<OpsgenieIntegrationEndpointDto> opsgenieIntegrationEndpointDto() {
+        if (value.value() instanceof OpsgenieIntegrationEndpointDto) {
+            return Optional.of((OpsgenieIntegrationEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code GrafanaOnCallIntegrationEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code GrafanaOnCallIntegrationEndpointDto} value, or empty if not of this type
+     */
+    public Optional<GrafanaOnCallIntegrationEndpointDto> grafanaOnCallIntegrationEndpointDto() {
+        if (value.value() instanceof GrafanaOnCallIntegrationEndpointDto) {
+            return Optional.of((GrafanaOnCallIntegrationEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code ToolWebhookEndpointDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code ToolWebhookEndpointDto} value, or empty if not of this type
+     */
+    public Optional<ToolWebhookEndpointDto> toolWebhookEndpointDto() {
+        if (value.value() instanceof ToolWebhookEndpointDto) {
+            return Optional.of((ToolWebhookEndpointDto) value.value());
+        }
+        return Optional.empty();
+    }
    /**
     * Returns an {@link Optional} containing the value as a {@code JsonNode}.
     * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
@@ -198,7 +324,14 @@ public class GetChannelEndpointResponseDtoEndpoint {
                   TypeReferenceWithShape.of(new TypeReference<PhoneEndpointDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<MsTeamsChannelEndpointDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<MsTeamsUserEndpointDto>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<TelegramChatEndpointDto>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<TelegramChatEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<WebexRoomEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<WebexPersonEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<LineUserEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<PagerDutyServiceEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<OpsgenieIntegrationEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<GrafanaOnCallIntegrationEndpointDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<ToolWebhookEndpointDto>() {}, JsonShape.DEFAULT));
         }
     }
     

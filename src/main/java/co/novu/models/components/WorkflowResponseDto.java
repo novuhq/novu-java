@@ -72,6 +72,14 @@ public class WorkflowResponseDto {
     private Boolean isTranslationEnabled;
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Null
+     * when unassigned.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("agent")
+    private JsonNullable<WorkflowResponseDtoAgent> agent;
+
+    /**
      * Database identifier of the workflow
      */
     @JsonProperty("_id")
@@ -182,6 +190,7 @@ public class WorkflowResponseDto {
             @JsonProperty("validatePayload") @Nullable Boolean validatePayload,
             @JsonProperty("payloadSchema") @Nullable JsonNullable<Map<String, Object>> payloadSchema,
             @JsonProperty("isTranslationEnabled") @Nullable Boolean isTranslationEnabled,
+            @JsonProperty("agent") @Nullable JsonNullable<WorkflowResponseDtoAgent> agent,
             @JsonProperty("_id") @Nonnull String id,
             @JsonProperty("workflowId") @Nonnull String workflowId,
             @JsonProperty("slug") @Nonnull String slug,
@@ -209,6 +218,8 @@ public class WorkflowResponseDto {
             .orElse(JsonNullable.undefined());
         this.isTranslationEnabled = Optional.ofNullable(isTranslationEnabled)
             .orElse(Builder._SINGLETON_VALUE_IsTranslationEnabled.value());
+        this.agent = Optional.ofNullable(agent)
+            .orElse(JsonNullable.undefined());
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.workflowId = Optional.ofNullable(workflowId)
@@ -256,12 +267,12 @@ public class WorkflowResponseDto {
             @Nonnull SeverityLevelEnum severity) {
         this(name, null, null,
             null, null, null,
-            null, id, workflowId,
-            slug, updatedAt, createdAt,
-            null, null, null,
-            steps, origin, preferences,
-            status, null, null,
-            null, severity);
+            null, null, id,
+            workflowId, slug, updatedAt,
+            createdAt, null, null,
+            null, steps, origin,
+            preferences, status, null,
+            null, null, severity);
     }
 
     /**
@@ -311,6 +322,14 @@ public class WorkflowResponseDto {
      */
     public Optional<Boolean> isTranslationEnabled() {
         return Optional.ofNullable(this.isTranslationEnabled);
+    }
+
+    /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Null
+     * when unassigned.
+     */
+    public JsonNullable<WorkflowResponseDtoAgent> agent() {
+        return this.agent;
     }
 
     /**
@@ -494,6 +513,16 @@ public class WorkflowResponseDto {
 
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Null
+     * when unassigned.
+     */
+    public WorkflowResponseDto withAgent(@Nullable WorkflowResponseDtoAgent agent) {
+        this.agent = JsonNullable.of(agent);
+        return this;
+    }
+
+
+    /**
      * Database identifier of the workflow
      */
     public WorkflowResponseDto withId(@Nonnull String id) {
@@ -654,6 +683,7 @@ public class WorkflowResponseDto {
             Utils.enhancedDeepEquals(this.validatePayload, other.validatePayload) &&
             Utils.enhancedDeepEquals(this.payloadSchema, other.payloadSchema) &&
             Utils.enhancedDeepEquals(this.isTranslationEnabled, other.isTranslationEnabled) &&
+            Utils.enhancedDeepEquals(this.agent, other.agent) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
@@ -677,12 +707,12 @@ public class WorkflowResponseDto {
         return Utils.enhancedHash(
             name, description, tags,
             active, validatePayload, payloadSchema,
-            isTranslationEnabled, id, workflowId,
-            slug, updatedAt, createdAt,
-            updatedBy, lastPublishedAt, lastPublishedBy,
-            steps, origin, preferences,
-            status, issues, lastTriggeredAt,
-            payloadExample, severity);
+            isTranslationEnabled, agent, id,
+            workflowId, slug, updatedAt,
+            createdAt, updatedBy, lastPublishedAt,
+            lastPublishedBy, steps, origin,
+            preferences, status, issues,
+            lastTriggeredAt, payloadExample, severity);
     }
     
     @Override
@@ -695,6 +725,7 @@ public class WorkflowResponseDto {
                 "validatePayload", validatePayload,
                 "payloadSchema", payloadSchema,
                 "isTranslationEnabled", isTranslationEnabled,
+                "agent", agent,
                 "id", id,
                 "workflowId", workflowId,
                 "slug", slug,
@@ -729,6 +760,8 @@ public class WorkflowResponseDto {
         private JsonNullable<Map<String, Object>> payloadSchema;
 
         private Boolean isTranslationEnabled;
+
+        private JsonNullable<WorkflowResponseDtoAgent> agent;
 
         private String id;
 
@@ -819,6 +852,15 @@ public class WorkflowResponseDto {
          */
         public Builder isTranslationEnabled(@Nullable Boolean isTranslationEnabled) {
             this.isTranslationEnabled = isTranslationEnabled;
+            return this;
+        }
+
+        /**
+         * Optional agent assignment used to route this workflow through an agent's connected channels. Null
+         * when unassigned.
+         */
+        public Builder agent(@Nullable WorkflowResponseDtoAgent agent) {
+            this.agent = JsonNullable.of(agent);
             return this;
         }
 
@@ -954,12 +996,12 @@ public class WorkflowResponseDto {
             return new WorkflowResponseDto(
                 name, description, tags,
                 active, validatePayload, payloadSchema,
-                isTranslationEnabled, id, workflowId,
-                slug, updatedAt, createdAt,
-                updatedBy, lastPublishedAt, lastPublishedBy,
-                steps, origin, preferences,
-                status, issues, lastTriggeredAt,
-                payloadExample, severity);
+                isTranslationEnabled, agent, id,
+                workflowId, slug, updatedAt,
+                createdAt, updatedBy, lastPublishedAt,
+                lastPublishedBy, steps, origin,
+                preferences, status, issues,
+                lastTriggeredAt, payloadExample, severity);
         }
 
 
