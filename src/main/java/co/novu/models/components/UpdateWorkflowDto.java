@@ -72,6 +72,14 @@ public class UpdateWorkflowDto {
     private Boolean isTranslationEnabled;
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+     * null to clear.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("agent")
+    private JsonNullable<UpdateWorkflowDtoAgent> agent;
+
+    /**
      * Workflow ID (allowed only for code-first workflows)
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -93,6 +101,7 @@ public class UpdateWorkflowDto {
     /**
      * Origin of the layout
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("origin")
     private ResourceOriginEnum origin;
 
@@ -112,10 +121,11 @@ public class UpdateWorkflowDto {
             @JsonProperty("validatePayload") @Nullable Boolean validatePayload,
             @JsonProperty("payloadSchema") @Nullable JsonNullable<Map<String, Object>> payloadSchema,
             @JsonProperty("isTranslationEnabled") @Nullable Boolean isTranslationEnabled,
+            @JsonProperty("agent") @Nullable JsonNullable<UpdateWorkflowDtoAgent> agent,
             @JsonProperty("workflowId") @Nullable String workflowId,
             @JsonProperty("steps") @Nonnull List<UpdateWorkflowDtoStep> steps,
             @JsonProperty("preferences") @Nonnull PreferencesRequestDto preferences,
-            @JsonProperty("origin") @Nonnull ResourceOriginEnum origin,
+            @JsonProperty("origin") @Nullable ResourceOriginEnum origin,
             @JsonProperty("severity") @Nullable SeverityLevelEnum severity) {
         this.name = Optional.ofNullable(name)
             .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
@@ -128,25 +138,26 @@ public class UpdateWorkflowDto {
             .orElse(JsonNullable.undefined());
         this.isTranslationEnabled = Optional.ofNullable(isTranslationEnabled)
             .orElse(Builder._SINGLETON_VALUE_IsTranslationEnabled.value());
+        this.agent = Optional.ofNullable(agent)
+            .orElse(JsonNullable.undefined());
         this.workflowId = workflowId;
         this.steps = Optional.ofNullable(steps)
             .orElseThrow(() -> new IllegalArgumentException("steps cannot be null"));
         this.preferences = Optional.ofNullable(preferences)
             .orElseThrow(() -> new IllegalArgumentException("preferences cannot be null"));
-        this.origin = Optional.ofNullable(origin)
-            .orElseThrow(() -> new IllegalArgumentException("origin cannot be null"));
+        this.origin = origin;
         this.severity = severity;
     }
     
     public UpdateWorkflowDto(
             @Nonnull String name,
             @Nonnull List<UpdateWorkflowDtoStep> steps,
-            @Nonnull PreferencesRequestDto preferences,
-            @Nonnull ResourceOriginEnum origin) {
+            @Nonnull PreferencesRequestDto preferences) {
         this(name, null, null,
             null, null, null,
-            null, null, steps,
-            preferences, origin, null);
+            null, null, null,
+            steps, preferences, null,
+            null);
     }
 
     /**
@@ -199,6 +210,14 @@ public class UpdateWorkflowDto {
     }
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+     * null to clear.
+     */
+    public JsonNullable<UpdateWorkflowDtoAgent> agent() {
+        return this.agent;
+    }
+
+    /**
      * Workflow ID (allowed only for code-first workflows)
      */
     public Optional<String> workflowId() {
@@ -222,8 +241,8 @@ public class UpdateWorkflowDto {
     /**
      * Origin of the layout
      */
-    public ResourceOriginEnum origin() {
-        return this.origin;
+    public Optional<ResourceOriginEnum> origin() {
+        return Optional.ofNullable(this.origin);
     }
 
     /**
@@ -302,6 +321,16 @@ public class UpdateWorkflowDto {
 
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+     * null to clear.
+     */
+    public UpdateWorkflowDto withAgent(@Nullable UpdateWorkflowDtoAgent agent) {
+        this.agent = JsonNullable.of(agent);
+        return this;
+    }
+
+
+    /**
      * Workflow ID (allowed only for code-first workflows)
      */
     public UpdateWorkflowDto withWorkflowId(@Nullable String workflowId) {
@@ -331,8 +360,8 @@ public class UpdateWorkflowDto {
     /**
      * Origin of the layout
      */
-    public UpdateWorkflowDto withOrigin(@Nonnull ResourceOriginEnum origin) {
-        this.origin = Utils.checkNotNull(origin, "origin");
+    public UpdateWorkflowDto withOrigin(@Nullable ResourceOriginEnum origin) {
+        this.origin = origin;
         return this;
     }
 
@@ -363,6 +392,7 @@ public class UpdateWorkflowDto {
             Utils.enhancedDeepEquals(this.validatePayload, other.validatePayload) &&
             Utils.enhancedDeepEquals(this.payloadSchema, other.payloadSchema) &&
             Utils.enhancedDeepEquals(this.isTranslationEnabled, other.isTranslationEnabled) &&
+            Utils.enhancedDeepEquals(this.agent, other.agent) &&
             Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
             Utils.enhancedDeepEquals(this.steps, other.steps) &&
             Utils.enhancedDeepEquals(this.preferences, other.preferences) &&
@@ -375,8 +405,9 @@ public class UpdateWorkflowDto {
         return Utils.enhancedHash(
             name, description, tags,
             active, validatePayload, payloadSchema,
-            isTranslationEnabled, workflowId, steps,
-            preferences, origin, severity);
+            isTranslationEnabled, agent, workflowId,
+            steps, preferences, origin,
+            severity);
     }
     
     @Override
@@ -389,6 +420,7 @@ public class UpdateWorkflowDto {
                 "validatePayload", validatePayload,
                 "payloadSchema", payloadSchema,
                 "isTranslationEnabled", isTranslationEnabled,
+                "agent", agent,
                 "workflowId", workflowId,
                 "steps", steps,
                 "preferences", preferences,
@@ -412,6 +444,8 @@ public class UpdateWorkflowDto {
         private JsonNullable<Map<String, Object>> payloadSchema;
 
         private Boolean isTranslationEnabled;
+
+        private JsonNullable<UpdateWorkflowDtoAgent> agent;
 
         private String workflowId;
 
@@ -484,6 +518,15 @@ public class UpdateWorkflowDto {
         }
 
         /**
+         * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+         * null to clear.
+         */
+        public Builder agent(@Nullable UpdateWorkflowDtoAgent agent) {
+            this.agent = JsonNullable.of(agent);
+            return this;
+        }
+
+        /**
          * Workflow ID (allowed only for code-first workflows)
          */
         public Builder workflowId(@Nullable String workflowId) {
@@ -510,8 +553,8 @@ public class UpdateWorkflowDto {
         /**
          * Origin of the layout
          */
-        public Builder origin(@Nonnull ResourceOriginEnum origin) {
-            this.origin = Utils.checkNotNull(origin, "origin");
+        public Builder origin(@Nullable ResourceOriginEnum origin) {
+            this.origin = origin;
             return this;
         }
 
@@ -527,8 +570,9 @@ public class UpdateWorkflowDto {
             return new UpdateWorkflowDto(
                 name, description, tags,
                 active, validatePayload, payloadSchema,
-                isTranslationEnabled, workflowId, steps,
-                preferences, origin, severity);
+                isTranslationEnabled, agent, workflowId,
+                steps, preferences, origin,
+                severity);
         }
 
 

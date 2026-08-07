@@ -51,23 +51,32 @@ public class SubscriberPreferenceChannels {
     @JsonProperty("push")
     private Boolean push;
 
+    /**
+     * Tool channel preference
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("tool")
+    private Boolean tool;
+
     @JsonCreator
     public SubscriberPreferenceChannels(
             @JsonProperty("email") @Nullable Boolean email,
             @JsonProperty("sms") @Nullable Boolean sms,
             @JsonProperty("in_app") @Nullable Boolean inApp,
             @JsonProperty("chat") @Nullable Boolean chat,
-            @JsonProperty("push") @Nullable Boolean push) {
+            @JsonProperty("push") @Nullable Boolean push,
+            @JsonProperty("tool") @Nullable Boolean tool) {
         this.email = email;
         this.sms = sms;
         this.inApp = inApp;
         this.chat = chat;
         this.push = push;
+        this.tool = tool;
     }
     
     public SubscriberPreferenceChannels() {
         this(null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -103,6 +112,13 @@ public class SubscriberPreferenceChannels {
      */
     public Optional<Boolean> push() {
         return Optional.ofNullable(this.push);
+    }
+
+    /**
+     * Tool channel preference
+     */
+    public Optional<Boolean> tool() {
+        return Optional.ofNullable(this.tool);
     }
 
     public static Builder builder() {
@@ -155,6 +171,15 @@ public class SubscriberPreferenceChannels {
     }
 
 
+    /**
+     * Tool channel preference
+     */
+    public SubscriberPreferenceChannels withTool(@Nullable Boolean tool) {
+        this.tool = tool;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -169,14 +194,15 @@ public class SubscriberPreferenceChannels {
             Utils.enhancedDeepEquals(this.sms, other.sms) &&
             Utils.enhancedDeepEquals(this.inApp, other.inApp) &&
             Utils.enhancedDeepEquals(this.chat, other.chat) &&
-            Utils.enhancedDeepEquals(this.push, other.push);
+            Utils.enhancedDeepEquals(this.push, other.push) &&
+            Utils.enhancedDeepEquals(this.tool, other.tool);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             email, sms, inApp,
-            chat, push);
+            chat, push, tool);
     }
     
     @Override
@@ -186,7 +212,8 @@ public class SubscriberPreferenceChannels {
                 "sms", sms,
                 "inApp", inApp,
                 "chat", chat,
-                "push", push);
+                "push", push,
+                "tool", tool);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -201,6 +228,8 @@ public class SubscriberPreferenceChannels {
         private Boolean chat;
 
         private Boolean push;
+
+        private Boolean tool;
 
         private Builder() {
           // force use of static builder() method
@@ -246,10 +275,18 @@ public class SubscriberPreferenceChannels {
             return this;
         }
 
+        /**
+         * Tool channel preference
+         */
+        public Builder tool(@Nullable Boolean tool) {
+            this.tool = tool;
+            return this;
+        }
+
         public SubscriberPreferenceChannels build() {
             return new SubscriberPreferenceChannels(
                 email, sms, inApp,
-                chat, push);
+                chat, push, tool);
         }
 
     }

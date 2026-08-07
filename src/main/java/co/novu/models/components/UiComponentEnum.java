@@ -58,6 +58,7 @@ public class UiComponentEnum {
     public static final UiComponentEnum SMS_BODY = new UiComponentEnum("SMS_BODY");
     public static final UiComponentEnum CHAT_BODY = new UiComponentEnum("CHAT_BODY");
     public static final UiComponentEnum PUSH_BODY = new UiComponentEnum("PUSH_BODY");
+    public static final UiComponentEnum TOOL_BODY = new UiComponentEnum("TOOL_BODY");
     public static final UiComponentEnum PUSH_SUBJECT = new UiComponentEnum("PUSH_SUBJECT");
     public static final UiComponentEnum QUERY_EDITOR = new UiComponentEnum("QUERY_EDITOR");
     public static final UiComponentEnum DATA = new UiComponentEnum("DATA");
@@ -176,6 +177,7 @@ public class UiComponentEnum {
         map.put("SMS_BODY", SMS_BODY);
         map.put("CHAT_BODY", CHAT_BODY);
         map.put("PUSH_BODY", PUSH_BODY);
+        map.put("TOOL_BODY", TOOL_BODY);
         map.put("PUSH_SUBJECT", PUSH_SUBJECT);
         map.put("QUERY_EDITOR", QUERY_EDITOR);
         map.put("DATA", DATA);
@@ -226,6 +228,7 @@ public class UiComponentEnum {
         map.put("SMS_BODY", UiComponentEnumEnum.SMS_BODY);
         map.put("CHAT_BODY", UiComponentEnumEnum.CHAT_BODY);
         map.put("PUSH_BODY", UiComponentEnumEnum.PUSH_BODY);
+        map.put("TOOL_BODY", UiComponentEnumEnum.TOOL_BODY);
         map.put("PUSH_SUBJECT", UiComponentEnumEnum.PUSH_SUBJECT);
         map.put("QUERY_EDITOR", UiComponentEnumEnum.QUERY_EDITOR);
         map.put("DATA", UiComponentEnumEnum.DATA);
@@ -277,6 +280,7 @@ public class UiComponentEnum {
         SMS_BODY("SMS_BODY"),
         CHAT_BODY("CHAT_BODY"),
         PUSH_BODY("PUSH_BODY"),
+        TOOL_BODY("TOOL_BODY"),
         PUSH_SUBJECT("PUSH_SUBJECT"),
         QUERY_EDITOR("QUERY_EDITOR"),
         DATA("DATA"),

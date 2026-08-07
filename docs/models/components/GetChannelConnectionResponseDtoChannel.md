@@ -23,3 +23,4 @@ GetChannelConnectionResponseDtoChannel custom = GetChannelConnectionResponseDtoC
 | `SMS`    | sms      |
 | `CHAT`   | chat     |
 | `PUSH`   | push     |
+| `TOOL`   | tool     |

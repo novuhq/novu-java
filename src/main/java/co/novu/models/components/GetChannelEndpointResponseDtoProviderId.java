@@ -25,6 +25,7 @@ import java.util.Optional;
  */
 public class GetChannelEndpointResponseDtoProviderId {
 
+    public static final GetChannelEndpointResponseDtoProviderId ANYPOST = new GetChannelEndpointResponseDtoProviderId("anypost");
     public static final GetChannelEndpointResponseDtoProviderId EMAILJS = new GetChannelEndpointResponseDtoProviderId("emailjs");
     public static final GetChannelEndpointResponseDtoProviderId MAILGUN = new GetChannelEndpointResponseDtoProviderId("mailgun");
     public static final GetChannelEndpointResponseDtoProviderId MAILJET = new GetChannelEndpointResponseDtoProviderId("mailjet");
@@ -84,6 +85,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId SINCH = new GetChannelEndpointResponseDtoProviderId("sinch");
     public static final GetChannelEndpointResponseDtoProviderId ISENDPRO_SMS = new GetChannelEndpointResponseDtoProviderId("isendpro-sms");
     public static final GetChannelEndpointResponseDtoProviderId CM_TELECOM = new GetChannelEndpointResponseDtoProviderId("cm-telecom");
+    public static final GetChannelEndpointResponseDtoProviderId RUACH_SMS = new GetChannelEndpointResponseDtoProviderId("ruach-sms");
     public static final GetChannelEndpointResponseDtoProviderId FCM = new GetChannelEndpointResponseDtoProviderId("fcm");
     public static final GetChannelEndpointResponseDtoProviderId APNS = new GetChannelEndpointResponseDtoProviderId("apns");
     public static final GetChannelEndpointResponseDtoProviderId EXPO = new GetChannelEndpointResponseDtoProviderId("expo");
@@ -96,6 +98,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId SLACK = new GetChannelEndpointResponseDtoProviderId("slack");
     public static final GetChannelEndpointResponseDtoProviderId DISCORD = new GetChannelEndpointResponseDtoProviderId("discord");
     public static final GetChannelEndpointResponseDtoProviderId MSTEAMS = new GetChannelEndpointResponseDtoProviderId("msteams");
+    public static final GetChannelEndpointResponseDtoProviderId WEBEX_MESSAGING = new GetChannelEndpointResponseDtoProviderId("webex-messaging");
     public static final GetChannelEndpointResponseDtoProviderId MATTERMOST = new GetChannelEndpointResponseDtoProviderId("mattermost");
     public static final GetChannelEndpointResponseDtoProviderId RYVER = new GetChannelEndpointResponseDtoProviderId("ryver");
     public static final GetChannelEndpointResponseDtoProviderId ZULIP = new GetChannelEndpointResponseDtoProviderId("zulip");
@@ -103,12 +106,19 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId GETSTREAM = new GetChannelEndpointResponseDtoProviderId("getstream");
     public static final GetChannelEndpointResponseDtoProviderId ROCKET_CHAT = new GetChannelEndpointResponseDtoProviderId("rocket-chat");
     public static final GetChannelEndpointResponseDtoProviderId WHATSAPP_BUSINESS = new GetChannelEndpointResponseDtoProviderId("whatsapp-business");
+    public static final GetChannelEndpointResponseDtoProviderId LINE = new GetChannelEndpointResponseDtoProviderId("line");
     public static final GetChannelEndpointResponseDtoProviderId CHAT_WEBHOOK = new GetChannelEndpointResponseDtoProviderId("chat-webhook");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_SLACK = new GetChannelEndpointResponseDtoProviderId("novu-slack");
     public static final GetChannelEndpointResponseDtoProviderId TELEGRAM = new GetChannelEndpointResponseDtoProviderId("telegram");
+    public static final GetChannelEndpointResponseDtoProviderId SENDBLUE = new GetChannelEndpointResponseDtoProviderId("sendblue");
+    public static final GetChannelEndpointResponseDtoProviderId NOVU_WEB_CHAT = new GetChannelEndpointResponseDtoProviderId("novu-web-chat");
     public static final GetChannelEndpointResponseDtoProviderId ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("anthropic");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("novu-anthropic");
     public static final GetChannelEndpointResponseDtoProviderId ANTHROPIC_AWS = new GetChannelEndpointResponseDtoProviderId("anthropic-aws");
+    public static final GetChannelEndpointResponseDtoProviderId PAGERDUTY = new GetChannelEndpointResponseDtoProviderId("pagerduty");
+    public static final GetChannelEndpointResponseDtoProviderId OPSGENIE = new GetChannelEndpointResponseDtoProviderId("opsgenie");
+    public static final GetChannelEndpointResponseDtoProviderId GRAFANA = new GetChannelEndpointResponseDtoProviderId("grafana");
+    public static final GetChannelEndpointResponseDtoProviderId TOOL_WEBHOOK = new GetChannelEndpointResponseDtoProviderId("tool-webhook");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -182,6 +192,7 @@ public class GetChannelEndpointResponseDtoProviderId {
 
     private static final Map<String, GetChannelEndpointResponseDtoProviderId> createValuesMap() {
         Map<String, GetChannelEndpointResponseDtoProviderId> map = new LinkedHashMap<>();
+        map.put("anypost", ANYPOST);
         map.put("emailjs", EMAILJS);
         map.put("mailgun", MAILGUN);
         map.put("mailjet", MAILJET);
@@ -241,6 +252,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("sinch", SINCH);
         map.put("isendpro-sms", ISENDPRO_SMS);
         map.put("cm-telecom", CM_TELECOM);
+        map.put("ruach-sms", RUACH_SMS);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -253,6 +265,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
         map.put("msteams", MSTEAMS);
+        map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
         map.put("ryver", RYVER);
         map.put("zulip", ZULIP);
@@ -260,17 +273,25 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("getstream", GETSTREAM);
         map.put("rocket-chat", ROCKET_CHAT);
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
+        map.put("line", LINE);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
+        map.put("sendblue", SENDBLUE);
+        map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("anthropic", ANTHROPIC);
         map.put("novu-anthropic", NOVU_ANTHROPIC);
         map.put("anthropic-aws", ANTHROPIC_AWS);
+        map.put("pagerduty", PAGERDUTY);
+        map.put("opsgenie", OPSGENIE);
+        map.put("grafana", GRAFANA);
+        map.put("tool-webhook", TOOL_WEBHOOK);
         return map;
     }
 
     private static final Map<String, GetChannelEndpointResponseDtoProviderIdEnum> createEnumsMap() {
         Map<String, GetChannelEndpointResponseDtoProviderIdEnum> map = new HashMap<>();
+        map.put("anypost", GetChannelEndpointResponseDtoProviderIdEnum.ANYPOST);
         map.put("emailjs", GetChannelEndpointResponseDtoProviderIdEnum.EMAILJS);
         map.put("mailgun", GetChannelEndpointResponseDtoProviderIdEnum.MAILGUN);
         map.put("mailjet", GetChannelEndpointResponseDtoProviderIdEnum.MAILJET);
@@ -330,6 +351,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("sinch", GetChannelEndpointResponseDtoProviderIdEnum.SINCH);
         map.put("isendpro-sms", GetChannelEndpointResponseDtoProviderIdEnum.ISENDPRO_SMS);
         map.put("cm-telecom", GetChannelEndpointResponseDtoProviderIdEnum.CM_TELECOM);
+        map.put("ruach-sms", GetChannelEndpointResponseDtoProviderIdEnum.RUACH_SMS);
         map.put("fcm", GetChannelEndpointResponseDtoProviderIdEnum.FCM);
         map.put("apns", GetChannelEndpointResponseDtoProviderIdEnum.APNS);
         map.put("expo", GetChannelEndpointResponseDtoProviderIdEnum.EXPO);
@@ -342,6 +364,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("slack", GetChannelEndpointResponseDtoProviderIdEnum.SLACK);
         map.put("discord", GetChannelEndpointResponseDtoProviderIdEnum.DISCORD);
         map.put("msteams", GetChannelEndpointResponseDtoProviderIdEnum.MSTEAMS);
+        map.put("webex-messaging", GetChannelEndpointResponseDtoProviderIdEnum.WEBEX_MESSAGING);
         map.put("mattermost", GetChannelEndpointResponseDtoProviderIdEnum.MATTERMOST);
         map.put("ryver", GetChannelEndpointResponseDtoProviderIdEnum.RYVER);
         map.put("zulip", GetChannelEndpointResponseDtoProviderIdEnum.ZULIP);
@@ -349,18 +372,26 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("getstream", GetChannelEndpointResponseDtoProviderIdEnum.GETSTREAM);
         map.put("rocket-chat", GetChannelEndpointResponseDtoProviderIdEnum.ROCKET_CHAT);
         map.put("whatsapp-business", GetChannelEndpointResponseDtoProviderIdEnum.WHATSAPP_BUSINESS);
+        map.put("line", GetChannelEndpointResponseDtoProviderIdEnum.LINE);
         map.put("chat-webhook", GetChannelEndpointResponseDtoProviderIdEnum.CHAT_WEBHOOK);
         map.put("novu-slack", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_SLACK);
         map.put("telegram", GetChannelEndpointResponseDtoProviderIdEnum.TELEGRAM);
+        map.put("sendblue", GetChannelEndpointResponseDtoProviderIdEnum.SENDBLUE);
+        map.put("novu-web-chat", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_WEB_CHAT);
         map.put("anthropic", GetChannelEndpointResponseDtoProviderIdEnum.ANTHROPIC);
         map.put("novu-anthropic", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_ANTHROPIC);
         map.put("anthropic-aws", GetChannelEndpointResponseDtoProviderIdEnum.ANTHROPIC_AWS);
+        map.put("pagerduty", GetChannelEndpointResponseDtoProviderIdEnum.PAGERDUTY);
+        map.put("opsgenie", GetChannelEndpointResponseDtoProviderIdEnum.OPSGENIE);
+        map.put("grafana", GetChannelEndpointResponseDtoProviderIdEnum.GRAFANA);
+        map.put("tool-webhook", GetChannelEndpointResponseDtoProviderIdEnum.TOOL_WEBHOOK);
         return map;
     }
     
     
     public enum GetChannelEndpointResponseDtoProviderIdEnum {
 
+        ANYPOST("anypost"),
         EMAILJS("emailjs"),
         MAILGUN("mailgun"),
         MAILJET("mailjet"),
@@ -420,6 +451,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         SINCH("sinch"),
         ISENDPRO_SMS("isendpro-sms"),
         CM_TELECOM("cm-telecom"),
+        RUACH_SMS("ruach-sms"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),
@@ -432,6 +464,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         SLACK("slack"),
         DISCORD("discord"),
         MSTEAMS("msteams"),
+        WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
         RYVER("ryver"),
         ZULIP("zulip"),
@@ -439,12 +472,19 @@ public class GetChannelEndpointResponseDtoProviderId {
         GETSTREAM("getstream"),
         ROCKET_CHAT("rocket-chat"),
         WHATSAPP_BUSINESS("whatsapp-business"),
+        LINE("line"),
         CHAT_WEBHOOK("chat-webhook"),
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
+        SENDBLUE("sendblue"),
+        NOVU_WEB_CHAT("novu-web-chat"),
         ANTHROPIC("anthropic"),
         NOVU_ANTHROPIC("novu-anthropic"),
-        ANTHROPIC_AWS("anthropic-aws"),;
+        ANTHROPIC_AWS("anthropic-aws"),
+        PAGERDUTY("pagerduty"),
+        OPSGENIE("opsgenie"),
+        GRAFANA("grafana"),
+        TOOL_WEBHOOK("tool-webhook"),;
 
         private final String value;
 

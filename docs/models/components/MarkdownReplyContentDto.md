@@ -1,0 +1,9 @@
+# MarkdownReplyContentDto
+
+
+## Fields
+
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   | Example                                                                       |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `markdown`                                                                    | *String*                                                                      | :heavy_check_mark:                                                            | Plain text or markdown body. Converted to the platform-native format by Novu. | **Report ready.** Your weekly summary is attached.                            |
+| `files`                                                                       | List\<[FileRefDto](../../models/components/FileRefDto.md)>                    | :heavy_minus_sign:                                                            | Optional attachments (max 15). Each file needs exactly one of data or url.    |                                                                               |

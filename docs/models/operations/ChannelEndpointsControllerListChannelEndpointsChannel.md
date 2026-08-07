@@ -20,3 +20,4 @@ ChannelEndpointsControllerListChannelEndpointsChannel value = ChannelEndpointsCo
 | `SMS`    | sms      |
 | `CHAT`   | chat     |
 | `PUSH`   | push     |
+| `TOOL`   | tool     |

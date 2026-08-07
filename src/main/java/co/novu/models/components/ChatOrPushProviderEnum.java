@@ -28,6 +28,7 @@ public class ChatOrPushProviderEnum {
     public static final ChatOrPushProviderEnum SLACK = new ChatOrPushProviderEnum("slack");
     public static final ChatOrPushProviderEnum DISCORD = new ChatOrPushProviderEnum("discord");
     public static final ChatOrPushProviderEnum MSTEAMS = new ChatOrPushProviderEnum("msteams");
+    public static final ChatOrPushProviderEnum WEBEX_MESSAGING = new ChatOrPushProviderEnum("webex-messaging");
     public static final ChatOrPushProviderEnum MATTERMOST = new ChatOrPushProviderEnum("mattermost");
     public static final ChatOrPushProviderEnum RYVER = new ChatOrPushProviderEnum("ryver");
     public static final ChatOrPushProviderEnum ZULIP = new ChatOrPushProviderEnum("zulip");
@@ -35,9 +36,12 @@ public class ChatOrPushProviderEnum {
     public static final ChatOrPushProviderEnum GETSTREAM = new ChatOrPushProviderEnum("getstream");
     public static final ChatOrPushProviderEnum ROCKET_CHAT = new ChatOrPushProviderEnum("rocket-chat");
     public static final ChatOrPushProviderEnum WHATSAPP_BUSINESS = new ChatOrPushProviderEnum("whatsapp-business");
+    public static final ChatOrPushProviderEnum LINE = new ChatOrPushProviderEnum("line");
     public static final ChatOrPushProviderEnum CHAT_WEBHOOK = new ChatOrPushProviderEnum("chat-webhook");
     public static final ChatOrPushProviderEnum NOVU_SLACK = new ChatOrPushProviderEnum("novu-slack");
     public static final ChatOrPushProviderEnum TELEGRAM = new ChatOrPushProviderEnum("telegram");
+    public static final ChatOrPushProviderEnum SENDBLUE = new ChatOrPushProviderEnum("sendblue");
+    public static final ChatOrPushProviderEnum NOVU_WEB_CHAT = new ChatOrPushProviderEnum("novu-web-chat");
     public static final ChatOrPushProviderEnum FCM = new ChatOrPushProviderEnum("fcm");
     public static final ChatOrPushProviderEnum APNS = new ChatOrPushProviderEnum("apns");
     public static final ChatOrPushProviderEnum EXPO = new ChatOrPushProviderEnum("expo");
@@ -122,6 +126,7 @@ public class ChatOrPushProviderEnum {
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
         map.put("msteams", MSTEAMS);
+        map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
         map.put("ryver", RYVER);
         map.put("zulip", ZULIP);
@@ -129,9 +134,12 @@ public class ChatOrPushProviderEnum {
         map.put("getstream", GETSTREAM);
         map.put("rocket-chat", ROCKET_CHAT);
         map.put("whatsapp-business", WHATSAPP_BUSINESS);
+        map.put("line", LINE);
         map.put("chat-webhook", CHAT_WEBHOOK);
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
+        map.put("sendblue", SENDBLUE);
+        map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("fcm", FCM);
         map.put("apns", APNS);
         map.put("expo", EXPO);
@@ -148,6 +156,7 @@ public class ChatOrPushProviderEnum {
         map.put("slack", ChatOrPushProviderEnumEnum.SLACK);
         map.put("discord", ChatOrPushProviderEnumEnum.DISCORD);
         map.put("msteams", ChatOrPushProviderEnumEnum.MSTEAMS);
+        map.put("webex-messaging", ChatOrPushProviderEnumEnum.WEBEX_MESSAGING);
         map.put("mattermost", ChatOrPushProviderEnumEnum.MATTERMOST);
         map.put("ryver", ChatOrPushProviderEnumEnum.RYVER);
         map.put("zulip", ChatOrPushProviderEnumEnum.ZULIP);
@@ -155,9 +164,12 @@ public class ChatOrPushProviderEnum {
         map.put("getstream", ChatOrPushProviderEnumEnum.GETSTREAM);
         map.put("rocket-chat", ChatOrPushProviderEnumEnum.ROCKET_CHAT);
         map.put("whatsapp-business", ChatOrPushProviderEnumEnum.WHATSAPP_BUSINESS);
+        map.put("line", ChatOrPushProviderEnumEnum.LINE);
         map.put("chat-webhook", ChatOrPushProviderEnumEnum.CHAT_WEBHOOK);
         map.put("novu-slack", ChatOrPushProviderEnumEnum.NOVU_SLACK);
         map.put("telegram", ChatOrPushProviderEnumEnum.TELEGRAM);
+        map.put("sendblue", ChatOrPushProviderEnumEnum.SENDBLUE);
+        map.put("novu-web-chat", ChatOrPushProviderEnumEnum.NOVU_WEB_CHAT);
         map.put("fcm", ChatOrPushProviderEnumEnum.FCM);
         map.put("apns", ChatOrPushProviderEnumEnum.APNS);
         map.put("expo", ChatOrPushProviderEnumEnum.EXPO);
@@ -175,6 +187,7 @@ public class ChatOrPushProviderEnum {
         SLACK("slack"),
         DISCORD("discord"),
         MSTEAMS("msteams"),
+        WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
         RYVER("ryver"),
         ZULIP("zulip"),
@@ -182,9 +195,12 @@ public class ChatOrPushProviderEnum {
         GETSTREAM("getstream"),
         ROCKET_CHAT("rocket-chat"),
         WHATSAPP_BUSINESS("whatsapp-business"),
+        LINE("line"),
         CHAT_WEBHOOK("chat-webhook"),
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
+        SENDBLUE("sendblue"),
+        NOVU_WEB_CHAT("novu-web-chat"),
         FCM("fcm"),
         APNS("apns"),
         EXPO("expo"),

@@ -38,6 +38,15 @@ public class SpeakeasyHTTPClient implements HTTPClient {
 
     private final HttpClient client = HttpClient.newHttpClient();
 
+    private static final Set<String> STREAMING_MEDIA_TYPES =
+            Set.of("text/event-stream", "application/x-ndjson", "application/jsonl");
+
+    private static boolean isStreamingMediaType(String value) {
+        int paramsIndex = value.indexOf(';');
+        String mediaType = paramsIndex == -1 ? value : value.substring(0, paramsIndex);
+        return STREAMING_MEDIA_TYPES.contains(mediaType.trim().toLowerCase(Locale.ENGLISH));
+    }
+
     /**
      * Sets debug logging on or off for requests and responses including bodies for JSON content.
      * <p>
@@ -152,7 +161,7 @@ public class SpeakeasyHTTPClient implements HTTPClient {
         slf4jLogger.debug("Response headers: {}", redactHeaders(response.headers()));
 
         // skip caching for streaming responses - they may hang
-        if (contentType.startsWith("text/event-stream") || contentType.startsWith("application/x-ndjson")) {
+        if (isStreamingMediaType(contentType)) {
             return response;
         }
 

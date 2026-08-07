@@ -72,6 +72,14 @@ public class CreateWorkflowDto {
     private Boolean isTranslationEnabled;
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+     * null to clear.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("agent")
+    private JsonNullable<CreateWorkflowDtoAgent> agent;
+
+    /**
      * Unique identifier for the workflow
      */
     @JsonProperty("workflowId")
@@ -113,6 +121,7 @@ public class CreateWorkflowDto {
             @JsonProperty("validatePayload") @Nullable Boolean validatePayload,
             @JsonProperty("payloadSchema") @Nullable JsonNullable<Map<String, Object>> payloadSchema,
             @JsonProperty("isTranslationEnabled") @Nullable Boolean isTranslationEnabled,
+            @JsonProperty("agent") @Nullable JsonNullable<CreateWorkflowDtoAgent> agent,
             @JsonProperty("workflowId") @Nonnull String workflowId,
             @JsonProperty("steps") @Nonnull List<CreateWorkflowDtoStep> steps,
             @JsonProperty("__source") @Nullable WorkflowCreationSourceEnum source,
@@ -129,6 +138,8 @@ public class CreateWorkflowDto {
             .orElse(JsonNullable.undefined());
         this.isTranslationEnabled = Optional.ofNullable(isTranslationEnabled)
             .orElse(Builder._SINGLETON_VALUE_IsTranslationEnabled.value());
+        this.agent = Optional.ofNullable(agent)
+            .orElse(JsonNullable.undefined());
         this.workflowId = Optional.ofNullable(workflowId)
             .orElseThrow(() -> new IllegalArgumentException("workflowId cannot be null"));
         this.steps = Optional.ofNullable(steps)
@@ -145,8 +156,9 @@ public class CreateWorkflowDto {
             @Nonnull List<CreateWorkflowDtoStep> steps) {
         this(name, null, null,
             null, null, null,
-            null, workflowId, steps,
-            null, null, null);
+            null, null, workflowId,
+            steps, null, null,
+            null);
     }
 
     /**
@@ -196,6 +208,14 @@ public class CreateWorkflowDto {
      */
     public Optional<Boolean> isTranslationEnabled() {
         return Optional.ofNullable(this.isTranslationEnabled);
+    }
+
+    /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+     * null to clear.
+     */
+    public JsonNullable<CreateWorkflowDtoAgent> agent() {
+        return this.agent;
     }
 
     /**
@@ -302,6 +322,16 @@ public class CreateWorkflowDto {
 
 
     /**
+     * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+     * null to clear.
+     */
+    public CreateWorkflowDto withAgent(@Nullable CreateWorkflowDtoAgent agent) {
+        this.agent = JsonNullable.of(agent);
+        return this;
+    }
+
+
+    /**
      * Unique identifier for the workflow
      */
     public CreateWorkflowDto withWorkflowId(@Nonnull String workflowId) {
@@ -363,6 +393,7 @@ public class CreateWorkflowDto {
             Utils.enhancedDeepEquals(this.validatePayload, other.validatePayload) &&
             Utils.enhancedDeepEquals(this.payloadSchema, other.payloadSchema) &&
             Utils.enhancedDeepEquals(this.isTranslationEnabled, other.isTranslationEnabled) &&
+            Utils.enhancedDeepEquals(this.agent, other.agent) &&
             Utils.enhancedDeepEquals(this.workflowId, other.workflowId) &&
             Utils.enhancedDeepEquals(this.steps, other.steps) &&
             Utils.enhancedDeepEquals(this.source, other.source) &&
@@ -375,8 +406,9 @@ public class CreateWorkflowDto {
         return Utils.enhancedHash(
             name, description, tags,
             active, validatePayload, payloadSchema,
-            isTranslationEnabled, workflowId, steps,
-            source, preferences, severity);
+            isTranslationEnabled, agent, workflowId,
+            steps, source, preferences,
+            severity);
     }
     
     @Override
@@ -389,6 +421,7 @@ public class CreateWorkflowDto {
                 "validatePayload", validatePayload,
                 "payloadSchema", payloadSchema,
                 "isTranslationEnabled", isTranslationEnabled,
+                "agent", agent,
                 "workflowId", workflowId,
                 "steps", steps,
                 "source", source,
@@ -412,6 +445,8 @@ public class CreateWorkflowDto {
         private JsonNullable<Map<String, Object>> payloadSchema;
 
         private Boolean isTranslationEnabled;
+
+        private JsonNullable<CreateWorkflowDtoAgent> agent;
 
         private String workflowId;
 
@@ -484,6 +519,15 @@ public class CreateWorkflowDto {
         }
 
         /**
+         * Optional agent assignment used to route this workflow through an agent's connected channels. Pass
+         * null to clear.
+         */
+        public Builder agent(@Nullable CreateWorkflowDtoAgent agent) {
+            this.agent = JsonNullable.of(agent);
+            return this;
+        }
+
+        /**
          * Unique identifier for the workflow
          */
         public Builder workflowId(@Nonnull String workflowId) {
@@ -527,8 +571,9 @@ public class CreateWorkflowDto {
             return new CreateWorkflowDto(
                 name, description, tags,
                 active, validatePayload, payloadSchema,
-                isTranslationEnabled, workflowId, steps,
-                source, preferences, severity);
+                isTranslationEnabled, agent, workflowId,
+                steps, source, preferences,
+                severity);
         }
 
 

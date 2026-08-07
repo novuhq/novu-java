@@ -26,6 +26,7 @@ UiSchemaGroupEnum custom = UiSchemaGroupEnum.of("custom_value");
 | `SMS`          | SMS            |
 | `CHAT`         | CHAT           |
 | `PUSH`         | PUSH           |
+| `TOOL`         | TOOL           |
 | `SKIP`         | SKIP           |
 | `LAYOUT`       | LAYOUT         |
 | `HTTP_REQUEST` | HTTP_REQUEST   |

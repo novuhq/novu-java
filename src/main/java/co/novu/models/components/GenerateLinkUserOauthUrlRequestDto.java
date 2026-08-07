@@ -33,7 +33,8 @@ public class GenerateLinkUserOauthUrlRequestDto {
 
     /**
      * Identifier of the existing channel connection to associate this user endpoint with. Generated
-     * automatically if not provided.
+     * automatically if not provided for providers that support standalone user linking. Required for
+     * Webex.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("connectionIdentifier")
@@ -45,8 +46,20 @@ public class GenerateLinkUserOauthUrlRequestDto {
     private Map<String, GenerateLinkUserOauthUrlRequestDtoContextUnion> context;
 
     /**
-     * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic. **MS
-     * Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+     * the session did not already HMAC-verify the context, so the per-user link carries a trustworthy
+     * subscriber/tenant binding.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("contextHash")
+    private String contextHash;
+
+    /**
+     * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic.
+     * **Webex**: Optional Webex scopes for people/me; defaults to spark:people_read.
+     * 
+     * <p>**MS Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("userScope")
@@ -58,6 +71,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
             @JsonProperty("connectionIdentifier") @Nullable String connectionIdentifier,
             @JsonProperty("context") @Nullable Map<String, GenerateLinkUserOauthUrlRequestDtoContextUnion> context,
+            @JsonProperty("contextHash") @Nullable String contextHash,
             @JsonProperty("userScope") @Nullable List<String> userScope) {
         this.subscriberId = Optional.ofNullable(subscriberId)
             .orElseThrow(() -> new IllegalArgumentException("subscriberId cannot be null"));
@@ -65,6 +79,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
         this.connectionIdentifier = connectionIdentifier;
         this.context = context;
+        this.contextHash = contextHash;
         this.userScope = userScope;
     }
     
@@ -72,7 +87,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
             @Nonnull String subscriberId,
             @Nonnull String integrationIdentifier) {
         this(subscriberId, integrationIdentifier, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -92,7 +107,8 @@ public class GenerateLinkUserOauthUrlRequestDto {
 
     /**
      * Identifier of the existing channel connection to associate this user endpoint with. Generated
-     * automatically if not provided.
+     * automatically if not provided for providers that support standalone user linking. Required for
+     * Webex.
      */
     public Optional<String> connectionIdentifier() {
         return Optional.ofNullable(this.connectionIdentifier);
@@ -103,8 +119,20 @@ public class GenerateLinkUserOauthUrlRequestDto {
     }
 
     /**
-     * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic. **MS
-     * Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+     * the session did not already HMAC-verify the context, so the per-user link carries a trustworthy
+     * subscriber/tenant binding.
+     */
+    public Optional<String> contextHash() {
+        return Optional.ofNullable(this.contextHash);
+    }
+
+    /**
+     * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic.
+     * **Webex**: Optional Webex scopes for people/me; defaults to spark:people_read.
+     * 
+     * <p>**MS Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
      */
     public Optional<List<String>> userScope() {
         return Optional.ofNullable(this.userScope);
@@ -136,7 +164,8 @@ public class GenerateLinkUserOauthUrlRequestDto {
 
     /**
      * Identifier of the existing channel connection to associate this user endpoint with. Generated
-     * automatically if not provided.
+     * automatically if not provided for providers that support standalone user linking. Required for
+     * Webex.
      */
     public GenerateLinkUserOauthUrlRequestDto withConnectionIdentifier(@Nullable String connectionIdentifier) {
         this.connectionIdentifier = connectionIdentifier;
@@ -151,8 +180,22 @@ public class GenerateLinkUserOauthUrlRequestDto {
 
 
     /**
-     * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic. **MS
-     * Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+     * the session did not already HMAC-verify the context, so the per-user link carries a trustworthy
+     * subscriber/tenant binding.
+     */
+    public GenerateLinkUserOauthUrlRequestDto withContextHash(@Nullable String contextHash) {
+        this.contextHash = contextHash;
+        return this;
+    }
+
+
+    /**
+     * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic.
+     * **Webex**: Optional Webex scopes for people/me; defaults to spark:people_read.
+     * 
+     * <p>**MS Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
      */
     public GenerateLinkUserOauthUrlRequestDto withUserScope(@Nullable List<String> userScope) {
         this.userScope = userScope;
@@ -174,6 +217,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
             Utils.enhancedDeepEquals(this.connectionIdentifier, other.connectionIdentifier) &&
             Utils.enhancedDeepEquals(this.context, other.context) &&
+            Utils.enhancedDeepEquals(this.contextHash, other.contextHash) &&
             Utils.enhancedDeepEquals(this.userScope, other.userScope);
     }
     
@@ -181,7 +225,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
     public int hashCode() {
         return Utils.enhancedHash(
             subscriberId, integrationIdentifier, connectionIdentifier,
-            context, userScope);
+            context, contextHash, userScope);
     }
     
     @Override
@@ -191,6 +235,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
                 "integrationIdentifier", integrationIdentifier,
                 "connectionIdentifier", connectionIdentifier,
                 "context", context,
+                "contextHash", contextHash,
                 "userScope", userScope);
     }
 
@@ -204,6 +249,8 @@ public class GenerateLinkUserOauthUrlRequestDto {
         private String connectionIdentifier;
 
         private Map<String, GenerateLinkUserOauthUrlRequestDtoContextUnion> context;
+
+        private String contextHash;
 
         private List<String> userScope;
 
@@ -230,7 +277,8 @@ public class GenerateLinkUserOauthUrlRequestDto {
 
         /**
          * Identifier of the existing channel connection to associate this user endpoint with. Generated
-         * automatically if not provided.
+         * automatically if not provided for providers that support standalone user linking. Required for
+         * Webex.
          */
         public Builder connectionIdentifier(@Nullable String connectionIdentifier) {
             this.connectionIdentifier = connectionIdentifier;
@@ -243,8 +291,21 @@ public class GenerateLinkUserOauthUrlRequestDto {
         }
 
         /**
-         * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic. **MS
-         * Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
+         * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+         * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled and
+         * the session did not already HMAC-verify the context, so the per-user link carries a trustworthy
+         * subscriber/tenant binding.
+         */
+        public Builder contextHash(@Nullable String contextHash) {
+            this.contextHash = contextHash;
+            return this;
+        }
+
+        /**
+         * **Slack only**: User-level OAuth scopes for "Sign in with Slack". Defaults to: identity.basic.
+         * **Webex**: Optional Webex scopes for people/me; defaults to spark:people_read.
+         * 
+         * <p>**MS Teams**: ignored — uses delegated OpenID scopes (openid, profile, User.Read).
          */
         public Builder userScope(@Nullable List<String> userScope) {
             this.userScope = userScope;
@@ -254,7 +315,7 @@ public class GenerateLinkUserOauthUrlRequestDto {
         public GenerateLinkUserOauthUrlRequestDto build() {
             return new GenerateLinkUserOauthUrlRequestDto(
                 subscriberId, integrationIdentifier, connectionIdentifier,
-                context, userScope);
+                context, contextHash, userScope);
         }
 
     }

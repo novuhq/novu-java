@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class EmailStepResponseDto implements WorkflowResponseDtoStep {
@@ -30,6 +31,16 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("controlValues")
     private EmailStepResponseDtoControlValues controlValues;
+
+    /**
+     * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+     * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+     * 
+     * <p>`slack`, `whatsapp-business`, `pagerduty`).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("providerOverrides")
+    private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
 
     /**
      * JSON Schema for variables, follows the JSON Schema standard
@@ -103,6 +114,7 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
     public EmailStepResponseDto(
             @JsonProperty("controls") @Nonnull EmailControlsMetadataResponseDto controls,
             @JsonProperty("controlValues") @Nullable EmailStepResponseDtoControlValues controlValues,
+            @JsonProperty("providerOverrides") @Nullable JsonNullable<Map<String, Map<String, Object>>> providerOverrides,
             @JsonProperty("variables") @Nonnull Map<String, Object> variables,
             @JsonProperty("stepId") @Nonnull String stepId,
             @JsonProperty("_id") @Nonnull String id,
@@ -118,6 +130,8 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
         this.controls = Optional.ofNullable(controls)
             .orElseThrow(() -> new IllegalArgumentException("controls cannot be null"));
         this.controlValues = controlValues;
+        this.providerOverrides = Optional.ofNullable(providerOverrides)
+            .orElse(JsonNullable.undefined());
         this.variables = Optional.ofNullable(variables)
             .orElseThrow(() -> new IllegalArgumentException("variables cannot be null"));
         this.stepId = Optional.ofNullable(stepId)
@@ -151,11 +165,11 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
             @Nonnull ResourceOriginEnum origin,
             @Nonnull String workflowId,
             @Nonnull String workflowDatabaseId) {
-        this(controls, null, variables,
-            stepId, id, name,
-            slug, type, origin,
-            workflowId, workflowDatabaseId, null,
-            null);
+        this(controls, null, null,
+            variables, stepId, id,
+            name, slug, type,
+            origin, workflowId, workflowDatabaseId,
+            null, null);
     }
 
     /**
@@ -170,6 +184,16 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
      */
     public Optional<EmailStepResponseDtoControlValues> controlValues() {
         return Optional.ofNullable(this.controlValues);
+    }
+
+    /**
+     * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+     * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+     * 
+     * <p>`slack`, `whatsapp-business`, `pagerduty`).
+     */
+    public JsonNullable<Map<String, Map<String, Object>>> providerOverrides() {
+        return this.providerOverrides;
     }
 
     /**
@@ -269,6 +293,18 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
      */
     public EmailStepResponseDto withControlValues(@Nullable EmailStepResponseDtoControlValues controlValues) {
         this.controlValues = controlValues;
+        return this;
+    }
+
+
+    /**
+     * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+     * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+     * 
+     * <p>`slack`, `whatsapp-business`, `pagerduty`).
+     */
+    public EmailStepResponseDto withProviderOverrides(@Nullable Map<String, Map<String, Object>> providerOverrides) {
+        this.providerOverrides = JsonNullable.of(providerOverrides);
         return this;
     }
 
@@ -384,6 +420,7 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
         return 
             Utils.enhancedDeepEquals(this.controls, other.controls) &&
             Utils.enhancedDeepEquals(this.controlValues, other.controlValues) &&
+            Utils.enhancedDeepEquals(this.providerOverrides, other.providerOverrides) &&
             Utils.enhancedDeepEquals(this.variables, other.variables) &&
             Utils.enhancedDeepEquals(this.stepId, other.stepId) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
@@ -400,11 +437,11 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            controls, controlValues, variables,
-            stepId, id, name,
-            slug, type, origin,
-            workflowId, workflowDatabaseId, issues,
-            stepResolverHash);
+            controls, controlValues, providerOverrides,
+            variables, stepId, id,
+            name, slug, type,
+            origin, workflowId, workflowDatabaseId,
+            issues, stepResolverHash);
     }
     
     @Override
@@ -412,6 +449,7 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
         return Utils.toString(EmailStepResponseDto.class,
                 "controls", controls,
                 "controlValues", controlValues,
+                "providerOverrides", providerOverrides,
                 "variables", variables,
                 "stepId", stepId,
                 "id", id,
@@ -431,6 +469,8 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
         private EmailControlsMetadataResponseDto controls;
 
         private EmailStepResponseDtoControlValues controlValues;
+
+        private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
 
         private Map<String, Object> variables;
 
@@ -471,6 +511,17 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
          */
         public Builder controlValues(@Nullable EmailStepResponseDtoControlValues controlValues) {
             this.controlValues = controlValues;
+            return this;
+        }
+
+        /**
+         * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+         * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+         * 
+         * <p>`slack`, `whatsapp-business`, `pagerduty`).
+         */
+        public Builder providerOverrides(@Nullable Map<String, Map<String, Object>> providerOverrides) {
+            this.providerOverrides = JsonNullable.of(providerOverrides);
             return this;
         }
 
@@ -564,11 +615,11 @@ public class EmailStepResponseDto implements WorkflowResponseDtoStep {
 
         public EmailStepResponseDto build() {
             return new EmailStepResponseDto(
-                controls, controlValues, variables,
-                stepId, id, name,
-                slug, type, origin,
-                workflowId, workflowDatabaseId, issues,
-                stepResolverHash);
+                controls, controlValues, providerOverrides,
+                variables, stepId, id,
+                name, slug, type,
+                origin, workflowId, workflowDatabaseId,
+                issues, stepResolverHash);
         }
 
     }

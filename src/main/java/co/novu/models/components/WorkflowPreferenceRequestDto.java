@@ -27,7 +27,9 @@ public class WorkflowPreferenceRequestDto {
     private Boolean enabled;
 
     /**
-     * Optional condition using JSON Logic rules
+     * Optional JSON Logic condition evaluated at fan-out time against trigger payload, subscriber profile,
+     * actor, and context (for example, `{ "var": "payload.tier" }`, `{ "var": "subscriber.data.plan" }`,
+     * or `{ "var": "actor.data.role" }`)
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("condition")
@@ -63,7 +65,9 @@ public class WorkflowPreferenceRequestDto {
     }
 
     /**
-     * Optional condition using JSON Logic rules
+     * Optional JSON Logic condition evaluated at fan-out time against trigger payload, subscriber profile,
+     * actor, and context (for example, `{ "var": "payload.tier" }`, `{ "var": "subscriber.data.plan" }`,
+     * or `{ "var": "actor.data.role" }`)
      */
     public Optional<Map<String, Object>> condition() {
         return Optional.ofNullable(this.condition);
@@ -91,7 +95,9 @@ public class WorkflowPreferenceRequestDto {
 
 
     /**
-     * Optional condition using JSON Logic rules
+     * Optional JSON Logic condition evaluated at fan-out time against trigger payload, subscriber profile,
+     * actor, and context (for example, `{ "var": "payload.tier" }`, `{ "var": "subscriber.data.plan" }`,
+     * or `{ "var": "actor.data.role" }`)
      */
     public WorkflowPreferenceRequestDto withCondition(@Nullable Map<String, Object> condition) {
         this.condition = condition;
@@ -159,7 +165,9 @@ public class WorkflowPreferenceRequestDto {
         }
 
         /**
-         * Optional condition using JSON Logic rules
+         * Optional JSON Logic condition evaluated at fan-out time against trigger payload, subscriber profile,
+         * actor, and context (for example, `{ "var": "payload.tier" }`, `{ "var": "subscriber.data.plan" }`,
+         * or `{ "var": "actor.data.role" }`)
          */
         public Builder condition(@Nullable Map<String, Object> condition) {
             this.condition = condition;

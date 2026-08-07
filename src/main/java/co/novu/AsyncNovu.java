@@ -93,6 +93,13 @@ public class AsyncNovu {
     private final AsyncWorkflows workflows;
 
     private final AsyncWorkflowsSteps workflowsSteps;
+    /**
+     * Agents are conversational assistants that receive inbound messages from connected channels and
+     * respond through a custom code bridge or a managed runtime provider.
+     * 
+     * <p><a href="https://docs.novu.co/agents">https://docs.novu.co/agents</a>
+     */
+    private final AsyncAgents agents;
 
     private final AsyncChannelConnections channelConnections;
 
@@ -204,6 +211,15 @@ public class AsyncNovu {
     public AsyncWorkflowsSteps workflowsSteps() {
         return workflowsSteps;
     }
+    /**
+     * Agents are conversational assistants that receive inbound messages from connected channels and
+     * respond through a custom code bridge or a managed runtime provider.
+     * 
+     * <p><a href="https://docs.novu.co/agents">https://docs.novu.co/agents</a>
+     */
+    public AsyncAgents agents() {
+        return agents;
+    }
 
     public AsyncChannelConnections channelConnections() {
         return channelConnections;
@@ -277,6 +293,7 @@ public class AsyncNovu {
         this.translations = new AsyncTranslations(syncSDK.translations(), sdkConfiguration);
         this.workflows = new AsyncWorkflows(syncSDK.workflows(), sdkConfiguration);
         this.workflowsSteps = new AsyncWorkflowsSteps(syncSDK.workflowsSteps(), sdkConfiguration);
+        this.agents = new AsyncAgents(syncSDK.agents(), sdkConfiguration);
         this.channelConnections = new AsyncChannelConnections(syncSDK.channelConnections(), sdkConfiguration);
         this.channelEndpoints = new AsyncChannelEndpoints(syncSDK.channelEndpoints(), sdkConfiguration);
         this.domains = new AsyncDomains(syncSDK.domains(), sdkConfiguration);

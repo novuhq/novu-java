@@ -65,6 +65,35 @@ public class EmailControlDto {
     @JsonProperty("layoutId")
     private JsonNullable<String> layoutId;
 
+    /**
+     * Sender name and email overrides for this step.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("from")
+    private EmailFromControlDto from;
+
+    /**
+     * When true, sender name/email use the primary email integration defaults and skip workflow agent
+     * defaults.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("useProviderDefaults")
+    private Boolean useProviderDefaults;
+
+    /**
+     * Step-level Reply-To override. When unset, inherits the workflow agent reply-to.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("replyTo")
+    private String replyTo;
+
+    /**
+     * One-line inbox preview text shown next to the subject.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("preheader")
+    private String preheader;
+
     @JsonCreator
     public EmailControlDto(
             @JsonProperty("skip") @Nullable Map<String, Object> skip,
@@ -72,7 +101,11 @@ public class EmailControlDto {
             @JsonProperty("body") @Nullable String body,
             @JsonProperty("editorType") @Nullable EmailControlDtoEditorType editorType,
             @JsonProperty("disableOutputSanitization") @Nullable Boolean disableOutputSanitization,
-            @JsonProperty("layoutId") @Nullable JsonNullable<String> layoutId) {
+            @JsonProperty("layoutId") @Nullable JsonNullable<String> layoutId,
+            @JsonProperty("from") @Nullable EmailFromControlDto from,
+            @JsonProperty("useProviderDefaults") @Nullable Boolean useProviderDefaults,
+            @JsonProperty("replyTo") @Nullable String replyTo,
+            @JsonProperty("preheader") @Nullable String preheader) {
         this.skip = skip;
         this.subject = Optional.ofNullable(subject)
             .orElseThrow(() -> new IllegalArgumentException("subject cannot be null"));
@@ -84,12 +117,18 @@ public class EmailControlDto {
             .orElse(Builder._SINGLETON_VALUE_DisableOutputSanitization.value());
         this.layoutId = Optional.ofNullable(layoutId)
             .orElse(JsonNullable.undefined());
+        this.from = from;
+        this.useProviderDefaults = useProviderDefaults;
+        this.replyTo = replyTo;
+        this.preheader = preheader;
     }
     
     public EmailControlDto(
             @Nonnull String subject) {
         this(null, subject, null,
-            null, null, null);
+            null, null, null,
+            null, null, null,
+            null);
     }
 
     /**
@@ -134,6 +173,35 @@ public class EmailControlDto {
      */
     public JsonNullable<String> layoutId() {
         return this.layoutId;
+    }
+
+    /**
+     * Sender name and email overrides for this step.
+     */
+    public Optional<EmailFromControlDto> from() {
+        return Optional.ofNullable(this.from);
+    }
+
+    /**
+     * When true, sender name/email use the primary email integration defaults and skip workflow agent
+     * defaults.
+     */
+    public Optional<Boolean> useProviderDefaults() {
+        return Optional.ofNullable(this.useProviderDefaults);
+    }
+
+    /**
+     * Step-level Reply-To override. When unset, inherits the workflow agent reply-to.
+     */
+    public Optional<String> replyTo() {
+        return Optional.ofNullable(this.replyTo);
+    }
+
+    /**
+     * One-line inbox preview text shown next to the subject.
+     */
+    public Optional<String> preheader() {
+        return Optional.ofNullable(this.preheader);
     }
 
     public static Builder builder() {
@@ -197,6 +265,43 @@ public class EmailControlDto {
     }
 
 
+    /**
+     * Sender name and email overrides for this step.
+     */
+    public EmailControlDto withFrom(@Nullable EmailFromControlDto from) {
+        this.from = from;
+        return this;
+    }
+
+
+    /**
+     * When true, sender name/email use the primary email integration defaults and skip workflow agent
+     * defaults.
+     */
+    public EmailControlDto withUseProviderDefaults(@Nullable Boolean useProviderDefaults) {
+        this.useProviderDefaults = useProviderDefaults;
+        return this;
+    }
+
+
+    /**
+     * Step-level Reply-To override. When unset, inherits the workflow agent reply-to.
+     */
+    public EmailControlDto withReplyTo(@Nullable String replyTo) {
+        this.replyTo = replyTo;
+        return this;
+    }
+
+
+    /**
+     * One-line inbox preview text shown next to the subject.
+     */
+    public EmailControlDto withPreheader(@Nullable String preheader) {
+        this.preheader = preheader;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -212,14 +317,20 @@ public class EmailControlDto {
             Utils.enhancedDeepEquals(this.body, other.body) &&
             Utils.enhancedDeepEquals(this.editorType, other.editorType) &&
             Utils.enhancedDeepEquals(this.disableOutputSanitization, other.disableOutputSanitization) &&
-            Utils.enhancedDeepEquals(this.layoutId, other.layoutId);
+            Utils.enhancedDeepEquals(this.layoutId, other.layoutId) &&
+            Utils.enhancedDeepEquals(this.from, other.from) &&
+            Utils.enhancedDeepEquals(this.useProviderDefaults, other.useProviderDefaults) &&
+            Utils.enhancedDeepEquals(this.replyTo, other.replyTo) &&
+            Utils.enhancedDeepEquals(this.preheader, other.preheader);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             skip, subject, body,
-            editorType, disableOutputSanitization, layoutId);
+            editorType, disableOutputSanitization, layoutId,
+            from, useProviderDefaults, replyTo,
+            preheader);
     }
     
     @Override
@@ -230,7 +341,11 @@ public class EmailControlDto {
                 "body", body,
                 "editorType", editorType,
                 "disableOutputSanitization", disableOutputSanitization,
-                "layoutId", layoutId);
+                "layoutId", layoutId,
+                "from", from,
+                "useProviderDefaults", useProviderDefaults,
+                "replyTo", replyTo,
+                "preheader", preheader);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -247,6 +362,14 @@ public class EmailControlDto {
         private Boolean disableOutputSanitization;
 
         private JsonNullable<String> layoutId;
+
+        private EmailFromControlDto from;
+
+        private Boolean useProviderDefaults;
+
+        private String replyTo;
+
+        private String preheader;
 
         private Builder() {
           // force use of static builder() method
@@ -302,10 +425,45 @@ public class EmailControlDto {
             return this;
         }
 
+        /**
+         * Sender name and email overrides for this step.
+         */
+        public Builder from(@Nullable EmailFromControlDto from) {
+            this.from = from;
+            return this;
+        }
+
+        /**
+         * When true, sender name/email use the primary email integration defaults and skip workflow agent
+         * defaults.
+         */
+        public Builder useProviderDefaults(@Nullable Boolean useProviderDefaults) {
+            this.useProviderDefaults = useProviderDefaults;
+            return this;
+        }
+
+        /**
+         * Step-level Reply-To override. When unset, inherits the workflow agent reply-to.
+         */
+        public Builder replyTo(@Nullable String replyTo) {
+            this.replyTo = replyTo;
+            return this;
+        }
+
+        /**
+         * One-line inbox preview text shown next to the subject.
+         */
+        public Builder preheader(@Nullable String preheader) {
+            this.preheader = preheader;
+            return this;
+        }
+
         public EmailControlDto build() {
             return new EmailControlDto(
                 skip, subject, body,
-                editorType, disableOutputSanitization, layoutId);
+                editorType, disableOutputSanitization, layoutId,
+                from, useProviderDefaults, replyTo,
+                preheader);
         }
 
 

@@ -5,10 +5,14 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -25,14 +29,38 @@ public class LinkChannelEndpointRequestDto {
     @JsonProperty("subscriberId")
     private String subscriberId;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("context")
+    private Map<String, LinkChannelEndpointRequestDtoContextUnion> context;
+
+    /**
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("contextHash")
+    private String contextHash;
+
     @JsonCreator
     public LinkChannelEndpointRequestDto(
             @JsonProperty("integrationIdentifier") @Nonnull String integrationIdentifier,
-            @JsonProperty("subscriberId") @Nonnull String subscriberId) {
+            @JsonProperty("subscriberId") @Nonnull String subscriberId,
+            @JsonProperty("context") @Nullable Map<String, LinkChannelEndpointRequestDtoContextUnion> context,
+            @JsonProperty("contextHash") @Nullable String contextHash) {
         this.integrationIdentifier = Optional.ofNullable(integrationIdentifier)
             .orElseThrow(() -> new IllegalArgumentException("integrationIdentifier cannot be null"));
         this.subscriberId = Optional.ofNullable(subscriberId)
             .orElseThrow(() -> new IllegalArgumentException("subscriberId cannot be null"));
+        this.context = context;
+        this.contextHash = contextHash;
+    }
+    
+    public LinkChannelEndpointRequestDto(
+            @Nonnull String integrationIdentifier,
+            @Nonnull String subscriberId) {
+        this(integrationIdentifier, subscriberId, null,
+            null);
     }
 
     /**
@@ -47,6 +75,18 @@ public class LinkChannelEndpointRequestDto {
      */
     public String subscriberId() {
         return this.subscriberId;
+    }
+
+    public Optional<Map<String, LinkChannelEndpointRequestDtoContextUnion>> context() {
+        return Optional.ofNullable(this.context);
+    }
+
+    /**
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled.
+     */
+    public Optional<String> contextHash() {
+        return Optional.ofNullable(this.contextHash);
     }
 
     public static Builder builder() {
@@ -72,6 +112,22 @@ public class LinkChannelEndpointRequestDto {
     }
 
 
+    public LinkChannelEndpointRequestDto withContext(@Nullable Map<String, LinkChannelEndpointRequestDtoContextUnion> context) {
+        this.context = context;
+        return this;
+    }
+
+
+    /**
+     * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+     * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled.
+     */
+    public LinkChannelEndpointRequestDto withContextHash(@Nullable String contextHash) {
+        this.contextHash = contextHash;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -83,20 +139,25 @@ public class LinkChannelEndpointRequestDto {
         LinkChannelEndpointRequestDto other = (LinkChannelEndpointRequestDto) o;
         return 
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
-            Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId);
+            Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
+            Utils.enhancedDeepEquals(this.context, other.context) &&
+            Utils.enhancedDeepEquals(this.contextHash, other.contextHash);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            integrationIdentifier, subscriberId);
+            integrationIdentifier, subscriberId, context,
+            contextHash);
     }
     
     @Override
     public String toString() {
         return Utils.toString(LinkChannelEndpointRequestDto.class,
                 "integrationIdentifier", integrationIdentifier,
-                "subscriberId", subscriberId);
+                "subscriberId", subscriberId,
+                "context", context,
+                "contextHash", contextHash);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -105,6 +166,10 @@ public class LinkChannelEndpointRequestDto {
         private String integrationIdentifier;
 
         private String subscriberId;
+
+        private Map<String, LinkChannelEndpointRequestDtoContextUnion> context;
+
+        private String contextHash;
 
         private Builder() {
           // force use of static builder() method
@@ -126,9 +191,24 @@ public class LinkChannelEndpointRequestDto {
             return this;
         }
 
+        public Builder context(@Nullable Map<String, LinkChannelEndpointRequestDtoContextUnion> context) {
+            this.context = context;
+            return this;
+        }
+
+        /**
+         * HMAC-SHA256 of the canonicalized `context`, signed with the tenant environment secret key (the same
+         * "Inbox with context" signing scheme). Required when the integration has HMAC validation enabled.
+         */
+        public Builder contextHash(@Nullable String contextHash) {
+            this.contextHash = contextHash;
+            return this;
+        }
+
         public LinkChannelEndpointRequestDto build() {
             return new LinkChannelEndpointRequestDto(
-                integrationIdentifier, subscriberId);
+                integrationIdentifier, subscriberId, context,
+                contextHash);
         }
 
     }

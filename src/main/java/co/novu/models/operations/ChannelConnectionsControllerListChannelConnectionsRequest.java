@@ -60,6 +60,13 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
     private String subscriberId;
 
     /**
+     * Scope results relative to the subscriber. `subscriber` returns only the subscriber-owned
+     * connections, `shared` returns only shared (workspace-level) connections. Omit to return both.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=connectionMode")
+    private ConnectionMode connectionMode;
+
+    /**
      * Filter by channel type (email, sms, push, chat, etc.).
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=channel")
@@ -98,6 +105,7 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
             @Nullable String orderBy,
             @Nullable Boolean includeCursor,
             @Nullable String subscriberId,
+            @Nullable ConnectionMode connectionMode,
             @Nullable ChannelConnectionsControllerListChannelConnectionsChannel channel,
             @Nullable ProvidersIdEnum providerId,
             @Nullable String integrationIdentifier,
@@ -110,6 +118,7 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
         this.orderBy = orderBy;
         this.includeCursor = includeCursor;
         this.subscriberId = subscriberId;
+        this.connectionMode = connectionMode;
         this.channel = channel;
         this.providerId = providerId;
         this.integrationIdentifier = integrationIdentifier;
@@ -121,7 +130,8 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
         this(null, null, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -171,6 +181,14 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
      */
     public Optional<String> subscriberId() {
         return Optional.ofNullable(this.subscriberId);
+    }
+
+    /**
+     * Scope results relative to the subscriber. `subscriber` returns only the subscriber-owned
+     * connections, `shared` returns only shared (workspace-level) connections. Omit to return both.
+     */
+    public Optional<ConnectionMode> connectionMode() {
+        return Optional.ofNullable(this.connectionMode);
     }
 
     /**
@@ -277,6 +295,16 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
 
 
     /**
+     * Scope results relative to the subscriber. `subscriber` returns only the subscriber-owned
+     * connections, `shared` returns only shared (workspace-level) connections. Omit to return both.
+     */
+    public ChannelConnectionsControllerListChannelConnectionsRequest withConnectionMode(@Nullable ConnectionMode connectionMode) {
+        this.connectionMode = connectionMode;
+        return this;
+    }
+
+
+    /**
      * Filter by channel type (email, sms, push, chat, etc.).
      */
     public ChannelConnectionsControllerListChannelConnectionsRequest withChannel(@Nullable ChannelConnectionsControllerListChannelConnectionsChannel channel) {
@@ -338,6 +366,7 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
             Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
             Utils.enhancedDeepEquals(this.includeCursor, other.includeCursor) &&
             Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
+            Utils.enhancedDeepEquals(this.connectionMode, other.connectionMode) &&
             Utils.enhancedDeepEquals(this.channel, other.channel) &&
             Utils.enhancedDeepEquals(this.providerId, other.providerId) &&
             Utils.enhancedDeepEquals(this.integrationIdentifier, other.integrationIdentifier) &&
@@ -350,8 +379,9 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
         return Utils.enhancedHash(
             after, before, limit,
             orderDirection, orderBy, includeCursor,
-            subscriberId, channel, providerId,
-            integrationIdentifier, contextKeys, idempotencyKey);
+            subscriberId, connectionMode, channel,
+            providerId, integrationIdentifier, contextKeys,
+            idempotencyKey);
     }
     
     @Override
@@ -364,6 +394,7 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
                 "orderBy", orderBy,
                 "includeCursor", includeCursor,
                 "subscriberId", subscriberId,
+                "connectionMode", connectionMode,
                 "channel", channel,
                 "providerId", providerId,
                 "integrationIdentifier", integrationIdentifier,
@@ -387,6 +418,8 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
         private Boolean includeCursor;
 
         private String subscriberId;
+
+        private ConnectionMode connectionMode;
 
         private ChannelConnectionsControllerListChannelConnectionsChannel channel;
 
@@ -459,6 +492,15 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
         }
 
         /**
+         * Scope results relative to the subscriber. `subscriber` returns only the subscriber-owned
+         * connections, `shared` returns only shared (workspace-level) connections. Omit to return both.
+         */
+        public Builder connectionMode(@Nullable ConnectionMode connectionMode) {
+            this.connectionMode = connectionMode;
+            return this;
+        }
+
+        /**
          * Filter by channel type (email, sms, push, chat, etc.).
          */
         public Builder channel(@Nullable ChannelConnectionsControllerListChannelConnectionsChannel channel) {
@@ -502,8 +544,9 @@ public class ChannelConnectionsControllerListChannelConnectionsRequest {
             return new ChannelConnectionsControllerListChannelConnectionsRequest(
                 after, before, limit,
                 orderDirection, orderBy, includeCursor,
-                subscriberId, channel, providerId,
-                integrationIdentifier, contextKeys, idempotencyKey);
+                subscriberId, connectionMode, channel,
+                providerId, integrationIdentifier, contextKeys,
+                idempotencyKey);
         }
 
     }

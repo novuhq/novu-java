@@ -10,9 +10,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowDtoStep {
@@ -49,13 +52,25 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
     @JsonProperty("controlValues")
     private ChatStepUpsertDtoControlValues controlValues;
 
+    /**
+     * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+     * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+     * 
+     * <p>`slack`, `whatsapp-business`, `pagerduty`). Omit to leave unchanged; pass null to delete all
+     * provider overrides; pass an object to replace the full set.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("providerOverrides")
+    private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
+
     @JsonCreator
     public ChatStepUpsertDto(
             @JsonProperty("_id") @Nullable String id,
             @JsonProperty("stepId") @Nullable String stepId,
             @JsonProperty("name") @Nonnull String name,
             @JsonProperty("type") @Nonnull StepTypeEnum type,
-            @JsonProperty("controlValues") @Nullable ChatStepUpsertDtoControlValues controlValues) {
+            @JsonProperty("controlValues") @Nullable ChatStepUpsertDtoControlValues controlValues,
+            @JsonProperty("providerOverrides") @Nullable JsonNullable<Map<String, Map<String, Object>>> providerOverrides) {
         this.id = id;
         this.stepId = stepId;
         this.name = Optional.ofNullable(name)
@@ -63,13 +78,15 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
         this.type = Optional.ofNullable(type)
             .orElseThrow(() -> new IllegalArgumentException("type cannot be null"));
         this.controlValues = controlValues;
+        this.providerOverrides = Optional.ofNullable(providerOverrides)
+            .orElse(JsonNullable.undefined());
     }
     
     public ChatStepUpsertDto(
             @Nonnull String name,
             @Nonnull StepTypeEnum type) {
         this(null, null, name,
-            type, null);
+            type, null, null);
     }
 
     /**
@@ -106,6 +123,17 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
      */
     public Optional<ChatStepUpsertDtoControlValues> controlValues() {
         return Optional.ofNullable(this.controlValues);
+    }
+
+    /**
+     * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+     * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+     * 
+     * <p>`slack`, `whatsapp-business`, `pagerduty`). Omit to leave unchanged; pass null to delete all
+     * provider overrides; pass an object to replace the full set.
+     */
+    public JsonNullable<Map<String, Map<String, Object>>> providerOverrides() {
+        return this.providerOverrides;
     }
 
     public static Builder builder() {
@@ -158,6 +186,19 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
     }
 
 
+    /**
+     * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+     * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+     * 
+     * <p>`slack`, `whatsapp-business`, `pagerduty`). Omit to leave unchanged; pass null to delete all
+     * provider overrides; pass an object to replace the full set.
+     */
+    public ChatStepUpsertDto withProviderOverrides(@Nullable Map<String, Map<String, Object>> providerOverrides) {
+        this.providerOverrides = JsonNullable.of(providerOverrides);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -172,14 +213,15 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
             Utils.enhancedDeepEquals(this.stepId, other.stepId) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.type, other.type) &&
-            Utils.enhancedDeepEquals(this.controlValues, other.controlValues);
+            Utils.enhancedDeepEquals(this.controlValues, other.controlValues) &&
+            Utils.enhancedDeepEquals(this.providerOverrides, other.providerOverrides);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             id, stepId, name,
-            type, controlValues);
+            type, controlValues, providerOverrides);
     }
     
     @Override
@@ -189,7 +231,8 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
                 "stepId", stepId,
                 "name", name,
                 "type", type,
-                "controlValues", controlValues);
+                "controlValues", controlValues,
+                "providerOverrides", providerOverrides);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -204,6 +247,8 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
         private StepTypeEnum type;
 
         private ChatStepUpsertDtoControlValues controlValues;
+
+        private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
 
         private Builder() {
           // force use of static builder() method
@@ -249,10 +294,22 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
             return this;
         }
 
+        /**
+         * Per-provider content overrides keyed by providerId. Stored separately from controlValues and merged
+         * over the default body at send time. Keys are ChatProviderIdEnum / ToolProviderIdEnum values (e.g.
+         * 
+         * <p>`slack`, `whatsapp-business`, `pagerduty`). Omit to leave unchanged; pass null to delete all
+         * provider overrides; pass an object to replace the full set.
+         */
+        public Builder providerOverrides(@Nullable Map<String, Map<String, Object>> providerOverrides) {
+            this.providerOverrides = JsonNullable.of(providerOverrides);
+            return this;
+        }
+
         public ChatStepUpsertDto build() {
             return new ChatStepUpsertDto(
                 id, stepId, name,
-                type, controlValues);
+                type, controlValues, providerOverrides);
         }
 
     }

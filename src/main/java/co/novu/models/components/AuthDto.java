@@ -5,8 +5,11 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -17,15 +20,54 @@ public class AuthDto {
     @JsonProperty("accessToken")
     private String accessToken;
 
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("refreshToken")
+    private String refreshToken;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("expiresAt")
+    private String expiresAt;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("refreshTokenExpiresAt")
+    private String refreshTokenExpiresAt;
+
     @JsonCreator
     public AuthDto(
-            @JsonProperty("accessToken") @Nonnull String accessToken) {
+            @JsonProperty("accessToken") @Nonnull String accessToken,
+            @JsonProperty("refreshToken") @Nullable String refreshToken,
+            @JsonProperty("expiresAt") @Nullable String expiresAt,
+            @JsonProperty("refreshTokenExpiresAt") @Nullable String refreshTokenExpiresAt) {
         this.accessToken = Optional.ofNullable(accessToken)
             .orElseThrow(() -> new IllegalArgumentException("accessToken cannot be null"));
+        this.refreshToken = refreshToken;
+        this.expiresAt = expiresAt;
+        this.refreshTokenExpiresAt = refreshTokenExpiresAt;
+    }
+    
+    public AuthDto(
+            @Nonnull String accessToken) {
+        this(accessToken, null, null,
+            null);
     }
 
     public String accessToken() {
         return this.accessToken;
+    }
+
+    public Optional<String> refreshToken() {
+        return Optional.ofNullable(this.refreshToken);
+    }
+
+    public Optional<String> expiresAt() {
+        return Optional.ofNullable(this.expiresAt);
+    }
+
+    public Optional<String> refreshTokenExpiresAt() {
+        return Optional.ofNullable(this.refreshTokenExpiresAt);
     }
 
     public static Builder builder() {
@@ -35,6 +77,24 @@ public class AuthDto {
 
     public AuthDto withAccessToken(@Nonnull String accessToken) {
         this.accessToken = Utils.checkNotNull(accessToken, "accessToken");
+        return this;
+    }
+
+
+    public AuthDto withRefreshToken(@Nullable String refreshToken) {
+        this.refreshToken = refreshToken;
+        return this;
+    }
+
+
+    public AuthDto withExpiresAt(@Nullable String expiresAt) {
+        this.expiresAt = expiresAt;
+        return this;
+    }
+
+
+    public AuthDto withRefreshTokenExpiresAt(@Nullable String refreshTokenExpiresAt) {
+        this.refreshTokenExpiresAt = refreshTokenExpiresAt;
         return this;
     }
 
@@ -49,25 +109,38 @@ public class AuthDto {
         }
         AuthDto other = (AuthDto) o;
         return 
-            Utils.enhancedDeepEquals(this.accessToken, other.accessToken);
+            Utils.enhancedDeepEquals(this.accessToken, other.accessToken) &&
+            Utils.enhancedDeepEquals(this.refreshToken, other.refreshToken) &&
+            Utils.enhancedDeepEquals(this.expiresAt, other.expiresAt) &&
+            Utils.enhancedDeepEquals(this.refreshTokenExpiresAt, other.refreshTokenExpiresAt);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            accessToken);
+            accessToken, refreshToken, expiresAt,
+            refreshTokenExpiresAt);
     }
     
     @Override
     public String toString() {
         return Utils.toString(AuthDto.class,
-                "accessToken", accessToken);
+                "accessToken", accessToken,
+                "refreshToken", refreshToken,
+                "expiresAt", expiresAt,
+                "refreshTokenExpiresAt", refreshTokenExpiresAt);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private String accessToken;
+
+        private String refreshToken;
+
+        private String expiresAt;
+
+        private String refreshTokenExpiresAt;
 
         private Builder() {
           // force use of static builder() method
@@ -78,9 +151,25 @@ public class AuthDto {
             return this;
         }
 
+        public Builder refreshToken(@Nullable String refreshToken) {
+            this.refreshToken = refreshToken;
+            return this;
+        }
+
+        public Builder expiresAt(@Nullable String expiresAt) {
+            this.expiresAt = expiresAt;
+            return this;
+        }
+
+        public Builder refreshTokenExpiresAt(@Nullable String refreshTokenExpiresAt) {
+            this.refreshTokenExpiresAt = refreshTokenExpiresAt;
+            return this;
+        }
+
         public AuthDto build() {
             return new AuthDto(
-                accessToken);
+                accessToken, refreshToken, expiresAt,
+                refreshTokenExpiresAt);
         }
 
     }

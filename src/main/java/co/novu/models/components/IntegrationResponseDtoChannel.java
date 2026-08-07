@@ -31,6 +31,7 @@ public class IntegrationResponseDtoChannel {
     public static final IntegrationResponseDtoChannel SMS = new IntegrationResponseDtoChannel("sms");
     public static final IntegrationResponseDtoChannel CHAT = new IntegrationResponseDtoChannel("chat");
     public static final IntegrationResponseDtoChannel PUSH = new IntegrationResponseDtoChannel("push");
+    public static final IntegrationResponseDtoChannel TOOL = new IntegrationResponseDtoChannel("tool");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -109,6 +110,7 @@ public class IntegrationResponseDtoChannel {
         map.put("sms", SMS);
         map.put("chat", CHAT);
         map.put("push", PUSH);
+        map.put("tool", TOOL);
         return map;
     }
 
@@ -119,6 +121,7 @@ public class IntegrationResponseDtoChannel {
         map.put("sms", IntegrationResponseDtoChannelEnum.SMS);
         map.put("chat", IntegrationResponseDtoChannelEnum.CHAT);
         map.put("push", IntegrationResponseDtoChannelEnum.PUSH);
+        map.put("tool", IntegrationResponseDtoChannelEnum.TOOL);
         return map;
     }
     
@@ -129,7 +132,8 @@ public class IntegrationResponseDtoChannel {
         EMAIL("email"),
         SMS("sms"),
         CHAT("chat"),
-        PUSH("push"),;
+        PUSH("push"),
+        TOOL("tool"),;
 
         private final String value;
 

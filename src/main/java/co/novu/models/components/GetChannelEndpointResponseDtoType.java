@@ -32,6 +32,13 @@ public class GetChannelEndpointResponseDtoType {
     public static final GetChannelEndpointResponseDtoType MS_TEAMS_CHANNEL = new GetChannelEndpointResponseDtoType("ms_teams_channel");
     public static final GetChannelEndpointResponseDtoType MS_TEAMS_USER = new GetChannelEndpointResponseDtoType("ms_teams_user");
     public static final GetChannelEndpointResponseDtoType TELEGRAM_CHAT = new GetChannelEndpointResponseDtoType("telegram_chat");
+    public static final GetChannelEndpointResponseDtoType WEBEX_ROOM = new GetChannelEndpointResponseDtoType("webex_room");
+    public static final GetChannelEndpointResponseDtoType WEBEX_PERSON = new GetChannelEndpointResponseDtoType("webex_person");
+    public static final GetChannelEndpointResponseDtoType LINE_USER = new GetChannelEndpointResponseDtoType("line_user");
+    public static final GetChannelEndpointResponseDtoType PAGERDUTY_SERVICE = new GetChannelEndpointResponseDtoType("pagerduty_service");
+    public static final GetChannelEndpointResponseDtoType OPSGENIE_INTEGRATION = new GetChannelEndpointResponseDtoType("opsgenie_integration");
+    public static final GetChannelEndpointResponseDtoType GRAFANA_ONCALL_INTEGRATION = new GetChannelEndpointResponseDtoType("grafana_oncall_integration");
+    public static final GetChannelEndpointResponseDtoType TOOL_WEBHOOK = new GetChannelEndpointResponseDtoType("tool_webhook");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -112,6 +119,13 @@ public class GetChannelEndpointResponseDtoType {
         map.put("ms_teams_channel", MS_TEAMS_CHANNEL);
         map.put("ms_teams_user", MS_TEAMS_USER);
         map.put("telegram_chat", TELEGRAM_CHAT);
+        map.put("webex_room", WEBEX_ROOM);
+        map.put("webex_person", WEBEX_PERSON);
+        map.put("line_user", LINE_USER);
+        map.put("pagerduty_service", PAGERDUTY_SERVICE);
+        map.put("opsgenie_integration", OPSGENIE_INTEGRATION);
+        map.put("grafana_oncall_integration", GRAFANA_ONCALL_INTEGRATION);
+        map.put("tool_webhook", TOOL_WEBHOOK);
         return map;
     }
 
@@ -124,6 +138,13 @@ public class GetChannelEndpointResponseDtoType {
         map.put("ms_teams_channel", GetChannelEndpointResponseDtoTypeEnum.MS_TEAMS_CHANNEL);
         map.put("ms_teams_user", GetChannelEndpointResponseDtoTypeEnum.MS_TEAMS_USER);
         map.put("telegram_chat", GetChannelEndpointResponseDtoTypeEnum.TELEGRAM_CHAT);
+        map.put("webex_room", GetChannelEndpointResponseDtoTypeEnum.WEBEX_ROOM);
+        map.put("webex_person", GetChannelEndpointResponseDtoTypeEnum.WEBEX_PERSON);
+        map.put("line_user", GetChannelEndpointResponseDtoTypeEnum.LINE_USER);
+        map.put("pagerduty_service", GetChannelEndpointResponseDtoTypeEnum.PAGERDUTY_SERVICE);
+        map.put("opsgenie_integration", GetChannelEndpointResponseDtoTypeEnum.OPSGENIE_INTEGRATION);
+        map.put("grafana_oncall_integration", GetChannelEndpointResponseDtoTypeEnum.GRAFANA_ONCALL_INTEGRATION);
+        map.put("tool_webhook", GetChannelEndpointResponseDtoTypeEnum.TOOL_WEBHOOK);
         return map;
     }
     
@@ -136,7 +157,14 @@ public class GetChannelEndpointResponseDtoType {
         PHONE("phone"),
         MS_TEAMS_CHANNEL("ms_teams_channel"),
         MS_TEAMS_USER("ms_teams_user"),
-        TELEGRAM_CHAT("telegram_chat"),;
+        TELEGRAM_CHAT("telegram_chat"),
+        WEBEX_ROOM("webex_room"),
+        WEBEX_PERSON("webex_person"),
+        LINE_USER("line_user"),
+        PAGERDUTY_SERVICE("pagerduty_service"),
+        OPSGENIE_INTEGRATION("opsgenie_integration"),
+        GRAFANA_ONCALL_INTEGRATION("grafana_oncall_integration"),
+        TOOL_WEBHOOK("tool_webhook"),;
 
         private final String value;
 

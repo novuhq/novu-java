@@ -30,6 +30,7 @@ public class StepTypeEnum {
     public static final StepTypeEnum SMS = new StepTypeEnum("sms");
     public static final StepTypeEnum CHAT = new StepTypeEnum("chat");
     public static final StepTypeEnum PUSH = new StepTypeEnum("push");
+    public static final StepTypeEnum TOOL = new StepTypeEnum("tool");
     public static final StepTypeEnum DIGEST = new StepTypeEnum("digest");
     public static final StepTypeEnum TRIGGER = new StepTypeEnum("trigger");
     public static final StepTypeEnum DELAY = new StepTypeEnum("delay");
@@ -114,6 +115,7 @@ public class StepTypeEnum {
         map.put("sms", SMS);
         map.put("chat", CHAT);
         map.put("push", PUSH);
+        map.put("tool", TOOL);
         map.put("digest", DIGEST);
         map.put("trigger", TRIGGER);
         map.put("delay", DELAY);
@@ -130,6 +132,7 @@ public class StepTypeEnum {
         map.put("sms", StepTypeEnumEnum.SMS);
         map.put("chat", StepTypeEnumEnum.CHAT);
         map.put("push", StepTypeEnumEnum.PUSH);
+        map.put("tool", StepTypeEnumEnum.TOOL);
         map.put("digest", StepTypeEnumEnum.DIGEST);
         map.put("trigger", StepTypeEnumEnum.TRIGGER);
         map.put("delay", StepTypeEnumEnum.DELAY);
@@ -147,6 +150,7 @@ public class StepTypeEnum {
         SMS("sms"),
         CHAT("chat"),
         PUSH("push"),
+        TOOL("tool"),
         DIGEST("digest"),
         TRIGGER("trigger"),
         DELAY("delay"),

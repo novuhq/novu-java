@@ -22,13 +22,15 @@ public class Application {
         EventsControllerTriggerResponse res = sdk.trigger()
                 .body(TriggerEventRequestDto.builder()
                     .workflowId("workflow_identifier")
-                    .to(To2.of("SUBSCRIBER_ID"))
+                    .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                     .payload(Map.ofEntries(
                         Map.entry("comment_id", "string"),
                         Map.entry("post", Map.ofEntries(
                             Map.entry("text", "string")))))
+                    .bridgeUrl("https://your-tunnel.novu.co/api/novu")
                     .overrides(TriggerEventRequestDtoOverrides.builder()
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventRequestDtoActor.of("<value>"))
                     .context(Map.ofEntries(
                         Map.entry("key", TriggerEventRequestDtoContextUnion.of("org-acme"))))
@@ -105,6 +107,7 @@ public class Application {
                                 Map.entry("data", Map.ofEntries(
                                     Map.entry("key", "value")))))))
                         .build())
+                    .agentId("support-agent")
                     .actor(TriggerEventToAllRequestDtoActor.of(SubscriberPayloadDto.builder()
                         .subscriberId("<id>")
                         .firstName("John")
@@ -153,7 +156,7 @@ public class Application {
                     .events(List.of(
                         TriggerEventRequestDto.builder()
                             .workflowId("workflow_identifier")
-                            .to(To2.of("SUBSCRIBER_ID"))
+                            .to(TriggerEventRequestDtoTo2.of("SUBSCRIBER_ID"))
                             .payload(Map.ofEntries(
                                 Map.entry("comment_id", "string"),
                                 Map.entry("post", Map.ofEntries(
@@ -178,6 +181,44 @@ public class Application {
 
         if (res.triggerEventResponseDtos().isPresent()) {
             System.out.println(res.triggerEventResponseDtos().get());
+        }
+    }
+}
+```
+
+### Send an agent reply
+
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.AgentReplyControllerHandleAgentReplyHandlerResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        AgentReplyControllerHandleAgentReplyHandlerResponse res = sdk.agents().sendReply()
+                .agentId("support-agent")
+                .body(AgentReplyPayloadDto.builder()
+                    .conversationId("64f5a1c2e8b7a3d9f0c1b2a3")
+                    .integrationIdentifier("slack-support")
+                    .reply(Reply.of(MarkdownReplyContentDto.builder()
+                        .markdown("**Report ready.** Your weekly summary is attached.")
+                        .build()))
+                    .build())
+                .call();
+
+        if (res.object().isPresent()) {
+            System.out.println(res.object().get());
         }
     }
 }

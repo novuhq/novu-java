@@ -30,6 +30,7 @@ public class GetChannelEndpointResponseDtoChannel {
     public static final GetChannelEndpointResponseDtoChannel SMS = new GetChannelEndpointResponseDtoChannel("sms");
     public static final GetChannelEndpointResponseDtoChannel CHAT = new GetChannelEndpointResponseDtoChannel("chat");
     public static final GetChannelEndpointResponseDtoChannel PUSH = new GetChannelEndpointResponseDtoChannel("push");
+    public static final GetChannelEndpointResponseDtoChannel TOOL = new GetChannelEndpointResponseDtoChannel("tool");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -108,6 +109,7 @@ public class GetChannelEndpointResponseDtoChannel {
         map.put("sms", SMS);
         map.put("chat", CHAT);
         map.put("push", PUSH);
+        map.put("tool", TOOL);
         return map;
     }
 
@@ -118,6 +120,7 @@ public class GetChannelEndpointResponseDtoChannel {
         map.put("sms", GetChannelEndpointResponseDtoChannelEnum.SMS);
         map.put("chat", GetChannelEndpointResponseDtoChannelEnum.CHAT);
         map.put("push", GetChannelEndpointResponseDtoChannelEnum.PUSH);
+        map.put("tool", GetChannelEndpointResponseDtoChannelEnum.TOOL);
         return map;
     }
     
@@ -128,7 +131,8 @@ public class GetChannelEndpointResponseDtoChannel {
         EMAIL("email"),
         SMS("sms"),
         CHAT("chat"),
-        PUSH("push"),;
+        PUSH("push"),
+        TOOL("tool"),;
 
         private final String value;
 

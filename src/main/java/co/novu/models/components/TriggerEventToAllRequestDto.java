@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class TriggerEventToAllRequestDto {
@@ -39,6 +40,14 @@ public class TriggerEventToAllRequestDto {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("overrides")
     private TriggerEventToAllRequestDtoOverrides overrides;
+
+    /**
+     * Override the workflow-assigned agent for this trigger using the public agent identifier. Omit to use
+     * the workflow default; pass null to disable agent routing for this execution.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("agentId")
+    private JsonNullable<String> agentId;
 
     /**
      * A unique identifier for this transaction, we will generated a UUID if not provided.
@@ -73,6 +82,7 @@ public class TriggerEventToAllRequestDto {
             @JsonProperty("name") @Nonnull String name,
             @JsonProperty("payload") @Nonnull Map<String, Object> payload,
             @JsonProperty("overrides") @Nullable TriggerEventToAllRequestDtoOverrides overrides,
+            @JsonProperty("agentId") @Nullable JsonNullable<String> agentId,
             @JsonProperty("transactionId") @Nullable String transactionId,
             @JsonProperty("actor") @Nullable TriggerEventToAllRequestDtoActor actor,
             @JsonProperty("tenant") @Nullable TriggerEventToAllRequestDtoTenant tenant,
@@ -83,6 +93,8 @@ public class TriggerEventToAllRequestDto {
         this.payload = Optional.ofNullable(payload)
             .orElseThrow(() -> new IllegalArgumentException("payload cannot be null"));
         this.overrides = overrides;
+        this.agentId = Optional.ofNullable(agentId)
+            .orElse(JsonNullable.undefined());
         this.transactionId = transactionId;
         this.actor = actor;
         this.tenant = tenant;
@@ -94,7 +106,7 @@ public class TriggerEventToAllRequestDto {
             @Nonnull Map<String, Object> payload) {
         this(name, payload, null,
             null, null, null,
-            null);
+            null, null);
     }
 
     /**
@@ -119,6 +131,14 @@ public class TriggerEventToAllRequestDto {
      */
     public Optional<TriggerEventToAllRequestDtoOverrides> overrides() {
         return Optional.ofNullable(this.overrides);
+    }
+
+    /**
+     * Override the workflow-assigned agent for this trigger using the public agent identifier. Omit to use
+     * the workflow default; pass null to disable agent routing for this execution.
+     */
+    public JsonNullable<String> agentId() {
+        return this.agentId;
     }
 
     /**
@@ -184,6 +204,16 @@ public class TriggerEventToAllRequestDto {
 
 
     /**
+     * Override the workflow-assigned agent for this trigger using the public agent identifier. Omit to use
+     * the workflow default; pass null to disable agent routing for this execution.
+     */
+    public TriggerEventToAllRequestDto withAgentId(@Nullable String agentId) {
+        this.agentId = JsonNullable.of(agentId);
+        return this;
+    }
+
+
+    /**
      * A unique identifier for this transaction, we will generated a UUID if not provided.
      */
     public TriggerEventToAllRequestDto withTransactionId(@Nullable String transactionId) {
@@ -231,6 +261,7 @@ public class TriggerEventToAllRequestDto {
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.payload, other.payload) &&
             Utils.enhancedDeepEquals(this.overrides, other.overrides) &&
+            Utils.enhancedDeepEquals(this.agentId, other.agentId) &&
             Utils.enhancedDeepEquals(this.transactionId, other.transactionId) &&
             Utils.enhancedDeepEquals(this.actor, other.actor) &&
             Utils.enhancedDeepEquals(this.tenant, other.tenant) &&
@@ -241,8 +272,8 @@ public class TriggerEventToAllRequestDto {
     public int hashCode() {
         return Utils.enhancedHash(
             name, payload, overrides,
-            transactionId, actor, tenant,
-            context);
+            agentId, transactionId, actor,
+            tenant, context);
     }
     
     @Override
@@ -251,6 +282,7 @@ public class TriggerEventToAllRequestDto {
                 "name", name,
                 "payload", payload,
                 "overrides", overrides,
+                "agentId", agentId,
                 "transactionId", transactionId,
                 "actor", actor,
                 "tenant", tenant,
@@ -265,6 +297,8 @@ public class TriggerEventToAllRequestDto {
         private Map<String, Object> payload;
 
         private TriggerEventToAllRequestDtoOverrides overrides;
+
+        private JsonNullable<String> agentId;
 
         private String transactionId;
 
@@ -306,6 +340,15 @@ public class TriggerEventToAllRequestDto {
         }
 
         /**
+         * Override the workflow-assigned agent for this trigger using the public agent identifier. Omit to use
+         * the workflow default; pass null to disable agent routing for this execution.
+         */
+        public Builder agentId(@Nullable String agentId) {
+            this.agentId = JsonNullable.of(agentId);
+            return this;
+        }
+
+        /**
          * A unique identifier for this transaction, we will generated a UUID if not provided.
          */
         public Builder transactionId(@Nullable String transactionId) {
@@ -339,8 +382,8 @@ public class TriggerEventToAllRequestDto {
         public TriggerEventToAllRequestDto build() {
             return new TriggerEventToAllRequestDto(
                 name, payload, overrides,
-                transactionId, actor, tenant,
-                context);
+                agentId, transactionId, actor,
+                tenant, context);
         }
 
     }
