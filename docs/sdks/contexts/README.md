@@ -47,6 +47,7 @@ public class Application {
                         Map.entry("region", "us-east-1"),
                         Map.entry("settings", Map.ofEntries(
                             Map.entry("theme", "dark")))))
+                    .bridgeUrl("https://tenant-acme.example.com/api/novu")
                     .build())
                 .call();
 
@@ -181,6 +182,7 @@ public class Application {
                         Map.entry("region", "us-east-1"),
                         Map.entry("settings", Map.ofEntries(
                             Map.entry("theme", "dark")))))
+                    .bridgeUrl("https://tenant-acme.example.com/api/novu")
                     .build())
                 .call();
 

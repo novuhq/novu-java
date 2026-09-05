@@ -5,8 +5,11 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -34,6 +37,13 @@ public class GetContextResponseDto {
     private Map<String, Object> data;
 
     /**
+     * Bridge URL override for agent connect, if configured on this context
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("bridgeUrl")
+    private String bridgeUrl;
+
+    /**
      * Creation timestamp
      */
     @JsonProperty("createdAt")
@@ -50,6 +60,7 @@ public class GetContextResponseDto {
             @JsonProperty("type") @Nonnull String type,
             @JsonProperty("id") @Nonnull String id,
             @JsonProperty("data") @Nonnull Map<String, Object> data,
+            @JsonProperty("bridgeUrl") @Nullable String bridgeUrl,
             @JsonProperty("createdAt") @Nonnull String createdAt,
             @JsonProperty("updatedAt") @Nonnull String updatedAt) {
         data = Utils.emptyMapIfNull(data);
@@ -59,10 +70,21 @@ public class GetContextResponseDto {
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.data = Optional.ofNullable(data)
             .orElseThrow(() -> new IllegalArgumentException("data cannot be null"));
+        this.bridgeUrl = bridgeUrl;
         this.createdAt = Optional.ofNullable(createdAt)
             .orElseThrow(() -> new IllegalArgumentException("createdAt cannot be null"));
         this.updatedAt = Optional.ofNullable(updatedAt)
             .orElseThrow(() -> new IllegalArgumentException("updatedAt cannot be null"));
+    }
+    
+    public GetContextResponseDto(
+            @Nonnull String type,
+            @Nonnull String id,
+            @Nonnull Map<String, Object> data,
+            @Nonnull String createdAt,
+            @Nonnull String updatedAt) {
+        this(type, id, data,
+            null, createdAt, updatedAt);
     }
 
     /**
@@ -84,6 +106,13 @@ public class GetContextResponseDto {
      */
     public Map<String, Object> data() {
         return this.data;
+    }
+
+    /**
+     * Bridge URL override for agent connect, if configured on this context
+     */
+    public Optional<String> bridgeUrl() {
+        return Optional.ofNullable(this.bridgeUrl);
     }
 
     /**
@@ -133,6 +162,15 @@ public class GetContextResponseDto {
 
 
     /**
+     * Bridge URL override for agent connect, if configured on this context
+     */
+    public GetContextResponseDto withBridgeUrl(@Nullable String bridgeUrl) {
+        this.bridgeUrl = bridgeUrl;
+        return this;
+    }
+
+
+    /**
      * Creation timestamp
      */
     public GetContextResponseDto withCreatedAt(@Nonnull String createdAt) {
@@ -163,6 +201,7 @@ public class GetContextResponseDto {
             Utils.enhancedDeepEquals(this.type, other.type) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.data, other.data) &&
+            Utils.enhancedDeepEquals(this.bridgeUrl, other.bridgeUrl) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -171,7 +210,7 @@ public class GetContextResponseDto {
     public int hashCode() {
         return Utils.enhancedHash(
             type, id, data,
-            createdAt, updatedAt);
+            bridgeUrl, createdAt, updatedAt);
     }
     
     @Override
@@ -180,6 +219,7 @@ public class GetContextResponseDto {
                 "type", type,
                 "id", id,
                 "data", data,
+                "bridgeUrl", bridgeUrl,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -192,6 +232,8 @@ public class GetContextResponseDto {
         private String id;
 
         private Map<String, Object> data;
+
+        private String bridgeUrl;
 
         private String createdAt;
 
@@ -226,6 +268,14 @@ public class GetContextResponseDto {
         }
 
         /**
+         * Bridge URL override for agent connect, if configured on this context
+         */
+        public Builder bridgeUrl(@Nullable String bridgeUrl) {
+            this.bridgeUrl = bridgeUrl;
+            return this;
+        }
+
+        /**
          * Creation timestamp
          */
         public Builder createdAt(@Nonnull String createdAt) {
@@ -244,7 +294,7 @@ public class GetContextResponseDto {
         public GetContextResponseDto build() {
             return new GetContextResponseDto(
                 type, id, data,
-                createdAt, updatedAt);
+                bridgeUrl, createdAt, updatedAt);
         }
 
     }

@@ -43,12 +43,36 @@ public class ToolApprovalRequestPayloadDto {
     @JsonProperty("input")
     private Map<String, Object> input;
 
+    /**
+     * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("approveActionId")
+    private String approveActionId;
+
+    /**
+     * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("denyActionId")
+    private String denyActionId;
+
+    /**
+     * MCP server name when the gated tool is from an MCP server (for UI labels).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("mcpServerName")
+    private String mcpServerName;
+
     @JsonCreator
     public ToolApprovalRequestPayloadDto(
             @JsonProperty("approvalId") @Nonnull String approvalId,
             @JsonProperty("toolCallId") @Nonnull String toolCallId,
             @JsonProperty("name") @Nonnull String name,
-            @JsonProperty("input") @Nullable Map<String, Object> input) {
+            @JsonProperty("input") @Nullable Map<String, Object> input,
+            @JsonProperty("approveActionId") @Nullable String approveActionId,
+            @JsonProperty("denyActionId") @Nullable String denyActionId,
+            @JsonProperty("mcpServerName") @Nullable String mcpServerName) {
         this.approvalId = Optional.ofNullable(approvalId)
             .orElseThrow(() -> new IllegalArgumentException("approvalId cannot be null"));
         this.toolCallId = Optional.ofNullable(toolCallId)
@@ -56,6 +80,9 @@ public class ToolApprovalRequestPayloadDto {
         this.name = Optional.ofNullable(name)
             .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
         this.input = input;
+        this.approveActionId = approveActionId;
+        this.denyActionId = denyActionId;
+        this.mcpServerName = mcpServerName;
     }
     
     public ToolApprovalRequestPayloadDto(
@@ -63,6 +90,7 @@ public class ToolApprovalRequestPayloadDto {
             @Nonnull String toolCallId,
             @Nonnull String name) {
         this(approvalId, toolCallId, name,
+            null, null, null,
             null);
     }
 
@@ -92,6 +120,27 @@ public class ToolApprovalRequestPayloadDto {
      */
     public Optional<Map<String, Object>> input() {
         return Optional.ofNullable(this.input);
+    }
+
+    /**
+     * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public Optional<String> approveActionId() {
+        return Optional.ofNullable(this.approveActionId);
+    }
+
+    /**
+     * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public Optional<String> denyActionId() {
+        return Optional.ofNullable(this.denyActionId);
+    }
+
+    /**
+     * MCP server name when the gated tool is from an MCP server (for UI labels).
+     */
+    public Optional<String> mcpServerName() {
+        return Optional.ofNullable(this.mcpServerName);
     }
 
     public static Builder builder() {
@@ -135,6 +184,33 @@ public class ToolApprovalRequestPayloadDto {
     }
 
 
+    /**
+     * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public ToolApprovalRequestPayloadDto withApproveActionId(@Nullable String approveActionId) {
+        this.approveActionId = approveActionId;
+        return this;
+    }
+
+
+    /**
+     * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public ToolApprovalRequestPayloadDto withDenyActionId(@Nullable String denyActionId) {
+        this.denyActionId = denyActionId;
+        return this;
+    }
+
+
+    /**
+     * MCP server name when the gated tool is from an MCP server (for UI labels).
+     */
+    public ToolApprovalRequestPayloadDto withMcpServerName(@Nullable String mcpServerName) {
+        this.mcpServerName = mcpServerName;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -148,14 +224,18 @@ public class ToolApprovalRequestPayloadDto {
             Utils.enhancedDeepEquals(this.approvalId, other.approvalId) &&
             Utils.enhancedDeepEquals(this.toolCallId, other.toolCallId) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
-            Utils.enhancedDeepEquals(this.input, other.input);
+            Utils.enhancedDeepEquals(this.input, other.input) &&
+            Utils.enhancedDeepEquals(this.approveActionId, other.approveActionId) &&
+            Utils.enhancedDeepEquals(this.denyActionId, other.denyActionId) &&
+            Utils.enhancedDeepEquals(this.mcpServerName, other.mcpServerName);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             approvalId, toolCallId, name,
-            input);
+            input, approveActionId, denyActionId,
+            mcpServerName);
     }
     
     @Override
@@ -164,7 +244,10 @@ public class ToolApprovalRequestPayloadDto {
                 "approvalId", approvalId,
                 "toolCallId", toolCallId,
                 "name", name,
-                "input", input);
+                "input", input,
+                "approveActionId", approveActionId,
+                "denyActionId", denyActionId,
+                "mcpServerName", mcpServerName);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -177,6 +260,12 @@ public class ToolApprovalRequestPayloadDto {
         private String name;
 
         private Map<String, Object> input;
+
+        private String approveActionId;
+
+        private String denyActionId;
+
+        private String mcpServerName;
 
         private Builder() {
           // force use of static builder() method
@@ -214,10 +303,35 @@ public class ToolApprovalRequestPayloadDto {
             return this;
         }
 
+        /**
+         * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+         */
+        public Builder approveActionId(@Nullable String approveActionId) {
+            this.approveActionId = approveActionId;
+            return this;
+        }
+
+        /**
+         * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+         */
+        public Builder denyActionId(@Nullable String denyActionId) {
+            this.denyActionId = denyActionId;
+            return this;
+        }
+
+        /**
+         * MCP server name when the gated tool is from an MCP server (for UI labels).
+         */
+        public Builder mcpServerName(@Nullable String mcpServerName) {
+            this.mcpServerName = mcpServerName;
+            return this;
+        }
+
         public ToolApprovalRequestPayloadDto build() {
             return new ToolApprovalRequestPayloadDto(
                 approvalId, toolCallId, name,
-                input);
+                input, approveActionId, denyActionId,
+                mcpServerName);
         }
 
     }
