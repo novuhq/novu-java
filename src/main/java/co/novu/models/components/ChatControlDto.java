@@ -33,16 +33,26 @@ public class ChatControlDto {
     @JsonProperty("body")
     private String body;
 
+    /**
+     * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+     * otherwise "text".
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("editorType")
+    private ChatControlDtoEditorType editorType;
+
     @JsonCreator
     public ChatControlDto(
             @JsonProperty("skip") @Nullable Map<String, Object> skip,
-            @JsonProperty("body") @Nullable String body) {
+            @JsonProperty("body") @Nullable String body,
+            @JsonProperty("editorType") @Nullable ChatControlDtoEditorType editorType) {
         this.skip = skip;
         this.body = body;
+        this.editorType = editorType;
     }
     
     public ChatControlDto() {
-        this(null, null);
+        this(null, null, null);
     }
 
     /**
@@ -59,6 +69,14 @@ public class ChatControlDto {
      */
     public Optional<String> body() {
         return Optional.ofNullable(this.body);
+    }
+
+    /**
+     * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+     * otherwise "text".
+     */
+    public Optional<ChatControlDtoEditorType> editorType() {
+        return Optional.ofNullable(this.editorType);
     }
 
     public static Builder builder() {
@@ -86,6 +104,16 @@ public class ChatControlDto {
     }
 
 
+    /**
+     * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+     * otherwise "text".
+     */
+    public ChatControlDto withEditorType(@Nullable ChatControlDtoEditorType editorType) {
+        this.editorType = editorType;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -97,20 +125,22 @@ public class ChatControlDto {
         ChatControlDto other = (ChatControlDto) o;
         return 
             Utils.enhancedDeepEquals(this.skip, other.skip) &&
-            Utils.enhancedDeepEquals(this.body, other.body);
+            Utils.enhancedDeepEquals(this.body, other.body) &&
+            Utils.enhancedDeepEquals(this.editorType, other.editorType);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            skip, body);
+            skip, body, editorType);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ChatControlDto.class,
                 "skip", skip,
-                "body", body);
+                "body", body,
+                "editorType", editorType);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -119,6 +149,8 @@ public class ChatControlDto {
         private Map<String, Object> skip;
 
         private String body;
+
+        private ChatControlDtoEditorType editorType;
 
         private Builder() {
           // force use of static builder() method
@@ -142,9 +174,18 @@ public class ChatControlDto {
             return this;
         }
 
+        /**
+         * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+         * otherwise "text".
+         */
+        public Builder editorType(@Nullable ChatControlDtoEditorType editorType) {
+            this.editorType = editorType;
+            return this;
+        }
+
         public ChatControlDto build() {
             return new ChatControlDto(
-                skip, body);
+                skip, body, editorType);
         }
 
     }

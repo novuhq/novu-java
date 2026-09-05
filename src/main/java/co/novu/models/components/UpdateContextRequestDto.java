@@ -5,13 +5,17 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UpdateContextRequestDto {
@@ -21,12 +25,31 @@ public class UpdateContextRequestDto {
     @JsonProperty("data")
     private Map<String, Object> data;
 
+    /**
+     * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+     * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+     * URL.
+     * 
+     * <p>Pass null to clear an existing override.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("bridgeUrl")
+    private JsonNullable<String> bridgeUrl;
+
     @JsonCreator
     public UpdateContextRequestDto(
-            @JsonProperty("data") @Nonnull Map<String, Object> data) {
+            @JsonProperty("data") @Nonnull Map<String, Object> data,
+            @JsonProperty("bridgeUrl") @Nullable JsonNullable<String> bridgeUrl) {
         data = Utils.emptyMapIfNull(data);
         this.data = Optional.ofNullable(data)
             .orElseThrow(() -> new IllegalArgumentException("data cannot be null"));
+        this.bridgeUrl = Optional.ofNullable(bridgeUrl)
+            .orElse(JsonNullable.undefined());
+    }
+    
+    public UpdateContextRequestDto(
+            @Nonnull Map<String, Object> data) {
+        this(data, null);
     }
 
     /**
@@ -34,6 +57,17 @@ public class UpdateContextRequestDto {
      */
     public Map<String, Object> data() {
         return this.data;
+    }
+
+    /**
+     * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+     * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+     * URL.
+     * 
+     * <p>Pass null to clear an existing override.
+     */
+    public JsonNullable<String> bridgeUrl() {
+        return this.bridgeUrl;
     }
 
     public static Builder builder() {
@@ -50,6 +84,19 @@ public class UpdateContextRequestDto {
     }
 
 
+    /**
+     * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+     * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+     * URL.
+     * 
+     * <p>Pass null to clear an existing override.
+     */
+    public UpdateContextRequestDto withBridgeUrl(@Nullable String bridgeUrl) {
+        this.bridgeUrl = JsonNullable.of(bridgeUrl);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -60,25 +107,29 @@ public class UpdateContextRequestDto {
         }
         UpdateContextRequestDto other = (UpdateContextRequestDto) o;
         return 
-            Utils.enhancedDeepEquals(this.data, other.data);
+            Utils.enhancedDeepEquals(this.data, other.data) &&
+            Utils.enhancedDeepEquals(this.bridgeUrl, other.bridgeUrl);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            data);
+            data, bridgeUrl);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateContextRequestDto.class,
-                "data", data);
+                "data", data,
+                "bridgeUrl", bridgeUrl);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private Map<String, Object> data;
+
+        private JsonNullable<String> bridgeUrl;
 
         private Builder() {
           // force use of static builder() method
@@ -92,9 +143,21 @@ public class UpdateContextRequestDto {
             return this;
         }
 
+        /**
+         * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+         * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+         * URL.
+         * 
+         * <p>Pass null to clear an existing override.
+         */
+        public Builder bridgeUrl(@Nullable String bridgeUrl) {
+            this.bridgeUrl = JsonNullable.of(bridgeUrl);
+            return this;
+        }
+
         public UpdateContextRequestDto build() {
             return new UpdateContextRequestDto(
-                data);
+                data, bridgeUrl);
         }
 
     }
