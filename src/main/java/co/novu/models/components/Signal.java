@@ -46,6 +46,11 @@ public class Signal {
         Utils.checkNotNull(value, "value");
         return new Signal(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
+
+    public static Signal of(HumanSignalDto value) {
+        Utils.checkNotNull(value, "value");
+        return new Signal(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
     
     /**
      * Returns an {@link Optional} containing the value if it is of type {@code MetadataSetSignalDto},
@@ -98,6 +103,19 @@ public class Signal {
         }
         return Optional.empty();
     }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code HumanSignalDto},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code HumanSignalDto} value, or empty if not of this type
+     */
+    public Optional<HumanSignalDto> humanSignalDto() {
+        if (value.value() instanceof HumanSignalDto) {
+            return Optional.of((HumanSignalDto) value.value());
+        }
+        return Optional.empty();
+    }
    /**
     * Returns an {@link Optional} containing the value as a {@code JsonNode}.
     * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
@@ -136,7 +154,8 @@ public class Signal {
                   TypeReferenceWithShape.of(new TypeReference<MetadataSetSignalDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<MetadataDeleteSignalDto>() {}, JsonShape.DEFAULT),
                   TypeReferenceWithShape.of(new TypeReference<MetadataClearSignalDto>() {}, JsonShape.DEFAULT),
-                  TypeReferenceWithShape.of(new TypeReference<TriggerSignalDto>() {}, JsonShape.DEFAULT));
+                  TypeReferenceWithShape.of(new TypeReference<TriggerSignalDto>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<HumanSignalDto>() {}, JsonShape.DEFAULT));
         }
     }
     

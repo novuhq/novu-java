@@ -31,6 +31,8 @@ public class ContentIssueEnum {
     public static final ContentIssueEnum MISSING_VALUE = new ContentIssueEnum("MISSING_VALUE");
     public static final ContentIssueEnum TIER_LIMIT_EXCEEDED = new ContentIssueEnum("TIER_LIMIT_EXCEEDED");
     public static final ContentIssueEnum UNSUPPORTED_PROPERTY = new ContentIssueEnum("UNSUPPORTED_PROPERTY");
+    public static final ContentIssueEnum CHAT_CARD_LIMIT_EXCEEDED = new ContentIssueEnum("CHAT_CARD_LIMIT_EXCEEDED");
+    public static final ContentIssueEnum CHAT_CARD_INVALID_BUTTON = new ContentIssueEnum("CHAT_CARD_INVALID_BUTTON");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -110,6 +112,8 @@ public class ContentIssueEnum {
         map.put("MISSING_VALUE", MISSING_VALUE);
         map.put("TIER_LIMIT_EXCEEDED", TIER_LIMIT_EXCEEDED);
         map.put("UNSUPPORTED_PROPERTY", UNSUPPORTED_PROPERTY);
+        map.put("CHAT_CARD_LIMIT_EXCEEDED", CHAT_CARD_LIMIT_EXCEEDED);
+        map.put("CHAT_CARD_INVALID_BUTTON", CHAT_CARD_INVALID_BUTTON);
         return map;
     }
 
@@ -121,6 +125,8 @@ public class ContentIssueEnum {
         map.put("MISSING_VALUE", ContentIssueEnumEnum.MISSING_VALUE);
         map.put("TIER_LIMIT_EXCEEDED", ContentIssueEnumEnum.TIER_LIMIT_EXCEEDED);
         map.put("UNSUPPORTED_PROPERTY", ContentIssueEnumEnum.UNSUPPORTED_PROPERTY);
+        map.put("CHAT_CARD_LIMIT_EXCEEDED", ContentIssueEnumEnum.CHAT_CARD_LIMIT_EXCEEDED);
+        map.put("CHAT_CARD_INVALID_BUTTON", ContentIssueEnumEnum.CHAT_CARD_INVALID_BUTTON);
         return map;
     }
     
@@ -132,7 +138,9 @@ public class ContentIssueEnum {
         INVALID_URL("INVALID_URL"),
         MISSING_VALUE("MISSING_VALUE"),
         TIER_LIMIT_EXCEEDED("TIER_LIMIT_EXCEEDED"),
-        UNSUPPORTED_PROPERTY("UNSUPPORTED_PROPERTY"),;
+        UNSUPPORTED_PROPERTY("UNSUPPORTED_PROPERTY"),
+        CHAT_CARD_LIMIT_EXCEEDED("CHAT_CARD_LIMIT_EXCEEDED"),
+        CHAT_CARD_INVALID_BUTTON("CHAT_CARD_INVALID_BUTTON"),;
 
         private final String value;
 
