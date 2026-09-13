@@ -10,9 +10,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CreateUpdateTopicRequestDto {
@@ -30,18 +33,29 @@ public class CreateUpdateTopicRequestDto {
     @JsonProperty("name")
     private String name;
 
+    /**
+     * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+     * boolean, string[]). Maximum size: 64KB.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("data")
+    private JsonNullable<Map<String, Object>> data;
+
     @JsonCreator
     public CreateUpdateTopicRequestDto(
             @JsonProperty("key") @Nonnull String key,
-            @JsonProperty("name") @Nullable String name) {
+            @JsonProperty("name") @Nullable String name,
+            @JsonProperty("data") @Nullable JsonNullable<Map<String, Object>> data) {
         this.key = Optional.ofNullable(key)
             .orElseThrow(() -> new IllegalArgumentException("key cannot be null"));
         this.name = name;
+        this.data = Optional.ofNullable(data)
+            .orElse(JsonNullable.undefined());
     }
     
     public CreateUpdateTopicRequestDto(
             @Nonnull String key) {
-        this(key, null);
+        this(key, null, null);
     }
 
     /**
@@ -57,6 +71,14 @@ public class CreateUpdateTopicRequestDto {
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
+    }
+
+    /**
+     * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+     * boolean, string[]). Maximum size: 64KB.
+     */
+    public JsonNullable<Map<String, Object>> data() {
+        return this.data;
     }
 
     public static Builder builder() {
@@ -83,6 +105,16 @@ public class CreateUpdateTopicRequestDto {
     }
 
 
+    /**
+     * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+     * boolean, string[]). Maximum size: 64KB.
+     */
+    public CreateUpdateTopicRequestDto withData(@Nullable Map<String, Object> data) {
+        this.data = JsonNullable.of(data);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -94,20 +126,22 @@ public class CreateUpdateTopicRequestDto {
         CreateUpdateTopicRequestDto other = (CreateUpdateTopicRequestDto) o;
         return 
             Utils.enhancedDeepEquals(this.key, other.key) &&
-            Utils.enhancedDeepEquals(this.name, other.name);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.data, other.data);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            key, name);
+            key, name, data);
     }
     
     @Override
     public String toString() {
         return Utils.toString(CreateUpdateTopicRequestDto.class,
                 "key", key,
-                "name", name);
+                "name", name,
+                "data", data);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -116,6 +150,8 @@ public class CreateUpdateTopicRequestDto {
         private String key;
 
         private String name;
+
+        private JsonNullable<Map<String, Object>> data;
 
         private Builder() {
           // force use of static builder() method
@@ -138,9 +174,18 @@ public class CreateUpdateTopicRequestDto {
             return this;
         }
 
+        /**
+         * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+         * boolean, string[]). Maximum size: 64KB.
+         */
+        public Builder data(@Nullable Map<String, Object> data) {
+            this.data = JsonNullable.of(data);
+            return this;
+        }
+
         public CreateUpdateTopicRequestDto build() {
             return new CreateUpdateTopicRequestDto(
-                key, name);
+                key, name, data);
         }
 
     }

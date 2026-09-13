@@ -35,22 +35,33 @@ public class StepIntegrationIssue {
     @JsonProperty("message")
     private String message;
 
+    /**
+     * Blocking severity of the issue. `error` (default when omitted) blocks save; `warning` is a
+     * non-blocking notice.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("severity")
+    private StepIssueSeverityEnum severity;
+
     @JsonCreator
     public StepIntegrationIssue(
             @JsonProperty("issueType") @Nonnull IntegrationIssueEnum issueType,
             @JsonProperty("variableName") @Nullable String variableName,
-            @JsonProperty("message") @Nonnull String message) {
+            @JsonProperty("message") @Nonnull String message,
+            @JsonProperty("severity") @Nullable StepIssueSeverityEnum severity) {
         this.issueType = Optional.ofNullable(issueType)
             .orElseThrow(() -> new IllegalArgumentException("issueType cannot be null"));
         this.variableName = variableName;
         this.message = Optional.ofNullable(message)
             .orElseThrow(() -> new IllegalArgumentException("message cannot be null"));
+        this.severity = severity;
     }
     
     public StepIntegrationIssue(
             @Nonnull IntegrationIssueEnum issueType,
             @Nonnull String message) {
-        this(issueType, null, message);
+        this(issueType, null, message,
+            null);
     }
 
     /**
@@ -72,6 +83,14 @@ public class StepIntegrationIssue {
      */
     public String message() {
         return this.message;
+    }
+
+    /**
+     * Blocking severity of the issue. `error` (default when omitted) blocks save; `warning` is a
+     * non-blocking notice.
+     */
+    public Optional<StepIssueSeverityEnum> severity() {
+        return Optional.ofNullable(this.severity);
     }
 
     public static Builder builder() {
@@ -106,6 +125,16 @@ public class StepIntegrationIssue {
     }
 
 
+    /**
+     * Blocking severity of the issue. `error` (default when omitted) blocks save; `warning` is a
+     * non-blocking notice.
+     */
+    public StepIntegrationIssue withSeverity(@Nullable StepIssueSeverityEnum severity) {
+        this.severity = severity;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -118,13 +147,15 @@ public class StepIntegrationIssue {
         return 
             Utils.enhancedDeepEquals(this.issueType, other.issueType) &&
             Utils.enhancedDeepEquals(this.variableName, other.variableName) &&
-            Utils.enhancedDeepEquals(this.message, other.message);
+            Utils.enhancedDeepEquals(this.message, other.message) &&
+            Utils.enhancedDeepEquals(this.severity, other.severity);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            issueType, variableName, message);
+            issueType, variableName, message,
+            severity);
     }
     
     @Override
@@ -132,7 +163,8 @@ public class StepIntegrationIssue {
         return Utils.toString(StepIntegrationIssue.class,
                 "issueType", issueType,
                 "variableName", variableName,
-                "message", message);
+                "message", message,
+                "severity", severity);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -143,6 +175,8 @@ public class StepIntegrationIssue {
         private String variableName;
 
         private String message;
+
+        private StepIssueSeverityEnum severity;
 
         private Builder() {
           // force use of static builder() method
@@ -172,9 +206,19 @@ public class StepIntegrationIssue {
             return this;
         }
 
+        /**
+         * Blocking severity of the issue. `error` (default when omitted) blocks save; `warning` is a
+         * non-blocking notice.
+         */
+        public Builder severity(@Nullable StepIssueSeverityEnum severity) {
+            this.severity = severity;
+            return this;
+        }
+
         public StepIntegrationIssue build() {
             return new StepIntegrationIssue(
-                issueType, variableName, message);
+                issueType, variableName, message,
+                severity);
         }
 
     }

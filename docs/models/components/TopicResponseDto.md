@@ -3,10 +3,11 @@
 
 ## Fields
 
-| Field                               | Type                                | Required                            | Description                         | Example                             |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `id`                                | *String*                            | :heavy_check_mark:                  | The identifier of the topic         | 64da692e9a94fb2e6449ad06            |
-| `key`                               | *String*                            | :heavy_check_mark:                  | The unique key of the topic         | product-updates                     |
-| `name`                              | *Optional\<String>*                 | :heavy_minus_sign:                  | The name of the topic               | Product Updates                     |
-| `createdAt`                         | *Optional\<String>*                 | :heavy_minus_sign:                  | The date the topic was created      | 2023-08-15T00:00:00.000Z            |
-| `updatedAt`                         | *Optional\<String>*                 | :heavy_minus_sign:                  | The date the topic was last updated | 2023-08-15T00:00:00.000Z            |
+| Field                                            | Type                                             | Required                                         | Description                                      | Example                                          |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| `id`                                             | *String*                                         | :heavy_check_mark:                               | The identifier of the topic                      | 64da692e9a94fb2e6449ad06                         |
+| `key`                                            | *String*                                         | :heavy_check_mark:                               | The unique key of the topic                      | product-updates                                  |
+| `name`                                           | *Optional\<String>*                              | :heavy_minus_sign:                               | The name of the topic                            | Product Updates                                  |
+| `data`                                           | Map\<String, *Object*>                           | :heavy_minus_sign:                               | Additional custom data associated with the topic | {<br/>"category": "product",<br/>"priority": 1<br/>} |
+| `createdAt`                                      | *Optional\<String>*                              | :heavy_minus_sign:                               | The date the topic was created                   | 2023-08-15T00:00:00.000Z                         |
+| `updatedAt`                                      | *Optional\<String>*                              | :heavy_minus_sign:                               | The date the topic was last updated              | 2023-08-15T00:00:00.000Z                         |

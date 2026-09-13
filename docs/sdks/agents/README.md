@@ -338,6 +338,49 @@ public class Application {
     }
 }
 ```
+### Example Usage: humanApprove
+
+<!-- UsageSnippet language="java" operationID="AgentReplyController_handleAgentReplyHandler" method="post" path="/v1/agents/{agentId}/reply" example="humanApprove" -->
+```java
+package hello.world;
+
+import co.novu.Novu;
+import co.novu.models.components.*;
+import co.novu.models.errors.ErrorDto;
+import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.AgentReplyControllerHandleAgentReplyHandlerResponse;
+import java.lang.Exception;
+import java.util.List;
+
+public class Application {
+
+    public static void main(String[] args) throws ErrorDto, ValidationErrorDto, Exception {
+
+        Novu sdk = Novu.builder()
+                .secretKey("YOUR_SECRET_KEY_HERE")
+            .build();
+
+        AgentReplyControllerHandleAgentReplyHandlerResponse res = sdk.agents().sendReply()
+                .agentId("support-agent")
+                .body(AgentReplyPayloadDto.builder()
+                    .conversationId("64f5a1c2e8b7a3d9f0c1b2a3")
+                    .integrationIdentifier("slack-support")
+                    .signals(List.of(
+                        Signal.of(HumanSignalDto.builder()
+                            .type(HumanSignalDtoType.HUMAN)
+                            .kind(HumanSignalDtoKind.APPROVE)
+                            .prompt("Deploy v2.4.1 to production?")
+                            .requestId("hr_7c2e1a3b-4d5f-6789-abcd-ef0123456789")
+                            .build())))
+                    .build())
+                .call();
+
+        if (res.object().isPresent()) {
+            System.out.println(res.object().get());
+        }
+    }
+}
+```
 ### Example Usage: markdownReply
 
 <!-- UsageSnippet language="java" operationID="AgentReplyController_handleAgentReplyHandler" method="post" path="/v1/agents/{agentId}/reply" example="markdownReply" -->
