@@ -64,8 +64,8 @@ public class AgentReplyPayloadDto {
     private ResolveDto resolve;
 
     /**
-     * Side-effect signals executed during this turn: conversation metadata mutations or Novu workflow
-     * triggers.
+     * Side-effect signals executed during this turn: conversation metadata mutations, Novu workflow
+     * triggers, or human-in-the-loop interactions.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("signals")
@@ -196,8 +196,8 @@ public class AgentReplyPayloadDto {
     }
 
     /**
-     * Side-effect signals executed during this turn: conversation metadata mutations or Novu workflow
-     * triggers.
+     * Side-effect signals executed during this turn: conversation metadata mutations, Novu workflow
+     * triggers, or human-in-the-loop interactions.
      */
     public Optional<List<Signal>> signals() {
         return Optional.ofNullable(this.signals);
@@ -306,8 +306,8 @@ public class AgentReplyPayloadDto {
 
 
     /**
-     * Side-effect signals executed during this turn: conversation metadata mutations or Novu workflow
-     * triggers.
+     * Side-effect signals executed during this turn: conversation metadata mutations, Novu workflow
+     * triggers, or human-in-the-loop interactions.
      */
     public AgentReplyPayloadDto withSignals(@Nullable List<Signal> signals) {
         this.signals = signals;
@@ -498,8 +498,8 @@ public class AgentReplyPayloadDto {
         }
 
         /**
-         * Side-effect signals executed during this turn: conversation metadata mutations or Novu workflow
-         * triggers.
+         * Side-effect signals executed during this turn: conversation metadata mutations, Novu workflow
+         * triggers, or human-in-the-loop interactions.
          */
         public Builder signals(@Nullable List<Signal> signals) {
             this.signals = signals;
