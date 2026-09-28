@@ -235,7 +235,7 @@ public class AsyncTopics {
     /**
      * Update a topic
      * 
-     * <p>Update a topic name by its unique key identifier **topicKey**
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
      * 
      * @return The async call builder
      */
@@ -246,7 +246,7 @@ public class AsyncTopics {
     /**
      * Update a topic
      * 
-     * <p>Update a topic name by its unique key identifier **topicKey**
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
      * 
      * @param topicKey The key identifier of the topic
      * @param body 
@@ -261,7 +261,7 @@ public class AsyncTopics {
     /**
      * Update a topic
      * 
-     * <p>Update a topic name by its unique key identifier **topicKey**
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
      * 
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes

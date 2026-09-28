@@ -92,6 +92,7 @@ import co.novu.models.components.CreateUpdateTopicRequestDto;
 import co.novu.models.errors.*;
 import co.novu.models.operations.TopicsControllerUpsertTopicResponse;
 import java.lang.Exception;
+import java.util.Map;
 
 public class Application {
 
@@ -105,6 +106,9 @@ public class Application {
                 .body(CreateUpdateTopicRequestDto.builder()
                     .key("task:12345")
                     .name("Task Title")
+                    .data(Map.ofEntries(
+                        Map.entry("category", "product"),
+                        Map.entry("priority", 1L)))
                     .build())
                 .call();
 
@@ -196,7 +200,7 @@ public class Application {
 
 ## modify
 
-Update a topic name by its unique key identifier **topicKey**
+Update a topic name or data by its unique key identifier **topicKey**
 
 ### Example Usage
 
@@ -210,6 +214,7 @@ import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.TopicsControllerUpdateTopicResponse;
 import java.lang.Exception;
+import java.util.Map;
 
 public class Application {
 
@@ -223,6 +228,9 @@ public class Application {
                 .topicKey("<value>")
                 .body(UpdateTopicRequestDto.builder()
                     .name("Updated Topic Name")
+                    .data(Map.ofEntries(
+                        Map.entry("category", "product"),
+                        Map.entry("priority", 1L)))
                     .build())
                 .call();
 

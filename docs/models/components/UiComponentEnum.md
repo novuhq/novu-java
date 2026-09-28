@@ -19,6 +19,7 @@ UiComponentEnum custom = UiComponentEnum.of("custom_value");
 | Name                                    | Value                                   |
 | --------------------------------------- | --------------------------------------- |
 | `EMAIL_EDITOR_SELECT`                   | EMAIL_EDITOR_SELECT                     |
+| `CHAT_EDITOR_SELECT`                    | CHAT_EDITOR_SELECT                      |
 | `LAYOUT_SELECT`                         | LAYOUT_SELECT                           |
 | `BLOCK_EDITOR`                          | BLOCK_EDITOR                            |
 | `EMAIL_BODY`                            | EMAIL_BODY                              |

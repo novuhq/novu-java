@@ -38,22 +38,34 @@ public class CreateContextRequestDto {
     @JsonProperty("data")
     private Map<String, Object> data;
 
+    /**
+     * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+     * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+     * URL.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("bridgeUrl")
+    private String bridgeUrl;
+
     @JsonCreator
     public CreateContextRequestDto(
             @JsonProperty("type") @Nonnull String type,
             @JsonProperty("id") @Nonnull String id,
-            @JsonProperty("data") @Nullable Map<String, Object> data) {
+            @JsonProperty("data") @Nullable Map<String, Object> data,
+            @JsonProperty("bridgeUrl") @Nullable String bridgeUrl) {
         this.type = Optional.ofNullable(type)
             .orElseThrow(() -> new IllegalArgumentException("type cannot be null"));
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.data = data;
+        this.bridgeUrl = bridgeUrl;
     }
     
     public CreateContextRequestDto(
             @Nonnull String type,
             @Nonnull String id) {
-        this(type, id, null);
+        this(type, id, null,
+            null);
     }
 
     /**
@@ -76,6 +88,15 @@ public class CreateContextRequestDto {
      */
     public Optional<Map<String, Object>> data() {
         return Optional.ofNullable(this.data);
+    }
+
+    /**
+     * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+     * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+     * URL.
+     */
+    public Optional<String> bridgeUrl() {
+        return Optional.ofNullable(this.bridgeUrl);
     }
 
     public static Builder builder() {
@@ -111,6 +132,17 @@ public class CreateContextRequestDto {
     }
 
 
+    /**
+     * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+     * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+     * URL.
+     */
+    public CreateContextRequestDto withBridgeUrl(@Nullable String bridgeUrl) {
+        this.bridgeUrl = bridgeUrl;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -123,13 +155,15 @@ public class CreateContextRequestDto {
         return 
             Utils.enhancedDeepEquals(this.type, other.type) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
-            Utils.enhancedDeepEquals(this.data, other.data);
+            Utils.enhancedDeepEquals(this.data, other.data) &&
+            Utils.enhancedDeepEquals(this.bridgeUrl, other.bridgeUrl);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            type, id, data);
+            type, id, data,
+            bridgeUrl);
     }
     
     @Override
@@ -137,7 +171,8 @@ public class CreateContextRequestDto {
         return Utils.toString(CreateContextRequestDto.class,
                 "type", type,
                 "id", id,
-                "data", data);
+                "data", data,
+                "bridgeUrl", bridgeUrl);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -148,6 +183,8 @@ public class CreateContextRequestDto {
         private String id;
 
         private Map<String, Object> data;
+
+        private String bridgeUrl;
 
         private Builder() {
           // force use of static builder() method
@@ -178,9 +215,20 @@ public class CreateContextRequestDto {
             return this;
         }
 
+        /**
+         * Optional bridge URL override for agent connect. When an inbound agent turn resolves this context,
+         * its bridge call is routed here instead of the agent default bridge URL. Must be a publicly reachable
+         * URL.
+         */
+        public Builder bridgeUrl(@Nullable String bridgeUrl) {
+            this.bridgeUrl = bridgeUrl;
+            return this;
+        }
+
         public CreateContextRequestDto build() {
             return new CreateContextRequestDto(
-                type, id, data);
+                type, id, data,
+                bridgeUrl);
         }
 
     }

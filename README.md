@@ -74,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.19.0'
+implementation 'co.novu:novu-java:3.20.0'
 ```
 
 Maven:
@@ -82,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.19.0</version>
+    <version>3.20.0</version>
 </dependency>
 ```
 
@@ -531,7 +531,7 @@ public class Application {
 
 * [create](docs/sdks/agents/README.md#create) - Create an agent
 * [list](docs/sdks/agents/README.md#list) - List all agents
-* [sendReply](docs/sdks/agents/README.md#sendreply) - Send an agent reply
+* [~~sendReply~~](docs/sdks/agents/README.md#sendreply) - Send an agent reply :warning: **Deprecated**
 * [retrieve](docs/sdks/agents/README.md#retrieve) - Retrieve an agent
 * [update](docs/sdks/agents/README.md#update) - Update an agent
 * [delete](docs/sdks/agents/README.md#delete) - Delete an agent

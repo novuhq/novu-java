@@ -226,7 +226,7 @@ public class Topics {
     /**
      * Update a topic
      * 
-     * <p>Update a topic name by its unique key identifier **topicKey**
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
      * 
      * @return The call builder
      */
@@ -237,7 +237,7 @@ public class Topics {
     /**
      * Update a topic
      * 
-     * <p>Update a topic name by its unique key identifier **topicKey**
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
      * 
      * @param topicKey The key identifier of the topic
      * @param body 
@@ -252,7 +252,7 @@ public class Topics {
     /**
      * Update a topic
      * 
-     * <p>Update a topic name by its unique key identifier **topicKey**
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
      * 
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes

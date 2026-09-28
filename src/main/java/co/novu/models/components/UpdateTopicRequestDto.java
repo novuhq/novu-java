@@ -5,32 +5,64 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class UpdateTopicRequestDto {
     /**
      * The display name for the topic
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
     private String name;
 
+    /**
+     * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+     * boolean, string[]). Maximum size: 64KB.
+     * 
+     * <p>Pass null to clear.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("data")
+    private JsonNullable<Map<String, Object>> data;
+
     @JsonCreator
     public UpdateTopicRequestDto(
-            @JsonProperty("name") @Nonnull String name) {
-        this.name = Optional.ofNullable(name)
-            .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
+            @JsonProperty("name") @Nullable String name,
+            @JsonProperty("data") @Nullable JsonNullable<Map<String, Object>> data) {
+        this.name = name;
+        this.data = Optional.ofNullable(data)
+            .orElse(JsonNullable.undefined());
+    }
+    
+    public UpdateTopicRequestDto() {
+        this(null, null);
     }
 
     /**
      * The display name for the topic
      */
-    public String name() {
-        return this.name;
+    public Optional<String> name() {
+        return Optional.ofNullable(this.name);
+    }
+
+    /**
+     * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+     * boolean, string[]). Maximum size: 64KB.
+     * 
+     * <p>Pass null to clear.
+     */
+    public JsonNullable<Map<String, Object>> data() {
+        return this.data;
     }
 
     public static Builder builder() {
@@ -41,8 +73,20 @@ public class UpdateTopicRequestDto {
     /**
      * The display name for the topic
      */
-    public UpdateTopicRequestDto withName(@Nonnull String name) {
-        this.name = Utils.checkNotNull(name, "name");
+    public UpdateTopicRequestDto withName(@Nullable String name) {
+        this.name = name;
+        return this;
+    }
+
+
+    /**
+     * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+     * boolean, string[]). Maximum size: 64KB.
+     * 
+     * <p>Pass null to clear.
+     */
+    public UpdateTopicRequestDto withData(@Nullable Map<String, Object> data) {
+        this.data = JsonNullable.of(data);
         return this;
     }
 
@@ -57,25 +101,29 @@ public class UpdateTopicRequestDto {
         }
         UpdateTopicRequestDto other = (UpdateTopicRequestDto) o;
         return 
-            Utils.enhancedDeepEquals(this.name, other.name);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.data, other.data);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            name);
+            name, data);
     }
     
     @Override
     public String toString() {
         return Utils.toString(UpdateTopicRequestDto.class,
-                "name", name);
+                "name", name,
+                "data", data);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
         private String name;
+
+        private JsonNullable<Map<String, Object>> data;
 
         private Builder() {
           // force use of static builder() method
@@ -84,14 +132,25 @@ public class UpdateTopicRequestDto {
         /**
          * The display name for the topic
          */
-        public Builder name(@Nonnull String name) {
-            this.name = Utils.checkNotNull(name, "name");
+        public Builder name(@Nullable String name) {
+            this.name = name;
+            return this;
+        }
+
+        /**
+         * Additional custom data associated with the topic. Flat key-value pairs of scalars (string, number,
+         * boolean, string[]). Maximum size: 64KB.
+         * 
+         * <p>Pass null to clear.
+         */
+        public Builder data(@Nullable Map<String, Object> data) {
+            this.data = JsonNullable.of(data);
             return this;
         }
 
         public UpdateTopicRequestDto build() {
             return new UpdateTopicRequestDto(
-                name);
+                name, data);
         }
 
     }

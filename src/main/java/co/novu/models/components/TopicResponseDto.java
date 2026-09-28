@@ -10,8 +10,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -36,6 +38,13 @@ public class TopicResponseDto {
     private String name;
 
     /**
+     * Additional custom data associated with the topic
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("data")
+    private Map<String, Object> data;
+
+    /**
      * The date the topic was created
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -54,6 +63,7 @@ public class TopicResponseDto {
             @JsonProperty("_id") @Nonnull String id,
             @JsonProperty("key") @Nonnull String key,
             @JsonProperty("name") @Nullable String name,
+            @JsonProperty("data") @Nullable Map<String, Object> data,
             @JsonProperty("createdAt") @Nullable String createdAt,
             @JsonProperty("updatedAt") @Nullable String updatedAt) {
         this.id = Optional.ofNullable(id)
@@ -61,6 +71,7 @@ public class TopicResponseDto {
         this.key = Optional.ofNullable(key)
             .orElseThrow(() -> new IllegalArgumentException("key cannot be null"));
         this.name = name;
+        this.data = data;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -69,7 +80,7 @@ public class TopicResponseDto {
             @Nonnull String id,
             @Nonnull String key) {
         this(id, key, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -91,6 +102,13 @@ public class TopicResponseDto {
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
+    }
+
+    /**
+     * Additional custom data associated with the topic
+     */
+    public Optional<Map<String, Object>> data() {
+        return Optional.ofNullable(this.data);
     }
 
     /**
@@ -140,6 +158,15 @@ public class TopicResponseDto {
 
 
     /**
+     * Additional custom data associated with the topic
+     */
+    public TopicResponseDto withData(@Nullable Map<String, Object> data) {
+        this.data = data;
+        return this;
+    }
+
+
+    /**
      * The date the topic was created
      */
     public TopicResponseDto withCreatedAt(@Nullable String createdAt) {
@@ -170,6 +197,7 @@ public class TopicResponseDto {
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.key, other.key) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.data, other.data) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt);
     }
@@ -178,7 +206,7 @@ public class TopicResponseDto {
     public int hashCode() {
         return Utils.enhancedHash(
             id, key, name,
-            createdAt, updatedAt);
+            data, createdAt, updatedAt);
     }
     
     @Override
@@ -187,6 +215,7 @@ public class TopicResponseDto {
                 "id", id,
                 "key", key,
                 "name", name,
+                "data", data,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt);
     }
@@ -199,6 +228,8 @@ public class TopicResponseDto {
         private String key;
 
         private String name;
+
+        private Map<String, Object> data;
 
         private String createdAt;
 
@@ -233,6 +264,14 @@ public class TopicResponseDto {
         }
 
         /**
+         * Additional custom data associated with the topic
+         */
+        public Builder data(@Nullable Map<String, Object> data) {
+            this.data = data;
+            return this;
+        }
+
+        /**
          * The date the topic was created
          */
         public Builder createdAt(@Nullable String createdAt) {
@@ -251,7 +290,7 @@ public class TopicResponseDto {
         public TopicResponseDto build() {
             return new TopicResponseDto(
                 id, key, name,
-                createdAt, updatedAt);
+                data, createdAt, updatedAt);
         }
 
     }

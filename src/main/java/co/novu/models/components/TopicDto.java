@@ -10,8 +10,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -35,22 +37,32 @@ public class TopicDto {
     @JsonProperty("name")
     private String name;
 
+    /**
+     * Additional custom data associated with the topic
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("data")
+    private Map<String, Object> data;
+
     @JsonCreator
     public TopicDto(
             @JsonProperty("_id") @Nonnull String id,
             @JsonProperty("key") @Nonnull String key,
-            @JsonProperty("name") @Nullable String name) {
+            @JsonProperty("name") @Nullable String name,
+            @JsonProperty("data") @Nullable Map<String, Object> data) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.key = Optional.ofNullable(key)
             .orElseThrow(() -> new IllegalArgumentException("key cannot be null"));
         this.name = name;
+        this.data = data;
     }
     
     public TopicDto(
             @Nonnull String id,
             @Nonnull String key) {
-        this(id, key, null);
+        this(id, key, null,
+            null);
     }
 
     /**
@@ -72,6 +84,13 @@ public class TopicDto {
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
+    }
+
+    /**
+     * Additional custom data associated with the topic
+     */
+    public Optional<Map<String, Object>> data() {
+        return Optional.ofNullable(this.data);
     }
 
     public static Builder builder() {
@@ -106,6 +125,15 @@ public class TopicDto {
     }
 
 
+    /**
+     * Additional custom data associated with the topic
+     */
+    public TopicDto withData(@Nullable Map<String, Object> data) {
+        this.data = data;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -118,13 +146,15 @@ public class TopicDto {
         return 
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.key, other.key) &&
-            Utils.enhancedDeepEquals(this.name, other.name);
+            Utils.enhancedDeepEquals(this.name, other.name) &&
+            Utils.enhancedDeepEquals(this.data, other.data);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            id, key, name);
+            id, key, name,
+            data);
     }
     
     @Override
@@ -132,7 +162,8 @@ public class TopicDto {
         return Utils.toString(TopicDto.class,
                 "id", id,
                 "key", key,
-                "name", name);
+                "name", name,
+                "data", data);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -143,6 +174,8 @@ public class TopicDto {
         private String key;
 
         private String name;
+
+        private Map<String, Object> data;
 
         private Builder() {
           // force use of static builder() method
@@ -172,9 +205,18 @@ public class TopicDto {
             return this;
         }
 
+        /**
+         * Additional custom data associated with the topic
+         */
+        public Builder data(@Nullable Map<String, Object> data) {
+            this.data = data;
+            return this;
+        }
+
         public TopicDto build() {
             return new TopicDto(
-                id, key, name);
+                id, key, name,
+                data);
         }
 
     }
