@@ -34,9 +34,7 @@ public class AgentIntegrationSummaryDto {
     @JsonProperty("identifier")
     private String identifier;
 
-    /**
-     * Channel type through which the message is sent
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("channel")
     private ChannelTypeEnum channel;
@@ -94,9 +92,6 @@ public class AgentIntegrationSummaryDto {
         return this.identifier;
     }
 
-    /**
-     * Channel type through which the message is sent
-     */
     public Optional<ChannelTypeEnum> channel() {
         return Optional.ofNullable(this.channel);
     }
@@ -137,9 +132,6 @@ public class AgentIntegrationSummaryDto {
     }
 
 
-    /**
-     * Channel type through which the message is sent
-     */
     public AgentIntegrationSummaryDto withChannel(@Nullable ChannelTypeEnum channel) {
         this.channel = channel;
         return this;
@@ -230,9 +222,6 @@ public class AgentIntegrationSummaryDto {
             return this;
         }
 
-        /**
-         * Channel type through which the message is sent
-         */
         public Builder channel(@Nullable ChannelTypeEnum channel) {
             this.channel = channel;
             return this;

@@ -41,6 +41,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
 import java.lang.String;
 
 /**
@@ -170,11 +171,9 @@ public class Agents {
     /**
      * Send an agent reply
      * 
-     * <p>Send a message or side-effect into an existing agent conversation from your backend.
-     * 
-     * <p>Use this endpoint when you are not using `@novu/framework` (for example Python, Go, PHP, .NET, or
-     * Java SDKs),
-     * or when a server process outside the bridge needs to post into a live conversation.
+     * <p>**Deprecated** — use `POST /v1/agents/events/ingest` (AgentEvent protocol).
+     * This route stays live for old `@novu/framework` and existing OpenAPI `sendReply` clients.
+     * Do not use it for new integrations.
      * 
      * <p>**Message actions**
      * - `reply` — markdown, interactive card, or tool-approval card (optional `files`)
@@ -196,7 +195,9 @@ public class Agents {
      * otherwise `{ data: null }`.
      * 
      * @return The call builder
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public AgentReplyControllerHandleAgentReplyHandlerRequestBuilder sendReply() {
         return new AgentReplyControllerHandleAgentReplyHandlerRequestBuilder(sdkConfiguration);
     }
@@ -204,11 +205,9 @@ public class Agents {
     /**
      * Send an agent reply
      * 
-     * <p>Send a message or side-effect into an existing agent conversation from your backend.
-     * 
-     * <p>Use this endpoint when you are not using `@novu/framework` (for example Python, Go, PHP, .NET, or
-     * Java SDKs),
-     * or when a server process outside the bridge needs to post into a live conversation.
+     * <p>**Deprecated** — use `POST /v1/agents/events/ingest` (AgentEvent protocol).
+     * This route stays live for old `@novu/framework` and existing OpenAPI `sendReply` clients.
+     * Do not use it for new integrations.
      * 
      * <p>**Message actions**
      * - `reply` — markdown, interactive card, or tool-approval card (optional `files`)
@@ -233,7 +232,9 @@ public class Agents {
      * @param body 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public AgentReplyControllerHandleAgentReplyHandlerResponse sendReply(@Nonnull String agentId, @Nonnull AgentReplyPayloadDto body) {
         return sendReply(agentId, null, body,
             null);
@@ -242,11 +243,9 @@ public class Agents {
     /**
      * Send an agent reply
      * 
-     * <p>Send a message or side-effect into an existing agent conversation from your backend.
-     * 
-     * <p>Use this endpoint when you are not using `@novu/framework` (for example Python, Go, PHP, .NET, or
-     * Java SDKs),
-     * or when a server process outside the bridge needs to post into a live conversation.
+     * <p>**Deprecated** — use `POST /v1/agents/events/ingest` (AgentEvent protocol).
+     * This route stays live for old `@novu/framework` and existing OpenAPI `sendReply` clients.
+     * Do not use it for new integrations.
      * 
      * <p>**Message actions**
      * - `reply` — markdown, interactive card, or tool-approval card (optional `files`)
@@ -273,7 +272,9 @@ public class Agents {
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public AgentReplyControllerHandleAgentReplyHandlerResponse sendReply(
             @Nonnull String agentId, @Nullable String idempotencyKey,
             @Nonnull AgentReplyPayloadDto body, @Nullable Options options) {

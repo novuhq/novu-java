@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class MessageButton {
     /**
-     * Type of button for the action result
+     * Type of the button
      */
     @JsonProperty("type")
     private ButtonTypeEnum type;
@@ -54,7 +54,7 @@ public class MessageButton {
     }
 
     /**
-     * Type of button for the action result
+     * Type of the button
      */
     public ButtonTypeEnum type() {
         return this.type;
@@ -80,7 +80,7 @@ public class MessageButton {
 
 
     /**
-     * Type of button for the action result
+     * Type of the button
      */
     public MessageButton withType(@Nonnull ButtonTypeEnum type) {
         this.type = Utils.checkNotNull(type, "type");
@@ -149,7 +149,7 @@ public class MessageButton {
         }
 
         /**
-         * Type of button for the action result
+         * Type of the button
          */
         public Builder type(@Nonnull ButtonTypeEnum type) {
             this.type = Utils.checkNotNull(type, "type");

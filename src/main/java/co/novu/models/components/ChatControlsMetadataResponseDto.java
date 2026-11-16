@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class ChatControlsMetadataResponseDto {
     /**
      * Control values specific to Chat
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private ChatControlDto values;
+    private ChatControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public ChatControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull ChatControlDto values) {
+            @JsonProperty("values") @Nullable ChatControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public ChatControlsMetadataResponseDto(
-            @Nonnull ChatControlDto values) {
-        this(null, null, values);
+    public ChatControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class ChatControlsMetadataResponseDto {
     /**
      * Control values specific to Chat
      */
-    public ChatControlDto values() {
-        return this.values;
+    public Optional<ChatControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class ChatControlsMetadataResponseDto {
     /**
      * Control values specific to Chat
      */
-    public ChatControlsMetadataResponseDto withValues(@Nonnull ChatControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public ChatControlsMetadataResponseDto withValues(@Nullable ChatControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class ChatControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private ChatControlDto values;
+        private ChatControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class ChatControlsMetadataResponseDto {
         /**
          * Control values specific to Chat
          */
-        public Builder values(@Nonnull ChatControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable ChatControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

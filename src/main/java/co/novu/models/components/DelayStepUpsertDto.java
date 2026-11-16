@@ -37,7 +37,7 @@ public class DelayStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflow
     private String name;
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @JsonProperty("type")
     private StepTypeEnum type;
@@ -94,7 +94,7 @@ public class DelayStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflow
     }
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @Override
     public String type() {
@@ -141,7 +141,7 @@ public class DelayStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflow
 
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     public DelayStepUpsertDto withType(@Nonnull StepTypeEnum type) {
         this.type = Utils.checkNotNull(type, "type");
@@ -234,7 +234,7 @@ public class DelayStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflow
         }
 
         /**
-         * Type of the step
+         * Channels of the notification
          */
         public Builder type(@Nonnull StepTypeEnum type) {
             this.type = Utils.checkNotNull(type, "type");

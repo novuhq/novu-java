@@ -13,6 +13,7 @@ import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class ActivityNotificationSubscriberResponseDto {
@@ -21,7 +22,7 @@ public class ActivityNotificationSubscriberResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("firstName")
-    private String firstName;
+    private JsonNullable<String> firstName;
 
     /**
      * External unique identifier of the subscriber
@@ -40,38 +41,42 @@ public class ActivityNotificationSubscriberResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("lastName")
-    private String lastName;
+    private JsonNullable<String> lastName;
 
     /**
      * Email address of the subscriber
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email")
-    private String email;
+    private JsonNullable<String> email;
 
     /**
      * Phone number of the subscriber
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("phone")
-    private String phone;
+    private JsonNullable<String> phone;
 
     @JsonCreator
     public ActivityNotificationSubscriberResponseDto(
-            @JsonProperty("firstName") @Nullable String firstName,
+            @JsonProperty("firstName") @Nullable JsonNullable<String> firstName,
             @JsonProperty("subscriberId") @Nonnull String subscriberId,
             @JsonProperty("_id") @Nonnull String id,
-            @JsonProperty("lastName") @Nullable String lastName,
-            @JsonProperty("email") @Nullable String email,
-            @JsonProperty("phone") @Nullable String phone) {
-        this.firstName = firstName;
+            @JsonProperty("lastName") @Nullable JsonNullable<String> lastName,
+            @JsonProperty("email") @Nullable JsonNullable<String> email,
+            @JsonProperty("phone") @Nullable JsonNullable<String> phone) {
+        this.firstName = Optional.ofNullable(firstName)
+            .orElse(JsonNullable.undefined());
         this.subscriberId = Optional.ofNullable(subscriberId)
             .orElseThrow(() -> new IllegalArgumentException("subscriberId cannot be null"));
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
+        this.lastName = Optional.ofNullable(lastName)
+            .orElse(JsonNullable.undefined());
+        this.email = Optional.ofNullable(email)
+            .orElse(JsonNullable.undefined());
+        this.phone = Optional.ofNullable(phone)
+            .orElse(JsonNullable.undefined());
     }
     
     public ActivityNotificationSubscriberResponseDto(
@@ -84,8 +89,8 @@ public class ActivityNotificationSubscriberResponseDto {
     /**
      * First name of the subscriber
      */
-    public Optional<String> firstName() {
-        return Optional.ofNullable(this.firstName);
+    public JsonNullable<String> firstName() {
+        return this.firstName;
     }
 
     /**
@@ -105,22 +110,22 @@ public class ActivityNotificationSubscriberResponseDto {
     /**
      * Last name of the subscriber
      */
-    public Optional<String> lastName() {
-        return Optional.ofNullable(this.lastName);
+    public JsonNullable<String> lastName() {
+        return this.lastName;
     }
 
     /**
      * Email address of the subscriber
      */
-    public Optional<String> email() {
-        return Optional.ofNullable(this.email);
+    public JsonNullable<String> email() {
+        return this.email;
     }
 
     /**
      * Phone number of the subscriber
      */
-    public Optional<String> phone() {
-        return Optional.ofNullable(this.phone);
+    public JsonNullable<String> phone() {
+        return this.phone;
     }
 
     public static Builder builder() {
@@ -132,7 +137,7 @@ public class ActivityNotificationSubscriberResponseDto {
      * First name of the subscriber
      */
     public ActivityNotificationSubscriberResponseDto withFirstName(@Nullable String firstName) {
-        this.firstName = firstName;
+        this.firstName = JsonNullable.of(firstName);
         return this;
     }
 
@@ -159,7 +164,7 @@ public class ActivityNotificationSubscriberResponseDto {
      * Last name of the subscriber
      */
     public ActivityNotificationSubscriberResponseDto withLastName(@Nullable String lastName) {
-        this.lastName = lastName;
+        this.lastName = JsonNullable.of(lastName);
         return this;
     }
 
@@ -168,7 +173,7 @@ public class ActivityNotificationSubscriberResponseDto {
      * Email address of the subscriber
      */
     public ActivityNotificationSubscriberResponseDto withEmail(@Nullable String email) {
-        this.email = email;
+        this.email = JsonNullable.of(email);
         return this;
     }
 
@@ -177,7 +182,7 @@ public class ActivityNotificationSubscriberResponseDto {
      * Phone number of the subscriber
      */
     public ActivityNotificationSubscriberResponseDto withPhone(@Nullable String phone) {
-        this.phone = phone;
+        this.phone = JsonNullable.of(phone);
         return this;
     }
 
@@ -221,17 +226,17 @@ public class ActivityNotificationSubscriberResponseDto {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String firstName;
+        private JsonNullable<String> firstName;
 
         private String subscriberId;
 
         private String id;
 
-        private String lastName;
+        private JsonNullable<String> lastName;
 
-        private String email;
+        private JsonNullable<String> email;
 
-        private String phone;
+        private JsonNullable<String> phone;
 
         private Builder() {
           // force use of static builder() method
@@ -241,7 +246,7 @@ public class ActivityNotificationSubscriberResponseDto {
          * First name of the subscriber
          */
         public Builder firstName(@Nullable String firstName) {
-            this.firstName = firstName;
+            this.firstName = JsonNullable.of(firstName);
             return this;
         }
 
@@ -265,7 +270,7 @@ public class ActivityNotificationSubscriberResponseDto {
          * Last name of the subscriber
          */
         public Builder lastName(@Nullable String lastName) {
-            this.lastName = lastName;
+            this.lastName = JsonNullable.of(lastName);
             return this;
         }
 
@@ -273,7 +278,7 @@ public class ActivityNotificationSubscriberResponseDto {
          * Email address of the subscriber
          */
         public Builder email(@Nullable String email) {
-            this.email = email;
+            this.email = JsonNullable.of(email);
             return this;
         }
 
@@ -281,7 +286,7 @@ public class ActivityNotificationSubscriberResponseDto {
          * Phone number of the subscriber
          */
         public Builder phone(@Nullable String phone) {
-            this.phone = phone;
+            this.phone = JsonNullable.of(phone);
             return this;
         }
 

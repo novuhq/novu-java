@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * StepTypeEnum
  * 
- * <p>Type of the step
+ * <p>Channels of the notification
  */
 public class StepTypeEnum {
 

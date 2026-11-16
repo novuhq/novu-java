@@ -25,7 +25,7 @@ public class MessageActionResult {
     private Map<String, Object> payload;
 
     /**
-     * Type of button for the action result
+     * Type of the button
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("type")
@@ -51,7 +51,7 @@ public class MessageActionResult {
     }
 
     /**
-     * Type of button for the action result
+     * Type of the button
      */
     public Optional<ButtonTypeEnum> type() {
         return Optional.ofNullable(this.type);
@@ -72,7 +72,7 @@ public class MessageActionResult {
 
 
     /**
-     * Type of button for the action result
+     * Type of the button
      */
     public MessageActionResult withType(@Nullable ButtonTypeEnum type) {
         this.type = type;
@@ -127,7 +127,7 @@ public class MessageActionResult {
         }
 
         /**
-         * Type of button for the action result
+         * Type of the button
          */
         public Builder type(@Nullable ButtonTypeEnum type) {
             this.type = type;

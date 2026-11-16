@@ -76,7 +76,7 @@ public class AsyncEnvironments {
     /**
      * Compare resources between environments
      * 
-     * <p>Compares workflows and other resources between the source and target environments, returning
+     * <p>Compares workflows and other resources between the development and target environments, returning
      * detailed diff information including additions, modifications, and deletions.
      * 
      * @return The async call builder
@@ -88,7 +88,7 @@ public class AsyncEnvironments {
     /**
      * Compare resources between environments
      * 
-     * <p>Compares workflows and other resources between the source and target environments, returning
+     * <p>Compares workflows and other resources between the development and target environments, returning
      * detailed diff information including additions, modifications, and deletions.
      * 
      * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
@@ -104,7 +104,7 @@ public class AsyncEnvironments {
     /**
      * Compare resources between environments
      * 
-     * <p>Compares workflows and other resources between the source and target environments, returning
+     * <p>Compares workflows and other resources between the development and target environments, returning
      * detailed diff information including additions, modifications, and deletions.
      * 
      * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
@@ -129,7 +129,7 @@ public class AsyncEnvironments {
     /**
      * Publish resources to target environment
      * 
-     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * <p>Publishes all workflows and resources from the development environment to the target environment.
      * Optionally specify specific resources to publish or use dryRun mode to preview changes.
      * 
      * @return The async call builder
@@ -141,7 +141,7 @@ public class AsyncEnvironments {
     /**
      * Publish resources to target environment
      * 
-     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * <p>Publishes all workflows and resources from the development environment to the target environment.
      * Optionally specify specific resources to publish or use dryRun mode to preview changes.
      * 
      * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to
@@ -157,7 +157,7 @@ public class AsyncEnvironments {
     /**
      * Publish resources to target environment
      * 
-     * <p>Publishes all workflows and resources from the source environment to the target environment.
+     * <p>Publishes all workflows and resources from the development environment to the target environment.
      * Optionally specify specific resources to publish or use dryRun mode to preview changes.
      * 
      * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to

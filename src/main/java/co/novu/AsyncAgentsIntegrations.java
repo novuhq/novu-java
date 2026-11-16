@@ -70,13 +70,16 @@ public class AsyncAgentsIntegrations {
      * not the internal _id).
      * 
      * @param identifier 
+     * @param novuAnalyticsSource 
      * @param body 
      * @return {@code CompletableFuture<AgentIntegrationsControllerAddAgentIntegrationResponse>} - The async response
      */
-    public CompletableFuture<AgentIntegrationsControllerAddAgentIntegrationResponse> create(@Nonnull String identifier, @Nonnull AddAgentIntegrationRequestDto body) {
+    public CompletableFuture<AgentIntegrationsControllerAddAgentIntegrationResponse> create(
+            @Nonnull String identifier, @Nonnull String novuAnalyticsSource,
+            @Nonnull AddAgentIntegrationRequestDto body) {
         return create(
-                identifier, null, body,
-                null);
+                identifier, novuAnalyticsSource, null,
+                body, null);
     }
 
     /**
@@ -86,15 +89,19 @@ public class AsyncAgentsIntegrations {
      * not the internal _id).
      * 
      * @param identifier 
+     * @param novuAnalyticsSource 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<AgentIntegrationsControllerAddAgentIntegrationResponse>} - The async response
      */
     public CompletableFuture<AgentIntegrationsControllerAddAgentIntegrationResponse> create(
-            @Nonnull String identifier, @Nullable String idempotencyKey,
-            @Nonnull AddAgentIntegrationRequestDto body, @Nullable Options options) {
-        AgentIntegrationsControllerAddAgentIntegrationRequest request = new AgentIntegrationsControllerAddAgentIntegrationRequest(identifier, idempotencyKey, body);
+            @Nonnull String identifier, @Nonnull String novuAnalyticsSource,
+            @Nullable String idempotencyKey, @Nonnull AddAgentIntegrationRequestDto body,
+            @Nullable Options options) {
+        AgentIntegrationsControllerAddAgentIntegrationRequest request = new AgentIntegrationsControllerAddAgentIntegrationRequest(
+                identifier, novuAnalyticsSource, idempotencyKey,
+                body);
         AsyncRequestOperation<AgentIntegrationsControllerAddAgentIntegrationRequest, AgentIntegrationsControllerAddAgentIntegrationResponse> operation
               = new AgentIntegrationsControllerAddAgentIntegration.Async(
                                     sdkConfiguration, options, sdkConfiguration.retryScheduler(),

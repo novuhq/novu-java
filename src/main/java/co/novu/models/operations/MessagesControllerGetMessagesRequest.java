@@ -18,9 +18,7 @@ import java.util.Optional;
 
 
 public class MessagesControllerGetMessagesRequest {
-    /**
-     * Channel type through which the message is sent
-     */
+
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=channel")
     private ChannelTypeEnum channel;
 
@@ -78,9 +76,6 @@ public class MessagesControllerGetMessagesRequest {
             null);
     }
 
-    /**
-     * Channel type through which the message is sent
-     */
     public Optional<ChannelTypeEnum> channel() {
         return Optional.ofNullable(this.channel);
     }
@@ -120,9 +115,6 @@ public class MessagesControllerGetMessagesRequest {
     }
 
 
-    /**
-     * Channel type through which the message is sent
-     */
     public MessagesControllerGetMessagesRequest withChannel(@Nullable ChannelTypeEnum channel) {
         this.channel = channel;
         return this;
@@ -231,9 +223,6 @@ public class MessagesControllerGetMessagesRequest {
           // force use of static builder() method
         }
 
-        /**
-         * Channel type through which the message is sent
-         */
         public Builder channel(@Nullable ChannelTypeEnum channel) {
             this.channel = channel;
             return this;

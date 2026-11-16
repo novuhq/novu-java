@@ -79,9 +79,7 @@ import co.novu.utils.Headers;
 import co.novu.utils.Options;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import java.lang.Boolean;
 import java.lang.Deprecated;
-import java.lang.Double;
 import java.lang.String;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -961,15 +959,13 @@ public class AsyncSubscribersNotifications1 {
      * <p>This API is deprecated, use v2 API instead. Retrieve unseen in-app notifications count for a
      * subscriber by its unique key identifier **subscriberId**.
      * 
-     * @param subscriberId 
+     * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<SubscribersV1ControllerGetUnseenCountResponse>} - The async response
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public CompletableFuture<SubscribersV1ControllerGetUnseenCountResponse> getUnseenCount(@Nonnull String subscriberId) {
-        return getUnseenCount(
-                subscriberId, null, null,
-                null, null);
+    public CompletableFuture<SubscribersV1ControllerGetUnseenCountResponse> getUnseenCount(@Nonnull SubscribersV1ControllerGetUnseenCountRequest request) {
+        return getUnseenCount(request, null);
     }
 
     /**
@@ -978,22 +974,13 @@ public class AsyncSubscribersNotifications1 {
      * <p>This API is deprecated, use v2 API instead. Retrieve unseen in-app notifications count for a
      * subscriber by its unique key identifier **subscriberId**.
      * 
-     * @param subscriberId 
-     * @param seen Indicates whether to count seen notifications.
-     * @param limit The maximum number of notifications to return.
-     * @param idempotencyKey A header for idempotency purposes
+     * @param request The request object containing all the parameters for the API call.
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerGetUnseenCountResponse>} - The async response
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @Deprecated
-    public CompletableFuture<SubscribersV1ControllerGetUnseenCountResponse> getUnseenCount(
-            @Nonnull String subscriberId, @Nullable Boolean seen,
-            @Nullable Double limit, @Nullable String idempotencyKey,
-            @Nullable Options options) {
-        SubscribersV1ControllerGetUnseenCountRequest request = new SubscribersV1ControllerGetUnseenCountRequest(
-                subscriberId, seen, limit,
-                idempotencyKey);
+    public CompletableFuture<SubscribersV1ControllerGetUnseenCountResponse> getUnseenCount(@Nonnull SubscribersV1ControllerGetUnseenCountRequest request, @Nullable Options options) {
         AsyncRequestOperation<SubscribersV1ControllerGetUnseenCountRequest, SubscribersV1ControllerGetUnseenCountResponse> operation
               = new SubscribersV1ControllerGetUnseenCount.Async(
                                     sdkConfiguration, options, sdkConfiguration.retryScheduler(),

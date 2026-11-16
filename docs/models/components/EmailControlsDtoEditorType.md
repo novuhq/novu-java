@@ -8,9 +8,6 @@ Editor type of the layout.
 import co.novu.models.components.EmailControlsDtoEditorType;
 
 EmailControlsDtoEditorType value = EmailControlsDtoEditorType.HTML;
-
-// Open enum: use .of() to create instances from custom string values
-EmailControlsDtoEditorType custom = EmailControlsDtoEditorType.of("custom_value");
 ```
 
 

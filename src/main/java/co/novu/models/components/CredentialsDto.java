@@ -31,6 +31,22 @@ public class CredentialsDto {
     @JsonProperty("secretKey")
     private String secretKey;
 
+    /**
+     * Email webhook: how `secretKey` is interpreted when signing webhook calls. `text` signs with the raw
+     * UTF-8 bytes; `base64`/`hex` decode it to binary first (e.g. for AWS KMS).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("hmacSecretKeyEncoding")
+    private HmacSecretKeyEncoding hmacSecretKeyEncoding;
+
+    /**
+     * Twilio: `apiKey` authenticates with `apiKey` (API Key SID) and `secretKey` (API Key Secret) on
+     * behalf of `accountSid`. When omitted, `token` (Auth Token) is used.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("authMethod")
+    private AuthMethod authMethod;
+
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("domain")
@@ -145,6 +161,11 @@ public class CredentialsDto {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("ipPoolName")
     private String ipPoolName;
+
+
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("configurationSetName")
+    private String configurationSetName;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -319,6 +340,8 @@ public class CredentialsDto {
             @JsonProperty("apiKey") @Nullable String apiKey,
             @JsonProperty("user") @Nullable String user,
             @JsonProperty("secretKey") @Nullable String secretKey,
+            @JsonProperty("hmacSecretKeyEncoding") @Nullable HmacSecretKeyEncoding hmacSecretKeyEncoding,
+            @JsonProperty("authMethod") @Nullable AuthMethod authMethod,
             @JsonProperty("domain") @Nullable String domain,
             @JsonProperty("password") @Nullable String password,
             @JsonProperty("host") @Nullable String host,
@@ -342,6 +365,7 @@ public class CredentialsDto {
             @JsonProperty("hmac") @Nullable Boolean hmac,
             @JsonProperty("serviceAccount") @Nullable String serviceAccount,
             @JsonProperty("ipPoolName") @Nullable String ipPoolName,
+            @JsonProperty("configurationSetName") @Nullable String configurationSetName,
             @JsonProperty("apiKeyRequestHeader") @Nullable String apiKeyRequestHeader,
             @JsonProperty("secretKeyRequestHeader") @Nullable String secretKeyRequestHeader,
             @JsonProperty("idPath") @Nullable String idPath,
@@ -375,6 +399,8 @@ public class CredentialsDto {
         this.apiKey = apiKey;
         this.user = user;
         this.secretKey = secretKey;
+        this.hmacSecretKeyEncoding = hmacSecretKeyEncoding;
+        this.authMethod = authMethod;
         this.domain = domain;
         this.password = password;
         this.host = host;
@@ -398,6 +424,7 @@ public class CredentialsDto {
         this.hmac = hmac;
         this.serviceAccount = serviceAccount;
         this.ipPoolName = ipPoolName;
+        this.configurationSetName = configurationSetName;
         this.apiKeyRequestHeader = apiKeyRequestHeader;
         this.secretKeyRequestHeader = secretKeyRequestHeader;
         this.idPath = idPath;
@@ -449,6 +476,7 @@ public class CredentialsDto {
             null, null, null,
             null, null, null,
             null, null, null,
+            null, null, null,
             null, null);
     }
 
@@ -462,6 +490,22 @@ public class CredentialsDto {
 
     public Optional<String> secretKey() {
         return Optional.ofNullable(this.secretKey);
+    }
+
+    /**
+     * Email webhook: how `secretKey` is interpreted when signing webhook calls. `text` signs with the raw
+     * UTF-8 bytes; `base64`/`hex` decode it to binary first (e.g. for AWS KMS).
+     */
+    public Optional<HmacSecretKeyEncoding> hmacSecretKeyEncoding() {
+        return Optional.ofNullable(this.hmacSecretKeyEncoding);
+    }
+
+    /**
+     * Twilio: `apiKey` authenticates with `apiKey` (API Key SID) and `secretKey` (API Key Secret) on
+     * behalf of `accountSid`. When omitted, `token` (Auth Token) is used.
+     */
+    public Optional<AuthMethod> authMethod() {
+        return Optional.ofNullable(this.authMethod);
     }
 
     public Optional<String> domain() {
@@ -554,6 +598,10 @@ public class CredentialsDto {
 
     public Optional<String> ipPoolName() {
         return Optional.ofNullable(this.ipPoolName);
+    }
+
+    public Optional<String> configurationSetName() {
+        return Optional.ofNullable(this.configurationSetName);
     }
 
     public Optional<String> apiKeyRequestHeader() {
@@ -722,6 +770,26 @@ public class CredentialsDto {
     }
 
 
+    /**
+     * Email webhook: how `secretKey` is interpreted when signing webhook calls. `text` signs with the raw
+     * UTF-8 bytes; `base64`/`hex` decode it to binary first (e.g. for AWS KMS).
+     */
+    public CredentialsDto withHmacSecretKeyEncoding(@Nullable HmacSecretKeyEncoding hmacSecretKeyEncoding) {
+        this.hmacSecretKeyEncoding = hmacSecretKeyEncoding;
+        return this;
+    }
+
+
+    /**
+     * Twilio: `apiKey` authenticates with `apiKey` (API Key SID) and `secretKey` (API Key Secret) on
+     * behalf of `accountSid`. When omitted, `token` (Auth Token) is used.
+     */
+    public CredentialsDto withAuthMethod(@Nullable AuthMethod authMethod) {
+        this.authMethod = authMethod;
+        return this;
+    }
+
+
     public CredentialsDto withDomain(@Nullable String domain) {
         this.domain = domain;
         return this;
@@ -856,6 +924,12 @@ public class CredentialsDto {
 
     public CredentialsDto withIpPoolName(@Nullable String ipPoolName) {
         this.ipPoolName = ipPoolName;
+        return this;
+    }
+
+
+    public CredentialsDto withConfigurationSetName(@Nullable String configurationSetName) {
+        this.configurationSetName = configurationSetName;
         return this;
     }
 
@@ -1076,6 +1150,8 @@ public class CredentialsDto {
             Utils.enhancedDeepEquals(this.apiKey, other.apiKey) &&
             Utils.enhancedDeepEquals(this.user, other.user) &&
             Utils.enhancedDeepEquals(this.secretKey, other.secretKey) &&
+            Utils.enhancedDeepEquals(this.hmacSecretKeyEncoding, other.hmacSecretKeyEncoding) &&
+            Utils.enhancedDeepEquals(this.authMethod, other.authMethod) &&
             Utils.enhancedDeepEquals(this.domain, other.domain) &&
             Utils.enhancedDeepEquals(this.password, other.password) &&
             Utils.enhancedDeepEquals(this.host, other.host) &&
@@ -1099,6 +1175,7 @@ public class CredentialsDto {
             Utils.enhancedDeepEquals(this.hmac, other.hmac) &&
             Utils.enhancedDeepEquals(this.serviceAccount, other.serviceAccount) &&
             Utils.enhancedDeepEquals(this.ipPoolName, other.ipPoolName) &&
+            Utils.enhancedDeepEquals(this.configurationSetName, other.configurationSetName) &&
             Utils.enhancedDeepEquals(this.apiKeyRequestHeader, other.apiKeyRequestHeader) &&
             Utils.enhancedDeepEquals(this.secretKeyRequestHeader, other.secretKeyRequestHeader) &&
             Utils.enhancedDeepEquals(this.idPath, other.idPath) &&
@@ -1135,14 +1212,15 @@ public class CredentialsDto {
     public int hashCode() {
         return Utils.enhancedHash(
             apiKey, user, secretKey,
-            domain, password, host,
-            port, secure, region,
-            accountSid, messageProfileId, token,
-            from, senderName, projectName,
-            applicationId, clientId, requireTls,
-            ignoreTls, tlsOptions, baseUrl,
-            webhookUrl, redirectUrl, hmac,
-            serviceAccount, ipPoolName, apiKeyRequestHeader,
+            hmacSecretKeyEncoding, authMethod, domain,
+            password, host, port,
+            secure, region, accountSid,
+            messageProfileId, token, from,
+            senderName, projectName, applicationId,
+            clientId, requireTls, ignoreTls,
+            tlsOptions, baseUrl, webhookUrl,
+            redirectUrl, hmac, serviceAccount,
+            ipPoolName, configurationSetName, apiKeyRequestHeader,
             secretKeyRequestHeader, idPath, datePath,
             apiToken, authenticateByToken, authenticationTokenKey,
             instanceId, alertUid, title,
@@ -1161,6 +1239,8 @@ public class CredentialsDto {
                 "apiKey", apiKey,
                 "user", user,
                 "secretKey", secretKey,
+                "hmacSecretKeyEncoding", hmacSecretKeyEncoding,
+                "authMethod", authMethod,
                 "domain", domain,
                 "password", password,
                 "host", host,
@@ -1184,6 +1264,7 @@ public class CredentialsDto {
                 "hmac", hmac,
                 "serviceAccount", serviceAccount,
                 "ipPoolName", ipPoolName,
+                "configurationSetName", configurationSetName,
                 "apiKeyRequestHeader", apiKeyRequestHeader,
                 "secretKeyRequestHeader", secretKeyRequestHeader,
                 "idPath", idPath,
@@ -1224,6 +1305,10 @@ public class CredentialsDto {
         private String user;
 
         private String secretKey;
+
+        private HmacSecretKeyEncoding hmacSecretKeyEncoding;
+
+        private AuthMethod authMethod;
 
         private String domain;
 
@@ -1270,6 +1355,8 @@ public class CredentialsDto {
         private String serviceAccount;
 
         private String ipPoolName;
+
+        private String configurationSetName;
 
         private String apiKeyRequestHeader;
 
@@ -1347,6 +1434,24 @@ public class CredentialsDto {
 
         public Builder secretKey(@Nullable String secretKey) {
             this.secretKey = secretKey;
+            return this;
+        }
+
+        /**
+         * Email webhook: how `secretKey` is interpreted when signing webhook calls. `text` signs with the raw
+         * UTF-8 bytes; `base64`/`hex` decode it to binary first (e.g. for AWS KMS).
+         */
+        public Builder hmacSecretKeyEncoding(@Nullable HmacSecretKeyEncoding hmacSecretKeyEncoding) {
+            this.hmacSecretKeyEncoding = hmacSecretKeyEncoding;
+            return this;
+        }
+
+        /**
+         * Twilio: `apiKey` authenticates with `apiKey` (API Key SID) and `secretKey` (API Key Secret) on
+         * behalf of `accountSid`. When omitted, `token` (Auth Token) is used.
+         */
+        public Builder authMethod(@Nullable AuthMethod authMethod) {
+            this.authMethod = authMethod;
             return this;
         }
 
@@ -1462,6 +1567,11 @@ public class CredentialsDto {
 
         public Builder ipPoolName(@Nullable String ipPoolName) {
             this.ipPoolName = ipPoolName;
+            return this;
+        }
+
+        public Builder configurationSetName(@Nullable String configurationSetName) {
+            this.configurationSetName = configurationSetName;
             return this;
         }
 
@@ -1641,14 +1751,15 @@ public class CredentialsDto {
         public CredentialsDto build() {
             return new CredentialsDto(
                 apiKey, user, secretKey,
-                domain, password, host,
-                port, secure, region,
-                accountSid, messageProfileId, token,
-                from, senderName, projectName,
-                applicationId, clientId, requireTls,
-                ignoreTls, tlsOptions, baseUrl,
-                webhookUrl, redirectUrl, hmac,
-                serviceAccount, ipPoolName, apiKeyRequestHeader,
+                hmacSecretKeyEncoding, authMethod, domain,
+                password, host, port,
+                secure, region, accountSid,
+                messageProfileId, token, from,
+                senderName, projectName, applicationId,
+                clientId, requireTls, ignoreTls,
+                tlsOptions, baseUrl, webhookUrl,
+                redirectUrl, hmac, serviceAccount,
+                ipPoolName, configurationSetName, apiKeyRequestHeader,
                 secretKeyRequestHeader, idPath, datePath,
                 apiToken, authenticateByToken, authenticationTokenKey,
                 instanceId, alertUid, title,

@@ -137,9 +137,7 @@ public class InboxNotificationDto {
     @JsonProperty("secondaryAction")
     private InboxActionDto secondaryAction;
 
-    /**
-     * Channel type through which the message is sent
-     */
+
     @JsonProperty("channelType")
     private ChannelTypeEnum channelType;
 
@@ -172,7 +170,7 @@ public class InboxNotificationDto {
     private NotificationWorkflowDto workflow;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonProperty("severity")
     private SeverityLevelEnum severity;
@@ -388,9 +386,6 @@ public class InboxNotificationDto {
         return Optional.ofNullable(this.secondaryAction);
     }
 
-    /**
-     * Channel type through which the message is sent
-     */
     public ChannelTypeEnum channelType() {
         return this.channelType;
     }
@@ -424,7 +419,7 @@ public class InboxNotificationDto {
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public SeverityLevelEnum severity() {
         return this.severity;
@@ -597,9 +592,6 @@ public class InboxNotificationDto {
     }
 
 
-    /**
-     * Channel type through which the message is sent
-     */
     public InboxNotificationDto withChannelType(@Nonnull ChannelTypeEnum channelType) {
         this.channelType = Utils.checkNotNull(channelType, "channelType");
         return this;
@@ -643,7 +635,7 @@ public class InboxNotificationDto {
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public InboxNotificationDto withSeverity(@Nonnull SeverityLevelEnum severity) {
         this.severity = Utils.checkNotNull(severity, "severity");
@@ -928,9 +920,6 @@ public class InboxNotificationDto {
             return this;
         }
 
-        /**
-         * Channel type through which the message is sent
-         */
         public Builder channelType(@Nonnull ChannelTypeEnum channelType) {
             this.channelType = Utils.checkNotNull(channelType, "channelType");
             return this;
@@ -969,7 +958,7 @@ public class InboxNotificationDto {
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nonnull SeverityLevelEnum severity) {
             this.severity = Utils.checkNotNull(severity, "severity");

@@ -9,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -28,13 +30,13 @@ public class TenantPayloadDto {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("data")
-    private TenantPayloadDtoData data;
+    private Map<String, Object> data;
 
     @JsonCreator
     public TenantPayloadDto(
             @JsonProperty("identifier") @Nullable String identifier,
             @JsonProperty("name") @Nullable String name,
-            @JsonProperty("data") @Nullable TenantPayloadDtoData data) {
+            @JsonProperty("data") @Nullable Map<String, Object> data) {
         this.identifier = identifier;
         this.name = name;
         this.data = data;
@@ -52,7 +54,7 @@ public class TenantPayloadDto {
         return Optional.ofNullable(this.name);
     }
 
-    public Optional<TenantPayloadDtoData> data() {
+    public Optional<Map<String, Object>> data() {
         return Optional.ofNullable(this.data);
     }
 
@@ -73,7 +75,7 @@ public class TenantPayloadDto {
     }
 
 
-    public TenantPayloadDto withData(@Nullable TenantPayloadDtoData data) {
+    public TenantPayloadDto withData(@Nullable Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -115,7 +117,7 @@ public class TenantPayloadDto {
 
         private String name;
 
-        private TenantPayloadDtoData data;
+        private Map<String, Object> data;
 
         private Builder() {
           // force use of static builder() method
@@ -131,7 +133,7 @@ public class TenantPayloadDto {
             return this;
         }
 
-        public Builder data(@Nullable TenantPayloadDtoData data) {
+        public Builder data(@Nullable Map<String, Object> data) {
             this.data = data;
             return this;
         }

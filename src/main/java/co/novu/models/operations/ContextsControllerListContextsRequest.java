@@ -52,6 +52,12 @@ public class ContextsControllerListContextsRequest {
     private Boolean includeCursor;
 
     /**
+     * Filter contexts by type
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=type")
+    private String type;
+
+    /**
      * Filter contexts by id
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=id")
@@ -77,6 +83,7 @@ public class ContextsControllerListContextsRequest {
             @Nullable ContextsControllerListContextsOrderDirection orderDirection,
             @Nullable String orderBy,
             @Nullable Boolean includeCursor,
+            @Nullable String type,
             @Nullable String id,
             @Nullable String search,
             @Nullable String idempotencyKey) {
@@ -86,6 +93,7 @@ public class ContextsControllerListContextsRequest {
         this.orderDirection = orderDirection;
         this.orderBy = orderBy;
         this.includeCursor = includeCursor;
+        this.type = type;
         this.id = id;
         this.search = search;
         this.idempotencyKey = idempotencyKey;
@@ -94,7 +102,8 @@ public class ContextsControllerListContextsRequest {
     public ContextsControllerListContextsRequest() {
         this(null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -137,6 +146,13 @@ public class ContextsControllerListContextsRequest {
      */
     public Optional<Boolean> includeCursor() {
         return Optional.ofNullable(this.includeCursor);
+    }
+
+    /**
+     * Filter contexts by type
+     */
+    public Optional<String> type() {
+        return Optional.ofNullable(this.type);
     }
 
     /**
@@ -220,6 +236,15 @@ public class ContextsControllerListContextsRequest {
 
 
     /**
+     * Filter contexts by type
+     */
+    public ContextsControllerListContextsRequest withType(@Nullable String type) {
+        this.type = type;
+        return this;
+    }
+
+
+    /**
      * Filter contexts by id
      */
     public ContextsControllerListContextsRequest withId(@Nullable String id) {
@@ -262,6 +287,7 @@ public class ContextsControllerListContextsRequest {
             Utils.enhancedDeepEquals(this.orderDirection, other.orderDirection) &&
             Utils.enhancedDeepEquals(this.orderBy, other.orderBy) &&
             Utils.enhancedDeepEquals(this.includeCursor, other.includeCursor) &&
+            Utils.enhancedDeepEquals(this.type, other.type) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.search, other.search) &&
             Utils.enhancedDeepEquals(this.idempotencyKey, other.idempotencyKey);
@@ -272,7 +298,8 @@ public class ContextsControllerListContextsRequest {
         return Utils.enhancedHash(
             after, before, limit,
             orderDirection, orderBy, includeCursor,
-            id, search, idempotencyKey);
+            type, id, search,
+            idempotencyKey);
     }
     
     @Override
@@ -284,6 +311,7 @@ public class ContextsControllerListContextsRequest {
                 "orderDirection", orderDirection,
                 "orderBy", orderBy,
                 "includeCursor", includeCursor,
+                "type", type,
                 "id", id,
                 "search", search,
                 "idempotencyKey", idempotencyKey);
@@ -303,6 +331,8 @@ public class ContextsControllerListContextsRequest {
         private String orderBy;
 
         private Boolean includeCursor;
+
+        private String type;
 
         private String id;
 
@@ -363,6 +393,14 @@ public class ContextsControllerListContextsRequest {
         }
 
         /**
+         * Filter contexts by type
+         */
+        public Builder type(@Nullable String type) {
+            this.type = type;
+            return this;
+        }
+
+        /**
          * Filter contexts by id
          */
         public Builder id(@Nullable String id) {
@@ -390,7 +428,8 @@ public class ContextsControllerListContextsRequest {
             return new ContextsControllerListContextsRequest(
                 after, before, limit,
                 orderDirection, orderBy, includeCursor,
-                id, search, idempotencyKey);
+                type, id, search,
+                idempotencyKey);
         }
 
     }

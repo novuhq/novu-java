@@ -31,7 +31,7 @@ public class ActivityNotificationTemplateResponseDto {
     private String name;
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("origin")
@@ -79,7 +79,7 @@ public class ActivityNotificationTemplateResponseDto {
     }
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public Optional<ResourceOriginEnum> origin() {
         return Optional.ofNullable(this.origin);
@@ -116,7 +116,7 @@ public class ActivityNotificationTemplateResponseDto {
 
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public ActivityNotificationTemplateResponseDto withOrigin(@Nullable ResourceOriginEnum origin) {
         this.origin = origin;
@@ -197,7 +197,7 @@ public class ActivityNotificationTemplateResponseDto {
         }
 
         /**
-         * Origin of the layout
+         * Origin of the workflow
          */
         public Builder origin(@Nullable ResourceOriginEnum origin) {
             this.origin = origin;

@@ -1,6 +1,6 @@
 # SeverityLevelEnum
 
-Severity of the workflow
+Override the severity of the workflow
 
 ## Example Usage
 

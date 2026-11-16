@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class HttpRequestControlsMetadataResponseDto {
     /**
      * Control values specific to HTTP Request step
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private HttpRequestControlDto values;
+    private HttpRequestControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public HttpRequestControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull HttpRequestControlDto values) {
+            @JsonProperty("values") @Nullable HttpRequestControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public HttpRequestControlsMetadataResponseDto(
-            @Nonnull HttpRequestControlDto values) {
-        this(null, null, values);
+    public HttpRequestControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class HttpRequestControlsMetadataResponseDto {
     /**
      * Control values specific to HTTP Request step
      */
-    public HttpRequestControlDto values() {
-        return this.values;
+    public Optional<HttpRequestControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class HttpRequestControlsMetadataResponseDto {
     /**
      * Control values specific to HTTP Request step
      */
-    public HttpRequestControlsMetadataResponseDto withValues(@Nonnull HttpRequestControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public HttpRequestControlsMetadataResponseDto withValues(@Nullable HttpRequestControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class HttpRequestControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private HttpRequestControlDto values;
+        private HttpRequestControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class HttpRequestControlsMetadataResponseDto {
         /**
          * Control values specific to HTTP Request step
          */
-        public Builder values(@Nonnull HttpRequestControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable HttpRequestControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

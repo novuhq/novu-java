@@ -68,13 +68,16 @@ public class AgentsIntegrations {
      * not the internal _id).
      * 
      * @param identifier 
+     * @param novuAnalyticsSource 
      * @param body 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public AgentIntegrationsControllerAddAgentIntegrationResponse create(@Nonnull String identifier, @Nonnull AddAgentIntegrationRequestDto body) {
-        return create(identifier, null, body,
-            null);
+    public AgentIntegrationsControllerAddAgentIntegrationResponse create(
+            @Nonnull String identifier, @Nonnull String novuAnalyticsSource,
+            @Nonnull AddAgentIntegrationRequestDto body) {
+        return create(identifier, novuAnalyticsSource, null,
+            body, null);
     }
 
     /**
@@ -84,6 +87,7 @@ public class AgentsIntegrations {
      * not the internal _id).
      * 
      * @param identifier 
+     * @param novuAnalyticsSource 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
      * @param options additional options
@@ -91,9 +95,12 @@ public class AgentsIntegrations {
      * @throws RuntimeException subclass if the API call fails
      */
     public AgentIntegrationsControllerAddAgentIntegrationResponse create(
-            @Nonnull String identifier, @Nullable String idempotencyKey,
-            @Nonnull AddAgentIntegrationRequestDto body, @Nullable Options options) {
-        AgentIntegrationsControllerAddAgentIntegrationRequest request = new AgentIntegrationsControllerAddAgentIntegrationRequest(identifier, idempotencyKey, body);
+            @Nonnull String identifier, @Nonnull String novuAnalyticsSource,
+            @Nullable String idempotencyKey, @Nonnull AddAgentIntegrationRequestDto body,
+            @Nullable Options options) {
+        AgentIntegrationsControllerAddAgentIntegrationRequest request = new AgentIntegrationsControllerAddAgentIntegrationRequest(
+                identifier, novuAnalyticsSource, idempotencyKey,
+                body);
         RequestOperation<AgentIntegrationsControllerAddAgentIntegrationRequest, AgentIntegrationsControllerAddAgentIntegrationResponse> operation
               = new AgentIntegrationsControllerAddAgentIntegration.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));

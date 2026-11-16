@@ -14,6 +14,7 @@ import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,6 +30,10 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
 
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=limit")
     private Double limit;
+
+
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=feedIdentifier")
+    private List<String> feedIdentifier;
 
 
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=read")
@@ -55,6 +60,7 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
             @Nonnull String subscriberId,
             @Nullable Double page,
             @Nullable Double limit,
+            @Nullable List<String> feedIdentifier,
             @Nullable Boolean read,
             @Nullable Boolean seen,
             @Nullable String payload,
@@ -64,6 +70,7 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
         this.page = page;
         this.limit = Optional.ofNullable(limit)
             .orElse(Builder._SINGLETON_VALUE_Limit.value());
+        this.feedIdentifier = feedIdentifier;
         this.read = read;
         this.seen = seen;
         this.payload = payload;
@@ -74,7 +81,7 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
             @Nonnull String subscriberId) {
         this(subscriberId, null, null,
             null, null, null,
-            null);
+            null, null);
     }
 
     public String subscriberId() {
@@ -87,6 +94,10 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
 
     public Optional<Double> limit() {
         return Optional.ofNullable(this.limit);
+    }
+
+    public Optional<List<String>> feedIdentifier() {
+        return Optional.ofNullable(this.feedIdentifier);
     }
 
     public Optional<Boolean> read() {
@@ -134,6 +145,12 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
     }
 
 
+    public SubscribersV1ControllerGetNotificationsFeedRequest withFeedIdentifier(@Nullable List<String> feedIdentifier) {
+        this.feedIdentifier = feedIdentifier;
+        return this;
+    }
+
+
     public SubscribersV1ControllerGetNotificationsFeedRequest withRead(@Nullable Boolean read) {
         this.read = read;
         return this;
@@ -177,6 +194,7 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
             Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
             Utils.enhancedDeepEquals(this.page, other.page) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
+            Utils.enhancedDeepEquals(this.feedIdentifier, other.feedIdentifier) &&
             Utils.enhancedDeepEquals(this.read, other.read) &&
             Utils.enhancedDeepEquals(this.seen, other.seen) &&
             Utils.enhancedDeepEquals(this.payload, other.payload) &&
@@ -187,8 +205,8 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
     public int hashCode() {
         return Utils.enhancedHash(
             subscriberId, page, limit,
-            read, seen, payload,
-            idempotencyKey);
+            feedIdentifier, read, seen,
+            payload, idempotencyKey);
     }
     
     @Override
@@ -197,6 +215,7 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
                 "subscriberId", subscriberId,
                 "page", page,
                 "limit", limit,
+                "feedIdentifier", feedIdentifier,
                 "read", read,
                 "seen", seen,
                 "payload", payload,
@@ -211,6 +230,8 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
         private Double page;
 
         private Double limit;
+
+        private List<String> feedIdentifier;
 
         private Boolean read;
 
@@ -236,6 +257,11 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
 
         public Builder limit(@Nullable Double limit) {
             this.limit = limit;
+            return this;
+        }
+
+        public Builder feedIdentifier(@Nullable List<String> feedIdentifier) {
+            this.feedIdentifier = feedIdentifier;
             return this;
         }
 
@@ -268,8 +294,8 @@ public class SubscribersV1ControllerGetNotificationsFeedRequest {
         public SubscribersV1ControllerGetNotificationsFeedRequest build() {
             return new SubscribersV1ControllerGetNotificationsFeedRequest(
                 subscriberId, page, limit,
-                read, seen, payload,
-                idempotencyKey);
+                feedIdentifier, read, seen,
+                payload, idempotencyKey);
         }
 
 

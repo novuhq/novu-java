@@ -99,14 +99,14 @@ public class UpdateWorkflowDto {
     private PreferencesRequestDto preferences;
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("origin")
     private ResourceOriginEnum origin;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("severity")
@@ -239,14 +239,14 @@ public class UpdateWorkflowDto {
     }
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public Optional<ResourceOriginEnum> origin() {
         return Optional.ofNullable(this.origin);
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public Optional<SeverityLevelEnum> severity() {
         return Optional.ofNullable(this.severity);
@@ -358,7 +358,7 @@ public class UpdateWorkflowDto {
 
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public UpdateWorkflowDto withOrigin(@Nullable ResourceOriginEnum origin) {
         this.origin = origin;
@@ -367,7 +367,7 @@ public class UpdateWorkflowDto {
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public UpdateWorkflowDto withSeverity(@Nullable SeverityLevelEnum severity) {
         this.severity = severity;
@@ -551,7 +551,7 @@ public class UpdateWorkflowDto {
         }
 
         /**
-         * Origin of the layout
+         * Origin of the workflow
          */
         public Builder origin(@Nullable ResourceOriginEnum origin) {
             this.origin = origin;
@@ -559,7 +559,7 @@ public class UpdateWorkflowDto {
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nullable SeverityLevelEnum severity) {
             this.severity = severity;

@@ -27,8 +27,7 @@ import co.novu.models.components.MarkMessageActionAsSeenDto;
 import co.novu.models.components.MarkMessageActionAsSeenDtoStatus;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
-import co.novu.models.operations.SubscribersV1ControllerMarkActionAsSeenRequest;
-import co.novu.models.operations.SubscribersV1ControllerMarkActionAsSeenResponse;
+import co.novu.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
@@ -41,7 +40,7 @@ public class Application {
 
         SubscribersV1ControllerMarkActionAsSeenRequest req = SubscribersV1ControllerMarkActionAsSeenRequest.builder()
                 .messageId("<id>")
-                .type("<value>")
+                .type(Type.PRIMARY)
                 .subscriberId("<id>")
                 .body(MarkMessageActionAsSeenDto.builder()
                     .status(MarkMessageActionAsSeenDtoStatus.PENDING)

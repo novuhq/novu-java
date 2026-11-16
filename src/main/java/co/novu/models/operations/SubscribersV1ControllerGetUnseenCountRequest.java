@@ -14,6 +14,7 @@ import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -21,6 +22,12 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=subscriberId")
     private String subscriberId;
+
+    /**
+     * Identifier for the feed. Can be a single string or an array of strings.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=feedId")
+    private List<String> feedId;
 
     /**
      * Indicates whether to count seen notifications.
@@ -43,11 +50,13 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
     @JsonCreator
     public SubscribersV1ControllerGetUnseenCountRequest(
             @Nonnull String subscriberId,
+            @Nullable List<String> feedId,
             @Nullable Boolean seen,
             @Nullable Double limit,
             @Nullable String idempotencyKey) {
         this.subscriberId = Optional.ofNullable(subscriberId)
             .orElseThrow(() -> new IllegalArgumentException("subscriberId cannot be null"));
+        this.feedId = feedId;
         this.seen = Optional.ofNullable(seen)
             .orElse(Builder._SINGLETON_VALUE_Seen.value());
         this.limit = Optional.ofNullable(limit)
@@ -58,11 +67,18 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
     public SubscribersV1ControllerGetUnseenCountRequest(
             @Nonnull String subscriberId) {
         this(subscriberId, null, null,
-            null);
+            null, null);
     }
 
     public String subscriberId() {
         return this.subscriberId;
+    }
+
+    /**
+     * Identifier for the feed. Can be a single string or an array of strings.
+     */
+    public Optional<List<String>> feedId() {
+        return Optional.ofNullable(this.feedId);
     }
 
     /**
@@ -93,6 +109,15 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
 
     public SubscribersV1ControllerGetUnseenCountRequest withSubscriberId(@Nonnull String subscriberId) {
         this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
+        return this;
+    }
+
+
+    /**
+     * Identifier for the feed. Can be a single string or an array of strings.
+     */
+    public SubscribersV1ControllerGetUnseenCountRequest withFeedId(@Nullable List<String> feedId) {
+        this.feedId = feedId;
         return this;
     }
 
@@ -135,6 +160,7 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
         SubscribersV1ControllerGetUnseenCountRequest other = (SubscribersV1ControllerGetUnseenCountRequest) o;
         return 
             Utils.enhancedDeepEquals(this.subscriberId, other.subscriberId) &&
+            Utils.enhancedDeepEquals(this.feedId, other.feedId) &&
             Utils.enhancedDeepEquals(this.seen, other.seen) &&
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
             Utils.enhancedDeepEquals(this.idempotencyKey, other.idempotencyKey);
@@ -143,14 +169,15 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            subscriberId, seen, limit,
-            idempotencyKey);
+            subscriberId, feedId, seen,
+            limit, idempotencyKey);
     }
     
     @Override
     public String toString() {
         return Utils.toString(SubscribersV1ControllerGetUnseenCountRequest.class,
                 "subscriberId", subscriberId,
+                "feedId", feedId,
                 "seen", seen,
                 "limit", limit,
                 "idempotencyKey", idempotencyKey);
@@ -160,6 +187,8 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
     public final static class Builder {
 
         private String subscriberId;
+
+        private List<String> feedId;
 
         private Boolean seen;
 
@@ -173,6 +202,14 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
 
         public Builder subscriberId(@Nonnull String subscriberId) {
             this.subscriberId = Utils.checkNotNull(subscriberId, "subscriberId");
+            return this;
+        }
+
+        /**
+         * Identifier for the feed. Can be a single string or an array of strings.
+         */
+        public Builder feedId(@Nullable List<String> feedId) {
+            this.feedId = feedId;
             return this;
         }
 
@@ -202,8 +239,8 @@ public class SubscribersV1ControllerGetUnseenCountRequest {
 
         public SubscribersV1ControllerGetUnseenCountRequest build() {
             return new SubscribersV1ControllerGetUnseenCountRequest(
-                subscriberId, seen, limit,
-                idempotencyKey);
+                subscriberId, feedId, seen,
+                limit, idempotencyKey);
         }
 
 

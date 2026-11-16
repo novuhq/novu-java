@@ -48,6 +48,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId EMAIL_WEBHOOK = new GetChannelEndpointResponseDtoProviderId("email-webhook");
     public static final GetChannelEndpointResponseDtoProviderId BRAZE = new GetChannelEndpointResponseDtoProviderId("braze");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_EMAIL_AGENT = new GetChannelEndpointResponseDtoProviderId("novu-email-agent");
+    public static final GetChannelEndpointResponseDtoProviderId AGENT_EMAIL_INBOX = new GetChannelEndpointResponseDtoProviderId("agent-email-inbox");
     public static final GetChannelEndpointResponseDtoProviderId NEXMO = new GetChannelEndpointResponseDtoProviderId("nexmo");
     public static final GetChannelEndpointResponseDtoProviderId PLIVO = new GetChannelEndpointResponseDtoProviderId("plivo");
     public static final GetChannelEndpointResponseDtoProviderId SMS77 = new GetChannelEndpointResponseDtoProviderId("sms77");
@@ -97,6 +98,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId NOVU = new GetChannelEndpointResponseDtoProviderId("novu");
     public static final GetChannelEndpointResponseDtoProviderId SLACK = new GetChannelEndpointResponseDtoProviderId("slack");
     public static final GetChannelEndpointResponseDtoProviderId DISCORD = new GetChannelEndpointResponseDtoProviderId("discord");
+    public static final GetChannelEndpointResponseDtoProviderId GOOGLE_CHAT = new GetChannelEndpointResponseDtoProviderId("google-chat");
     public static final GetChannelEndpointResponseDtoProviderId MSTEAMS = new GetChannelEndpointResponseDtoProviderId("msteams");
     public static final GetChannelEndpointResponseDtoProviderId WEBEX_MESSAGING = new GetChannelEndpointResponseDtoProviderId("webex-messaging");
     public static final GetChannelEndpointResponseDtoProviderId MATTERMOST = new GetChannelEndpointResponseDtoProviderId("mattermost");
@@ -111,6 +113,7 @@ public class GetChannelEndpointResponseDtoProviderId {
     public static final GetChannelEndpointResponseDtoProviderId NOVU_SLACK = new GetChannelEndpointResponseDtoProviderId("novu-slack");
     public static final GetChannelEndpointResponseDtoProviderId TELEGRAM = new GetChannelEndpointResponseDtoProviderId("telegram");
     public static final GetChannelEndpointResponseDtoProviderId SENDBLUE = new GetChannelEndpointResponseDtoProviderId("sendblue");
+    public static final GetChannelEndpointResponseDtoProviderId PHOTON_IMESSAGE = new GetChannelEndpointResponseDtoProviderId("photon-imessage");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_WEB_CHAT = new GetChannelEndpointResponseDtoProviderId("novu-web-chat");
     public static final GetChannelEndpointResponseDtoProviderId ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("anthropic");
     public static final GetChannelEndpointResponseDtoProviderId NOVU_ANTHROPIC = new GetChannelEndpointResponseDtoProviderId("novu-anthropic");
@@ -215,6 +218,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("email-webhook", EMAIL_WEBHOOK);
         map.put("braze", BRAZE);
         map.put("novu-email-agent", NOVU_EMAIL_AGENT);
+        map.put("agent-email-inbox", AGENT_EMAIL_INBOX);
         map.put("nexmo", NEXMO);
         map.put("plivo", PLIVO);
         map.put("sms77", SMS77);
@@ -264,6 +268,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("novu", NOVU);
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
+        map.put("google-chat", GOOGLE_CHAT);
         map.put("msteams", MSTEAMS);
         map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
@@ -278,6 +283,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
         map.put("sendblue", SENDBLUE);
+        map.put("photon-imessage", PHOTON_IMESSAGE);
         map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("anthropic", ANTHROPIC);
         map.put("novu-anthropic", NOVU_ANTHROPIC);
@@ -314,6 +320,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("email-webhook", GetChannelEndpointResponseDtoProviderIdEnum.EMAIL_WEBHOOK);
         map.put("braze", GetChannelEndpointResponseDtoProviderIdEnum.BRAZE);
         map.put("novu-email-agent", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_EMAIL_AGENT);
+        map.put("agent-email-inbox", GetChannelEndpointResponseDtoProviderIdEnum.AGENT_EMAIL_INBOX);
         map.put("nexmo", GetChannelEndpointResponseDtoProviderIdEnum.NEXMO);
         map.put("plivo", GetChannelEndpointResponseDtoProviderIdEnum.PLIVO);
         map.put("sms77", GetChannelEndpointResponseDtoProviderIdEnum.SMS77);
@@ -363,6 +370,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("novu", GetChannelEndpointResponseDtoProviderIdEnum.NOVU);
         map.put("slack", GetChannelEndpointResponseDtoProviderIdEnum.SLACK);
         map.put("discord", GetChannelEndpointResponseDtoProviderIdEnum.DISCORD);
+        map.put("google-chat", GetChannelEndpointResponseDtoProviderIdEnum.GOOGLE_CHAT);
         map.put("msteams", GetChannelEndpointResponseDtoProviderIdEnum.MSTEAMS);
         map.put("webex-messaging", GetChannelEndpointResponseDtoProviderIdEnum.WEBEX_MESSAGING);
         map.put("mattermost", GetChannelEndpointResponseDtoProviderIdEnum.MATTERMOST);
@@ -377,6 +385,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         map.put("novu-slack", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_SLACK);
         map.put("telegram", GetChannelEndpointResponseDtoProviderIdEnum.TELEGRAM);
         map.put("sendblue", GetChannelEndpointResponseDtoProviderIdEnum.SENDBLUE);
+        map.put("photon-imessage", GetChannelEndpointResponseDtoProviderIdEnum.PHOTON_IMESSAGE);
         map.put("novu-web-chat", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_WEB_CHAT);
         map.put("anthropic", GetChannelEndpointResponseDtoProviderIdEnum.ANTHROPIC);
         map.put("novu-anthropic", GetChannelEndpointResponseDtoProviderIdEnum.NOVU_ANTHROPIC);
@@ -414,6 +423,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         EMAIL_WEBHOOK("email-webhook"),
         BRAZE("braze"),
         NOVU_EMAIL_AGENT("novu-email-agent"),
+        AGENT_EMAIL_INBOX("agent-email-inbox"),
         NEXMO("nexmo"),
         PLIVO("plivo"),
         SMS77("sms77"),
@@ -463,6 +473,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         NOVU("novu"),
         SLACK("slack"),
         DISCORD("discord"),
+        GOOGLE_CHAT("google-chat"),
         MSTEAMS("msteams"),
         WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
@@ -477,6 +488,7 @@ public class GetChannelEndpointResponseDtoProviderId {
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
         SENDBLUE("sendblue"),
+        PHOTON_IMESSAGE("photon-imessage"),
         NOVU_WEB_CHAT("novu-web-chat"),
         ANTHROPIC("anthropic"),
         NOVU_ANTHROPIC("novu-anthropic"),

@@ -55,7 +55,7 @@ public class ActivityNotificationExecutionDetailResponseDto {
     private boolean isTest;
 
     /**
-     * Provider ID of the job
+     * Provider ID of the execution
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("providerId")
@@ -156,7 +156,7 @@ public class ActivityNotificationExecutionDetailResponseDto {
     }
 
     /**
-     * Provider ID of the job
+     * Provider ID of the execution
      */
     public Optional<ProvidersIdEnum> providerId() {
         return Optional.ofNullable(this.providerId);
@@ -236,7 +236,7 @@ public class ActivityNotificationExecutionDetailResponseDto {
 
 
     /**
-     * Provider ID of the job
+     * Provider ID of the execution
      */
     public ActivityNotificationExecutionDetailResponseDto withProviderId(@Nullable ProvidersIdEnum providerId) {
         this.providerId = providerId;
@@ -379,7 +379,7 @@ public class ActivityNotificationExecutionDetailResponseDto {
         }
 
         /**
-         * Provider ID of the job
+         * Provider ID of the execution
          */
         public Builder providerId(@Nullable ProvidersIdEnum providerId) {
             this.providerId = providerId;

@@ -40,7 +40,7 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
     private String name;
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @JsonProperty("type")
     private StepTypeEnum type;
@@ -63,6 +63,18 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
     @JsonProperty("providerOverrides")
     private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
 
+    /**
+     * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+     * merged over the matching providerOverrides entry, only for sends through that integration.
+     * Trigger-time overrides still take precedence.
+     * 
+     * <p>Entries whose integration does not exist in the environment are kept but not applied. Omit to leave
+     * unchanged; pass null to delete all integration overrides; pass an object to replace the full set.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("integrationOverrides")
+    private JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides;
+
     @JsonCreator
     public ChatStepUpsertDto(
             @JsonProperty("_id") @Nullable String id,
@@ -70,7 +82,8 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
             @JsonProperty("name") @Nonnull String name,
             @JsonProperty("type") @Nonnull StepTypeEnum type,
             @JsonProperty("controlValues") @Nullable ChatStepUpsertDtoControlValues controlValues,
-            @JsonProperty("providerOverrides") @Nullable JsonNullable<Map<String, Map<String, Object>>> providerOverrides) {
+            @JsonProperty("providerOverrides") @Nullable JsonNullable<Map<String, Map<String, Object>>> providerOverrides,
+            @JsonProperty("integrationOverrides") @Nullable JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides) {
         this.id = id;
         this.stepId = stepId;
         this.name = Optional.ofNullable(name)
@@ -80,13 +93,16 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
         this.controlValues = controlValues;
         this.providerOverrides = Optional.ofNullable(providerOverrides)
             .orElse(JsonNullable.undefined());
+        this.integrationOverrides = Optional.ofNullable(integrationOverrides)
+            .orElse(JsonNullable.undefined());
     }
     
     public ChatStepUpsertDto(
             @Nonnull String name,
             @Nonnull StepTypeEnum type) {
         this(null, null, name,
-            type, null, null);
+            type, null, null,
+            null);
     }
 
     /**
@@ -111,7 +127,7 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
     }
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @Override
     public String type() {
@@ -134,6 +150,18 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
      */
     public JsonNullable<Map<String, Map<String, Object>>> providerOverrides() {
         return this.providerOverrides;
+    }
+
+    /**
+     * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+     * merged over the matching providerOverrides entry, only for sends through that integration.
+     * Trigger-time overrides still take precedence.
+     * 
+     * <p>Entries whose integration does not exist in the environment are kept but not applied. Omit to leave
+     * unchanged; pass null to delete all integration overrides; pass an object to replace the full set.
+     */
+    public JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides() {
+        return this.integrationOverrides;
     }
 
     public static Builder builder() {
@@ -169,7 +197,7 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
 
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     public ChatStepUpsertDto withType(@Nonnull StepTypeEnum type) {
         this.type = Utils.checkNotNull(type, "type");
@@ -199,6 +227,20 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
     }
 
 
+    /**
+     * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+     * merged over the matching providerOverrides entry, only for sends through that integration.
+     * Trigger-time overrides still take precedence.
+     * 
+     * <p>Entries whose integration does not exist in the environment are kept but not applied. Omit to leave
+     * unchanged; pass null to delete all integration overrides; pass an object to replace the full set.
+     */
+    public ChatStepUpsertDto withIntegrationOverrides(@Nullable Map<String, Map<String, Map<String, Object>>> integrationOverrides) {
+        this.integrationOverrides = JsonNullable.of(integrationOverrides);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -214,14 +256,16 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.type, other.type) &&
             Utils.enhancedDeepEquals(this.controlValues, other.controlValues) &&
-            Utils.enhancedDeepEquals(this.providerOverrides, other.providerOverrides);
+            Utils.enhancedDeepEquals(this.providerOverrides, other.providerOverrides) &&
+            Utils.enhancedDeepEquals(this.integrationOverrides, other.integrationOverrides);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             id, stepId, name,
-            type, controlValues, providerOverrides);
+            type, controlValues, providerOverrides,
+            integrationOverrides);
     }
     
     @Override
@@ -232,7 +276,8 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
                 "name", name,
                 "type", type,
                 "controlValues", controlValues,
-                "providerOverrides", providerOverrides);
+                "providerOverrides", providerOverrides,
+                "integrationOverrides", integrationOverrides);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -249,6 +294,8 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
         private ChatStepUpsertDtoControlValues controlValues;
 
         private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
+
+        private JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides;
 
         private Builder() {
           // force use of static builder() method
@@ -279,7 +326,7 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
         }
 
         /**
-         * Type of the step
+         * Channels of the notification
          */
         public Builder type(@Nonnull StepTypeEnum type) {
             this.type = Utils.checkNotNull(type, "type");
@@ -306,10 +353,24 @@ public class ChatStepUpsertDto implements CreateWorkflowDtoStep, UpdateWorkflowD
             return this;
         }
 
+        /**
+         * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+         * merged over the matching providerOverrides entry, only for sends through that integration.
+         * Trigger-time overrides still take precedence.
+         * 
+         * <p>Entries whose integration does not exist in the environment are kept but not applied. Omit to leave
+         * unchanged; pass null to delete all integration overrides; pass an object to replace the full set.
+         */
+        public Builder integrationOverrides(@Nullable Map<String, Map<String, Map<String, Object>>> integrationOverrides) {
+            this.integrationOverrides = JsonNullable.of(integrationOverrides);
+            return this;
+        }
+
         public ChatStepUpsertDto build() {
             return new ChatStepUpsertDto(
                 id, stepId, name,
-                type, controlValues, providerOverrides);
+                type, controlValues, providerOverrides,
+                integrationOverrides);
         }
 
     }

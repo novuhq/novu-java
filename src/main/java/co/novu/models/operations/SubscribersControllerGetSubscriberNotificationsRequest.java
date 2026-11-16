@@ -38,6 +38,12 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
     private Double offset;
 
     /**
+     * Filter by workflow tags. Returns notifications that have any of the given tags.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=tags")
+    private List<String> tags;
+
+    /**
      * Filter by read/unread state
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=read")
@@ -103,6 +109,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
             @Nullable Double limit,
             @Nullable String after,
             @Nullable Double offset,
+            @Nullable List<String> tags,
             @Nullable Boolean read,
             @Nullable Boolean archived,
             @Nullable Boolean snoozed,
@@ -119,6 +126,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
             .orElse(Builder._SINGLETON_VALUE_Limit.value());
         this.after = after;
         this.offset = offset;
+        this.tags = tags;
         this.read = read;
         this.archived = archived;
         this.snoozed = snoozed;
@@ -137,7 +145,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -157,6 +165,13 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
 
     public Optional<Double> offset() {
         return Optional.ofNullable(this.offset);
+    }
+
+    /**
+     * Filter by workflow tags. Returns notifications that have any of the given tags.
+     */
+    public Optional<List<String>> tags() {
+        return Optional.ofNullable(this.tags);
     }
 
     /**
@@ -257,6 +272,15 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
 
     public SubscribersControllerGetSubscriberNotificationsRequest withOffset(@Nullable Double offset) {
         this.offset = offset;
+        return this;
+    }
+
+
+    /**
+     * Filter by workflow tags. Returns notifications that have any of the given tags.
+     */
+    public SubscribersControllerGetSubscriberNotificationsRequest withTags(@Nullable List<String> tags) {
+        this.tags = tags;
         return this;
     }
 
@@ -365,6 +389,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
             Utils.enhancedDeepEquals(this.limit, other.limit) &&
             Utils.enhancedDeepEquals(this.after, other.after) &&
             Utils.enhancedDeepEquals(this.offset, other.offset) &&
+            Utils.enhancedDeepEquals(this.tags, other.tags) &&
             Utils.enhancedDeepEquals(this.read, other.read) &&
             Utils.enhancedDeepEquals(this.archived, other.archived) &&
             Utils.enhancedDeepEquals(this.snoozed, other.snoozed) &&
@@ -381,10 +406,10 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
     public int hashCode() {
         return Utils.enhancedHash(
             subscriberId, limit, after,
-            offset, read, archived,
-            snoozed, seen, data,
-            severity, createdGte, createdLte,
-            contextKeys, idempotencyKey);
+            offset, tags, read,
+            archived, snoozed, seen,
+            data, severity, createdGte,
+            createdLte, contextKeys, idempotencyKey);
     }
     
     @Override
@@ -394,6 +419,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
                 "limit", limit,
                 "after", after,
                 "offset", offset,
+                "tags", tags,
                 "read", read,
                 "archived", archived,
                 "snoozed", snoozed,
@@ -416,6 +442,8 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
         private String after;
 
         private Double offset;
+
+        private List<String> tags;
 
         private Boolean read;
 
@@ -461,6 +489,14 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
 
         public Builder offset(@Nullable Double offset) {
             this.offset = offset;
+            return this;
+        }
+
+        /**
+         * Filter by workflow tags. Returns notifications that have any of the given tags.
+         */
+        public Builder tags(@Nullable List<String> tags) {
+            this.tags = tags;
             return this;
         }
 
@@ -547,10 +583,10 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
         public SubscribersControllerGetSubscriberNotificationsRequest build() {
             return new SubscribersControllerGetSubscriberNotificationsRequest(
                 subscriberId, limit, after,
-                offset, read, archived,
-                snoozed, seen, data,
-                severity, createdGte, createdLte,
-                contextKeys, idempotencyKey);
+                offset, tags, read,
+                archived, snoozed, seen,
+                data, severity, createdGte,
+                createdLte, contextKeys, idempotencyKey);
         }
 
 

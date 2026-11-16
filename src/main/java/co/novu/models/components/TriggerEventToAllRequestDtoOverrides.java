@@ -99,7 +99,7 @@ public class TriggerEventToAllRequestDtoOverrides {
     private String layoutIdentifier;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("severity")
@@ -211,7 +211,7 @@ public class TriggerEventToAllRequestDtoOverrides {
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public Optional<SeverityLevelEnum> severity() {
         return Optional.ofNullable(this.severity);
@@ -316,7 +316,7 @@ public class TriggerEventToAllRequestDtoOverrides {
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public TriggerEventToAllRequestDtoOverrides withSeverity(@Nullable SeverityLevelEnum severity) {
         this.severity = severity;
@@ -497,7 +497,7 @@ public class TriggerEventToAllRequestDtoOverrides {
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nullable SeverityLevelEnum severity) {
             this.severity = severity;

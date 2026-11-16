@@ -13,9 +13,7 @@ import java.util.Optional;
 
 
 public class SubscriberPreferenceOverrideDto {
-    /**
-     * Channel type through which the message is sent
-     */
+
     @JsonProperty("channel")
     private ChannelTypeEnum channel;
 
@@ -35,9 +33,6 @@ public class SubscriberPreferenceOverrideDto {
             .orElseThrow(() -> new IllegalArgumentException("source cannot be null"));
     }
 
-    /**
-     * Channel type through which the message is sent
-     */
     public ChannelTypeEnum channel() {
         return this.channel;
     }
@@ -54,9 +49,6 @@ public class SubscriberPreferenceOverrideDto {
     }
 
 
-    /**
-     * Channel type through which the message is sent
-     */
     public SubscriberPreferenceOverrideDto withChannel(@Nonnull ChannelTypeEnum channel) {
         this.channel = Utils.checkNotNull(channel, "channel");
         return this;
@@ -110,9 +102,6 @@ public class SubscriberPreferenceOverrideDto {
           // force use of static builder() method
         }
 
-        /**
-         * Channel type through which the message is sent
-         */
         public Builder channel(@Nonnull ChannelTypeEnum channel) {
             this.channel = Utils.checkNotNull(channel, "channel");
             return this;

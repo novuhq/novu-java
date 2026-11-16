@@ -87,7 +87,7 @@ public class LayoutsControllerDelete {
             return new BeforeRequestContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "LayoutsController__delete",
+                    "LayoutsController_delete",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -96,7 +96,7 @@ public class LayoutsControllerDelete {
             return new AfterSuccessContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "LayoutsController__delete",
+                    "LayoutsController_delete",
                     java.util.Optional.empty(),
                     securitySource());
         }
@@ -105,7 +105,7 @@ public class LayoutsControllerDelete {
             return new AfterErrorContextImpl(
                     this.sdkConfiguration,
                     this.baseUrl,
-                    "LayoutsController__delete",
+                    "LayoutsController_delete",
                     java.util.Optional.empty(),
                     securitySource());
         }

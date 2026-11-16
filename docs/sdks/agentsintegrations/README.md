@@ -36,6 +36,7 @@ public class Application {
 
         AgentIntegrationsControllerAddAgentIntegrationResponse res = sdk.agents().integrations().create()
                 .identifier("<value>")
+                .novuAnalyticsSource("<value>")
                 .body(AddAgentIntegrationRequestDto.builder()
                     .build())
                 .call();
@@ -52,6 +53,7 @@ public class Application {
 | Parameter                                                                                 | Type                                                                                      | Required                                                                                  | Description                                                                               |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | `identifier`                                                                              | *String*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
+| `novuAnalyticsSource`                                                                     | *String*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
 | `idempotencyKey`                                                                          | *Optional\<String>*                                                                       | :heavy_minus_sign:                                                                        | A header for idempotency purposes                                                         |
 | `body`                                                                                    | [AddAgentIntegrationRequestDto](../../models/components/AddAgentIntegrationRequestDto.md) | :heavy_check_mark:                                                                        | N/A                                                                                       |
 

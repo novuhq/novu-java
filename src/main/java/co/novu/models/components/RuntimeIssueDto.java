@@ -5,17 +5,96 @@ package co.novu.models.components;
 
 import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class RuntimeIssueDto {
+
+    @JsonProperty("issueType")
+    private WorkflowIssueTypeEnum issueType;
+
+    /**
+     * Variable associated with the issue
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("variableName")
+    private String variableName;
+
+    /**
+     * Human-readable issue message
+     */
+    @JsonProperty("message")
+    private String message;
+
     @JsonCreator
-    public RuntimeIssueDto() {
+    public RuntimeIssueDto(
+            @JsonProperty("issueType") @Nonnull WorkflowIssueTypeEnum issueType,
+            @JsonProperty("variableName") @Nullable String variableName,
+            @JsonProperty("message") @Nonnull String message) {
+        this.issueType = Optional.ofNullable(issueType)
+            .orElseThrow(() -> new IllegalArgumentException("issueType cannot be null"));
+        this.variableName = variableName;
+        this.message = Optional.ofNullable(message)
+            .orElseThrow(() -> new IllegalArgumentException("message cannot be null"));
+    }
+    
+    public RuntimeIssueDto(
+            @Nonnull WorkflowIssueTypeEnum issueType,
+            @Nonnull String message) {
+        this(issueType, null, message);
+    }
+
+    public WorkflowIssueTypeEnum issueType() {
+        return this.issueType;
+    }
+
+    /**
+     * Variable associated with the issue
+     */
+    public Optional<String> variableName() {
+        return Optional.ofNullable(this.variableName);
+    }
+
+    /**
+     * Human-readable issue message
+     */
+    public String message() {
+        return this.message;
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+
+    public RuntimeIssueDto withIssueType(@Nonnull WorkflowIssueTypeEnum issueType) {
+        this.issueType = Utils.checkNotNull(issueType, "issueType");
+        return this;
+    }
+
+
+    /**
+     * Variable associated with the issue
+     */
+    public RuntimeIssueDto withVariableName(@Nullable String variableName) {
+        this.variableName = variableName;
+        return this;
+    }
+
+
+    /**
+     * Human-readable issue message
+     */
+    public RuntimeIssueDto withMessage(@Nonnull String message) {
+        this.message = Utils.checkNotNull(message, "message");
+        return this;
     }
 
 
@@ -27,30 +106,64 @@ public class RuntimeIssueDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return true;
+        RuntimeIssueDto other = (RuntimeIssueDto) o;
+        return 
+            Utils.enhancedDeepEquals(this.issueType, other.issueType) &&
+            Utils.enhancedDeepEquals(this.variableName, other.variableName) &&
+            Utils.enhancedDeepEquals(this.message, other.message);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            );
+            issueType, variableName, message);
     }
     
     @Override
     public String toString() {
-        return Utils.toString(RuntimeIssueDto.class);
+        return Utils.toString(RuntimeIssueDto.class,
+                "issueType", issueType,
+                "variableName", variableName,
+                "message", message);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private WorkflowIssueTypeEnum issueType;
+
+        private String variableName;
+
+        private String message;
+
         private Builder() {
           // force use of static builder() method
         }
 
+        public Builder issueType(@Nonnull WorkflowIssueTypeEnum issueType) {
+            this.issueType = Utils.checkNotNull(issueType, "issueType");
+            return this;
+        }
+
+        /**
+         * Variable associated with the issue
+         */
+        public Builder variableName(@Nullable String variableName) {
+            this.variableName = variableName;
+            return this;
+        }
+
+        /**
+         * Human-readable issue message
+         */
+        public Builder message(@Nonnull String message) {
+            this.message = Utils.checkNotNull(message, "message");
+            return this;
+        }
+
         public RuntimeIssueDto build() {
             return new RuntimeIssueDto(
-                );
+                issueType, variableName, message);
         }
 
     }

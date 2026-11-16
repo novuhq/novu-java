@@ -9,7 +9,6 @@ import co.novu.utils.Utils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -22,7 +21,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
 
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=type")
-    private Object type;
+    private Type type;
 
 
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=subscriberId")
@@ -41,7 +40,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
     @JsonCreator
     public SubscribersV1ControllerMarkActionAsSeenRequest(
             @Nonnull String messageId,
-            @Nonnull Object type,
+            @Nonnull Type type,
             @Nonnull String subscriberId,
             @Nullable String idempotencyKey,
             @Nonnull MarkMessageActionAsSeenDto body) {
@@ -58,7 +57,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
     
     public SubscribersV1ControllerMarkActionAsSeenRequest(
             @Nonnull String messageId,
-            @Nonnull Object type,
+            @Nonnull Type type,
             @Nonnull String subscriberId,
             @Nonnull MarkMessageActionAsSeenDto body) {
         this(messageId, type, subscriberId,
@@ -69,7 +68,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
         return this.messageId;
     }
 
-    public Object type() {
+    public Type type() {
         return this.type;
     }
 
@@ -99,7 +98,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
     }
 
 
-    public SubscribersV1ControllerMarkActionAsSeenRequest withType(@Nonnull Object type) {
+    public SubscribersV1ControllerMarkActionAsSeenRequest withType(@Nonnull Type type) {
         this.type = Utils.checkNotNull(type, "type");
         return this;
     }
@@ -165,7 +164,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
 
         private String messageId;
 
-        private Object type;
+        private Type type;
 
         private String subscriberId;
 
@@ -182,7 +181,7 @@ public class SubscribersV1ControllerMarkActionAsSeenRequest {
             return this;
         }
 
-        public Builder type(@Nonnull Object type) {
+        public Builder type(@Nonnull Type type) {
             this.type = Utils.checkNotNull(type, "type");
             return this;
         }

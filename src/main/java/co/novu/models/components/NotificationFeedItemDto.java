@@ -138,9 +138,7 @@ public class NotificationFeedItemDto {
     @JsonProperty("subject")
     private JsonNullable<String> subject;
 
-    /**
-     * Channel type through which the message is sent
-     */
+
     @JsonProperty("channel")
     private ChannelTypeEnum channel;
 
@@ -446,9 +444,6 @@ public class NotificationFeedItemDto {
         return this.subject;
     }
 
-    /**
-     * Channel type through which the message is sent
-     */
     public ChannelTypeEnum channel() {
         return this.channel;
     }
@@ -690,9 +685,6 @@ public class NotificationFeedItemDto {
     }
 
 
-    /**
-     * Channel type through which the message is sent
-     */
     public NotificationFeedItemDto withChannel(@Nonnull ChannelTypeEnum channel) {
         this.channel = Utils.checkNotNull(channel, "channel");
         return this;
@@ -1088,9 +1080,6 @@ public class NotificationFeedItemDto {
             return this;
         }
 
-        /**
-         * Channel type through which the message is sent
-         */
         public Builder channel(@Nonnull ChannelTypeEnum channel) {
             this.channel = Utils.checkNotNull(channel, "channel");
             return this;

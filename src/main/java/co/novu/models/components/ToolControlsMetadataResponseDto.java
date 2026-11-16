@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class ToolControlsMetadataResponseDto {
     /**
      * Control values specific to Tool
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private ToolControlDto values;
+    private ToolControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public ToolControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull ToolControlDto values) {
+            @JsonProperty("values") @Nullable ToolControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public ToolControlsMetadataResponseDto(
-            @Nonnull ToolControlDto values) {
-        this(null, null, values);
+    public ToolControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class ToolControlsMetadataResponseDto {
     /**
      * Control values specific to Tool
      */
-    public ToolControlDto values() {
-        return this.values;
+    public Optional<ToolControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class ToolControlsMetadataResponseDto {
     /**
      * Control values specific to Tool
      */
-    public ToolControlsMetadataResponseDto withValues(@Nonnull ToolControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public ToolControlsMetadataResponseDto withValues(@Nullable ToolControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class ToolControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private ToolControlDto values;
+        private ToolControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class ToolControlsMetadataResponseDto {
         /**
          * Control values specific to Tool
          */
-        public Builder values(@Nonnull ToolControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable ToolControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class DelayControlsMetadataResponseDto {
     /**
      * Control values specific to Delay
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private DelayControlDto values;
+    private DelayControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public DelayControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull DelayControlDto values) {
+            @JsonProperty("values") @Nullable DelayControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public DelayControlsMetadataResponseDto(
-            @Nonnull DelayControlDto values) {
-        this(null, null, values);
+    public DelayControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class DelayControlsMetadataResponseDto {
     /**
      * Control values specific to Delay
      */
-    public DelayControlDto values() {
-        return this.values;
+    public Optional<DelayControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class DelayControlsMetadataResponseDto {
     /**
      * Control values specific to Delay
      */
-    public DelayControlsMetadataResponseDto withValues(@Nonnull DelayControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public DelayControlsMetadataResponseDto withValues(@Nullable DelayControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class DelayControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private DelayControlDto values;
+        private DelayControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class DelayControlsMetadataResponseDto {
         /**
          * Control values specific to Delay
          */
-        public Builder values(@Nonnull DelayControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable DelayControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

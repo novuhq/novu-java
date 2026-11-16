@@ -10,10 +10,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nullable;
 import java.lang.Boolean;
+import java.lang.Deprecated;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class CreateIntegrationRequestDto {
@@ -82,18 +86,28 @@ public class CreateIntegrationRequestDto {
     private Boolean check;
 
     /**
-     * Conditions for the integration
+     * Legacy StepFilter conditions. Ignored when `rules` is also set.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("conditions")
+    @Deprecated
     private List<StepFilterDto> conditions;
+
+    /**
+     * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("rules")
+    private JsonNullable<Map<String, Object>> rules;
 
     /**
      * Configurations for the integration
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("configurations")
-    private CreateIntegrationRequestDtoConfigurations configurations;
+    private Map<String, String> configurations;
 
     @JsonCreator
     public CreateIntegrationRequestDto(
@@ -107,7 +121,8 @@ public class CreateIntegrationRequestDto {
             @JsonProperty("active") @Nullable Boolean active,
             @JsonProperty("check") @Nullable Boolean check,
             @JsonProperty("conditions") @Nullable List<StepFilterDto> conditions,
-            @JsonProperty("configurations") @Nullable CreateIntegrationRequestDtoConfigurations configurations) {
+            @JsonProperty("rules") @Nullable JsonNullable<Map<String, Object>> rules,
+            @JsonProperty("configurations") @Nullable Map<String, String> configurations) {
         this.name = name;
         this.identifier = identifier;
         this.environmentId = environmentId;
@@ -118,6 +133,8 @@ public class CreateIntegrationRequestDto {
         this.active = active;
         this.check = check;
         this.conditions = conditions;
+        this.rules = Optional.ofNullable(rules)
+            .orElse(JsonNullable.undefined());
         this.configurations = configurations;
     }
     
@@ -125,7 +142,7 @@ public class CreateIntegrationRequestDto {
         this(null, null, null,
             null, null, null,
             null, null, null,
-            null, null);
+            null, null, null);
     }
 
     /**
@@ -193,16 +210,26 @@ public class CreateIntegrationRequestDto {
     }
 
     /**
-     * Conditions for the integration
+     * Legacy StepFilter conditions. Ignored when `rules` is also set.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Optional<List<StepFilterDto>> conditions() {
         return Optional.ofNullable(this.conditions);
     }
 
     /**
+     * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+     */
+    public JsonNullable<Map<String, Object>> rules() {
+        return this.rules;
+    }
+
+    /**
      * Configurations for the integration
      */
-    public Optional<CreateIntegrationRequestDtoConfigurations> configurations() {
+    public Optional<Map<String, String>> configurations() {
         return Optional.ofNullable(this.configurations);
     }
 
@@ -294,8 +321,11 @@ public class CreateIntegrationRequestDto {
 
 
     /**
-     * Conditions for the integration
+     * Legacy StepFilter conditions. Ignored when `rules` is also set.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public CreateIntegrationRequestDto withConditions(@Nullable List<StepFilterDto> conditions) {
         this.conditions = conditions;
         return this;
@@ -303,9 +333,18 @@ public class CreateIntegrationRequestDto {
 
 
     /**
+     * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+     */
+    public CreateIntegrationRequestDto withRules(@Nullable Map<String, Object> rules) {
+        this.rules = JsonNullable.of(rules);
+        return this;
+    }
+
+
+    /**
      * Configurations for the integration
      */
-    public CreateIntegrationRequestDto withConfigurations(@Nullable CreateIntegrationRequestDtoConfigurations configurations) {
+    public CreateIntegrationRequestDto withConfigurations(@Nullable Map<String, String> configurations) {
         this.configurations = configurations;
         return this;
     }
@@ -331,6 +370,7 @@ public class CreateIntegrationRequestDto {
             Utils.enhancedDeepEquals(this.active, other.active) &&
             Utils.enhancedDeepEquals(this.check, other.check) &&
             Utils.enhancedDeepEquals(this.conditions, other.conditions) &&
+            Utils.enhancedDeepEquals(this.rules, other.rules) &&
             Utils.enhancedDeepEquals(this.configurations, other.configurations);
     }
     
@@ -340,7 +380,7 @@ public class CreateIntegrationRequestDto {
             name, identifier, environmentId,
             providerId, channel, kind,
             credentials, active, check,
-            conditions, configurations);
+            conditions, rules, configurations);
     }
     
     @Override
@@ -356,6 +396,7 @@ public class CreateIntegrationRequestDto {
                 "active", active,
                 "check", check,
                 "conditions", conditions,
+                "rules", rules,
                 "configurations", configurations);
     }
 
@@ -380,9 +421,12 @@ public class CreateIntegrationRequestDto {
 
         private Boolean check;
 
+        @Deprecated
         private List<StepFilterDto> conditions;
 
-        private CreateIntegrationRequestDtoConfigurations configurations;
+        private JsonNullable<Map<String, Object>> rules;
+
+        private Map<String, String> configurations;
 
         private Builder() {
           // force use of static builder() method
@@ -462,17 +506,28 @@ public class CreateIntegrationRequestDto {
         }
 
         /**
-         * Conditions for the integration
+         * Legacy StepFilter conditions. Ignored when `rules` is also set.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder conditions(@Nullable List<StepFilterDto> conditions) {
             this.conditions = conditions;
             return this;
         }
 
         /**
+         * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+         */
+        public Builder rules(@Nullable Map<String, Object> rules) {
+            this.rules = JsonNullable.of(rules);
+            return this;
+        }
+
+        /**
          * Configurations for the integration
          */
-        public Builder configurations(@Nullable CreateIntegrationRequestDtoConfigurations configurations) {
+        public Builder configurations(@Nullable Map<String, String> configurations) {
             this.configurations = configurations;
             return this;
         }
@@ -482,7 +537,7 @@ public class CreateIntegrationRequestDto {
                 name, identifier, environmentId,
                 providerId, channel, kind,
                 credentials, active, check,
-                conditions, configurations);
+                conditions, rules, configurations);
         }
 
     }

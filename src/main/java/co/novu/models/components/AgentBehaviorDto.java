@@ -38,7 +38,7 @@ public class AgentBehaviorDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reactionOnResolved")
-    private JsonNullable<ReactionOnResolved> reactionOnResolved;
+    private JsonNullable<String> reactionOnResolved;
 
     /**
      * Controls whether the agent accepts inbound messages from senders not yet linked to a subscriber,
@@ -53,20 +53,39 @@ public class AgentBehaviorDto {
     @JsonProperty("subscriberAccess")
     private SubscriberAccess subscriberAccess;
 
+    /**
+     * How the agent replies in shared rooms. "mention_only" requires an @mention in every shared room.
+     * "auto_reply" replies to unmentioned follow-ups in a nested Slack or Teams thread after the agent has
+     * joined.
+     * 
+     * <p>"smart" behaves like auto_reply while one person is talking to the agent in a thread, then requires
+     * an @mention there once someone else or another agent joins, or the incumbent @mentions another
+     * teammate. Create persists "smart". An omitted field on existing agents still means "auto_reply".
+     * 
+     * <p>DMs always reply without a mention. Optional on update (partial PATCH).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("replyPolicy")
+    private ReplyPolicy replyPolicy;
+
     @JsonCreator
     public AgentBehaviorDto(
             @JsonProperty("acknowledgeOnReceived") @Nullable Boolean acknowledgeOnReceived,
-            @JsonProperty("reactionOnResolved") @Nullable JsonNullable<ReactionOnResolved> reactionOnResolved,
-            @JsonProperty("subscriberAccess") @Nullable SubscriberAccess subscriberAccess) {
+            @JsonProperty("reactionOnResolved") @Nullable JsonNullable<String> reactionOnResolved,
+            @JsonProperty("subscriberAccess") @Nullable SubscriberAccess subscriberAccess,
+            @JsonProperty("replyPolicy") @Nullable ReplyPolicy replyPolicy) {
         this.acknowledgeOnReceived = Optional.ofNullable(acknowledgeOnReceived)
             .orElse(Builder._SINGLETON_VALUE_AcknowledgeOnReceived.value());
         this.reactionOnResolved = Optional.ofNullable(reactionOnResolved)
-            .orElse(JsonNullable.undefined());
+            .orElse(JsonNullable.of(Builder._SINGLETON_VALUE_ReactionOnResolved.value()));
         this.subscriberAccess = subscriberAccess;
+        this.replyPolicy = Optional.ofNullable(replyPolicy)
+            .orElse(Builder._SINGLETON_VALUE_ReplyPolicy.value());
     }
     
     public AgentBehaviorDto() {
-        this(null, null, null);
+        this(null, null, null,
+            null);
     }
 
     /**
@@ -86,7 +105,7 @@ public class AgentBehaviorDto {
      * 
      * <p>Default: "check"
      */
-    public JsonNullable<ReactionOnResolved> reactionOnResolved() {
+    public JsonNullable<String> reactionOnResolved() {
         return this.reactionOnResolved;
     }
 
@@ -101,6 +120,21 @@ public class AgentBehaviorDto {
      */
     public Optional<SubscriberAccess> subscriberAccess() {
         return Optional.ofNullable(this.subscriberAccess);
+    }
+
+    /**
+     * How the agent replies in shared rooms. "mention_only" requires an @mention in every shared room.
+     * "auto_reply" replies to unmentioned follow-ups in a nested Slack or Teams thread after the agent has
+     * joined.
+     * 
+     * <p>"smart" behaves like auto_reply while one person is talking to the agent in a thread, then requires
+     * an @mention there once someone else or another agent joins, or the incumbent @mentions another
+     * teammate. Create persists "smart". An omitted field on existing agents still means "auto_reply".
+     * 
+     * <p>DMs always reply without a mention. Optional on update (partial PATCH).
+     */
+    public Optional<ReplyPolicy> replyPolicy() {
+        return Optional.ofNullable(this.replyPolicy);
     }
 
     public static Builder builder() {
@@ -127,7 +161,7 @@ public class AgentBehaviorDto {
      * 
      * <p>Default: "check"
      */
-    public AgentBehaviorDto withReactionOnResolved(@Nullable ReactionOnResolved reactionOnResolved) {
+    public AgentBehaviorDto withReactionOnResolved(@Nullable String reactionOnResolved) {
         this.reactionOnResolved = JsonNullable.of(reactionOnResolved);
         return this;
     }
@@ -148,6 +182,23 @@ public class AgentBehaviorDto {
     }
 
 
+    /**
+     * How the agent replies in shared rooms. "mention_only" requires an @mention in every shared room.
+     * "auto_reply" replies to unmentioned follow-ups in a nested Slack or Teams thread after the agent has
+     * joined.
+     * 
+     * <p>"smart" behaves like auto_reply while one person is talking to the agent in a thread, then requires
+     * an @mention there once someone else or another agent joins, or the incumbent @mentions another
+     * teammate. Create persists "smart". An omitted field on existing agents still means "auto_reply".
+     * 
+     * <p>DMs always reply without a mention. Optional on update (partial PATCH).
+     */
+    public AgentBehaviorDto withReplyPolicy(@Nullable ReplyPolicy replyPolicy) {
+        this.replyPolicy = replyPolicy;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -160,13 +211,15 @@ public class AgentBehaviorDto {
         return 
             Utils.enhancedDeepEquals(this.acknowledgeOnReceived, other.acknowledgeOnReceived) &&
             Utils.enhancedDeepEquals(this.reactionOnResolved, other.reactionOnResolved) &&
-            Utils.enhancedDeepEquals(this.subscriberAccess, other.subscriberAccess);
+            Utils.enhancedDeepEquals(this.subscriberAccess, other.subscriberAccess) &&
+            Utils.enhancedDeepEquals(this.replyPolicy, other.replyPolicy);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            acknowledgeOnReceived, reactionOnResolved, subscriberAccess);
+            acknowledgeOnReceived, reactionOnResolved, subscriberAccess,
+            replyPolicy);
     }
     
     @Override
@@ -174,7 +227,8 @@ public class AgentBehaviorDto {
         return Utils.toString(AgentBehaviorDto.class,
                 "acknowledgeOnReceived", acknowledgeOnReceived,
                 "reactionOnResolved", reactionOnResolved,
-                "subscriberAccess", subscriberAccess);
+                "subscriberAccess", subscriberAccess,
+                "replyPolicy", replyPolicy);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -182,9 +236,11 @@ public class AgentBehaviorDto {
 
         private Boolean acknowledgeOnReceived;
 
-        private JsonNullable<ReactionOnResolved> reactionOnResolved;
+        private JsonNullable<String> reactionOnResolved;
 
         private SubscriberAccess subscriberAccess;
+
+        private ReplyPolicy replyPolicy;
 
         private Builder() {
           // force use of static builder() method
@@ -208,7 +264,7 @@ public class AgentBehaviorDto {
          * 
          * <p>Default: "check"
          */
-        public Builder reactionOnResolved(@Nullable ReactionOnResolved reactionOnResolved) {
+        public Builder reactionOnResolved(@Nullable String reactionOnResolved) {
             this.reactionOnResolved = JsonNullable.of(reactionOnResolved);
             return this;
         }
@@ -227,9 +283,26 @@ public class AgentBehaviorDto {
             return this;
         }
 
+        /**
+         * How the agent replies in shared rooms. "mention_only" requires an @mention in every shared room.
+         * "auto_reply" replies to unmentioned follow-ups in a nested Slack or Teams thread after the agent has
+         * joined.
+         * 
+         * <p>"smart" behaves like auto_reply while one person is talking to the agent in a thread, then requires
+         * an @mention there once someone else or another agent joins, or the incumbent @mentions another
+         * teammate. Create persists "smart". An omitted field on existing agents still means "auto_reply".
+         * 
+         * <p>DMs always reply without a mention. Optional on update (partial PATCH).
+         */
+        public Builder replyPolicy(@Nullable ReplyPolicy replyPolicy) {
+            this.replyPolicy = replyPolicy;
+            return this;
+        }
+
         public AgentBehaviorDto build() {
             return new AgentBehaviorDto(
-                acknowledgeOnReceived, reactionOnResolved, subscriberAccess);
+                acknowledgeOnReceived, reactionOnResolved, subscriberAccess,
+                replyPolicy);
         }
 
 
@@ -238,5 +311,17 @@ public class AgentBehaviorDto {
                         "acknowledgeOnReceived",
                         "true",
                         new TypeReference<Boolean>() {});
+
+        private static final LazySingletonValue<String> _SINGLETON_VALUE_ReactionOnResolved =
+                new LazySingletonValue<>(
+                        "reactionOnResolved",
+                        "\"check\"",
+                        new TypeReference<String>() {});
+
+        private static final LazySingletonValue<ReplyPolicy> _SINGLETON_VALUE_ReplyPolicy =
+                new LazySingletonValue<>(
+                        "replyPolicy",
+                        "\"auto_reply\"",
+                        new TypeReference<ReplyPolicy>() {});
     }
 }

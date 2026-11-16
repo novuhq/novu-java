@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class InAppControlsMetadataResponseDto {
     /**
      * Control values specific to In-App
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private InAppControlDto values;
+    private InAppControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public InAppControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull InAppControlDto values) {
+            @JsonProperty("values") @Nullable InAppControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public InAppControlsMetadataResponseDto(
-            @Nonnull InAppControlDto values) {
-        this(null, null, values);
+    public InAppControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class InAppControlsMetadataResponseDto {
     /**
      * Control values specific to In-App
      */
-    public InAppControlDto values() {
-        return this.values;
+    public Optional<InAppControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class InAppControlsMetadataResponseDto {
     /**
      * Control values specific to In-App
      */
-    public InAppControlsMetadataResponseDto withValues(@Nonnull InAppControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public InAppControlsMetadataResponseDto withValues(@Nullable InAppControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class InAppControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private InAppControlDto values;
+        private InAppControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class InAppControlsMetadataResponseDto {
         /**
          * Control values specific to In-App
          */
-        public Builder values(@Nonnull InAppControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable InAppControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

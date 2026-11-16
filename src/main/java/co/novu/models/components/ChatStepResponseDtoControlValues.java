@@ -41,6 +41,14 @@ public class ChatStepResponseDtoControlValues {
     @JsonProperty("body")
     private String body;
 
+    /**
+     * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+     * otherwise "text".
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("editorType")
+    private ChatStepResponseDtoEditorType editorType;
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties;
@@ -48,14 +56,16 @@ public class ChatStepResponseDtoControlValues {
     @JsonCreator
     public ChatStepResponseDtoControlValues(
             @JsonProperty("skip") @Nullable Map<String, Object> skip,
-            @JsonProperty("body") @Nullable String body) {
+            @JsonProperty("body") @Nullable String body,
+            @JsonProperty("editorType") @Nullable ChatStepResponseDtoEditorType editorType) {
         this.skip = skip;
         this.body = body;
+        this.editorType = editorType;
         this.additionalProperties = new HashMap<>();
     }
     
     public ChatStepResponseDtoControlValues() {
-        this(null, null);
+        this(null, null, null);
     }
 
     /**
@@ -72,6 +82,14 @@ public class ChatStepResponseDtoControlValues {
      */
     public Optional<String> body() {
         return Optional.ofNullable(this.body);
+    }
+
+    /**
+     * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+     * otherwise "text".
+     */
+    public Optional<ChatStepResponseDtoEditorType> editorType() {
+        return Optional.ofNullable(this.editorType);
     }
 
     @JsonAnyGetter
@@ -104,6 +122,16 @@ public class ChatStepResponseDtoControlValues {
     }
 
 
+    /**
+     * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+     * otherwise "text".
+     */
+    public ChatStepResponseDtoControlValues withEditorType(@Nullable ChatStepResponseDtoEditorType editorType) {
+        this.editorType = editorType;
+        return this;
+    }
+
+
     @JsonAnySetter
     public ChatStepResponseDtoControlValues withAdditionalProperty(String key, Object value) {
         // note that value can be null because of the way JsonAnySetter works
@@ -130,13 +158,15 @@ public class ChatStepResponseDtoControlValues {
         return 
             Utils.enhancedDeepEquals(this.skip, other.skip) &&
             Utils.enhancedDeepEquals(this.body, other.body) &&
+            Utils.enhancedDeepEquals(this.editorType, other.editorType) &&
             Utils.enhancedDeepEquals(this.additionalProperties, other.additionalProperties);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            skip, body, additionalProperties);
+            skip, body, editorType,
+            additionalProperties);
     }
     
     @Override
@@ -144,6 +174,7 @@ public class ChatStepResponseDtoControlValues {
         return Utils.toString(ChatStepResponseDtoControlValues.class,
                 "skip", skip,
                 "body", body,
+                "editorType", editorType,
                 "additionalProperties", additionalProperties);
     }
 
@@ -153,6 +184,8 @@ public class ChatStepResponseDtoControlValues {
         private Map<String, Object> skip;
 
         private String body;
+
+        private ChatStepResponseDtoEditorType editorType;
 
         private Map<String, Object> additionalProperties = new HashMap<>();
 
@@ -178,6 +211,15 @@ public class ChatStepResponseDtoControlValues {
             return this;
         }
 
+        /**
+         * Type of editor to use for the body. When omitted, inferred from the body: Maily JSON is "block",
+         * otherwise "text".
+         */
+        public Builder editorType(@Nullable ChatStepResponseDtoEditorType editorType) {
+            this.editorType = editorType;
+            return this;
+        }
+
         public Builder additionalProperty(String key, Object value) {
             Utils.checkNotNull(key, "key");
             // we could be strict about null values (force the user
@@ -194,7 +236,7 @@ public class ChatStepResponseDtoControlValues {
 
         public ChatStepResponseDtoControlValues build() {
             return new ChatStepResponseDtoControlValues(
-                skip, body)
+                skip, body, editorType)
                 .withAdditionalProperties(additionalProperties);
         }
 

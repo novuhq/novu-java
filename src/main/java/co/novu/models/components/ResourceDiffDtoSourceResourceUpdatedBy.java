@@ -47,12 +47,20 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
     @JsonProperty("externalId")
     private String externalId;
 
+    /**
+     * User email, used when the user has no name
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("email")
+    private JsonNullable<String> email;
+
     @JsonCreator
     public ResourceDiffDtoSourceResourceUpdatedBy(
             @JsonProperty("_id") @Nonnull String id,
             @JsonProperty("firstName") @Nonnull String firstName,
             @JsonProperty("lastName") @Nullable JsonNullable<String> lastName,
-            @JsonProperty("externalId") @Nullable String externalId) {
+            @JsonProperty("externalId") @Nullable String externalId,
+            @JsonProperty("email") @Nullable JsonNullable<String> email) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.firstName = Optional.ofNullable(firstName)
@@ -60,13 +68,15 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
         this.lastName = Optional.ofNullable(lastName)
             .orElse(JsonNullable.undefined());
         this.externalId = externalId;
+        this.email = Optional.ofNullable(email)
+            .orElse(JsonNullable.undefined());
     }
     
     public ResourceDiffDtoSourceResourceUpdatedBy(
             @Nonnull String id,
             @Nonnull String firstName) {
         this(id, firstName, null,
-            null);
+            null, null);
     }
 
     /**
@@ -95,6 +105,13 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
      */
     public Optional<String> externalId() {
         return Optional.ofNullable(this.externalId);
+    }
+
+    /**
+     * User email, used when the user has no name
+     */
+    public JsonNullable<String> email() {
+        return this.email;
     }
 
     public static Builder builder() {
@@ -138,6 +155,15 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
     }
 
 
+    /**
+     * User email, used when the user has no name
+     */
+    public ResourceDiffDtoSourceResourceUpdatedBy withEmail(@Nullable String email) {
+        this.email = JsonNullable.of(email);
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -151,14 +177,15 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
             Utils.enhancedDeepEquals(this.id, other.id) &&
             Utils.enhancedDeepEquals(this.firstName, other.firstName) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
-            Utils.enhancedDeepEquals(this.externalId, other.externalId);
+            Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
+            Utils.enhancedDeepEquals(this.email, other.email);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             id, firstName, lastName,
-            externalId);
+            externalId, email);
     }
     
     @Override
@@ -167,7 +194,8 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
                 "id", id,
                 "firstName", firstName,
                 "lastName", lastName,
-                "externalId", externalId);
+                "externalId", externalId,
+                "email", email);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -180,6 +208,8 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
         private JsonNullable<String> lastName;
 
         private String externalId;
+
+        private JsonNullable<String> email;
 
         private Builder() {
           // force use of static builder() method
@@ -217,10 +247,18 @@ public class ResourceDiffDtoSourceResourceUpdatedBy {
             return this;
         }
 
+        /**
+         * User email, used when the user has no name
+         */
+        public Builder email(@Nullable String email) {
+            this.email = JsonNullable.of(email);
+            return this;
+        }
+
         public ResourceDiffDtoSourceResourceUpdatedBy build() {
             return new ResourceDiffDtoSourceResourceUpdatedBy(
                 id, firstName, lastName,
-                externalId);
+                externalId, email);
         }
 
     }

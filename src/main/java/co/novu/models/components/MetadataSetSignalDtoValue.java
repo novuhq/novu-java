@@ -3,26 +3,142 @@
  */
 package co.novu.models.components;
 
+import co.novu.utils.OneOfDeserializer;
+import co.novu.utils.TypedObject;
+import co.novu.utils.Utils.JsonShape;
+import co.novu.utils.Utils.TypeReferenceWithShape;
 import co.novu.utils.Utils;
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.lang.Boolean;
+import java.lang.Double;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * MetadataSetSignalDtoValue
  * 
  * <p>JSON-serializable value to store.
  */
+@JsonDeserialize(using = MetadataSetSignalDtoValue._Deserializer.class)
 public class MetadataSetSignalDtoValue {
-    @JsonCreator
-    public MetadataSetSignalDtoValue() {
+
+    @JsonValue
+    private final TypedObject value;
+    
+    private MetadataSetSignalDtoValue(TypedObject value) {
+        this.value = value;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public static MetadataSetSignalDtoValue of(String value) {
+        Utils.checkNotNull(value, "value");
+        return new MetadataSetSignalDtoValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
     }
 
+    public static MetadataSetSignalDtoValue of(double value) {
+        return new MetadataSetSignalDtoValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
 
+    public static MetadataSetSignalDtoValue of(boolean value) {
+        return new MetadataSetSignalDtoValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static MetadataSetSignalDtoValue of(Map<String, Object> value) {
+        Utils.checkNotNull(value, "value");
+        return new MetadataSetSignalDtoValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+
+    public static MetadataSetSignalDtoValue of(List<Object> value) {
+        Utils.checkNotNull(value, "value");
+        return new MetadataSetSignalDtoValue(TypedObject.of(value, JsonShape.DEFAULT, new TypeReference<>(){}));
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code String},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code String} value, or empty if not of this type
+     */
+    public Optional<String> string() {
+        if (value.value() instanceof String) {
+            return Optional.of((String) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code double},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code double} value, or empty if not of this type
+     */
+    public Optional<java.lang.Double> asDouble() {
+        if (value.value() instanceof java.lang.Double) {
+            return Optional.of((java.lang.Double) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code boolean},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code boolean} value, or empty if not of this type
+     */
+    public Optional<java.lang.Boolean> asBoolean() {
+        if (value.value() instanceof java.lang.Boolean) {
+            return Optional.of((java.lang.Boolean) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code Map<String, Object>},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code Map<String, Object>} value, or empty if not of this type
+     */
+    @SuppressWarnings("unchecked")
+    public Optional<Map<String, Object>> mapOfObject() {
+        if (value.value() instanceof Map) {
+            return Optional.of((Map<String, Object>) value.value());
+        }
+        return Optional.empty();
+    }
+    
+    /**
+     * Returns an {@link Optional} containing the value if it is of type {@code List<Object>},
+     * otherwise returns an empty {@link Optional}.
+     *
+     * @return an {@link Optional} containing the {@code List<Object>} value, or empty if not of this type
+     */
+    @SuppressWarnings("unchecked")
+    public Optional<List<Object>> arrayOfObject() {
+        if (value.value() instanceof List) {
+            return Optional.of((List<Object>) value.value());
+        }
+        return Optional.empty();
+    }
+   /**
+    * Returns an {@link Optional} containing the value as a {@code JsonNode}.
+    * This accessor returns the raw JSON when the value doesn't match any of the defined union types.
+    *
+    * @return an {@link Optional} containing the {@code JsonNode} value, or empty if value matched a known type
+    */
+   public Optional<JsonNode> asJson() {
+       if (value.value() instanceof JsonNode) {
+           return Optional.of((JsonNode) value.value());
+       }
+       return Optional.empty();
+   }
+    
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -31,31 +147,33 @@ public class MetadataSetSignalDtoValue {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        return true;
+        MetadataSetSignalDtoValue other = (MetadataSetSignalDtoValue) o;
+        return Utils.enhancedDeepEquals(this.value.value(), other.value.value());
     }
     
     @Override
     public int hashCode() {
-        return Utils.enhancedHash(
-            );
+        return Utils.enhancedHash(value.value());
+    }
+    
+    @SuppressWarnings("serial")
+    public static final class _Deserializer extends OneOfDeserializer<MetadataSetSignalDtoValue> {
+
+        public _Deserializer() {
+            super(MetadataSetSignalDtoValue.class, false,
+                  TypeReferenceWithShape.of(new TypeReference<String>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Double>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Boolean>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<Map<String, Object>>() {}, JsonShape.DEFAULT),
+                  TypeReferenceWithShape.of(new TypeReference<List<Object>>() {}, JsonShape.DEFAULT));
+        }
     }
     
     @Override
     public String toString() {
-        return Utils.toString(MetadataSetSignalDtoValue.class);
+        return Utils.toString(MetadataSetSignalDtoValue.class,
+                "value", value);
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public final static class Builder {
-
-        private Builder() {
-          // force use of static builder() method
-        }
-
-        public MetadataSetSignalDtoValue build() {
-            return new MetadataSetSignalDtoValue(
-                );
-        }
-
-    }
 }
+

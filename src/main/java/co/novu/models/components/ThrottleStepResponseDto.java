@@ -43,6 +43,17 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
     private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
 
     /**
+     * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+     * merged over the matching providerOverrides entry, only for sends through that integration.
+     * Trigger-time overrides still take precedence.
+     * 
+     * <p>Entries whose integration does not exist in the environment are kept but not applied.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("integrationOverrides")
+    private JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides;
+
+    /**
      * JSON Schema for variables, follows the JSON Schema standard
      */
     @JsonProperty("variables")
@@ -73,13 +84,13 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
     private String slug;
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @JsonProperty("type")
     private StepTypeEnum type;
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     @JsonProperty("origin")
     private ResourceOriginEnum origin;
@@ -115,6 +126,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
             @JsonProperty("controls") @Nonnull ThrottleControlsMetadataResponseDto controls,
             @JsonProperty("controlValues") @Nullable ThrottleStepResponseDtoControlValues controlValues,
             @JsonProperty("providerOverrides") @Nullable JsonNullable<Map<String, Map<String, Object>>> providerOverrides,
+            @JsonProperty("integrationOverrides") @Nullable JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides,
             @JsonProperty("variables") @Nonnull Map<String, Object> variables,
             @JsonProperty("stepId") @Nonnull String stepId,
             @JsonProperty("_id") @Nonnull String id,
@@ -131,6 +143,8 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
             .orElseThrow(() -> new IllegalArgumentException("controls cannot be null"));
         this.controlValues = controlValues;
         this.providerOverrides = Optional.ofNullable(providerOverrides)
+            .orElse(JsonNullable.undefined());
+        this.integrationOverrides = Optional.ofNullable(integrationOverrides)
             .orElse(JsonNullable.undefined());
         this.variables = Optional.ofNullable(variables)
             .orElseThrow(() -> new IllegalArgumentException("variables cannot be null"));
@@ -166,10 +180,10 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
             @Nonnull String workflowId,
             @Nonnull String workflowDatabaseId) {
         this(controls, null, null,
-            variables, stepId, id,
-            name, slug, type,
-            origin, workflowId, workflowDatabaseId,
-            null, null);
+            null, variables, stepId,
+            id, name, slug,
+            type, origin, workflowId,
+            workflowDatabaseId, null, null);
     }
 
     /**
@@ -194,6 +208,17 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
      */
     public JsonNullable<Map<String, Map<String, Object>>> providerOverrides() {
         return this.providerOverrides;
+    }
+
+    /**
+     * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+     * merged over the matching providerOverrides entry, only for sends through that integration.
+     * Trigger-time overrides still take precedence.
+     * 
+     * <p>Entries whose integration does not exist in the environment are kept but not applied.
+     */
+    public JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides() {
+        return this.integrationOverrides;
     }
 
     /**
@@ -232,7 +257,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
     }
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @Override
     public String type() {
@@ -240,7 +265,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
     }
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public ResourceOriginEnum origin() {
         return this.origin;
@@ -310,6 +335,19 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
 
 
     /**
+     * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+     * merged over the matching providerOverrides entry, only for sends through that integration.
+     * Trigger-time overrides still take precedence.
+     * 
+     * <p>Entries whose integration does not exist in the environment are kept but not applied.
+     */
+    public ThrottleStepResponseDto withIntegrationOverrides(@Nullable Map<String, Map<String, Map<String, Object>>> integrationOverrides) {
+        this.integrationOverrides = JsonNullable.of(integrationOverrides);
+        return this;
+    }
+
+
+    /**
      * JSON Schema for variables, follows the JSON Schema standard
      */
     public ThrottleStepResponseDto withVariables(@Nonnull Map<String, Object> variables) {
@@ -355,7 +393,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
 
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     public ThrottleStepResponseDto withType(@Nonnull StepTypeEnum type) {
         this.type = Utils.checkNotNull(type, "type");
@@ -364,7 +402,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
 
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public ThrottleStepResponseDto withOrigin(@Nonnull ResourceOriginEnum origin) {
         this.origin = Utils.checkNotNull(origin, "origin");
@@ -421,6 +459,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
             Utils.enhancedDeepEquals(this.controls, other.controls) &&
             Utils.enhancedDeepEquals(this.controlValues, other.controlValues) &&
             Utils.enhancedDeepEquals(this.providerOverrides, other.providerOverrides) &&
+            Utils.enhancedDeepEquals(this.integrationOverrides, other.integrationOverrides) &&
             Utils.enhancedDeepEquals(this.variables, other.variables) &&
             Utils.enhancedDeepEquals(this.stepId, other.stepId) &&
             Utils.enhancedDeepEquals(this.id, other.id) &&
@@ -438,10 +477,10 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
     public int hashCode() {
         return Utils.enhancedHash(
             controls, controlValues, providerOverrides,
-            variables, stepId, id,
-            name, slug, type,
-            origin, workflowId, workflowDatabaseId,
-            issues, stepResolverHash);
+            integrationOverrides, variables, stepId,
+            id, name, slug,
+            type, origin, workflowId,
+            workflowDatabaseId, issues, stepResolverHash);
     }
     
     @Override
@@ -450,6 +489,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
                 "controls", controls,
                 "controlValues", controlValues,
                 "providerOverrides", providerOverrides,
+                "integrationOverrides", integrationOverrides,
                 "variables", variables,
                 "stepId", stepId,
                 "id", id,
@@ -471,6 +511,8 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
         private ThrottleStepResponseDtoControlValues controlValues;
 
         private JsonNullable<Map<String, Map<String, Object>>> providerOverrides;
+
+        private JsonNullable<Map<String, Map<String, Map<String, Object>>>> integrationOverrides;
 
         private Map<String, Object> variables;
 
@@ -526,6 +568,18 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
         }
 
         /**
+         * Per-integration content overrides keyed by providerId, then by integration identifier. Each entry is
+         * merged over the matching providerOverrides entry, only for sends through that integration.
+         * Trigger-time overrides still take precedence.
+         * 
+         * <p>Entries whose integration does not exist in the environment are kept but not applied.
+         */
+        public Builder integrationOverrides(@Nullable Map<String, Map<String, Map<String, Object>>> integrationOverrides) {
+            this.integrationOverrides = JsonNullable.of(integrationOverrides);
+            return this;
+        }
+
+        /**
          * JSON Schema for variables, follows the JSON Schema standard
          */
         public Builder variables(@Nonnull Map<String, Object> variables) {
@@ -566,7 +620,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
         }
 
         /**
-         * Type of the step
+         * Channels of the notification
          */
         public Builder type(@Nonnull StepTypeEnum type) {
             this.type = Utils.checkNotNull(type, "type");
@@ -574,7 +628,7 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
         }
 
         /**
-         * Origin of the layout
+         * Origin of the workflow
          */
         public Builder origin(@Nonnull ResourceOriginEnum origin) {
             this.origin = Utils.checkNotNull(origin, "origin");
@@ -616,10 +670,10 @@ public class ThrottleStepResponseDto implements WorkflowResponseDtoStep {
         public ThrottleStepResponseDto build() {
             return new ThrottleStepResponseDto(
                 controls, controlValues, providerOverrides,
-                variables, stepId, id,
-                name, slug, type,
-                origin, workflowId, workflowDatabaseId,
-                issues, stepResolverHash);
+                integrationOverrides, variables, stepId,
+                id, name, slug,
+                type, origin, workflowId,
+                workflowDatabaseId, issues, stepResolverHash);
         }
 
     }
