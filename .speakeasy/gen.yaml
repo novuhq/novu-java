@@ -15,6 +15,7 @@ generation:
     sharedErrorComponentsApr2025: true
     sharedNestedComponentsJan2026: true
     nameOverrideFeb2026: false
+    openSingleValueEnumsOct2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -31,7 +32,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 3.19.0
+  version: 3.20.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: novu-java
@@ -49,7 +50,7 @@ java:
   explicitDocImports: false
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: true
-  forwardCompatibleUnionsByDefault: "false"
+  forwardCompatibleUnionsByDefault: true
   generateOptionalUnionAccessors: true
   generateSpringBootStarter: true
   generateUnionDocs: false

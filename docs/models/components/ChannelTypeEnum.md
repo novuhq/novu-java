@@ -1,7 +1,5 @@
 # ChannelTypeEnum
 
-Channel type through which the message is sent
-
 ## Example Usage
 
 ```java

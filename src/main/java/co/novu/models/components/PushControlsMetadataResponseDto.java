@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class PushControlsMetadataResponseDto {
     /**
      * Control values specific to Push
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private PushControlDto values;
+    private PushControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public PushControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull PushControlDto values) {
+            @JsonProperty("values") @Nullable PushControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public PushControlsMetadataResponseDto(
-            @Nonnull PushControlDto values) {
-        this(null, null, values);
+    public PushControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class PushControlsMetadataResponseDto {
     /**
      * Control values specific to Push
      */
-    public PushControlDto values() {
-        return this.values;
+    public Optional<PushControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class PushControlsMetadataResponseDto {
     /**
      * Control values specific to Push
      */
-    public PushControlsMetadataResponseDto withValues(@Nonnull PushControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public PushControlsMetadataResponseDto withValues(@Nullable PushControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class PushControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private PushControlDto values;
+        private PushControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class PushControlsMetadataResponseDto {
         /**
          * Control values specific to Push
          */
-        public Builder values(@Nonnull PushControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable PushControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

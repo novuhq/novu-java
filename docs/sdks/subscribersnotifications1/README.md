@@ -990,6 +990,7 @@ package hello.world;
 import co.novu.Novu;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
+import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountRequest;
 import co.novu.models.operations.SubscribersV1ControllerGetUnseenCountResponse;
 import java.lang.Exception;
 
@@ -1001,10 +1002,12 @@ public class Application {
                 .secretKey("YOUR_SECRET_KEY_HERE")
             .build();
 
-        SubscribersV1ControllerGetUnseenCountResponse res = sdk.subscribers().notifications().getUnseenCount()
+        SubscribersV1ControllerGetUnseenCountRequest req = SubscribersV1ControllerGetUnseenCountRequest.builder()
                 .subscriberId("<id>")
-                .seen(false)
-                .limit(100d)
+                .build();
+
+        SubscribersV1ControllerGetUnseenCountResponse res = sdk.subscribers().notifications().getUnseenCount()
+                .request(req)
                 .call();
 
         if (res.unseenCountResponse().isPresent()) {
@@ -1016,12 +1019,9 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                      | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `subscriberId`                                 | *String*                                       | :heavy_check_mark:                             | N/A                                            |
-| `seen`                                         | *Optional\<Boolean>*                           | :heavy_minus_sign:                             | Indicates whether to count seen notifications. |
-| `limit`                                        | *Optional\<Double>*                            | :heavy_minus_sign:                             | The maximum number of notifications to return. |
-| `idempotencyKey`                               | *Optional\<String>*                            | :heavy_minus_sign:                             | A header for idempotency purposes              |
+| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `request`                                                                                                               | [SubscribersV1ControllerGetUnseenCountRequest](../../models/operations/SubscribersV1ControllerGetUnseenCountRequest.md) | :heavy_check_mark:                                                                                                      | The request object to use for the request.                                                                              |
 
 ### Response
 

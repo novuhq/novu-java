@@ -10,10 +10,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Deprecated;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class IntegrationResponseDto {
@@ -125,12 +129,21 @@ public class IntegrationResponseDto {
     private boolean primary;
 
     /**
-     * An array of conditions associated with the integration that may influence its behavior or processing
-     * logic.
+     * Legacy StepFilter conditions. Ignored when `rules` is also set.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("conditions")
+    @Deprecated
     private List<StepFilterDto> conditions;
+
+    /**
+     * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("rules")
+    private JsonNullable<Map<String, Object>> rules;
 
     @JsonCreator
     public IntegrationResponseDto(
@@ -149,7 +162,8 @@ public class IntegrationResponseDto {
             @JsonProperty("deletedAt") @Nullable String deletedAt,
             @JsonProperty("deletedBy") @Nullable String deletedBy,
             @JsonProperty("primary") boolean primary,
-            @JsonProperty("conditions") @Nullable List<StepFilterDto> conditions) {
+            @JsonProperty("conditions") @Nullable List<StepFilterDto> conditions,
+            @JsonProperty("rules") @Nullable JsonNullable<Map<String, Object>> rules) {
         this.id = id;
         this.environmentId = Optional.ofNullable(environmentId)
             .orElseThrow(() -> new IllegalArgumentException("environmentId cannot be null"));
@@ -171,6 +185,8 @@ public class IntegrationResponseDto {
         this.deletedBy = deletedBy;
         this.primary = primary;
         this.conditions = conditions;
+        this.rules = Optional.ofNullable(rules)
+            .orElse(JsonNullable.undefined());
     }
     
     public IntegrationResponseDto(
@@ -187,7 +203,7 @@ public class IntegrationResponseDto {
             null, null, null,
             null, active, deleted,
             null, null, primary,
-            null);
+            null, null);
     }
 
     /**
@@ -306,11 +322,20 @@ public class IntegrationResponseDto {
     }
 
     /**
-     * An array of conditions associated with the integration that may influence its behavior or processing
-     * logic.
+     * Legacy StepFilter conditions. Ignored when `rules` is also set.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public Optional<List<StepFilterDto>> conditions() {
         return Optional.ofNullable(this.conditions);
+    }
+
+    /**
+     * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+     */
+    public JsonNullable<Map<String, Object>> rules() {
+        return this.rules;
     }
 
     public static Builder builder() {
@@ -464,11 +489,22 @@ public class IntegrationResponseDto {
 
 
     /**
-     * An array of conditions associated with the integration that may influence its behavior or processing
-     * logic.
+     * Legacy StepFilter conditions. Ignored when `rules` is also set.
+     * 
+     * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
      */
+    @Deprecated
     public IntegrationResponseDto withConditions(@Nullable List<StepFilterDto> conditions) {
         this.conditions = conditions;
+        return this;
+    }
+
+
+    /**
+     * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+     */
+    public IntegrationResponseDto withRules(@Nullable Map<String, Object> rules) {
+        this.rules = JsonNullable.of(rules);
         return this;
     }
 
@@ -498,7 +534,8 @@ public class IntegrationResponseDto {
             Utils.enhancedDeepEquals(this.deletedAt, other.deletedAt) &&
             Utils.enhancedDeepEquals(this.deletedBy, other.deletedBy) &&
             Utils.enhancedDeepEquals(this.primary, other.primary) &&
-            Utils.enhancedDeepEquals(this.conditions, other.conditions);
+            Utils.enhancedDeepEquals(this.conditions, other.conditions) &&
+            Utils.enhancedDeepEquals(this.rules, other.rules);
     }
     
     @Override
@@ -509,7 +546,7 @@ public class IntegrationResponseDto {
             channel, kind, credentials,
             configurations, active, deleted,
             deletedAt, deletedBy, primary,
-            conditions);
+            conditions, rules);
     }
     
     @Override
@@ -530,7 +567,8 @@ public class IntegrationResponseDto {
                 "deletedAt", deletedAt,
                 "deletedBy", deletedBy,
                 "primary", primary,
-                "conditions", conditions);
+                "conditions", conditions,
+                "rules", rules);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -566,7 +604,10 @@ public class IntegrationResponseDto {
 
         private boolean primary;
 
+        @Deprecated
         private List<StepFilterDto> conditions;
+
+        private JsonNullable<Map<String, Object>> rules;
 
         private Builder() {
           // force use of static builder() method
@@ -703,11 +744,21 @@ public class IntegrationResponseDto {
         }
 
         /**
-         * An array of conditions associated with the integration that may influence its behavior or processing
-         * logic.
+         * Legacy StepFilter conditions. Ignored when `rules` is also set.
+         * 
+         * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
          */
+        @Deprecated
         public Builder conditions(@Nullable List<StepFilterDto> conditions) {
             this.conditions = conditions;
+            return this;
+        }
+
+        /**
+         * JSONLogic used at send time to select this integration. Takes precedence over `conditions`.
+         */
+        public Builder rules(@Nullable Map<String, Object> rules) {
+            this.rules = JsonNullable.of(rules);
             return this;
         }
 
@@ -718,7 +769,7 @@ public class IntegrationResponseDto {
                 channel, kind, credentials,
                 configurations, active, deleted,
                 deletedAt, deletedBy, primary,
-                conditions);
+                conditions, rules);
         }
 
     }

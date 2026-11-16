@@ -47,7 +47,7 @@ afterEvaluate {
                     description = config.description
                     url = 'https://github.com/novuhq/novu-java'
                     scm {
-                        url = 'github.com/novuhq/novu-java'
+                        url = 'https://github.com/novuhq/novu-java'
                         connection = 'scm:git:ssh://git@github.com/novuhq/novu-java.git'
                     }
                     licenses {

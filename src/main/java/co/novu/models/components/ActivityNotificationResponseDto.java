@@ -79,7 +79,9 @@ public class ActivityNotificationResponseDto {
     @JsonProperty("updatedAt")
     private String updatedAt;
 
-
+    /**
+     * Channels of the notification
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("channels")
     private List<StepTypeEnum> channels;
@@ -141,7 +143,7 @@ public class ActivityNotificationResponseDto {
     private List<ActivityTopicDto> topics;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("severity")
@@ -288,6 +290,9 @@ public class ActivityNotificationResponseDto {
         return Optional.ofNullable(this.updatedAt);
     }
 
+    /**
+     * Channels of the notification
+     */
     public Optional<List<StepTypeEnum>> channels() {
         return Optional.ofNullable(this.channels);
     }
@@ -349,7 +354,7 @@ public class ActivityNotificationResponseDto {
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public Optional<SeverityLevelEnum> severity() {
         return Optional.ofNullable(this.severity);
@@ -455,6 +460,9 @@ public class ActivityNotificationResponseDto {
     }
 
 
+    /**
+     * Channels of the notification
+     */
     public ActivityNotificationResponseDto withChannels(@Nullable List<StepTypeEnum> channels) {
         this.channels = channels;
         return this;
@@ -534,7 +542,7 @@ public class ActivityNotificationResponseDto {
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public ActivityNotificationResponseDto withSeverity(@Nullable SeverityLevelEnum severity) {
         this.severity = severity;
@@ -752,6 +760,9 @@ public class ActivityNotificationResponseDto {
             return this;
         }
 
+        /**
+         * Channels of the notification
+         */
         public Builder channels(@Nullable List<StepTypeEnum> channels) {
             this.channels = channels;
             return this;
@@ -822,7 +833,7 @@ public class ActivityNotificationResponseDto {
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nullable SeverityLevelEnum severity) {
             this.severity = severity;

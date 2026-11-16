@@ -68,6 +68,15 @@ public class AgentIntegrationResponseDto {
     @JsonProperty("exceedsPlanLimit")
     private Boolean exceedsPlanLimit;
 
+    /**
+     * `true` when at least one person has linked their chat on this integration (it has a channel
+     * endpoint), so the agent has someone to reach there. Only returned by the list, and only when true.
+     * Email has no channel endpoints, so it never carries the flag.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("hasChannelEndpoints")
+    private Boolean hasChannelEndpoints;
+
     @JsonCreator
     public AgentIntegrationResponseDto(
             @JsonProperty("_id") @Nonnull String id,
@@ -78,7 +87,8 @@ public class AgentIntegrationResponseDto {
             @JsonProperty("connectedAt") @Nullable JsonNullable<ConnectedAt> connectedAt,
             @JsonProperty("createdAt") @Nonnull String createdAt,
             @JsonProperty("updatedAt") @Nonnull String updatedAt,
-            @JsonProperty("exceedsPlanLimit") @Nullable Boolean exceedsPlanLimit) {
+            @JsonProperty("exceedsPlanLimit") @Nullable Boolean exceedsPlanLimit,
+            @JsonProperty("hasChannelEndpoints") @Nullable Boolean hasChannelEndpoints) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
         this.agentId = Optional.ofNullable(agentId)
@@ -96,6 +106,7 @@ public class AgentIntegrationResponseDto {
         this.updatedAt = Optional.ofNullable(updatedAt)
             .orElseThrow(() -> new IllegalArgumentException("updatedAt cannot be null"));
         this.exceedsPlanLimit = exceedsPlanLimit;
+        this.hasChannelEndpoints = hasChannelEndpoints;
     }
     
     public AgentIntegrationResponseDto(
@@ -108,7 +119,8 @@ public class AgentIntegrationResponseDto {
             @Nonnull String updatedAt) {
         this(id, agentId, integration,
             environmentId, organizationId, null,
-            createdAt, updatedAt, null);
+            createdAt, updatedAt, null,
+            null);
     }
 
     /**
@@ -160,6 +172,15 @@ public class AgentIntegrationResponseDto {
      */
     public Optional<Boolean> exceedsPlanLimit() {
         return Optional.ofNullable(this.exceedsPlanLimit);
+    }
+
+    /**
+     * `true` when at least one person has linked their chat on this integration (it has a channel
+     * endpoint), so the agent has someone to reach there. Only returned by the list, and only when true.
+     * Email has no channel endpoints, so it never carries the flag.
+     */
+    public Optional<Boolean> hasChannelEndpoints() {
+        return Optional.ofNullable(this.hasChannelEndpoints);
     }
 
     public static Builder builder() {
@@ -236,6 +257,17 @@ public class AgentIntegrationResponseDto {
     }
 
 
+    /**
+     * `true` when at least one person has linked their chat on this integration (it has a channel
+     * endpoint), so the agent has someone to reach there. Only returned by the list, and only when true.
+     * Email has no channel endpoints, so it never carries the flag.
+     */
+    public AgentIntegrationResponseDto withHasChannelEndpoints(@Nullable Boolean hasChannelEndpoints) {
+        this.hasChannelEndpoints = hasChannelEndpoints;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -254,7 +286,8 @@ public class AgentIntegrationResponseDto {
             Utils.enhancedDeepEquals(this.connectedAt, other.connectedAt) &&
             Utils.enhancedDeepEquals(this.createdAt, other.createdAt) &&
             Utils.enhancedDeepEquals(this.updatedAt, other.updatedAt) &&
-            Utils.enhancedDeepEquals(this.exceedsPlanLimit, other.exceedsPlanLimit);
+            Utils.enhancedDeepEquals(this.exceedsPlanLimit, other.exceedsPlanLimit) &&
+            Utils.enhancedDeepEquals(this.hasChannelEndpoints, other.hasChannelEndpoints);
     }
     
     @Override
@@ -262,7 +295,8 @@ public class AgentIntegrationResponseDto {
         return Utils.enhancedHash(
             id, agentId, integration,
             environmentId, organizationId, connectedAt,
-            createdAt, updatedAt, exceedsPlanLimit);
+            createdAt, updatedAt, exceedsPlanLimit,
+            hasChannelEndpoints);
     }
     
     @Override
@@ -276,7 +310,8 @@ public class AgentIntegrationResponseDto {
                 "connectedAt", connectedAt,
                 "createdAt", createdAt,
                 "updatedAt", updatedAt,
-                "exceedsPlanLimit", exceedsPlanLimit);
+                "exceedsPlanLimit", exceedsPlanLimit,
+                "hasChannelEndpoints", hasChannelEndpoints);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -299,6 +334,8 @@ public class AgentIntegrationResponseDto {
         private String updatedAt;
 
         private Boolean exceedsPlanLimit;
+
+        private Boolean hasChannelEndpoints;
 
         private Builder() {
           // force use of static builder() method
@@ -364,11 +401,22 @@ public class AgentIntegrationResponseDto {
             return this;
         }
 
+        /**
+         * `true` when at least one person has linked their chat on this integration (it has a channel
+         * endpoint), so the agent has someone to reach there. Only returned by the list, and only when true.
+         * Email has no channel endpoints, so it never carries the flag.
+         */
+        public Builder hasChannelEndpoints(@Nullable Boolean hasChannelEndpoints) {
+            this.hasChannelEndpoints = hasChannelEndpoints;
+            return this;
+        }
+
         public AgentIntegrationResponseDto build() {
             return new AgentIntegrationResponseDto(
                 id, agentId, integration,
                 environmentId, organizationId, connectedAt,
-                createdAt, updatedAt, exceedsPlanLimit);
+                createdAt, updatedAt, exceedsPlanLimit,
+                hasChannelEndpoints);
         }
 
     }

@@ -19,6 +19,10 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=identifier")
     private String identifier;
 
+
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=Novu-Analytics-Source")
+    private String novuAnalyticsSource;
+
     /**
      * A header for idempotency purposes
      */
@@ -32,10 +36,13 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
     @JsonCreator
     public AgentIntegrationsControllerAddAgentIntegrationRequest(
             @Nonnull String identifier,
+            @Nonnull String novuAnalyticsSource,
             @Nullable String idempotencyKey,
             @Nonnull AddAgentIntegrationRequestDto body) {
         this.identifier = Optional.ofNullable(identifier)
             .orElseThrow(() -> new IllegalArgumentException("identifier cannot be null"));
+        this.novuAnalyticsSource = Optional.ofNullable(novuAnalyticsSource)
+            .orElseThrow(() -> new IllegalArgumentException("novuAnalyticsSource cannot be null"));
         this.idempotencyKey = idempotencyKey;
         this.body = Optional.ofNullable(body)
             .orElseThrow(() -> new IllegalArgumentException("body cannot be null"));
@@ -43,12 +50,18 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
     
     public AgentIntegrationsControllerAddAgentIntegrationRequest(
             @Nonnull String identifier,
+            @Nonnull String novuAnalyticsSource,
             @Nonnull AddAgentIntegrationRequestDto body) {
-        this(identifier, null, body);
+        this(identifier, novuAnalyticsSource, null,
+            body);
     }
 
     public String identifier() {
         return this.identifier;
+    }
+
+    public String novuAnalyticsSource() {
+        return this.novuAnalyticsSource;
     }
 
     /**
@@ -69,6 +82,12 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
 
     public AgentIntegrationsControllerAddAgentIntegrationRequest withIdentifier(@Nonnull String identifier) {
         this.identifier = Utils.checkNotNull(identifier, "identifier");
+        return this;
+    }
+
+
+    public AgentIntegrationsControllerAddAgentIntegrationRequest withNovuAnalyticsSource(@Nonnull String novuAnalyticsSource) {
+        this.novuAnalyticsSource = Utils.checkNotNull(novuAnalyticsSource, "novuAnalyticsSource");
         return this;
     }
 
@@ -99,6 +118,7 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
         AgentIntegrationsControllerAddAgentIntegrationRequest other = (AgentIntegrationsControllerAddAgentIntegrationRequest) o;
         return 
             Utils.enhancedDeepEquals(this.identifier, other.identifier) &&
+            Utils.enhancedDeepEquals(this.novuAnalyticsSource, other.novuAnalyticsSource) &&
             Utils.enhancedDeepEquals(this.idempotencyKey, other.idempotencyKey) &&
             Utils.enhancedDeepEquals(this.body, other.body);
     }
@@ -106,13 +126,15 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            identifier, idempotencyKey, body);
+            identifier, novuAnalyticsSource, idempotencyKey,
+            body);
     }
     
     @Override
     public String toString() {
         return Utils.toString(AgentIntegrationsControllerAddAgentIntegrationRequest.class,
                 "identifier", identifier,
+                "novuAnalyticsSource", novuAnalyticsSource,
                 "idempotencyKey", idempotencyKey,
                 "body", body);
     }
@@ -121,6 +143,8 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
     public final static class Builder {
 
         private String identifier;
+
+        private String novuAnalyticsSource;
 
         private String idempotencyKey;
 
@@ -132,6 +156,11 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
 
         public Builder identifier(@Nonnull String identifier) {
             this.identifier = Utils.checkNotNull(identifier, "identifier");
+            return this;
+        }
+
+        public Builder novuAnalyticsSource(@Nonnull String novuAnalyticsSource) {
+            this.novuAnalyticsSource = Utils.checkNotNull(novuAnalyticsSource, "novuAnalyticsSource");
             return this;
         }
 
@@ -150,7 +179,8 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequest {
 
         public AgentIntegrationsControllerAddAgentIntegrationRequest build() {
             return new AgentIntegrationsControllerAddAgentIntegrationRequest(
-                identifier, idempotencyKey, body);
+                identifier, novuAnalyticsSource, idempotencyKey,
+                body);
         }
 
     }

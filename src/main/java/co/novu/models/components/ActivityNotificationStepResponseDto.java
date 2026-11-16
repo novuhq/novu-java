@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -42,7 +44,7 @@ public class ActivityNotificationStepResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("controlVariables")
-    private ControlVariables controlVariables;
+    private Map<String, Object> controlVariables;
 
     /**
      * Metadata for the workflow step
@@ -103,7 +105,7 @@ public class ActivityNotificationStepResponseDto {
             @JsonProperty("_id") @Nonnull String id,
             @JsonProperty("active") boolean active,
             @JsonProperty("replyCallback") @Nullable ActivityNotificationStepResponseDtoReplyCallback replyCallback,
-            @JsonProperty("controlVariables") @Nullable ControlVariables controlVariables,
+            @JsonProperty("controlVariables") @Nullable Map<String, Object> controlVariables,
             @JsonProperty("metadata") @Nullable ActivityNotificationStepResponseDtoMetadata metadata,
             @JsonProperty("issues") @Nullable Issues issues,
             @JsonProperty("filters") @Nonnull List<StepFilterDto> filters,
@@ -165,7 +167,7 @@ public class ActivityNotificationStepResponseDto {
     /**
      * Control variables
      */
-    public Optional<ControlVariables> controlVariables() {
+    public Optional<Map<String, Object>> controlVariables() {
         return Optional.ofNullable(this.controlVariables);
     }
 
@@ -260,7 +262,7 @@ public class ActivityNotificationStepResponseDto {
     /**
      * Control variables
      */
-    public ActivityNotificationStepResponseDto withControlVariables(@Nullable ControlVariables controlVariables) {
+    public ActivityNotificationStepResponseDto withControlVariables(@Nullable Map<String, Object> controlVariables) {
         this.controlVariables = controlVariables;
         return this;
     }
@@ -397,7 +399,7 @@ public class ActivityNotificationStepResponseDto {
 
         private ActivityNotificationStepResponseDtoReplyCallback replyCallback;
 
-        private ControlVariables controlVariables;
+        private Map<String, Object> controlVariables;
 
         private ActivityNotificationStepResponseDtoMetadata metadata;
 
@@ -446,7 +448,7 @@ public class ActivityNotificationStepResponseDto {
         /**
          * Control variables
          */
-        public Builder controlVariables(@Nullable ControlVariables controlVariables) {
+        public Builder controlVariables(@Nullable Map<String, Object> controlVariables) {
             this.controlVariables = controlVariables;
             return this;
         }

@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * ProvidersIdEnum
  * 
- * <p>Provider ID of the job
+ * <p>Provider ID of the execution
  */
 public class ProvidersIdEnum {
 
@@ -48,6 +48,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum EMAIL_WEBHOOK = new ProvidersIdEnum("email-webhook");
     public static final ProvidersIdEnum BRAZE = new ProvidersIdEnum("braze");
     public static final ProvidersIdEnum NOVU_EMAIL_AGENT = new ProvidersIdEnum("novu-email-agent");
+    public static final ProvidersIdEnum AGENT_EMAIL_INBOX = new ProvidersIdEnum("agent-email-inbox");
     public static final ProvidersIdEnum NEXMO = new ProvidersIdEnum("nexmo");
     public static final ProvidersIdEnum PLIVO = new ProvidersIdEnum("plivo");
     public static final ProvidersIdEnum SMS77 = new ProvidersIdEnum("sms77");
@@ -97,6 +98,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum NOVU = new ProvidersIdEnum("novu");
     public static final ProvidersIdEnum SLACK = new ProvidersIdEnum("slack");
     public static final ProvidersIdEnum DISCORD = new ProvidersIdEnum("discord");
+    public static final ProvidersIdEnum GOOGLE_CHAT = new ProvidersIdEnum("google-chat");
     public static final ProvidersIdEnum MSTEAMS = new ProvidersIdEnum("msteams");
     public static final ProvidersIdEnum WEBEX_MESSAGING = new ProvidersIdEnum("webex-messaging");
     public static final ProvidersIdEnum MATTERMOST = new ProvidersIdEnum("mattermost");
@@ -111,6 +113,7 @@ public class ProvidersIdEnum {
     public static final ProvidersIdEnum NOVU_SLACK = new ProvidersIdEnum("novu-slack");
     public static final ProvidersIdEnum TELEGRAM = new ProvidersIdEnum("telegram");
     public static final ProvidersIdEnum SENDBLUE = new ProvidersIdEnum("sendblue");
+    public static final ProvidersIdEnum PHOTON_IMESSAGE = new ProvidersIdEnum("photon-imessage");
     public static final ProvidersIdEnum NOVU_WEB_CHAT = new ProvidersIdEnum("novu-web-chat");
     public static final ProvidersIdEnum ANTHROPIC = new ProvidersIdEnum("anthropic");
     public static final ProvidersIdEnum NOVU_ANTHROPIC = new ProvidersIdEnum("novu-anthropic");
@@ -215,6 +218,7 @@ public class ProvidersIdEnum {
         map.put("email-webhook", EMAIL_WEBHOOK);
         map.put("braze", BRAZE);
         map.put("novu-email-agent", NOVU_EMAIL_AGENT);
+        map.put("agent-email-inbox", AGENT_EMAIL_INBOX);
         map.put("nexmo", NEXMO);
         map.put("plivo", PLIVO);
         map.put("sms77", SMS77);
@@ -264,6 +268,7 @@ public class ProvidersIdEnum {
         map.put("novu", NOVU);
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
+        map.put("google-chat", GOOGLE_CHAT);
         map.put("msteams", MSTEAMS);
         map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
@@ -278,6 +283,7 @@ public class ProvidersIdEnum {
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
         map.put("sendblue", SENDBLUE);
+        map.put("photon-imessage", PHOTON_IMESSAGE);
         map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("anthropic", ANTHROPIC);
         map.put("novu-anthropic", NOVU_ANTHROPIC);
@@ -314,6 +320,7 @@ public class ProvidersIdEnum {
         map.put("email-webhook", ProvidersIdEnumEnum.EMAIL_WEBHOOK);
         map.put("braze", ProvidersIdEnumEnum.BRAZE);
         map.put("novu-email-agent", ProvidersIdEnumEnum.NOVU_EMAIL_AGENT);
+        map.put("agent-email-inbox", ProvidersIdEnumEnum.AGENT_EMAIL_INBOX);
         map.put("nexmo", ProvidersIdEnumEnum.NEXMO);
         map.put("plivo", ProvidersIdEnumEnum.PLIVO);
         map.put("sms77", ProvidersIdEnumEnum.SMS77);
@@ -363,6 +370,7 @@ public class ProvidersIdEnum {
         map.put("novu", ProvidersIdEnumEnum.NOVU);
         map.put("slack", ProvidersIdEnumEnum.SLACK);
         map.put("discord", ProvidersIdEnumEnum.DISCORD);
+        map.put("google-chat", ProvidersIdEnumEnum.GOOGLE_CHAT);
         map.put("msteams", ProvidersIdEnumEnum.MSTEAMS);
         map.put("webex-messaging", ProvidersIdEnumEnum.WEBEX_MESSAGING);
         map.put("mattermost", ProvidersIdEnumEnum.MATTERMOST);
@@ -377,6 +385,7 @@ public class ProvidersIdEnum {
         map.put("novu-slack", ProvidersIdEnumEnum.NOVU_SLACK);
         map.put("telegram", ProvidersIdEnumEnum.TELEGRAM);
         map.put("sendblue", ProvidersIdEnumEnum.SENDBLUE);
+        map.put("photon-imessage", ProvidersIdEnumEnum.PHOTON_IMESSAGE);
         map.put("novu-web-chat", ProvidersIdEnumEnum.NOVU_WEB_CHAT);
         map.put("anthropic", ProvidersIdEnumEnum.ANTHROPIC);
         map.put("novu-anthropic", ProvidersIdEnumEnum.NOVU_ANTHROPIC);
@@ -414,6 +423,7 @@ public class ProvidersIdEnum {
         EMAIL_WEBHOOK("email-webhook"),
         BRAZE("braze"),
         NOVU_EMAIL_AGENT("novu-email-agent"),
+        AGENT_EMAIL_INBOX("agent-email-inbox"),
         NEXMO("nexmo"),
         PLIVO("plivo"),
         SMS77("sms77"),
@@ -463,6 +473,7 @@ public class ProvidersIdEnum {
         NOVU("novu"),
         SLACK("slack"),
         DISCORD("discord"),
+        GOOGLE_CHAT("google-chat"),
         MSTEAMS("msteams"),
         WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
@@ -477,6 +488,7 @@ public class ProvidersIdEnum {
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
         SENDBLUE("sendblue"),
+        PHOTON_IMESSAGE("photon-imessage"),
         NOVU_WEB_CHAT("novu-web-chat"),
         ANTHROPIC("anthropic"),
         NOVU_ANTHROPIC("novu-anthropic"),

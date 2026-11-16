@@ -52,7 +52,7 @@ public class SubscribersControllerSearchSubscribersRequest {
     private Boolean includeCursor;
 
     /**
-     * Email address of the subscriber to filter results.
+     * Exact email address of the subscriber. The value must match the stored email field.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=email")
     private String email;
@@ -64,7 +64,7 @@ public class SubscribersControllerSearchSubscribersRequest {
     private String name;
 
     /**
-     * Phone number of the subscriber to filter results.
+     * Exact phone number of the subscriber. The value must match the stored phone field.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=phone")
     private String phone;
@@ -157,7 +157,7 @@ public class SubscribersControllerSearchSubscribersRequest {
     }
 
     /**
-     * Email address of the subscriber to filter results.
+     * Exact email address of the subscriber. The value must match the stored email field.
      */
     public Optional<String> email() {
         return Optional.ofNullable(this.email);
@@ -171,7 +171,7 @@ public class SubscribersControllerSearchSubscribersRequest {
     }
 
     /**
-     * Phone number of the subscriber to filter results.
+     * Exact phone number of the subscriber. The value must match the stored phone field.
      */
     public Optional<String> phone() {
         return Optional.ofNullable(this.phone);
@@ -251,7 +251,7 @@ public class SubscribersControllerSearchSubscribersRequest {
 
 
     /**
-     * Email address of the subscriber to filter results.
+     * Exact email address of the subscriber. The value must match the stored email field.
      */
     public SubscribersControllerSearchSubscribersRequest withEmail(@Nullable String email) {
         this.email = email;
@@ -269,7 +269,7 @@ public class SubscribersControllerSearchSubscribersRequest {
 
 
     /**
-     * Phone number of the subscriber to filter results.
+     * Exact phone number of the subscriber. The value must match the stored phone field.
      */
     public SubscribersControllerSearchSubscribersRequest withPhone(@Nullable String phone) {
         this.phone = phone;
@@ -421,7 +421,7 @@ public class SubscribersControllerSearchSubscribersRequest {
         }
 
         /**
-         * Email address of the subscriber to filter results.
+         * Exact email address of the subscriber. The value must match the stored email field.
          */
         public Builder email(@Nullable String email) {
             this.email = email;
@@ -437,7 +437,7 @@ public class SubscribersControllerSearchSubscribersRequest {
         }
 
         /**
-         * Phone number of the subscriber to filter results.
+         * Exact phone number of the subscriber. The value must match the stored phone field.
          */
         public Builder phone(@Nullable String phone) {
             this.phone = phone;

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class SmsControlsMetadataResponseDto {
     /**
      * Control values specific to SMS
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private SmsControlDto values;
+    private SmsControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public SmsControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull SmsControlDto values) {
+            @JsonProperty("values") @Nullable SmsControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public SmsControlsMetadataResponseDto(
-            @Nonnull SmsControlDto values) {
-        this(null, null, values);
+    public SmsControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class SmsControlsMetadataResponseDto {
     /**
      * Control values specific to SMS
      */
-    public SmsControlDto values() {
-        return this.values;
+    public Optional<SmsControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class SmsControlsMetadataResponseDto {
     /**
      * Control values specific to SMS
      */
-    public SmsControlsMetadataResponseDto withValues(@Nonnull SmsControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public SmsControlsMetadataResponseDto withValues(@Nullable SmsControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class SmsControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private SmsControlDto values;
+        private SmsControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class SmsControlsMetadataResponseDto {
         /**
          * Control values specific to SMS
          */
-        public Builder values(@Nonnull SmsControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable SmsControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * ButtonTypeEnum
  * 
- * <p>Type of button for the action result
+ * <p>Type of the button
  */
 public class ButtonTypeEnum {
 

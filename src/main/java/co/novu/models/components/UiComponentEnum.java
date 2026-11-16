@@ -26,6 +26,7 @@ import java.util.Optional;
 public class UiComponentEnum {
 
     public static final UiComponentEnum EMAIL_EDITOR_SELECT = new UiComponentEnum("EMAIL_EDITOR_SELECT");
+    public static final UiComponentEnum CHAT_EDITOR_SELECT = new UiComponentEnum("CHAT_EDITOR_SELECT");
     public static final UiComponentEnum LAYOUT_SELECT = new UiComponentEnum("LAYOUT_SELECT");
     public static final UiComponentEnum BLOCK_EDITOR = new UiComponentEnum("BLOCK_EDITOR");
     public static final UiComponentEnum EMAIL_BODY = new UiComponentEnum("EMAIL_BODY");
@@ -145,6 +146,7 @@ public class UiComponentEnum {
     private static final Map<String, UiComponentEnum> createValuesMap() {
         Map<String, UiComponentEnum> map = new LinkedHashMap<>();
         map.put("EMAIL_EDITOR_SELECT", EMAIL_EDITOR_SELECT);
+        map.put("CHAT_EDITOR_SELECT", CHAT_EDITOR_SELECT);
         map.put("LAYOUT_SELECT", LAYOUT_SELECT);
         map.put("BLOCK_EDITOR", BLOCK_EDITOR);
         map.put("EMAIL_BODY", EMAIL_BODY);
@@ -196,6 +198,7 @@ public class UiComponentEnum {
     private static final Map<String, UiComponentEnumEnum> createEnumsMap() {
         Map<String, UiComponentEnumEnum> map = new HashMap<>();
         map.put("EMAIL_EDITOR_SELECT", UiComponentEnumEnum.EMAIL_EDITOR_SELECT);
+        map.put("CHAT_EDITOR_SELECT", UiComponentEnumEnum.CHAT_EDITOR_SELECT);
         map.put("LAYOUT_SELECT", UiComponentEnumEnum.LAYOUT_SELECT);
         map.put("BLOCK_EDITOR", UiComponentEnumEnum.BLOCK_EDITOR);
         map.put("EMAIL_BODY", UiComponentEnumEnum.EMAIL_BODY);
@@ -248,6 +251,7 @@ public class UiComponentEnum {
     public enum UiComponentEnumEnum {
 
         EMAIL_EDITOR_SELECT("EMAIL_EDITOR_SELECT"),
+        CHAT_EDITOR_SELECT("CHAT_EDITOR_SELECT"),
         LAYOUT_SELECT("LAYOUT_SELECT"),
         BLOCK_EDITOR("BLOCK_EDITOR"),
         EMAIL_BODY("EMAIL_BODY"),

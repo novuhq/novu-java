@@ -18,11 +18,6 @@ import java.util.Optional;
  * without runtime errors. Instances are immutable singletons with reference equality.
  * Use {@code asEnum()} for switch expressions.
  */
-/**
- * ChannelTypeEnum
- * 
- * <p>Channel type through which the message is sent
- */
 public class ChannelTypeEnum {
 
     public static final ChannelTypeEnum IN_APP = new ChannelTypeEnum("in_app");

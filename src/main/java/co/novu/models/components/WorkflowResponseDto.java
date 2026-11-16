@@ -137,7 +137,7 @@ public class WorkflowResponseDto {
     private List<WorkflowResponseDtoStep> steps;
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     @JsonProperty("origin")
     private ResourceOriginEnum origin;
@@ -159,7 +159,7 @@ public class WorkflowResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("issues")
-    private Map<String, RuntimeIssueDto> issues;
+    private Map<String, List<RuntimeIssueDto>> issues;
 
     /**
      * Timestamp of the last workflow trigger
@@ -176,7 +176,7 @@ public class WorkflowResponseDto {
     private JsonNullable<Map<String, Object>> payloadExample;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonProperty("severity")
     private SeverityLevelEnum severity;
@@ -203,7 +203,7 @@ public class WorkflowResponseDto {
             @JsonProperty("origin") @Nonnull ResourceOriginEnum origin,
             @JsonProperty("preferences") @Nonnull WorkflowPreferencesResponseDto preferences,
             @JsonProperty("status") @Nonnull WorkflowStatusEnum status,
-            @JsonProperty("issues") @Nullable Map<String, RuntimeIssueDto> issues,
+            @JsonProperty("issues") @Nullable Map<String, List<RuntimeIssueDto>> issues,
             @JsonProperty("lastTriggeredAt") @Nullable JsonNullable<String> lastTriggeredAt,
             @JsonProperty("payloadExample") @Nullable JsonNullable<Map<String, Object>> payloadExample,
             @JsonProperty("severity") @Nonnull SeverityLevelEnum severity) {
@@ -396,7 +396,7 @@ public class WorkflowResponseDto {
     }
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public ResourceOriginEnum origin() {
         return this.origin;
@@ -419,7 +419,7 @@ public class WorkflowResponseDto {
     /**
      * Runtime issues for workflow creation and update
      */
-    public Optional<Map<String, RuntimeIssueDto>> issues() {
+    public Optional<Map<String, List<RuntimeIssueDto>>> issues() {
         return Optional.ofNullable(this.issues);
     }
 
@@ -438,7 +438,7 @@ public class WorkflowResponseDto {
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public SeverityLevelEnum severity() {
         return this.severity;
@@ -604,7 +604,7 @@ public class WorkflowResponseDto {
 
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public WorkflowResponseDto withOrigin(@Nonnull ResourceOriginEnum origin) {
         this.origin = Utils.checkNotNull(origin, "origin");
@@ -633,7 +633,7 @@ public class WorkflowResponseDto {
     /**
      * Runtime issues for workflow creation and update
      */
-    public WorkflowResponseDto withIssues(@Nullable Map<String, RuntimeIssueDto> issues) {
+    public WorkflowResponseDto withIssues(@Nullable Map<String, List<RuntimeIssueDto>> issues) {
         this.issues = issues;
         return this;
     }
@@ -658,7 +658,7 @@ public class WorkflowResponseDto {
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public WorkflowResponseDto withSeverity(@Nonnull SeverityLevelEnum severity) {
         this.severity = Utils.checkNotNull(severity, "severity");
@@ -787,7 +787,7 @@ public class WorkflowResponseDto {
 
         private WorkflowStatusEnum status;
 
-        private Map<String, RuntimeIssueDto> issues;
+        private Map<String, List<RuntimeIssueDto>> issues;
 
         private JsonNullable<String> lastTriggeredAt;
 
@@ -937,7 +937,7 @@ public class WorkflowResponseDto {
         }
 
         /**
-         * Origin of the layout
+         * Origin of the workflow
          */
         public Builder origin(@Nonnull ResourceOriginEnum origin) {
             this.origin = Utils.checkNotNull(origin, "origin");
@@ -963,7 +963,7 @@ public class WorkflowResponseDto {
         /**
          * Runtime issues for workflow creation and update
          */
-        public Builder issues(@Nullable Map<String, RuntimeIssueDto> issues) {
+        public Builder issues(@Nullable Map<String, List<RuntimeIssueDto>> issues) {
             this.issues = issues;
             return this;
         }
@@ -985,7 +985,7 @@ public class WorkflowResponseDto {
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nonnull SeverityLevelEnum severity) {
             this.severity = Utils.checkNotNull(severity, "severity");

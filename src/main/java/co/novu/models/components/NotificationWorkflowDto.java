@@ -58,7 +58,7 @@ public class NotificationWorkflowDto {
     private Map<String, Object> data;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonProperty("severity")
     private SeverityLevelEnum severity;
@@ -139,7 +139,7 @@ public class NotificationWorkflowDto {
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public SeverityLevelEnum severity() {
         return this.severity;
@@ -205,7 +205,7 @@ public class NotificationWorkflowDto {
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public NotificationWorkflowDto withSeverity(@Nonnull SeverityLevelEnum severity) {
         this.severity = Utils.checkNotNull(severity, "severity");
@@ -322,7 +322,7 @@ public class NotificationWorkflowDto {
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nonnull SeverityLevelEnum severity) {
             this.severity = Utils.checkNotNull(severity, "severity");

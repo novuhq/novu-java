@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class ThrottleControlsMetadataResponseDto {
     /**
      * Control values specific to Throttle
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private ThrottleControlDto values;
+    private ThrottleControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public ThrottleControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull ThrottleControlDto values) {
+            @JsonProperty("values") @Nullable ThrottleControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public ThrottleControlsMetadataResponseDto(
-            @Nonnull ThrottleControlDto values) {
-        this(null, null, values);
+    public ThrottleControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class ThrottleControlsMetadataResponseDto {
     /**
      * Control values specific to Throttle
      */
-    public ThrottleControlDto values() {
-        return this.values;
+    public Optional<ThrottleControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class ThrottleControlsMetadataResponseDto {
     /**
      * Control values specific to Throttle
      */
-    public ThrottleControlsMetadataResponseDto withValues(@Nonnull ThrottleControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public ThrottleControlsMetadataResponseDto withValues(@Nullable ThrottleControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class ThrottleControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private ThrottleControlDto values;
+        private ThrottleControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class ThrottleControlsMetadataResponseDto {
         /**
          * Control values specific to Throttle
          */
-        public Builder values(@Nonnull ThrottleControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable ThrottleControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

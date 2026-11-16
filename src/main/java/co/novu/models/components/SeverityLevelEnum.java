@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * SeverityLevelEnum
  * 
- * <p>Severity of the workflow
+ * <p>Override the severity of the workflow
  */
 public class SeverityLevelEnum {
 

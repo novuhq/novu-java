@@ -63,10 +63,10 @@ public class ActivityNotificationJobResponseDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payload")
-    private ActivityNotificationJobResponseDtoPayload payload;
+    private Map<String, Object> payload;
 
     /**
-     * Provider ID of the job
+     * Provider ID of the execution
      */
     @JsonProperty("providerId")
     private ProvidersIdEnum providerId;
@@ -99,7 +99,7 @@ public class ActivityNotificationJobResponseDto {
             @JsonProperty("executionDetails") @Nonnull List<ActivityNotificationExecutionDetailResponseDto> executionDetails,
             @JsonProperty("step") @Nonnull ActivityNotificationStepResponseDto step,
             @JsonProperty("overrides") @Nullable Map<String, Object> overrides,
-            @JsonProperty("payload") @Nullable ActivityNotificationJobResponseDtoPayload payload,
+            @JsonProperty("payload") @Nullable Map<String, Object> payload,
             @JsonProperty("providerId") @Nonnull ProvidersIdEnum providerId,
             @JsonProperty("status") @Nonnull String status,
             @JsonProperty("updatedAt") @Nullable String updatedAt,
@@ -181,12 +181,12 @@ public class ActivityNotificationJobResponseDto {
     /**
      * Optional payload for the job
      */
-    public Optional<ActivityNotificationJobResponseDtoPayload> payload() {
+    public Optional<Map<String, Object>> payload() {
         return Optional.ofNullable(this.payload);
     }
 
     /**
-     * Provider ID of the job
+     * Provider ID of the execution
      */
     public ProvidersIdEnum providerId() {
         return this.providerId;
@@ -275,14 +275,14 @@ public class ActivityNotificationJobResponseDto {
     /**
      * Optional payload for the job
      */
-    public ActivityNotificationJobResponseDto withPayload(@Nullable ActivityNotificationJobResponseDtoPayload payload) {
+    public ActivityNotificationJobResponseDto withPayload(@Nullable Map<String, Object> payload) {
         this.payload = payload;
         return this;
     }
 
 
     /**
-     * Provider ID of the job
+     * Provider ID of the execution
      */
     public ActivityNotificationJobResponseDto withProviderId(@Nonnull ProvidersIdEnum providerId) {
         this.providerId = Utils.checkNotNull(providerId, "providerId");
@@ -380,7 +380,7 @@ public class ActivityNotificationJobResponseDto {
 
         private Map<String, Object> overrides;
 
-        private ActivityNotificationJobResponseDtoPayload payload;
+        private Map<String, Object> payload;
 
         private ProvidersIdEnum providerId;
 
@@ -445,13 +445,13 @@ public class ActivityNotificationJobResponseDto {
         /**
          * Optional payload for the job
          */
-        public Builder payload(@Nullable ActivityNotificationJobResponseDtoPayload payload) {
+        public Builder payload(@Nullable Map<String, Object> payload) {
             this.payload = payload;
             return this;
         }
 
         /**
-         * Provider ID of the job
+         * Provider ID of the execution
          */
         public Builder providerId(@Nonnull ProvidersIdEnum providerId) {
             this.providerId = Utils.checkNotNull(providerId, "providerId");

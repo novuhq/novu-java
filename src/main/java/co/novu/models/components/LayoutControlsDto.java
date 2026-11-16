@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class LayoutControlsDto {
     /**
      * Email layout controls
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private LayoutControlValuesDto values;
+    private Map<String, Object> values;
 
     @JsonCreator
     public LayoutControlsDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull LayoutControlValuesDto values) {
+            @JsonProperty("values") @Nullable Map<String, Object> values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public LayoutControlsDto(
-            @Nonnull LayoutControlValuesDto values) {
-        this(null, null, values);
+    public LayoutControlsDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class LayoutControlsDto {
     /**
      * Email layout controls
      */
-    public LayoutControlValuesDto values() {
-        return this.values;
+    public Optional<Map<String, Object>> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class LayoutControlsDto {
     /**
      * Email layout controls
      */
-    public LayoutControlsDto withValues(@Nonnull LayoutControlValuesDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public LayoutControlsDto withValues(@Nullable Map<String, Object> values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class LayoutControlsDto {
 
         private UiSchema uiSchema;
 
-        private LayoutControlValuesDto values;
+        private Map<String, Object> values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class LayoutControlsDto {
         /**
          * Email layout controls
          */
-        public Builder values(@Nonnull LayoutControlValuesDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable Map<String, Object> values) {
+            this.values = values;
             return this;
         }
 

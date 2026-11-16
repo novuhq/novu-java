@@ -37,9 +37,7 @@ public class AgentIntegrationResponseIntegrationDto {
     @JsonProperty("providerId")
     private String providerId;
 
-    /**
-     * Channel type through which the message is sent
-     */
+
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("channel")
     private ChannelTypeEnum channel;
@@ -133,9 +131,6 @@ public class AgentIntegrationResponseIntegrationDto {
         return this.providerId;
     }
 
-    /**
-     * Channel type through which the message is sent
-     */
     public Optional<ChannelTypeEnum> channel() {
         return Optional.ofNullable(this.channel);
     }
@@ -205,9 +200,6 @@ public class AgentIntegrationResponseIntegrationDto {
     }
 
 
-    /**
-     * Channel type through which the message is sent
-     */
     public AgentIntegrationResponseIntegrationDto withChannel(@Nullable ChannelTypeEnum channel) {
         this.channel = channel;
         return this;
@@ -346,9 +338,6 @@ public class AgentIntegrationResponseIntegrationDto {
             return this;
         }
 
-        /**
-         * Channel type through which the message is sent
-         */
         public Builder channel(@Nullable ChannelTypeEnum channel) {
             this.channel = channel;
             return this;

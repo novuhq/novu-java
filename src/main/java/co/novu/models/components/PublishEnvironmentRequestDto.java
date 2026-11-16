@@ -20,7 +20,8 @@ import java.util.Optional;
 
 public class PublishEnvironmentRequestDto {
     /**
-     * Source environment ID to sync from. Defaults to the Development environment if not provided.
+     * Source environment ID. Only the Development environment is currently supported; defaults to
+     * Development if omitted.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("sourceEnvironmentId")
@@ -56,7 +57,8 @@ public class PublishEnvironmentRequestDto {
     }
 
     /**
-     * Source environment ID to sync from. Defaults to the Development environment if not provided.
+     * Source environment ID. Only the Development environment is currently supported; defaults to
+     * Development if omitted.
      */
     public Optional<String> sourceEnvironmentId() {
         return Optional.ofNullable(this.sourceEnvironmentId);
@@ -82,7 +84,8 @@ public class PublishEnvironmentRequestDto {
 
 
     /**
-     * Source environment ID to sync from. Defaults to the Development environment if not provided.
+     * Source environment ID. Only the Development environment is currently supported; defaults to
+     * Development if omitted.
      */
     public PublishEnvironmentRequestDto withSourceEnvironmentId(@Nullable String sourceEnvironmentId) {
         this.sourceEnvironmentId = sourceEnvironmentId;
@@ -151,7 +154,8 @@ public class PublishEnvironmentRequestDto {
         }
 
         /**
-         * Source environment ID to sync from. Defaults to the Development environment if not provided.
+         * Source environment ID. Only the Development environment is currently supported; defaults to
+         * Development if omitted.
          */
         public Builder sourceEnvironmentId(@Nullable String sourceEnvironmentId) {
             this.sourceEnvironmentId = sourceEnvironmentId;

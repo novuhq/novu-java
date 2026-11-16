@@ -21,7 +21,7 @@ import java.util.Optional;
 /**
  * ResourceOriginEnum
  * 
- * <p>Origin of the layout
+ * <p>Origin of the workflow
  */
 public class ResourceOriginEnum {
 

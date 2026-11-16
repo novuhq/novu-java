@@ -27,6 +27,7 @@ public class ChatOrPushProviderEnum {
 
     public static final ChatOrPushProviderEnum SLACK = new ChatOrPushProviderEnum("slack");
     public static final ChatOrPushProviderEnum DISCORD = new ChatOrPushProviderEnum("discord");
+    public static final ChatOrPushProviderEnum GOOGLE_CHAT = new ChatOrPushProviderEnum("google-chat");
     public static final ChatOrPushProviderEnum MSTEAMS = new ChatOrPushProviderEnum("msteams");
     public static final ChatOrPushProviderEnum WEBEX_MESSAGING = new ChatOrPushProviderEnum("webex-messaging");
     public static final ChatOrPushProviderEnum MATTERMOST = new ChatOrPushProviderEnum("mattermost");
@@ -41,6 +42,7 @@ public class ChatOrPushProviderEnum {
     public static final ChatOrPushProviderEnum NOVU_SLACK = new ChatOrPushProviderEnum("novu-slack");
     public static final ChatOrPushProviderEnum TELEGRAM = new ChatOrPushProviderEnum("telegram");
     public static final ChatOrPushProviderEnum SENDBLUE = new ChatOrPushProviderEnum("sendblue");
+    public static final ChatOrPushProviderEnum PHOTON_IMESSAGE = new ChatOrPushProviderEnum("photon-imessage");
     public static final ChatOrPushProviderEnum NOVU_WEB_CHAT = new ChatOrPushProviderEnum("novu-web-chat");
     public static final ChatOrPushProviderEnum FCM = new ChatOrPushProviderEnum("fcm");
     public static final ChatOrPushProviderEnum APNS = new ChatOrPushProviderEnum("apns");
@@ -125,6 +127,7 @@ public class ChatOrPushProviderEnum {
         Map<String, ChatOrPushProviderEnum> map = new LinkedHashMap<>();
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
+        map.put("google-chat", GOOGLE_CHAT);
         map.put("msteams", MSTEAMS);
         map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
@@ -139,6 +142,7 @@ public class ChatOrPushProviderEnum {
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
         map.put("sendblue", SENDBLUE);
+        map.put("photon-imessage", PHOTON_IMESSAGE);
         map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("fcm", FCM);
         map.put("apns", APNS);
@@ -155,6 +159,7 @@ public class ChatOrPushProviderEnum {
         Map<String, ChatOrPushProviderEnumEnum> map = new HashMap<>();
         map.put("slack", ChatOrPushProviderEnumEnum.SLACK);
         map.put("discord", ChatOrPushProviderEnumEnum.DISCORD);
+        map.put("google-chat", ChatOrPushProviderEnumEnum.GOOGLE_CHAT);
         map.put("msteams", ChatOrPushProviderEnumEnum.MSTEAMS);
         map.put("webex-messaging", ChatOrPushProviderEnumEnum.WEBEX_MESSAGING);
         map.put("mattermost", ChatOrPushProviderEnumEnum.MATTERMOST);
@@ -169,6 +174,7 @@ public class ChatOrPushProviderEnum {
         map.put("novu-slack", ChatOrPushProviderEnumEnum.NOVU_SLACK);
         map.put("telegram", ChatOrPushProviderEnumEnum.TELEGRAM);
         map.put("sendblue", ChatOrPushProviderEnumEnum.SENDBLUE);
+        map.put("photon-imessage", ChatOrPushProviderEnumEnum.PHOTON_IMESSAGE);
         map.put("novu-web-chat", ChatOrPushProviderEnumEnum.NOVU_WEB_CHAT);
         map.put("fcm", ChatOrPushProviderEnumEnum.FCM);
         map.put("apns", ChatOrPushProviderEnumEnum.APNS);
@@ -186,6 +192,7 @@ public class ChatOrPushProviderEnum {
 
         SLACK("slack"),
         DISCORD("discord"),
+        GOOGLE_CHAT("google-chat"),
         MSTEAMS("msteams"),
         WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
@@ -200,6 +207,7 @@ public class ChatOrPushProviderEnum {
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
         SENDBLUE("sendblue"),
+        PHOTON_IMESSAGE("photon-imessage"),
         NOVU_WEB_CHAT("novu-web-chat"),
         FCM("fcm"),
         APNS("apns"),

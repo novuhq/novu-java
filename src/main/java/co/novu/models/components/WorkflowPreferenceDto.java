@@ -12,8 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.annotation.Nullable;
 import java.lang.Boolean;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -35,18 +37,27 @@ public class WorkflowPreferenceDto {
     @JsonProperty("readOnly")
     private Boolean readOnly;
 
+    /**
+     * JsonLogic condition controlling whether this preference applies
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("condition")
+    private Map<String, Object> condition;
+
     @JsonCreator
     public WorkflowPreferenceDto(
             @JsonProperty("enabled") @Nullable Boolean enabled,
-            @JsonProperty("readOnly") @Nullable Boolean readOnly) {
+            @JsonProperty("readOnly") @Nullable Boolean readOnly,
+            @JsonProperty("condition") @Nullable Map<String, Object> condition) {
         this.enabled = Optional.ofNullable(enabled)
             .orElse(Builder._SINGLETON_VALUE_Enabled.value());
         this.readOnly = Optional.ofNullable(readOnly)
             .orElse(Builder._SINGLETON_VALUE_ReadOnly.value());
+        this.condition = condition;
     }
     
     public WorkflowPreferenceDto() {
-        this(null, null);
+        this(null, null, null);
     }
 
     /**
@@ -64,6 +75,13 @@ public class WorkflowPreferenceDto {
      */
     public Optional<Boolean> readOnly() {
         return Optional.ofNullable(this.readOnly);
+    }
+
+    /**
+     * JsonLogic condition controlling whether this preference applies
+     */
+    public Optional<Map<String, Object>> condition() {
+        return Optional.ofNullable(this.condition);
     }
 
     public static Builder builder() {
@@ -92,6 +110,15 @@ public class WorkflowPreferenceDto {
     }
 
 
+    /**
+     * JsonLogic condition controlling whether this preference applies
+     */
+    public WorkflowPreferenceDto withCondition(@Nullable Map<String, Object> condition) {
+        this.condition = condition;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -103,20 +130,22 @@ public class WorkflowPreferenceDto {
         WorkflowPreferenceDto other = (WorkflowPreferenceDto) o;
         return 
             Utils.enhancedDeepEquals(this.enabled, other.enabled) &&
-            Utils.enhancedDeepEquals(this.readOnly, other.readOnly);
+            Utils.enhancedDeepEquals(this.readOnly, other.readOnly) &&
+            Utils.enhancedDeepEquals(this.condition, other.condition);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            enabled, readOnly);
+            enabled, readOnly, condition);
     }
     
     @Override
     public String toString() {
         return Utils.toString(WorkflowPreferenceDto.class,
                 "enabled", enabled,
-                "readOnly", readOnly);
+                "readOnly", readOnly,
+                "condition", condition);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -125,6 +154,8 @@ public class WorkflowPreferenceDto {
         private Boolean enabled;
 
         private Boolean readOnly;
+
+        private Map<String, Object> condition;
 
         private Builder() {
           // force use of static builder() method
@@ -149,9 +180,17 @@ public class WorkflowPreferenceDto {
             return this;
         }
 
+        /**
+         * JsonLogic condition controlling whether this preference applies
+         */
+        public Builder condition(@Nullable Map<String, Object> condition) {
+            this.condition = condition;
+            return this;
+        }
+
         public WorkflowPreferenceDto build() {
             return new WorkflowPreferenceDto(
-                enabled, readOnly);
+                enabled, readOnly, condition);
         }
 
 

@@ -36,6 +36,12 @@ public class AgentIntegrationsControllerAddAgentIntegrationRequestBuilder {
         return this;
     }
 
+    public AgentIntegrationsControllerAddAgentIntegrationRequestBuilder novuAnalyticsSource(@Nonnull String novuAnalyticsSource) {
+        this.pojoBuilder.novuAnalyticsSource(novuAnalyticsSource);
+        this._setterCalled = true;
+        return this;
+    }
+
     public AgentIntegrationsControllerAddAgentIntegrationRequestBuilder idempotencyKey(@Nullable String idempotencyKey) {
         this.pojoBuilder.idempotencyKey(idempotencyKey);
         this._setterCalled = true;

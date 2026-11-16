@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Double;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -43,12 +44,60 @@ public class ToolApprovalRequestPayloadDto {
     @JsonProperty("input")
     private Map<String, Object> input;
 
+    /**
+     * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("approveActionId")
+    private String approveActionId;
+
+    /**
+     * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("denyActionId")
+    private String denyActionId;
+
+    /**
+     * MCP server name when the gated tool is from an MCP server (for UI labels).
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("mcpServerName")
+    private String mcpServerName;
+
+    /**
+     * Novu subscriberId(s) allowed to settle this tool gate when HITL is enabled.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("to")
+    private ToolApprovalRequestPayloadDtoTo to;
+
+    /**
+     * Attribution label shown on the HITL card.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("from")
+    private String from;
+
+    /**
+     * Seconds until the HITL tool-gate expires.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("ttlSeconds")
+    private Double ttlSeconds;
+
     @JsonCreator
     public ToolApprovalRequestPayloadDto(
             @JsonProperty("approvalId") @Nonnull String approvalId,
             @JsonProperty("toolCallId") @Nonnull String toolCallId,
             @JsonProperty("name") @Nonnull String name,
-            @JsonProperty("input") @Nullable Map<String, Object> input) {
+            @JsonProperty("input") @Nullable Map<String, Object> input,
+            @JsonProperty("approveActionId") @Nullable String approveActionId,
+            @JsonProperty("denyActionId") @Nullable String denyActionId,
+            @JsonProperty("mcpServerName") @Nullable String mcpServerName,
+            @JsonProperty("to") @Nullable ToolApprovalRequestPayloadDtoTo to,
+            @JsonProperty("from") @Nullable String from,
+            @JsonProperty("ttlSeconds") @Nullable Double ttlSeconds) {
         this.approvalId = Optional.ofNullable(approvalId)
             .orElseThrow(() -> new IllegalArgumentException("approvalId cannot be null"));
         this.toolCallId = Optional.ofNullable(toolCallId)
@@ -56,6 +105,12 @@ public class ToolApprovalRequestPayloadDto {
         this.name = Optional.ofNullable(name)
             .orElseThrow(() -> new IllegalArgumentException("name cannot be null"));
         this.input = input;
+        this.approveActionId = approveActionId;
+        this.denyActionId = denyActionId;
+        this.mcpServerName = mcpServerName;
+        this.to = to;
+        this.from = from;
+        this.ttlSeconds = ttlSeconds;
     }
     
     public ToolApprovalRequestPayloadDto(
@@ -63,6 +118,8 @@ public class ToolApprovalRequestPayloadDto {
             @Nonnull String toolCallId,
             @Nonnull String name) {
         this(approvalId, toolCallId, name,
+            null, null, null,
+            null, null, null,
             null);
     }
 
@@ -92,6 +149,48 @@ public class ToolApprovalRequestPayloadDto {
      */
     public Optional<Map<String, Object>> input() {
         return Optional.ofNullable(this.input);
+    }
+
+    /**
+     * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public Optional<String> approveActionId() {
+        return Optional.ofNullable(this.approveActionId);
+    }
+
+    /**
+     * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public Optional<String> denyActionId() {
+        return Optional.ofNullable(this.denyActionId);
+    }
+
+    /**
+     * MCP server name when the gated tool is from an MCP server (for UI labels).
+     */
+    public Optional<String> mcpServerName() {
+        return Optional.ofNullable(this.mcpServerName);
+    }
+
+    /**
+     * Novu subscriberId(s) allowed to settle this tool gate when HITL is enabled.
+     */
+    public Optional<ToolApprovalRequestPayloadDtoTo> to() {
+        return Optional.ofNullable(this.to);
+    }
+
+    /**
+     * Attribution label shown on the HITL card.
+     */
+    public Optional<String> from() {
+        return Optional.ofNullable(this.from);
+    }
+
+    /**
+     * Seconds until the HITL tool-gate expires.
+     */
+    public Optional<Double> ttlSeconds() {
+        return Optional.ofNullable(this.ttlSeconds);
     }
 
     public static Builder builder() {
@@ -135,6 +234,60 @@ public class ToolApprovalRequestPayloadDto {
     }
 
 
+    /**
+     * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public ToolApprovalRequestPayloadDto withApproveActionId(@Nullable String approveActionId) {
+        this.approveActionId = approveActionId;
+        return this;
+    }
+
+
+    /**
+     * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+     */
+    public ToolApprovalRequestPayloadDto withDenyActionId(@Nullable String denyActionId) {
+        this.denyActionId = denyActionId;
+        return this;
+    }
+
+
+    /**
+     * MCP server name when the gated tool is from an MCP server (for UI labels).
+     */
+    public ToolApprovalRequestPayloadDto withMcpServerName(@Nullable String mcpServerName) {
+        this.mcpServerName = mcpServerName;
+        return this;
+    }
+
+
+    /**
+     * Novu subscriberId(s) allowed to settle this tool gate when HITL is enabled.
+     */
+    public ToolApprovalRequestPayloadDto withTo(@Nullable ToolApprovalRequestPayloadDtoTo to) {
+        this.to = to;
+        return this;
+    }
+
+
+    /**
+     * Attribution label shown on the HITL card.
+     */
+    public ToolApprovalRequestPayloadDto withFrom(@Nullable String from) {
+        this.from = from;
+        return this;
+    }
+
+
+    /**
+     * Seconds until the HITL tool-gate expires.
+     */
+    public ToolApprovalRequestPayloadDto withTtlSeconds(@Nullable Double ttlSeconds) {
+        this.ttlSeconds = ttlSeconds;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -148,14 +301,22 @@ public class ToolApprovalRequestPayloadDto {
             Utils.enhancedDeepEquals(this.approvalId, other.approvalId) &&
             Utils.enhancedDeepEquals(this.toolCallId, other.toolCallId) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
-            Utils.enhancedDeepEquals(this.input, other.input);
+            Utils.enhancedDeepEquals(this.input, other.input) &&
+            Utils.enhancedDeepEquals(this.approveActionId, other.approveActionId) &&
+            Utils.enhancedDeepEquals(this.denyActionId, other.denyActionId) &&
+            Utils.enhancedDeepEquals(this.mcpServerName, other.mcpServerName) &&
+            Utils.enhancedDeepEquals(this.to, other.to) &&
+            Utils.enhancedDeepEquals(this.from, other.from) &&
+            Utils.enhancedDeepEquals(this.ttlSeconds, other.ttlSeconds);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             approvalId, toolCallId, name,
-            input);
+            input, approveActionId, denyActionId,
+            mcpServerName, to, from,
+            ttlSeconds);
     }
     
     @Override
@@ -164,7 +325,13 @@ public class ToolApprovalRequestPayloadDto {
                 "approvalId", approvalId,
                 "toolCallId", toolCallId,
                 "name", name,
-                "input", input);
+                "input", input,
+                "approveActionId", approveActionId,
+                "denyActionId", denyActionId,
+                "mcpServerName", mcpServerName,
+                "to", to,
+                "from", from,
+                "ttlSeconds", ttlSeconds);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -177,6 +344,18 @@ public class ToolApprovalRequestPayloadDto {
         private String name;
 
         private Map<String, Object> input;
+
+        private String approveActionId;
+
+        private String denyActionId;
+
+        private String mcpServerName;
+
+        private ToolApprovalRequestPayloadDtoTo to;
+
+        private String from;
+
+        private Double ttlSeconds;
 
         private Builder() {
           // force use of static builder() method
@@ -214,10 +393,60 @@ public class ToolApprovalRequestPayloadDto {
             return this;
         }
 
+        /**
+         * Server-minted approve action id. When omitted, self-hosted tool-approval:* is minted at persist.
+         */
+        public Builder approveActionId(@Nullable String approveActionId) {
+            this.approveActionId = approveActionId;
+            return this;
+        }
+
+        /**
+         * Server-minted deny action id. When omitted, self-hosted tool-approval:* is minted at persist.
+         */
+        public Builder denyActionId(@Nullable String denyActionId) {
+            this.denyActionId = denyActionId;
+            return this;
+        }
+
+        /**
+         * MCP server name when the gated tool is from an MCP server (for UI labels).
+         */
+        public Builder mcpServerName(@Nullable String mcpServerName) {
+            this.mcpServerName = mcpServerName;
+            return this;
+        }
+
+        /**
+         * Novu subscriberId(s) allowed to settle this tool gate when HITL is enabled.
+         */
+        public Builder to(@Nullable ToolApprovalRequestPayloadDtoTo to) {
+            this.to = to;
+            return this;
+        }
+
+        /**
+         * Attribution label shown on the HITL card.
+         */
+        public Builder from(@Nullable String from) {
+            this.from = from;
+            return this;
+        }
+
+        /**
+         * Seconds until the HITL tool-gate expires.
+         */
+        public Builder ttlSeconds(@Nullable Double ttlSeconds) {
+            this.ttlSeconds = ttlSeconds;
+            return this;
+        }
+
         public ToolApprovalRequestPayloadDto build() {
             return new ToolApprovalRequestPayloadDto(
                 approvalId, toolCallId, name,
-                input);
+                input, approveActionId, denyActionId,
+                mcpServerName, to, from,
+                ttlSeconds);
         }
 
     }

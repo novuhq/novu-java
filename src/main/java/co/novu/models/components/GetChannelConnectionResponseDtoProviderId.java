@@ -48,6 +48,7 @@ public class GetChannelConnectionResponseDtoProviderId {
     public static final GetChannelConnectionResponseDtoProviderId EMAIL_WEBHOOK = new GetChannelConnectionResponseDtoProviderId("email-webhook");
     public static final GetChannelConnectionResponseDtoProviderId BRAZE = new GetChannelConnectionResponseDtoProviderId("braze");
     public static final GetChannelConnectionResponseDtoProviderId NOVU_EMAIL_AGENT = new GetChannelConnectionResponseDtoProviderId("novu-email-agent");
+    public static final GetChannelConnectionResponseDtoProviderId AGENT_EMAIL_INBOX = new GetChannelConnectionResponseDtoProviderId("agent-email-inbox");
     public static final GetChannelConnectionResponseDtoProviderId NEXMO = new GetChannelConnectionResponseDtoProviderId("nexmo");
     public static final GetChannelConnectionResponseDtoProviderId PLIVO = new GetChannelConnectionResponseDtoProviderId("plivo");
     public static final GetChannelConnectionResponseDtoProviderId SMS77 = new GetChannelConnectionResponseDtoProviderId("sms77");
@@ -97,6 +98,7 @@ public class GetChannelConnectionResponseDtoProviderId {
     public static final GetChannelConnectionResponseDtoProviderId NOVU = new GetChannelConnectionResponseDtoProviderId("novu");
     public static final GetChannelConnectionResponseDtoProviderId SLACK = new GetChannelConnectionResponseDtoProviderId("slack");
     public static final GetChannelConnectionResponseDtoProviderId DISCORD = new GetChannelConnectionResponseDtoProviderId("discord");
+    public static final GetChannelConnectionResponseDtoProviderId GOOGLE_CHAT = new GetChannelConnectionResponseDtoProviderId("google-chat");
     public static final GetChannelConnectionResponseDtoProviderId MSTEAMS = new GetChannelConnectionResponseDtoProviderId("msteams");
     public static final GetChannelConnectionResponseDtoProviderId WEBEX_MESSAGING = new GetChannelConnectionResponseDtoProviderId("webex-messaging");
     public static final GetChannelConnectionResponseDtoProviderId MATTERMOST = new GetChannelConnectionResponseDtoProviderId("mattermost");
@@ -111,6 +113,7 @@ public class GetChannelConnectionResponseDtoProviderId {
     public static final GetChannelConnectionResponseDtoProviderId NOVU_SLACK = new GetChannelConnectionResponseDtoProviderId("novu-slack");
     public static final GetChannelConnectionResponseDtoProviderId TELEGRAM = new GetChannelConnectionResponseDtoProviderId("telegram");
     public static final GetChannelConnectionResponseDtoProviderId SENDBLUE = new GetChannelConnectionResponseDtoProviderId("sendblue");
+    public static final GetChannelConnectionResponseDtoProviderId PHOTON_IMESSAGE = new GetChannelConnectionResponseDtoProviderId("photon-imessage");
     public static final GetChannelConnectionResponseDtoProviderId NOVU_WEB_CHAT = new GetChannelConnectionResponseDtoProviderId("novu-web-chat");
     public static final GetChannelConnectionResponseDtoProviderId ANTHROPIC = new GetChannelConnectionResponseDtoProviderId("anthropic");
     public static final GetChannelConnectionResponseDtoProviderId NOVU_ANTHROPIC = new GetChannelConnectionResponseDtoProviderId("novu-anthropic");
@@ -215,6 +218,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("email-webhook", EMAIL_WEBHOOK);
         map.put("braze", BRAZE);
         map.put("novu-email-agent", NOVU_EMAIL_AGENT);
+        map.put("agent-email-inbox", AGENT_EMAIL_INBOX);
         map.put("nexmo", NEXMO);
         map.put("plivo", PLIVO);
         map.put("sms77", SMS77);
@@ -264,6 +268,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("novu", NOVU);
         map.put("slack", SLACK);
         map.put("discord", DISCORD);
+        map.put("google-chat", GOOGLE_CHAT);
         map.put("msteams", MSTEAMS);
         map.put("webex-messaging", WEBEX_MESSAGING);
         map.put("mattermost", MATTERMOST);
@@ -278,6 +283,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("novu-slack", NOVU_SLACK);
         map.put("telegram", TELEGRAM);
         map.put("sendblue", SENDBLUE);
+        map.put("photon-imessage", PHOTON_IMESSAGE);
         map.put("novu-web-chat", NOVU_WEB_CHAT);
         map.put("anthropic", ANTHROPIC);
         map.put("novu-anthropic", NOVU_ANTHROPIC);
@@ -314,6 +320,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("email-webhook", GetChannelConnectionResponseDtoProviderIdEnum.EMAIL_WEBHOOK);
         map.put("braze", GetChannelConnectionResponseDtoProviderIdEnum.BRAZE);
         map.put("novu-email-agent", GetChannelConnectionResponseDtoProviderIdEnum.NOVU_EMAIL_AGENT);
+        map.put("agent-email-inbox", GetChannelConnectionResponseDtoProviderIdEnum.AGENT_EMAIL_INBOX);
         map.put("nexmo", GetChannelConnectionResponseDtoProviderIdEnum.NEXMO);
         map.put("plivo", GetChannelConnectionResponseDtoProviderIdEnum.PLIVO);
         map.put("sms77", GetChannelConnectionResponseDtoProviderIdEnum.SMS77);
@@ -363,6 +370,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("novu", GetChannelConnectionResponseDtoProviderIdEnum.NOVU);
         map.put("slack", GetChannelConnectionResponseDtoProviderIdEnum.SLACK);
         map.put("discord", GetChannelConnectionResponseDtoProviderIdEnum.DISCORD);
+        map.put("google-chat", GetChannelConnectionResponseDtoProviderIdEnum.GOOGLE_CHAT);
         map.put("msteams", GetChannelConnectionResponseDtoProviderIdEnum.MSTEAMS);
         map.put("webex-messaging", GetChannelConnectionResponseDtoProviderIdEnum.WEBEX_MESSAGING);
         map.put("mattermost", GetChannelConnectionResponseDtoProviderIdEnum.MATTERMOST);
@@ -377,6 +385,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         map.put("novu-slack", GetChannelConnectionResponseDtoProviderIdEnum.NOVU_SLACK);
         map.put("telegram", GetChannelConnectionResponseDtoProviderIdEnum.TELEGRAM);
         map.put("sendblue", GetChannelConnectionResponseDtoProviderIdEnum.SENDBLUE);
+        map.put("photon-imessage", GetChannelConnectionResponseDtoProviderIdEnum.PHOTON_IMESSAGE);
         map.put("novu-web-chat", GetChannelConnectionResponseDtoProviderIdEnum.NOVU_WEB_CHAT);
         map.put("anthropic", GetChannelConnectionResponseDtoProviderIdEnum.ANTHROPIC);
         map.put("novu-anthropic", GetChannelConnectionResponseDtoProviderIdEnum.NOVU_ANTHROPIC);
@@ -414,6 +423,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         EMAIL_WEBHOOK("email-webhook"),
         BRAZE("braze"),
         NOVU_EMAIL_AGENT("novu-email-agent"),
+        AGENT_EMAIL_INBOX("agent-email-inbox"),
         NEXMO("nexmo"),
         PLIVO("plivo"),
         SMS77("sms77"),
@@ -463,6 +473,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         NOVU("novu"),
         SLACK("slack"),
         DISCORD("discord"),
+        GOOGLE_CHAT("google-chat"),
         MSTEAMS("msteams"),
         WEBEX_MESSAGING("webex-messaging"),
         MATTERMOST("mattermost"),
@@ -477,6 +488,7 @@ public class GetChannelConnectionResponseDtoProviderId {
         NOVU_SLACK("novu-slack"),
         TELEGRAM("telegram"),
         SENDBLUE("sendblue"),
+        PHOTON_IMESSAGE("photon-imessage"),
         NOVU_WEB_CHAT("novu-web-chat"),
         ANTHROPIC("anthropic"),
         NOVU_ANTHROPIC("novu-anthropic"),

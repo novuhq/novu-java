@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -99,7 +101,7 @@ public class WorkflowResponse {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("data")
-    private WorkflowResponseData data;
+    private Map<String, Object> data;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -127,7 +129,7 @@ public class WorkflowResponse {
             @JsonProperty("deletedAt") @Nonnull String deletedAt,
             @JsonProperty("deletedBy") @Nonnull String deletedBy,
             @JsonProperty("notificationGroup") @Nullable NotificationGroup notificationGroup,
-            @JsonProperty("data") @Nullable WorkflowResponseData data,
+            @JsonProperty("data") @Nullable Map<String, Object> data,
             @JsonProperty("workflowIntegrationStatus") @Nullable WorkflowIntegrationStatus workflowIntegrationStatus) {
         this.id = id;
         this.name = Optional.ofNullable(name)
@@ -266,7 +268,7 @@ public class WorkflowResponse {
         return Optional.ofNullable(this.notificationGroup);
     }
 
-    public Optional<WorkflowResponseData> data() {
+    public Optional<Map<String, Object>> data() {
         return Optional.ofNullable(this.data);
     }
 
@@ -393,7 +395,7 @@ public class WorkflowResponse {
     }
 
 
-    public WorkflowResponse withData(@Nullable WorkflowResponseData data) {
+    public WorkflowResponse withData(@Nullable Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -517,7 +519,7 @@ public class WorkflowResponse {
 
         private NotificationGroup notificationGroup;
 
-        private WorkflowResponseData data;
+        private Map<String, Object> data;
 
         private WorkflowIntegrationStatus workflowIntegrationStatus;
 
@@ -620,7 +622,7 @@ public class WorkflowResponse {
             return this;
         }
 
-        public Builder data(@Nullable WorkflowResponseData data) {
+        public Builder data(@Nullable Map<String, Object> data) {
             this.data = data;
             return this;
         }

@@ -31,16 +31,25 @@ public class ControlsMetadataDto {
     @JsonProperty("uiSchema")
     private UiSchema uiSchema;
 
+    /**
+     * Resolved control values for the step
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("values")
+    private Map<String, Object> values;
+
     @JsonCreator
     public ControlsMetadataDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
-            @JsonProperty("uiSchema") @Nullable UiSchema uiSchema) {
+            @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
+            @JsonProperty("values") @Nullable Map<String, Object> values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
+        this.values = values;
     }
     
     public ControlsMetadataDto() {
-        this(null, null);
+        this(null, null, null);
     }
 
     /**
@@ -55,6 +64,13 @@ public class ControlsMetadataDto {
      */
     public Optional<UiSchema> uiSchema() {
         return Optional.ofNullable(this.uiSchema);
+    }
+
+    /**
+     * Resolved control values for the step
+     */
+    public Optional<Map<String, Object>> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -80,6 +96,15 @@ public class ControlsMetadataDto {
     }
 
 
+    /**
+     * Resolved control values for the step
+     */
+    public ControlsMetadataDto withValues(@Nullable Map<String, Object> values) {
+        this.values = values;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -91,20 +116,22 @@ public class ControlsMetadataDto {
         ControlsMetadataDto other = (ControlsMetadataDto) o;
         return 
             Utils.enhancedDeepEquals(this.dataSchema, other.dataSchema) &&
-            Utils.enhancedDeepEquals(this.uiSchema, other.uiSchema);
+            Utils.enhancedDeepEquals(this.uiSchema, other.uiSchema) &&
+            Utils.enhancedDeepEquals(this.values, other.values);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            dataSchema, uiSchema);
+            dataSchema, uiSchema, values);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ControlsMetadataDto.class,
                 "dataSchema", dataSchema,
-                "uiSchema", uiSchema);
+                "uiSchema", uiSchema,
+                "values", values);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -113,6 +140,8 @@ public class ControlsMetadataDto {
         private Map<String, Object> dataSchema;
 
         private UiSchema uiSchema;
+
+        private Map<String, Object> values;
 
         private Builder() {
           // force use of static builder() method
@@ -134,9 +163,17 @@ public class ControlsMetadataDto {
             return this;
         }
 
+        /**
+         * Resolved control values for the step
+         */
+        public Builder values(@Nullable Map<String, Object> values) {
+            this.values = values;
+            return this;
+        }
+
         public ControlsMetadataDto build() {
             return new ControlsMetadataDto(
-                dataSchema, uiSchema);
+                dataSchema, uiSchema, values);
         }
 
     }

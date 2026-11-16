@@ -90,7 +90,7 @@ public class WorkflowListResponseDto {
     private WorkflowStatusEnum status;
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     @JsonProperty("origin")
     private ResourceOriginEnum origin;
@@ -268,7 +268,7 @@ public class WorkflowListResponseDto {
     }
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public ResourceOriginEnum origin() {
         return this.origin;
@@ -407,7 +407,7 @@ public class WorkflowListResponseDto {
 
 
     /**
-     * Origin of the layout
+     * Origin of the workflow
      */
     public WorkflowListResponseDto withOrigin(@Nonnull ResourceOriginEnum origin) {
         this.origin = Utils.checkNotNull(origin, "origin");
@@ -639,7 +639,7 @@ public class WorkflowListResponseDto {
         }
 
         /**
-         * Origin of the layout
+         * Origin of the workflow
          */
         public Builder origin(@Nonnull ResourceOriginEnum origin) {
             this.origin = Utils.checkNotNull(origin, "origin");

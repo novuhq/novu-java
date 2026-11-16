@@ -12,6 +12,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -29,7 +30,7 @@ public class ToolWebhookEndpointDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("headers")
-    private Headers headers;
+    private Map<String, String> headers;
 
     /**
      * Optional HTTP method override for this webhook. Defaults to the integration-level method.
@@ -41,7 +42,7 @@ public class ToolWebhookEndpointDto {
     @JsonCreator
     public ToolWebhookEndpointDto(
             @JsonProperty("url") @Nonnull String url,
-            @JsonProperty("headers") @Nullable Headers headers,
+            @JsonProperty("headers") @Nullable Map<String, String> headers,
             @JsonProperty("method") @Nullable Method method) {
         this.url = Optional.ofNullable(url)
             .orElseThrow(() -> new IllegalArgumentException("url cannot be null"));
@@ -66,7 +67,7 @@ public class ToolWebhookEndpointDto {
      * Optional headers (e.g. auth tokens) sent with every request to this webhook. Header values are
      * encrypted at rest on the channel endpoint (`endpoint` field).
      */
-    public Optional<Headers> headers() {
+    public Optional<Map<String, String>> headers() {
         return Optional.ofNullable(this.headers);
     }
 
@@ -96,7 +97,7 @@ public class ToolWebhookEndpointDto {
      * Optional headers (e.g. auth tokens) sent with every request to this webhook. Header values are
      * encrypted at rest on the channel endpoint (`endpoint` field).
      */
-    public ToolWebhookEndpointDto withHeaders(@Nullable Headers headers) {
+    public ToolWebhookEndpointDto withHeaders(@Nullable Map<String, String> headers) {
         this.headers = headers;
         return this;
     }
@@ -145,7 +146,7 @@ public class ToolWebhookEndpointDto {
 
         private String url;
 
-        private Headers headers;
+        private Map<String, String> headers;
 
         private Method method;
 
@@ -166,7 +167,7 @@ public class ToolWebhookEndpointDto {
          * Optional headers (e.g. auth tokens) sent with every request to this webhook. Header values are
          * encrypted at rest on the channel endpoint (`endpoint` field).
          */
-        public Builder headers(@Nullable Headers headers) {
+        public Builder headers(@Nullable Map<String, String> headers) {
             this.headers = headers;
             return this;
         }

@@ -14,47 +14,17 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import java.lang.Boolean;
-import java.lang.Double;
-import java.lang.String;
 import java.util.concurrent.CompletableFuture;
 
 public class SubscribersV1ControllerGetUnseenCountRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers();
-    private final SubscribersV1ControllerGetUnseenCountRequest.Builder pojoBuilder;
     private SubscribersV1ControllerGetUnseenCountRequest request;
     private final Options.Builder optionsBuilder;
-    private boolean _setterCalled;
 
     public SubscribersV1ControllerGetUnseenCountRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
-        this.pojoBuilder = SubscribersV1ControllerGetUnseenCountRequest.builder();
         this.optionsBuilder = Options.builder();
-    }
-
-    public SubscribersV1ControllerGetUnseenCountRequestBuilder subscriberId(@Nonnull String subscriberId) {
-        this.pojoBuilder.subscriberId(subscriberId);
-        this._setterCalled = true;
-        return this;
-    }
-
-    public SubscribersV1ControllerGetUnseenCountRequestBuilder seen(@Nullable Boolean seen) {
-        this.pojoBuilder.seen(seen);
-        this._setterCalled = true;
-        return this;
-    }
-
-    public SubscribersV1ControllerGetUnseenCountRequestBuilder limit(@Nullable Double limit) {
-        this.pojoBuilder.limit(limit);
-        this._setterCalled = true;
-        return this;
-    }
-
-    public SubscribersV1ControllerGetUnseenCountRequestBuilder idempotencyKey(@Nullable String idempotencyKey) {
-        this.pojoBuilder.idempotencyKey(idempotencyKey);
-        this._setterCalled = true;
-        return this;
     }
 
     public SubscribersV1ControllerGetUnseenCountRequestBuilder retryConfig(RetryConfig retryConfig) {
@@ -62,10 +32,12 @@ public class SubscribersV1ControllerGetUnseenCountRequestBuilder {
         return this;
     }
 
+    public SubscribersV1ControllerGetUnseenCountRequestBuilder request(@Nonnull SubscribersV1ControllerGetUnseenCountRequest request) {
+        this.request = Utils.checkNotNull(request, "request");
+        return this;
+    }
+
     private SubscribersV1ControllerGetUnseenCountRequest _buildRequest() {
-        if (this._setterCalled) {
-            this.request = this.pojoBuilder.build();
-        }
         return this.request;
     }
     

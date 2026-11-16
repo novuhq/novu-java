@@ -1,6 +1,6 @@
 # ButtonTypeEnum
 
-Type of button for the action result
+Type of the button
 
 ## Example Usage
 

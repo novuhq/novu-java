@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.Override;
@@ -35,23 +34,22 @@ public class DigestControlsMetadataResponseDto {
     /**
      * Control values specific to Digest
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("values")
-    private DigestControlDto values;
+    private DigestControlsMetadataResponseDtoValues values;
 
     @JsonCreator
     public DigestControlsMetadataResponseDto(
             @JsonProperty("dataSchema") @Nullable Map<String, Object> dataSchema,
             @JsonProperty("uiSchema") @Nullable UiSchema uiSchema,
-            @JsonProperty("values") @Nonnull DigestControlDto values) {
+            @JsonProperty("values") @Nullable DigestControlsMetadataResponseDtoValues values) {
         this.dataSchema = dataSchema;
         this.uiSchema = uiSchema;
-        this.values = Optional.ofNullable(values)
-            .orElseThrow(() -> new IllegalArgumentException("values cannot be null"));
+        this.values = values;
     }
     
-    public DigestControlsMetadataResponseDto(
-            @Nonnull DigestControlDto values) {
-        this(null, null, values);
+    public DigestControlsMetadataResponseDto() {
+        this(null, null, null);
     }
 
     /**
@@ -71,8 +69,8 @@ public class DigestControlsMetadataResponseDto {
     /**
      * Control values specific to Digest
      */
-    public DigestControlDto values() {
-        return this.values;
+    public Optional<DigestControlsMetadataResponseDtoValues> values() {
+        return Optional.ofNullable(this.values);
     }
 
     public static Builder builder() {
@@ -101,8 +99,8 @@ public class DigestControlsMetadataResponseDto {
     /**
      * Control values specific to Digest
      */
-    public DigestControlsMetadataResponseDto withValues(@Nonnull DigestControlDto values) {
-        this.values = Utils.checkNotNull(values, "values");
+    public DigestControlsMetadataResponseDto withValues(@Nullable DigestControlsMetadataResponseDtoValues values) {
+        this.values = values;
         return this;
     }
 
@@ -143,7 +141,7 @@ public class DigestControlsMetadataResponseDto {
 
         private UiSchema uiSchema;
 
-        private DigestControlDto values;
+        private DigestControlsMetadataResponseDtoValues values;
 
         private Builder() {
           // force use of static builder() method
@@ -168,8 +166,8 @@ public class DigestControlsMetadataResponseDto {
         /**
          * Control values specific to Digest
          */
-        public Builder values(@Nonnull DigestControlDto values) {
-            this.values = Utils.checkNotNull(values, "values");
+        public Builder values(@Nullable DigestControlsMetadataResponseDtoValues values) {
+            this.values = values;
             return this;
         }
 

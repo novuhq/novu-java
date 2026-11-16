@@ -92,6 +92,8 @@ import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.IntegrationsControllerCreateIntegrationResponse;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
 
 public class Application {
 
@@ -103,6 +105,11 @@ public class Application {
 
         IntegrationsControllerCreateIntegrationResponse res = sdk.integrations().create()
                 .body(CreateIntegrationRequestDto.builder()
+                    .rules(Map.ofEntries(
+                        Map.entry("==", List.of(
+                            Map.ofEntries(
+                                Map.entry("var", "context.tenant.id")),
+                            "acme"))))
                     .build())
                 .call();
 
@@ -151,6 +158,8 @@ import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.IntegrationsControllerUpdateIntegrationByIdResponse;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
 
 public class Application {
 
@@ -163,6 +172,11 @@ public class Application {
         IntegrationsControllerUpdateIntegrationByIdResponse res = sdk.integrations().update()
                 .integrationId("<id>")
                 .body(UpdateIntegrationRequestDto.builder()
+                    .rules(Map.ofEntries(
+                        Map.entry("==", List.of(
+                            Map.ofEntries(
+                                Map.entry("var", "context.tenant.id")),
+                            "acme"))))
                     .build())
                 .call();
 

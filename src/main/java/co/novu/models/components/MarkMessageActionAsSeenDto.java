@@ -10,8 +10,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -27,12 +29,12 @@ public class MarkMessageActionAsSeenDto {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payload")
-    private MarkMessageActionAsSeenDtoPayload payload;
+    private Map<String, Object> payload;
 
     @JsonCreator
     public MarkMessageActionAsSeenDto(
             @JsonProperty("status") @Nonnull MarkMessageActionAsSeenDtoStatus status,
-            @JsonProperty("payload") @Nullable MarkMessageActionAsSeenDtoPayload payload) {
+            @JsonProperty("payload") @Nullable Map<String, Object> payload) {
         this.status = Optional.ofNullable(status)
             .orElseThrow(() -> new IllegalArgumentException("status cannot be null"));
         this.payload = payload;
@@ -53,7 +55,7 @@ public class MarkMessageActionAsSeenDto {
     /**
      * Message action payload
      */
-    public Optional<MarkMessageActionAsSeenDtoPayload> payload() {
+    public Optional<Map<String, Object>> payload() {
         return Optional.ofNullable(this.payload);
     }
 
@@ -74,7 +76,7 @@ public class MarkMessageActionAsSeenDto {
     /**
      * Message action payload
      */
-    public MarkMessageActionAsSeenDto withPayload(@Nullable MarkMessageActionAsSeenDtoPayload payload) {
+    public MarkMessageActionAsSeenDto withPayload(@Nullable Map<String, Object> payload) {
         this.payload = payload;
         return this;
     }
@@ -112,7 +114,7 @@ public class MarkMessageActionAsSeenDto {
 
         private MarkMessageActionAsSeenDtoStatus status;
 
-        private MarkMessageActionAsSeenDtoPayload payload;
+        private Map<String, Object> payload;
 
         private Builder() {
           // force use of static builder() method
@@ -129,7 +131,7 @@ public class MarkMessageActionAsSeenDto {
         /**
          * Message action payload
          */
-        public Builder payload(@Nullable MarkMessageActionAsSeenDtoPayload payload) {
+        public Builder payload(@Nullable Map<String, Object> payload) {
             this.payload = payload;
             return this;
         }

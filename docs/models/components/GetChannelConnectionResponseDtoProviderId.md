@@ -41,6 +41,7 @@ GetChannelConnectionResponseDtoProviderId custom = GetChannelConnectionResponseD
 | `EMAIL_WEBHOOK`     | email-webhook       |
 | `BRAZE`             | braze               |
 | `NOVU_EMAIL_AGENT`  | novu-email-agent    |
+| `AGENT_EMAIL_INBOX` | agent-email-inbox   |
 | `NEXMO`             | nexmo               |
 | `PLIVO`             | plivo               |
 | `SMS77`             | sms77               |
@@ -90,6 +91,7 @@ GetChannelConnectionResponseDtoProviderId custom = GetChannelConnectionResponseD
 | `NOVU`              | novu                |
 | `SLACK`             | slack               |
 | `DISCORD`           | discord             |
+| `GOOGLE_CHAT`       | google-chat         |
 | `MSTEAMS`           | msteams             |
 | `WEBEX_MESSAGING`   | webex-messaging     |
 | `MATTERMOST`        | mattermost          |
@@ -104,6 +106,7 @@ GetChannelConnectionResponseDtoProviderId custom = GetChannelConnectionResponseD
 | `NOVU_SLACK`        | novu-slack          |
 | `TELEGRAM`          | telegram            |
 | `SENDBLUE`          | sendblue            |
+| `PHOTON_IMESSAGE`   | photon-imessage     |
 | `NOVU_WEB_CHAT`     | novu-web-chat       |
 | `ANTHROPIC`         | anthropic           |
 | `NOVU_ANTHROPIC`    | novu-anthropic      |

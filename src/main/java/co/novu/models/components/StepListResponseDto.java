@@ -23,7 +23,7 @@ public class StepListResponseDto {
     private String slug;
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     @JsonProperty("type")
     private StepTypeEnum type;
@@ -61,7 +61,7 @@ public class StepListResponseDto {
     }
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     public StepTypeEnum type() {
         return this.type;
@@ -89,7 +89,7 @@ public class StepListResponseDto {
 
 
     /**
-     * Type of the step
+     * Channels of the notification
      */
     public StepListResponseDto withType(@Nonnull StepTypeEnum type) {
         this.type = Utils.checkNotNull(type, "type");
@@ -157,7 +157,7 @@ public class StepListResponseDto {
         }
 
         /**
-         * Type of the step
+         * Channels of the notification
          */
         public Builder type(@Nonnull StepTypeEnum type) {
             this.type = Utils.checkNotNull(type, "type");

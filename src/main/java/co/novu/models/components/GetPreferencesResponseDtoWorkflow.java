@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -57,10 +59,10 @@ public class GetPreferencesResponseDtoWorkflow {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("data")
-    private GetPreferencesResponseDtoData data;
+    private Map<String, Object> data;
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     @JsonProperty("severity")
     private SeverityLevelEnum severity;
@@ -72,7 +74,7 @@ public class GetPreferencesResponseDtoWorkflow {
             @JsonProperty("name") @Nonnull String name,
             @JsonProperty("critical") boolean critical,
             @JsonProperty("tags") @Nullable List<String> tags,
-            @JsonProperty("data") @Nullable GetPreferencesResponseDtoData data,
+            @JsonProperty("data") @Nullable Map<String, Object> data,
             @JsonProperty("severity") @Nonnull SeverityLevelEnum severity) {
         this.id = Optional.ofNullable(id)
             .orElseThrow(() -> new IllegalArgumentException("id cannot be null"));
@@ -136,12 +138,12 @@ public class GetPreferencesResponseDtoWorkflow {
     /**
      * Custom data associated with the workflow
      */
-    public Optional<GetPreferencesResponseDtoData> data() {
+    public Optional<Map<String, Object>> data() {
         return Optional.ofNullable(this.data);
     }
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public SeverityLevelEnum severity() {
         return this.severity;
@@ -200,14 +202,14 @@ public class GetPreferencesResponseDtoWorkflow {
     /**
      * Custom data associated with the workflow
      */
-    public GetPreferencesResponseDtoWorkflow withData(@Nullable GetPreferencesResponseDtoData data) {
+    public GetPreferencesResponseDtoWorkflow withData(@Nullable Map<String, Object> data) {
         this.data = data;
         return this;
     }
 
 
     /**
-     * Severity of the workflow
+     * Override the severity of the workflow
      */
     public GetPreferencesResponseDtoWorkflow withSeverity(@Nonnull SeverityLevelEnum severity) {
         this.severity = Utils.checkNotNull(severity, "severity");
@@ -267,7 +269,7 @@ public class GetPreferencesResponseDtoWorkflow {
 
         private List<String> tags;
 
-        private GetPreferencesResponseDtoData data;
+        private Map<String, Object> data;
 
         private SeverityLevelEnum severity;
 
@@ -318,13 +320,13 @@ public class GetPreferencesResponseDtoWorkflow {
         /**
          * Custom data associated with the workflow
          */
-        public Builder data(@Nullable GetPreferencesResponseDtoData data) {
+        public Builder data(@Nullable Map<String, Object> data) {
             this.data = data;
             return this;
         }
 
         /**
-         * Severity of the workflow
+         * Override the severity of the workflow
          */
         public Builder severity(@Nonnull SeverityLevelEnum severity) {
             this.severity = Utils.checkNotNull(severity, "severity");
