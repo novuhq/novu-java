@@ -145,6 +145,26 @@ public class AsyncRoutes {
      * @param domain 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<DomainsControllerCreateDomainRouteResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerCreateDomainRouteResponse> create(
+            @Nonnull String domain, @Nullable String idempotencyKey,
+            @Nonnull DomainRouteDto body) {
+        return create(
+                domain, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Create a route
+     * 
+     * <p>Creates a route on the domain that forwards inbound mail addressed to
+     * `&lt;address&gt;@&lt;domain&gt;` to either a webhook or an agent. Each address on a domain may only
+     * have a single route.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<DomainsControllerCreateDomainRouteResponse>} - The async response
      */
@@ -186,6 +206,25 @@ public class AsyncRoutes {
     public CompletableFuture<DomainsControllerGetDomainRouteResponse> retrieve(@Nonnull String domain, @Nonnull String address) {
         return retrieve(
                 domain, address, null,
+                null);
+    }
+
+    /**
+     * Retrieve a route by address
+     * 
+     * <p>Returns the route bound to `&lt;address&gt;@&lt;domain&gt;`. Use `*` as the address to retrieve the
+     * wildcard route for the domain.
+     * 
+     * @param domain 
+     * @param address 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerGetDomainRouteResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerGetDomainRouteResponse> retrieve(
+            @Nonnull String domain, @Nonnull String address,
+            @Nullable String idempotencyKey) {
+        return retrieve(
+                domain, address, idempotencyKey,
                 null);
     }
 
@@ -255,6 +294,26 @@ public class AsyncRoutes {
      * @param address 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<DomainsControllerUpdateDomainRouteResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerUpdateDomainRouteResponse> update(
+            @Nonnull String domain, @Nonnull String address,
+            @Nullable String idempotencyKey, @Nonnull UpdateDomainRouteDto body) {
+        return update(
+                domain, address, idempotencyKey,
+                body, null);
+    }
+
+    /**
+     * Update a route
+     * 
+     * <p>Updates the destination of the route bound to `&lt;address&gt;@&lt;domain&gt;`. The address itself
+     * is the resource identity and cannot be changed; delete and recreate the route to rename it.
+     * 
+     * @param domain 
+     * @param address 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<DomainsControllerUpdateDomainRouteResponse>} - The async response
      */
@@ -299,6 +358,25 @@ public class AsyncRoutes {
     public CompletableFuture<DomainsControllerDeleteDomainRouteResponse> delete(@Nonnull String domain, @Nonnull String address) {
         return delete(
                 domain, address, null,
+                null);
+    }
+
+    /**
+     * Delete a route
+     * 
+     * <p>Removes the route bound to `&lt;address&gt;@&lt;domain&gt;`. Inbound mail for that address will no
+     * longer be processed.
+     * 
+     * @param domain 
+     * @param address 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerDeleteDomainRouteResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerDeleteDomainRouteResponse> delete(
+            @Nonnull String domain, @Nonnull String address,
+            @Nullable String idempotencyKey) {
+        return delete(
+                domain, address, idempotencyKey,
                 null);
     }
 
@@ -357,6 +435,27 @@ public class AsyncRoutes {
             @Nonnull TestDomainRouteDto body) {
         return test(
                 domain, address, null,
+                body, null);
+    }
+
+    /**
+     * Test an inbound route
+     * 
+     * <p>Sends a synthetic inbound email through the same delivery path as production (outbound webhooks for
+     * webhook routes, signed HTTP to the agent for agent routes). Use `dryRun: true` to preview the
+     * payload without delivering.
+     * 
+     * @param domain 
+     * @param address 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<DomainsControllerTestDomainRouteResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerTestDomainRouteResponse> test(
+            @Nonnull String domain, @Nonnull String address,
+            @Nullable String idempotencyKey, @Nonnull TestDomainRouteDto body) {
+        return test(
+                domain, address, idempotencyKey,
                 body, null);
     }
 

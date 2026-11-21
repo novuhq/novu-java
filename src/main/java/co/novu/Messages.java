@@ -130,6 +130,21 @@ public class Messages {
      * 
      * @param messageId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public MessagesControllerDeleteMessageResponse delete(@Nonnull String messageId, @Nullable String idempotencyKey) {
+        return delete(messageId, idempotencyKey, null);
+    }
+
+    /**
+     * Delete a message
+     * 
+     * <p>Delete a message entity from the Novu platform by **messageId**.
+     * This action is irreversible. **messageId** is required and of mongodbId type.
+     * 
+     * @param messageId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -169,6 +184,26 @@ public class Messages {
      */
     public MessagesControllerDeleteMessagesByTransactionIdResponse deleteByTransactionId(@Nonnull String transactionId) {
         return deleteByTransactionId(null, transactionId, null,
+            null);
+    }
+
+    /**
+     * Delete messages by transactionId
+     * 
+     * <p>Delete multiple messages from the Novu platform using **transactionId** of triggered event.
+     * This API supports filtering by **channel** and delete all messages associated with the
+     * **transactionId**.
+     * 
+     * @param channel The channel of the message to be deleted
+     * @param transactionId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public MessagesControllerDeleteMessagesByTransactionIdResponse deleteByTransactionId(
+            @Nullable MessagesControllerDeleteMessagesByTransactionIdChannel channel, @Nonnull String transactionId,
+            @Nullable String idempotencyKey) {
+        return deleteByTransactionId(channel, transactionId, idempotencyKey,
             null);
     }
 

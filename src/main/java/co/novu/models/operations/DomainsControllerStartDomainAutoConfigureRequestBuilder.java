@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class DomainsControllerStartDomainAutoConfigureRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -50,6 +51,11 @@ public class DomainsControllerStartDomainAutoConfigureRequestBuilder {
 
     public DomainsControllerStartDomainAutoConfigureRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public DomainsControllerStartDomainAutoConfigureRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

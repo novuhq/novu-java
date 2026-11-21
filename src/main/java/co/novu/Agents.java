@@ -112,6 +112,25 @@ public class Agents {
      * @param novuAnalyticsSource 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentsControllerCreateAgentResponse create(
+            @Nonnull String novuAnalyticsSource, @Nullable String idempotencyKey,
+            @Nonnull CreateAgentRequestDto body) {
+        return create(novuAnalyticsSource, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Create an agent
+     * 
+     * <p>Create an agent scoped to the current environment. The identifier must be unique per environment.
+     * Set `runtime` to `managed` and supply `managedRuntime` to provision a provider-hosted agent brain.
+     * 
+     * @param novuAnalyticsSource 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -269,6 +288,47 @@ public class Agents {
      * @param agentId Agent identifier (slug) for the agent that owns the conversation.
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public AgentReplyControllerHandleAgentReplyHandlerResponse sendReply(
+            @Nonnull String agentId, @Nullable String idempotencyKey,
+            @Nonnull AgentReplyPayloadDto body) {
+        return sendReply(agentId, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Send an agent reply
+     * 
+     * <p>**Deprecated** — use `POST /v1/agents/events/ingest` (AgentEvent protocol).
+     * This route stays live for old `@novu/framework` and existing OpenAPI `sendReply` clients.
+     * Do not use it for new integrations.
+     * 
+     * <p>**Message actions**
+     * - `reply` — markdown, interactive card, or tool-approval card (optional `files`)
+     * - `edit` — update a previously delivered message in place
+     * - `deleteMessages` — remove rendered platform messages (history is kept)
+     * - `addReactions` — add emoji reactions to existing messages
+     * 
+     * <p>**Turn control**
+     * - `typing` — `{ status?: string }` to set status, or `"stop"` to clear
+     * - `resolve` — mark the conversation resolved (optionally with a final reply)
+     * - `error: true` — report a customer-runtime failure (cannot combine with other actions)
+     * 
+     * <p>**Signals &amp; tools**
+     * - `signals` — metadata set/delete/clear, or trigger a Novu workflow
+     * - `toolResults` — persist tool outputs into conversation history
+     * - `toolApprovalRequest` — ledger a gated tool call (pair with an approval card reply)
+     * 
+     * <p>Returns `{ data: { messageId, platformThreadId } }` when a reply or edit is delivered;
+     * otherwise `{ data: null }`.
+     * 
+     * @param agentId Agent identifier (slug) for the agent that owns the conversation.
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -315,6 +375,20 @@ public class Agents {
      * 
      * @param identifier 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentsControllerGetAgentResponse retrieve(@Nonnull String identifier, @Nullable String idempotencyKey) {
+        return retrieve(identifier, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve an agent
+     * 
+     * <p>Retrieve an agent by its external identifier (not the internal MongoDB id).
+     * 
+     * @param identifier 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -351,6 +425,24 @@ public class Agents {
      */
     public AgentsControllerUpdateAgentResponse update(@Nonnull String identifier, @Nonnull UpdateAgentRequestDto body) {
         return update(identifier, null, body,
+            null);
+    }
+
+    /**
+     * Update an agent
+     * 
+     * <p>Update an agent by its external identifier.
+     * 
+     * @param identifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentsControllerUpdateAgentResponse update(
+            @Nonnull String identifier, @Nullable String idempotencyKey,
+            @Nonnull UpdateAgentRequestDto body) {
+        return update(identifier, idempotencyKey, body,
             null);
     }
 
@@ -421,6 +513,28 @@ public class Agents {
      * @param identifier 
      * @param deleteFromProvider 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentsControllerDeleteAgentResponse delete(
+            @Nonnull String identifier, @Nonnull String deleteFromProvider,
+            @Nullable String idempotencyKey) {
+        return delete(identifier, deleteFromProvider, idempotencyKey,
+            null);
+    }
+
+    /**
+     * Delete an agent
+     * 
+     * <p>Delete an agent by identifier, remove all agent-integration links, and clear the agent assignment
+     * from any workflows that reference it. For managed-runtime agents, pass `deleteFromProvider=true` to
+     * also archive the agent on the provider side (e.g. Anthropic).
+     * 
+     * <p>By default only the Novu record is deleted and the provider agent is left intact.
+     * 
+     * @param identifier 
+     * @param deleteFromProvider 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -459,6 +573,25 @@ public class Agents {
      */
     public AgentsControllerUpdateAgentBridgeResponse updateBridge(@Nonnull String identifier, @Nonnull UpdateAgentBridgeRequestDto body) {
         return updateBridge(identifier, null, body,
+            null);
+    }
+
+    /**
+     * Update an agent bridge
+     * 
+     * <p>Update the bridge URL configuration for an agent. Used by the CLI to register dev tunnel URLs.
+     * Refuses to activate dev bridges on production environments.
+     * 
+     * @param identifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentsControllerUpdateAgentBridgeResponse updateBridge(
+            @Nonnull String identifier, @Nullable String idempotencyKey,
+            @Nonnull UpdateAgentBridgeRequestDto body) {
+        return updateBridge(identifier, idempotencyKey, body,
             null);
     }
 

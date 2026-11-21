@@ -170,6 +170,25 @@ public class AsyncTopics {
      * @param failIfExists If true, the request will fail if a topic with the same key already exists
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TopicsControllerUpsertTopicResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerUpsertTopicResponse> upsert(
+            @Nullable Boolean failIfExists, @Nullable String idempotencyKey,
+            @Nonnull CreateUpdateTopicRequestDto body) {
+        return upsert(
+                failIfExists, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Create a topic
+     * 
+     * <p>Creates a new topic if it does not exist, or updates an existing topic if it already exists. Use
+     * ?failIfExists=true to prevent updates.
+     * 
+     * @param failIfExists If true, the request will fail if a topic with the same key already exists
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TopicsControllerUpsertTopicResponse>} - The async response
      */
@@ -207,6 +226,19 @@ public class AsyncTopics {
      */
     public CompletableFuture<TopicsControllerGetTopicResponse> get(@Nonnull String topicKey) {
         return get(topicKey, null, null);
+    }
+
+    /**
+     * Retrieve a topic
+     * 
+     * <p>Retrieve a topic by its unique key identifier **topicKey**
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TopicsControllerGetTopicResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerGetTopicResponse> get(@Nonnull String topicKey, @Nullable String idempotencyKey) {
+        return get(topicKey, idempotencyKey, null);
     }
 
     /**
@@ -266,6 +298,24 @@ public class AsyncTopics {
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TopicsControllerUpdateTopicResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerUpdateTopicResponse> modify(
+            @Nonnull String topicKey, @Nullable String idempotencyKey,
+            @Nonnull UpdateTopicRequestDto body) {
+        return modify(
+                topicKey, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update a topic
+     * 
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TopicsControllerUpdateTopicResponse>} - The async response
      */
@@ -305,6 +355,20 @@ public class AsyncTopics {
      */
     public CompletableFuture<TopicsControllerDeleteTopicResponse> remove(@Nonnull String topicKey) {
         return remove(topicKey, null, null);
+    }
+
+    /**
+     * Delete a topic
+     * 
+     * <p>Delete a topic by its unique key identifier **topicKey**.
+     * This action is irreversible and will remove all subscriptions to the topic.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TopicsControllerDeleteTopicResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerDeleteTopicResponse> remove(@Nonnull String topicKey, @Nullable String idempotencyKey) {
+        return remove(topicKey, idempotencyKey, null);
     }
 
     /**
@@ -368,6 +432,25 @@ public class AsyncTopics {
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TopicsControllerCreateTopicSubscriptionsResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerCreateTopicSubscriptionsResponse> createSubscription(
+            @Nonnull String topicKey, @Nullable String idempotencyKey,
+            @Nonnull CreateTopicSubscriptionsRequestDto body) {
+        return createSubscription(
+                topicKey, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Create topic subscriptions
+     * 
+     * <p>This api will create subscription for subscriberIds for a topic.
+     * Its like subscribing to a common interest group. if topic does not exist, it will be created.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TopicsControllerCreateTopicSubscriptionsResponse>} - The async response
      */
@@ -407,6 +490,24 @@ public class AsyncTopics {
     public CompletableFuture<TopicsControllerGetTopicSubscriptionResponse> getSubscriptionById(@Nonnull String topicKey, @Nonnull String identifier) {
         return getSubscriptionById(
                 topicKey, identifier, null,
+                null);
+    }
+
+    /**
+     * Retrieve a topic subscription
+     * 
+     * <p>Retrieve a subscription by its unique identifier for a topic.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param identifier The unique identifier of the subscription
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TopicsControllerGetTopicSubscriptionResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerGetTopicSubscriptionResponse> getSubscriptionById(
+            @Nonnull String topicKey, @Nonnull String identifier,
+            @Nullable String idempotencyKey) {
+        return getSubscriptionById(
+                topicKey, identifier, idempotencyKey,
                 null);
     }
 

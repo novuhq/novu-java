@@ -16,6 +16,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 public class TranslationControllerCreateTranslationEndpointRequestBuilder {
@@ -46,6 +47,11 @@ public class TranslationControllerCreateTranslationEndpointRequestBuilder {
 
     public TranslationControllerCreateTranslationEndpointRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public TranslationControllerCreateTranslationEndpointRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

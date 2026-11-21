@@ -73,6 +73,7 @@ public class Subscribers {
     private final AsyncSubscribers asyncSDK;
     private final SubscribersNotifications1 notifications;
     private final Preferences preferences;
+    private final Tokens tokens;
     private final Credentials credentials;
     private final SubscribersMessages1 messages;
 
@@ -80,6 +81,7 @@ public class Subscribers {
         this.sdkConfiguration = sdkConfiguration;
         this.notifications = new SubscribersNotifications1(this.sdkConfiguration);
         this.preferences = new Preferences(this.sdkConfiguration);
+        this.tokens = new Tokens(this.sdkConfiguration);
         this.credentials = new Credentials(this.sdkConfiguration);
         this.messages = new SubscribersMessages1(this.sdkConfiguration);
         this.asyncSDK = new AsyncSubscribers(this, sdkConfiguration);
@@ -91,6 +93,10 @@ public class Subscribers {
 
     public final Preferences preferences() {
         return preferences;
+    }
+
+    public final Tokens tokens() {
+        return tokens;
     }
 
     public final Credentials credentials() {
@@ -195,6 +201,26 @@ public class Subscribers {
      * @param failIfExists If true, the request will fail if a subscriber with the same subscriberId already exists
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerCreateSubscriberResponse create(
+            @Nullable Boolean failIfExists, @Nullable String idempotencyKey,
+            @Nonnull CreateSubscriberRequestDto body) {
+        return create(failIfExists, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Create a subscriber
+     * 
+     * <p>Create a subscriber with the subscriber attributes.
+     * **subscriberId** is a required field, rest other fields are optional, if the subscriber already
+     * exists, it will be updated
+     * 
+     * @param failIfExists If true, the request will fail if a subscriber with the same subscriberId already exists
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -232,6 +258,21 @@ public class Subscribers {
      */
     public SubscribersControllerGetSubscriberResponse get(@Nonnull String subscriberId) {
         return get(subscriberId, null, null);
+    }
+
+    /**
+     * Retrieve a subscriber
+     * 
+     * <p>Retrieve a subscriber by its unique key identifier **subscriberId**.
+     * **subscriberId** field is required.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerGetSubscriberResponse get(@Nonnull String subscriberId, @Nullable String idempotencyKey) {
+        return get(subscriberId, idempotencyKey, null);
     }
 
     /**
@@ -280,6 +321,25 @@ public class Subscribers {
      */
     public SubscribersControllerPatchSubscriberResponse update(@Nonnull String subscriberId, @Nonnull PatchSubscriberRequestDto body) {
         return update(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Update a subscriber
+     * 
+     * <p>Update a subscriber by its unique key identifier **subscriberId**.
+     * **subscriberId** is a required field, rest other fields are optional
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerPatchSubscriberResponse update(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull PatchSubscriberRequestDto body) {
+        return update(subscriberId, idempotencyKey, body,
             null);
     }
 
@@ -342,6 +402,22 @@ public class Subscribers {
      * 
      * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerRemoveSubscriberResponse delete(@Nonnull String subscriberId, @Nullable String idempotencyKey) {
+        return delete(subscriberId, idempotencyKey, null);
+    }
+
+    /**
+     * Delete a subscriber
+     * 
+     * <p>Deletes a subscriber entity from the Novu platform along with associated messages, preferences, and
+     * topic subscriptions.
+     * **subscriberId** is a required field.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -379,6 +455,21 @@ public class Subscribers {
      */
     public SubscribersV1ControllerBulkCreateSubscribersResponse createBulk(@Nonnull BulkSubscriberCreateDto body) {
         return createBulk(null, body, null);
+    }
+
+    /**
+     * Bulk create subscribers
+     * 
+     * <p>Using this endpoint multiple subscribers can be created at once. The bulk API is limited to 500
+     * subscribers per request.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerBulkCreateSubscribersResponse createBulk(@Nullable String idempotencyKey, @Nonnull BulkSubscriberCreateDto body) {
+        return createBulk(idempotencyKey, body, null);
     }
 
     /**
@@ -429,6 +520,26 @@ public class Subscribers {
      */
     public SubscribersControllerUpdateSubscriberPreferencesResponse updatePreferences(@Nonnull String subscriberId, @Nonnull PatchSubscriberPreferencesDto body) {
         return updatePreferences(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Update subscriber preferences
+     * 
+     * <p>Update subscriber preferences by its unique key identifier **subscriberId**.
+     * **workflowId** is optional field, if provided, this API will update that workflow preference,
+     * otherwise it will update global preferences
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerUpdateSubscriberPreferencesResponse updatePreferences(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull PatchSubscriberPreferencesDto body) {
+        return updatePreferences(subscriberId, idempotencyKey, body,
             null);
     }
 
@@ -495,6 +606,26 @@ public class Subscribers {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerUpdateSubscriberChannelResponse updateCredentials(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateSubscriberChannelRequestDto body) {
+        return updateCredentials(subscriberId, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update provider credentials
+     * 
+     * <p>Update credentials for a provider such as **slack** and **FCM**.
+     * **providerId** is required field. This API creates the **deviceTokens** or replaces the existing
+     * ones.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -535,6 +666,26 @@ public class Subscribers {
      */
     public SubscribersV1ControllerDeleteSubscriberCredentialsResponse removeCredentials(@Nonnull String subscriberId, @Nonnull String providerId) {
         return removeCredentials(subscriberId, providerId, null,
+            null);
+    }
+
+    /**
+     * Delete provider credentials
+     * 
+     * <p>Delete subscriber credentials for a provider such as **slack** and **FCM** by **providerId**.
+     * This action is irreversible and will remove the credentials for the provider for particular
+     * **subscriberId**.
+     * 
+     * @param subscriberId 
+     * @param providerId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerDeleteSubscriberCredentialsResponse removeCredentials(
+            @Nonnull String subscriberId, @Nonnull String providerId,
+            @Nullable String idempotencyKey) {
+        return removeCredentials(subscriberId, providerId, idempotencyKey,
             null);
     }
 
@@ -590,6 +741,27 @@ public class Subscribers {
     @Deprecated
     public SubscribersV1ControllerMarkAllUnreadAsReadResponse markAllMessages(@Nonnull String subscriberId, @Nonnull MarkAllMessageAsRequestDto body) {
         return markAllMessages(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Update all notifications state
+     * 
+     * <p>This API is deprecated, use v2 API instead. Update all subscriber in-app notifications state such as
+     * read, unread, seen or unseen by **subscriberId**.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public SubscribersV1ControllerMarkAllUnreadAsReadResponse markAllMessages(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull MarkAllMessageAsRequestDto body) {
+        return markAllMessages(subscriberId, idempotencyKey, body,
             null);
     }
 

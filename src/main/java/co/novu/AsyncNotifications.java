@@ -134,6 +134,22 @@ public class AsyncNotifications {
      * 
      * @param notificationId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<NotificationsControllerGetNotificationResponse>} - The async response
+     */
+    public CompletableFuture<NotificationsControllerGetNotificationResponse> get(@Nonnull String notificationId, @Nullable String idempotencyKey) {
+        return get(notificationId, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve an event
+     * 
+     * <p>Retrieve an event by its unique key identifier **notificationId**.
+     * Here **notificationId** is of mongodbId type.
+     * This API returns the event details - execution logs, status, actual notification (message) generated
+     * by each workflow step.
+     * 
+     * @param notificationId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<NotificationsControllerGetNotificationResponse>} - The async response
      */

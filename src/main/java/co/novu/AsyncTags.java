@@ -70,6 +70,20 @@ public class AsyncTags {
      * 
      * @param environmentId Environment internal ID (MongoDB ObjectId) or identifier
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<EnvironmentsControllerGetEnvironmentTagsResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerGetEnvironmentTagsResponse> get(@Nonnull String environmentId, @Nullable String idempotencyKey) {
+        return get(environmentId, idempotencyKey, null);
+    }
+
+    /**
+     * List environment tags
+     * 
+     * <p>Retrieve all unique tags used in workflows within the specified environment. These tags can be used
+     * for filtering workflows.
+     * 
+     * @param environmentId Environment internal ID (MongoDB ObjectId) or identifier
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<EnvironmentsControllerGetEnvironmentTagsResponse>} - The async response
      */

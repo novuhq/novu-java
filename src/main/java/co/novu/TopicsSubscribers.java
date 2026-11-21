@@ -69,6 +69,24 @@ public class TopicsSubscribers {
      * @param externalSubscriberId The external subscriber id
      * @param topicKey The topic key
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsV1ControllerGetTopicSubscriberResponse check(
+            @Nonnull String externalSubscriberId, @Nonnull String topicKey,
+            @Nullable String idempotencyKey) {
+        return check(externalSubscriberId, topicKey, idempotencyKey,
+            null);
+    }
+
+    /**
+     * Check topic subscriber
+     * 
+     * <p>Check if a subscriber belongs to a certain topic
+     * 
+     * @param externalSubscriberId The external subscriber id
+     * @param topicKey The topic key
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

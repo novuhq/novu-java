@@ -12,8 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.annotation.Nullable;
 import java.lang.Boolean;
+import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Map;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -46,12 +48,27 @@ public class AgentBehaviorDto {
      * reply; on custom-code / self-hosted agents, the turn is forwarded to the bridge with a null
      * subscriber. "restricted" rejects unknown senders with a managed denial reply (any runtime).
      * 
-     * <p>Optional on update (partial PATCH). Persisted agents always have a value — managed create defaults
-     * to "open"; self-hosted create defaults to "restricted".
+     * <p>"rule" requires a known subscriber and accessRule must evaluate truthy for every message, edit,
+     * delete, click and reaction; unknown senders, an invalid rule and an evaluation error are refused; a
+     * missing field evaluates as JSON Logic says. Optional on update (partial PATCH). Persisted agents
+     * always have a value — managed create defaults to "open"; self-hosted create defaults to
+     * "restricted".
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("subscriberAccess")
     private SubscriberAccess subscriberAccess;
+
+    /**
+     * JSON Logic rule evaluated over subscriber.* and context.* when subscriberAccess is "rule". Present
+     * only when subscriberAccess is "rule". A missing field evaluates as JSON Logic says, so `null` is
+     * less than any positive number.
+     * 
+     * <p>"==" and "!=" compare strictly, without type coercion. At most 16 KB, with objects and arrays nested
+     * at most 32 levels deep.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("accessRule")
+    private Map<String, Object> accessRule;
 
     /**
      * How the agent replies in shared rooms. "mention_only" requires an @mention in every shared room.
@@ -73,19 +90,21 @@ public class AgentBehaviorDto {
             @JsonProperty("acknowledgeOnReceived") @Nullable Boolean acknowledgeOnReceived,
             @JsonProperty("reactionOnResolved") @Nullable JsonNullable<String> reactionOnResolved,
             @JsonProperty("subscriberAccess") @Nullable SubscriberAccess subscriberAccess,
+            @JsonProperty("accessRule") @Nullable Map<String, Object> accessRule,
             @JsonProperty("replyPolicy") @Nullable ReplyPolicy replyPolicy) {
         this.acknowledgeOnReceived = Optional.ofNullable(acknowledgeOnReceived)
             .orElse(Builder._SINGLETON_VALUE_AcknowledgeOnReceived.value());
         this.reactionOnResolved = Optional.ofNullable(reactionOnResolved)
             .orElse(JsonNullable.of(Builder._SINGLETON_VALUE_ReactionOnResolved.value()));
         this.subscriberAccess = subscriberAccess;
+        this.accessRule = accessRule;
         this.replyPolicy = Optional.ofNullable(replyPolicy)
             .orElse(Builder._SINGLETON_VALUE_ReplyPolicy.value());
     }
     
     public AgentBehaviorDto() {
         this(null, null, null,
-            null);
+            null, null);
     }
 
     /**
@@ -115,11 +134,26 @@ public class AgentBehaviorDto {
      * reply; on custom-code / self-hosted agents, the turn is forwarded to the bridge with a null
      * subscriber. "restricted" rejects unknown senders with a managed denial reply (any runtime).
      * 
-     * <p>Optional on update (partial PATCH). Persisted agents always have a value — managed create defaults
-     * to "open"; self-hosted create defaults to "restricted".
+     * <p>"rule" requires a known subscriber and accessRule must evaluate truthy for every message, edit,
+     * delete, click and reaction; unknown senders, an invalid rule and an evaluation error are refused; a
+     * missing field evaluates as JSON Logic says. Optional on update (partial PATCH). Persisted agents
+     * always have a value — managed create defaults to "open"; self-hosted create defaults to
+     * "restricted".
      */
     public Optional<SubscriberAccess> subscriberAccess() {
         return Optional.ofNullable(this.subscriberAccess);
+    }
+
+    /**
+     * JSON Logic rule evaluated over subscriber.* and context.* when subscriberAccess is "rule". Present
+     * only when subscriberAccess is "rule". A missing field evaluates as JSON Logic says, so `null` is
+     * less than any positive number.
+     * 
+     * <p>"==" and "!=" compare strictly, without type coercion. At most 16 KB, with objects and arrays nested
+     * at most 32 levels deep.
+     */
+    public Optional<Map<String, Object>> accessRule() {
+        return Optional.ofNullable(this.accessRule);
     }
 
     /**
@@ -173,11 +207,28 @@ public class AgentBehaviorDto {
      * reply; on custom-code / self-hosted agents, the turn is forwarded to the bridge with a null
      * subscriber. "restricted" rejects unknown senders with a managed denial reply (any runtime).
      * 
-     * <p>Optional on update (partial PATCH). Persisted agents always have a value — managed create defaults
-     * to "open"; self-hosted create defaults to "restricted".
+     * <p>"rule" requires a known subscriber and accessRule must evaluate truthy for every message, edit,
+     * delete, click and reaction; unknown senders, an invalid rule and an evaluation error are refused; a
+     * missing field evaluates as JSON Logic says. Optional on update (partial PATCH). Persisted agents
+     * always have a value — managed create defaults to "open"; self-hosted create defaults to
+     * "restricted".
      */
     public AgentBehaviorDto withSubscriberAccess(@Nullable SubscriberAccess subscriberAccess) {
         this.subscriberAccess = subscriberAccess;
+        return this;
+    }
+
+
+    /**
+     * JSON Logic rule evaluated over subscriber.* and context.* when subscriberAccess is "rule". Present
+     * only when subscriberAccess is "rule". A missing field evaluates as JSON Logic says, so `null` is
+     * less than any positive number.
+     * 
+     * <p>"==" and "!=" compare strictly, without type coercion. At most 16 KB, with objects and arrays nested
+     * at most 32 levels deep.
+     */
+    public AgentBehaviorDto withAccessRule(@Nullable Map<String, Object> accessRule) {
+        this.accessRule = accessRule;
         return this;
     }
 
@@ -212,6 +263,7 @@ public class AgentBehaviorDto {
             Utils.enhancedDeepEquals(this.acknowledgeOnReceived, other.acknowledgeOnReceived) &&
             Utils.enhancedDeepEquals(this.reactionOnResolved, other.reactionOnResolved) &&
             Utils.enhancedDeepEquals(this.subscriberAccess, other.subscriberAccess) &&
+            Utils.enhancedDeepEquals(this.accessRule, other.accessRule) &&
             Utils.enhancedDeepEquals(this.replyPolicy, other.replyPolicy);
     }
     
@@ -219,7 +271,7 @@ public class AgentBehaviorDto {
     public int hashCode() {
         return Utils.enhancedHash(
             acknowledgeOnReceived, reactionOnResolved, subscriberAccess,
-            replyPolicy);
+            accessRule, replyPolicy);
     }
     
     @Override
@@ -228,6 +280,7 @@ public class AgentBehaviorDto {
                 "acknowledgeOnReceived", acknowledgeOnReceived,
                 "reactionOnResolved", reactionOnResolved,
                 "subscriberAccess", subscriberAccess,
+                "accessRule", accessRule,
                 "replyPolicy", replyPolicy);
     }
 
@@ -239,6 +292,8 @@ public class AgentBehaviorDto {
         private JsonNullable<String> reactionOnResolved;
 
         private SubscriberAccess subscriberAccess;
+
+        private Map<String, Object> accessRule;
 
         private ReplyPolicy replyPolicy;
 
@@ -275,11 +330,27 @@ public class AgentBehaviorDto {
          * reply; on custom-code / self-hosted agents, the turn is forwarded to the bridge with a null
          * subscriber. "restricted" rejects unknown senders with a managed denial reply (any runtime).
          * 
-         * <p>Optional on update (partial PATCH). Persisted agents always have a value — managed create defaults
-         * to "open"; self-hosted create defaults to "restricted".
+         * <p>"rule" requires a known subscriber and accessRule must evaluate truthy for every message, edit,
+         * delete, click and reaction; unknown senders, an invalid rule and an evaluation error are refused; a
+         * missing field evaluates as JSON Logic says. Optional on update (partial PATCH). Persisted agents
+         * always have a value — managed create defaults to "open"; self-hosted create defaults to
+         * "restricted".
          */
         public Builder subscriberAccess(@Nullable SubscriberAccess subscriberAccess) {
             this.subscriberAccess = subscriberAccess;
+            return this;
+        }
+
+        /**
+         * JSON Logic rule evaluated over subscriber.* and context.* when subscriberAccess is "rule". Present
+         * only when subscriberAccess is "rule". A missing field evaluates as JSON Logic says, so `null` is
+         * less than any positive number.
+         * 
+         * <p>"==" and "!=" compare strictly, without type coercion. At most 16 KB, with objects and arrays nested
+         * at most 32 levels deep.
+         */
+        public Builder accessRule(@Nullable Map<String, Object> accessRule) {
+            this.accessRule = accessRule;
             return this;
         }
 
@@ -302,7 +373,7 @@ public class AgentBehaviorDto {
         public AgentBehaviorDto build() {
             return new AgentBehaviorDto(
                 acknowledgeOnReceived, reactionOnResolved, subscriberAccess,
-                replyPolicy);
+                accessRule, replyPolicy);
         }
 
 

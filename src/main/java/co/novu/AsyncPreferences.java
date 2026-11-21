@@ -81,6 +81,26 @@ public class AsyncPreferences {
      * @param criticality 
      * @param contextKeys Context keys for filtering preferences (e.g., ["tenant:acme"])
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerGetSubscriberPreferencesResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerGetSubscriberPreferencesResponse> list(
+            @Nonnull String subscriberId, @Nullable Criticality criticality,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return list(
+                subscriberId, criticality, contextKeys,
+                idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve subscriber preferences
+     * 
+     * <p>Retrieve subscriber channel preferences by its unique key identifier **subscriberId**.
+     * This API returns all five channels preferences for all workflows and global preferences.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param criticality 
+     * @param contextKeys Context keys for filtering preferences (e.g., ["tenant:acme"])
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerGetSubscriberPreferencesResponse>} - The async response
      */
@@ -125,6 +145,25 @@ public class AsyncPreferences {
     public CompletableFuture<SubscribersControllerBulkUpdateSubscriberPreferencesResponse> bulkUpdate(@Nonnull String subscriberId, @Nonnull BulkUpdateSubscriberPreferencesDto body) {
         return bulkUpdate(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Bulk update subscriber preferences
+     * 
+     * <p>Bulk update subscriber preferences by its unique key identifier **subscriberId**.
+     * This API allows updating multiple workflow preferences in a single request.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerBulkUpdateSubscriberPreferencesResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerBulkUpdateSubscriberPreferencesResponse> bulkUpdate(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull BulkUpdateSubscriberPreferencesDto body) {
+        return bulkUpdate(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 

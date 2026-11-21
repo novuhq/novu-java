@@ -69,6 +69,21 @@ public class Tags {
      * 
      * @param environmentId Environment internal ID (MongoDB ObjectId) or identifier
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentsControllerGetEnvironmentTagsResponse get(@Nonnull String environmentId, @Nullable String idempotencyKey) {
+        return get(environmentId, idempotencyKey, null);
+    }
+
+    /**
+     * List environment tags
+     * 
+     * <p>Retrieve all unique tags used in workflows within the specified environment. These tags can be used
+     * for filtering workflows.
+     * 
+     * @param environmentId Environment internal ID (MongoDB ObjectId) or identifier
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

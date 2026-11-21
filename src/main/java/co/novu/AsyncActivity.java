@@ -77,6 +77,25 @@ public class AsyncActivity {
      * @param integrationId The integration identifier for the delivery provider
      * @param idempotencyKey A header for idempotency purposes
      * @param body Webhook event payload from the delivery provider
+     * @return {@code CompletableFuture<InboundWebhooksControllerHandleWebhookResponse>} - The async response
+     */
+    public CompletableFuture<InboundWebhooksControllerHandleWebhookResponse> track(
+            @Nonnull String environmentId, @Nonnull String integrationId,
+            @Nullable String idempotencyKey, @Nonnull Map<String, Object> body) {
+        return track(
+                environmentId, integrationId, idempotencyKey,
+                body, null);
+    }
+
+    /**
+     * Track provider activity and engagement events
+     * 
+     * <p>Track activity and engagement events for a specific delivery provider
+     * 
+     * @param environmentId The environment identifier
+     * @param integrationId The integration identifier for the delivery provider
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body Webhook event payload from the delivery provider
      * @param options additional options
      * @return {@code CompletableFuture<InboundWebhooksControllerHandleWebhookResponse>} - The async response
      */

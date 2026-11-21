@@ -157,6 +157,20 @@ public class AsyncDomains {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<DomainsControllerCreateDomainResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerCreateDomainResponse> create(@Nullable String idempotencyKey, @Nonnull CreateDomainDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a domain
+     * 
+     * <p>Registers a new inbound-email domain. The response includes the DNS records customers must add at
+     * their DNS provider before the domain can receive mail.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<DomainsControllerCreateDomainResponse>} - The async response
      */
@@ -196,6 +210,20 @@ public class AsyncDomains {
      */
     public CompletableFuture<DomainsControllerGetDomainResponse> retrieve(@Nonnull String domain) {
         return retrieve(domain, null, null);
+    }
+
+    /**
+     * Retrieve a domain by name
+     * 
+     * <p>Returns the domain configuration and the DNS records that must be in place. This is a pure read;
+     * call `domains.verify` to refresh verification status from DNS.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerGetDomainResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerGetDomainResponse> retrieve(@Nonnull String domain, @Nullable String idempotencyKey) {
+        return retrieve(domain, idempotencyKey, null);
     }
 
     /**
@@ -259,6 +287,25 @@ public class AsyncDomains {
      * @param domain 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<DomainsControllerUpdateDomainResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerUpdateDomainResponse> update(
+            @Nonnull String domain, @Nullable String idempotencyKey,
+            @Nonnull UpdateDomainDto body) {
+        return update(
+                domain, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update a domain
+     * 
+     * <p>Updates optional domain fields. When `data` is provided, it replaces the entire metadata object;
+     * omit `data` to leave it unchanged.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<DomainsControllerUpdateDomainResponse>} - The async response
      */
@@ -298,6 +345,20 @@ public class AsyncDomains {
      */
     public CompletableFuture<DomainsControllerDeleteDomainResponse> delete(@Nonnull String domain) {
         return delete(domain, null, null);
+    }
+
+    /**
+     * Delete a domain
+     * 
+     * <p>Removes the domain and cascades the deletion to all of its routes. Inbound mail for that domain
+     * stops being processed immediately.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerDeleteDomainResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerDeleteDomainResponse> delete(@Nonnull String domain, @Nullable String idempotencyKey) {
+        return delete(domain, idempotencyKey, null);
     }
 
     /**
@@ -357,6 +418,20 @@ public class AsyncDomains {
      * 
      * @param domain 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerDiagnoseDomainResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerDiagnoseDomainResponse> diagnose(@Nonnull String domain, @Nullable String idempotencyKey) {
+        return diagnose(domain, idempotencyKey, null);
+    }
+
+    /**
+     * Diagnose inbound DNS for a domain
+     * 
+     * <p>Runs live DNS checks for inbound email readiness (MX correctness, apex CNAME collision, and common
+     * DNS blocklists for the Novu mail host). Returns structured issues with plain-language fixes.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<DomainsControllerDiagnoseDomainResponse>} - The async response
      */
@@ -396,6 +471,20 @@ public class AsyncDomains {
      */
     public CompletableFuture<DomainsControllerVerifyDomainResponse> verify(@Nonnull String domain) {
         return verify(domain, null, null);
+    }
+
+    /**
+     * Verify a domain
+     * 
+     * <p>Performs a live DNS lookup to refresh the MX record status of the domain and updates the
+     * verification status accordingly. Returns the latest domain configuration.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerVerifyDomainResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerVerifyDomainResponse> verify(@Nonnull String domain, @Nullable String idempotencyKey) {
+        return verify(domain, idempotencyKey, null);
     }
 
     /**

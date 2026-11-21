@@ -75,6 +75,25 @@ public class AsyncCredentials {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersV1ControllerModifySubscriberChannelResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersV1ControllerModifySubscriberChannelResponse> upsert(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateSubscriberChannelRequestDto body) {
+        return upsert(
+                subscriberId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Upsert provider credentials
+     * 
+     * <p>Upsert credentials for a provider such as **slack** and **FCM**.
+     * **providerId** is required field. This API creates **deviceTokens** or appends to the existing ones.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerModifySubscriberChannelResponse>} - The async response
      */
