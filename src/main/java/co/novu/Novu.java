@@ -33,7 +33,9 @@ import co.novu.utils.SpeakeasyHTTPClient;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.lang.IllegalArgumentException;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -433,6 +435,23 @@ public class Novu {
         }
 
         /**
+         * Sets the default timeout for each request attempt. A per-call {@code timeout}
+         * takes precedence; this takes precedence over {@code x-speakeasy-timeout}.
+         * It bounds the whole call, including reading the response body.
+         *
+         * @param timeout The timeout to apply to every request; must be positive.
+         * @return The builder instance.
+         */
+        public Builder timeout(Duration timeout) {
+            Utils.checkNotNull(timeout, "timeout");
+            if (timeout.isZero() || timeout.isNegative()) {
+                throw new IllegalArgumentException("timeout must be positive");
+            }
+            this.sdkConfiguration.setTimeout(Optional.of(timeout));
+            return this;
+        }
+
+        /**
          * Enables debug logging for HTTP requests and responses, including JSON body content.
          * <p>
          * Convenience method that calls {@link HTTPClient#enableDebugLogging(boolean)}.
@@ -573,6 +592,27 @@ public class Novu {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EventsControllerTriggerResponse trigger(@Nullable String idempotencyKey, @Nonnull TriggerEventRequestDto body) {
+        return trigger(idempotencyKey, body, null);
+    }
+
+    /**
+     * Trigger event
+     * 
+     * <p>Trigger event is the main (and only) way to send notifications to subscribers. The trigger
+     * identifier is used to match the particular workflow associated with it. Maximum number of recipients
+     * can be 100.
+     * 
+     * <p>Additional information can be passed according the body interface below.
+     * To prevent duplicate triggers, you can optionally pass a **transactionId** in the request body. If
+     * the same **transactionId** is used again, the trigger will be ignored. The retention period depends
+     * on your billing tier.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -610,6 +650,21 @@ public class Novu {
      */
     public EventsControllerCancelResponse cancel(@Nonnull String transactionId) {
         return cancel(transactionId, null, null);
+    }
+
+    /**
+     * Cancel triggered event
+     * 
+     * <p>Using a previously generated transactionId during the event trigger,
+     * will cancel any active or pending workflows. This is useful to cancel active digests, delays etc...
+     * 
+     * @param transactionId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EventsControllerCancelResponse cancel(@Nonnull String transactionId, @Nullable String idempotencyKey) {
+        return cancel(transactionId, idempotencyKey, null);
     }
 
     /**
@@ -670,6 +725,22 @@ public class Novu {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EventsControllerBroadcastEventToAllResponse broadcast(@Nullable String idempotencyKey, @Nonnull TriggerEventToAllRequestDto body) {
+        return broadcast(idempotencyKey, body, null);
+    }
+
+    /**
+     * Broadcast event to all
+     * 
+     * <p>Trigger a broadcast event to all existing subscribers, could be used to send announcements, etc.
+     * 
+     * <p>In the future could be used to trigger events to a subset of subscribers based on defined filters.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -707,6 +778,21 @@ public class Novu {
      */
     public EventsControllerTriggerBulkResponse triggerBulk(@Nonnull BulkTriggerEventDto body) {
         return triggerBulk(null, body, null);
+    }
+
+    /**
+     * Bulk trigger event
+     * 
+     * <p>Using this endpoint you can trigger multiple events at once, to avoid multiple calls to the API.
+     * The bulk API is limited to 100 events per request.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EventsControllerTriggerBulkResponse triggerBulk(@Nullable String idempotencyKey, @Nonnull BulkTriggerEventDto body) {
+        return triggerBulk(idempotencyKey, body, null);
     }
 
     /**

@@ -103,6 +103,19 @@ public class AsyncLayouts {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<LayoutsControllerCreateResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerCreateResponse> create(@Nullable String idempotencyKey, @Nonnull CreateLayoutDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a layout
+     * 
+     * <p>Creates a new layout in the Novu Cloud environment
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<LayoutsControllerCreateResponse>} - The async response
      */
@@ -195,6 +208,24 @@ public class AsyncLayouts {
      * @param layoutId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<LayoutsControllerUpdateResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerUpdateResponse> update(
+            @Nonnull String layoutId, @Nullable String idempotencyKey,
+            @Nonnull UpdateLayoutDto body) {
+        return update(
+                layoutId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update a layout
+     * 
+     * <p>Updates the details of an existing layout, here **layoutId** is the identifier of the layout
+     * 
+     * @param layoutId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<LayoutsControllerUpdateResponse>} - The async response
      */
@@ -241,6 +272,19 @@ public class AsyncLayouts {
      * 
      * @param layoutId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<LayoutsControllerGetResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerGetResponse> get(@Nonnull String layoutId, @Nullable String idempotencyKey) {
+        return get(layoutId, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve a layout
+     * 
+     * <p>Fetches details of a specific layout by its unique identifier **layoutId**
+     * 
+     * @param layoutId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<LayoutsControllerGetResponse>} - The async response
      */
@@ -278,6 +322,19 @@ public class AsyncLayouts {
      */
     public CompletableFuture<LayoutsControllerDeleteResponse> delete(@Nonnull String layoutId) {
         return delete(layoutId, null, null);
+    }
+
+    /**
+     * Delete a layout
+     * 
+     * <p>Removes a specific layout by its unique identifier **layoutId**
+     * 
+     * @param layoutId The unique identifier of the layout
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<LayoutsControllerDeleteResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerDeleteResponse> delete(@Nonnull String layoutId, @Nullable String idempotencyKey) {
+        return delete(layoutId, idempotencyKey, null);
     }
 
     /**
@@ -340,6 +397,25 @@ public class AsyncLayouts {
      * @param layoutId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<LayoutsControllerDuplicateResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerDuplicateResponse> duplicate(
+            @Nonnull String layoutId, @Nullable String idempotencyKey,
+            @Nonnull DuplicateLayoutDto body) {
+        return duplicate(
+                layoutId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Duplicate a layout
+     * 
+     * <p>Duplicates a layout by its unique identifier **layoutId**. This will create a new layout with the
+     * content of the original layout.
+     * 
+     * @param layoutId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<LayoutsControllerDuplicateResponse>} - The async response
      */
@@ -390,6 +466,24 @@ public class AsyncLayouts {
      * @param layoutId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<LayoutsControllerGeneratePreviewResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerGeneratePreviewResponse> generatePreview(
+            @Nonnull String layoutId, @Nullable String idempotencyKey,
+            @Nonnull LayoutPreviewRequestDto body) {
+        return generatePreview(
+                layoutId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Generate layout preview
+     * 
+     * <p>Generates a preview for a layout by its unique identifier **layoutId**
+     * 
+     * @param layoutId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<LayoutsControllerGeneratePreviewResponse>} - The async response
      */
@@ -429,6 +523,20 @@ public class AsyncLayouts {
      */
     public CompletableFuture<LayoutsControllerGetUsageResponse> getUsage(@Nonnull String layoutId) {
         return getUsage(layoutId, null, null);
+    }
+
+    /**
+     * Get layout usage
+     * 
+     * <p>Retrieves information about workflows that use the specified layout by its unique identifier
+     * **layoutId**
+     * 
+     * @param layoutId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<LayoutsControllerGetUsageResponse>} - The async response
+     */
+    public CompletableFuture<LayoutsControllerGetUsageResponse> getUsage(@Nonnull String layoutId, @Nullable String idempotencyKey) {
+        return getUsage(layoutId, idempotencyKey, null);
     }
 
     /**

@@ -115,6 +115,13 @@ public class ActivityNotificationResponseDto {
     private Map<String, Object> payload;
 
     /**
+     * Trigger overrides of the notification, as passed to the original workflow trigger
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("overrides")
+    private Map<String, Object> overrides;
+
+    /**
      * Tags associated with the notification
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -179,6 +186,7 @@ public class ActivityNotificationResponseDto {
             @JsonProperty("template") @Nullable ActivityNotificationTemplateResponseDto template,
             @JsonProperty("jobs") @Nullable List<ActivityNotificationJobResponseDto> jobs,
             @JsonProperty("payload") @Nullable Map<String, Object> payload,
+            @JsonProperty("overrides") @Nullable Map<String, Object> overrides,
             @JsonProperty("tags") @Nullable List<String> tags,
             @JsonProperty("controls") @Nullable Map<String, Object> controls,
             @JsonProperty("to") @Nullable Map<String, Object> to,
@@ -204,6 +212,7 @@ public class ActivityNotificationResponseDto {
         this.template = template;
         this.jobs = jobs;
         this.payload = payload;
+        this.overrides = overrides;
         this.tags = tags;
         this.controls = controls;
         this.to = to;
@@ -224,7 +233,8 @@ public class ActivityNotificationResponseDto {
             null, null, null,
             null, null, null,
             null, null, null,
-            null, null, null);
+            null, null, null,
+            null);
     }
 
     /**
@@ -323,6 +333,13 @@ public class ActivityNotificationResponseDto {
      */
     public Optional<Map<String, Object>> payload() {
         return Optional.ofNullable(this.payload);
+    }
+
+    /**
+     * Trigger overrides of the notification, as passed to the original workflow trigger
+     */
+    public Optional<Map<String, Object>> overrides() {
+        return Optional.ofNullable(this.overrides);
     }
 
     /**
@@ -506,6 +523,15 @@ public class ActivityNotificationResponseDto {
 
 
     /**
+     * Trigger overrides of the notification, as passed to the original workflow trigger
+     */
+    public ActivityNotificationResponseDto withOverrides(@Nullable Map<String, Object> overrides) {
+        this.overrides = overrides;
+        return this;
+    }
+
+
+    /**
      * Tags associated with the notification
      */
     public ActivityNotificationResponseDto withTags(@Nullable List<String> tags) {
@@ -592,6 +618,7 @@ public class ActivityNotificationResponseDto {
             Utils.enhancedDeepEquals(this.template, other.template) &&
             Utils.enhancedDeepEquals(this.jobs, other.jobs) &&
             Utils.enhancedDeepEquals(this.payload, other.payload) &&
+            Utils.enhancedDeepEquals(this.overrides, other.overrides) &&
             Utils.enhancedDeepEquals(this.tags, other.tags) &&
             Utils.enhancedDeepEquals(this.controls, other.controls) &&
             Utils.enhancedDeepEquals(this.to, other.to) &&
@@ -608,9 +635,10 @@ public class ActivityNotificationResponseDto {
             subscriberId, transactionId, templateId,
             digestedNotificationId, createdAt, updatedAt,
             channels, subscriber, template,
-            jobs, payload, tags,
-            controls, to, topics,
-            severity, critical, contextKeys);
+            jobs, payload, overrides,
+            tags, controls, to,
+            topics, severity, critical,
+            contextKeys);
     }
     
     @Override
@@ -630,6 +658,7 @@ public class ActivityNotificationResponseDto {
                 "template", template,
                 "jobs", jobs,
                 "payload", payload,
+                "overrides", overrides,
                 "tags", tags,
                 "controls", controls,
                 "to", to,
@@ -669,6 +698,8 @@ public class ActivityNotificationResponseDto {
         private List<ActivityNotificationJobResponseDto> jobs;
 
         private Map<String, Object> payload;
+
+        private Map<String, Object> overrides;
 
         private List<String> tags;
 
@@ -801,6 +832,14 @@ public class ActivityNotificationResponseDto {
         }
 
         /**
+         * Trigger overrides of the notification, as passed to the original workflow trigger
+         */
+        public Builder overrides(@Nullable Map<String, Object> overrides) {
+            this.overrides = overrides;
+            return this;
+        }
+
+        /**
          * Tags associated with the notification
          */
         public Builder tags(@Nullable List<String> tags) {
@@ -862,9 +901,10 @@ public class ActivityNotificationResponseDto {
                 subscriberId, transactionId, templateId,
                 digestedNotificationId, createdAt, updatedAt,
                 channels, subscriber, template,
-                jobs, payload, tags,
-                controls, to, topics,
-                severity, critical, contextKeys);
+                jobs, payload, overrides,
+                tags, controls, to,
+                topics, severity, critical,
+                contextKeys);
         }
 
     }

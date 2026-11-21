@@ -32,7 +32,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 java:
-  version: 3.20.0
+  version: 3.21.0
   additionalDependencies: []
   additionalPlugins: []
   artifactID: novu-java
@@ -47,6 +47,7 @@ java:
   enableFormatting: false
   enableSlf4jLogging: true
   enableStreamingUploads: true
+  enforceOperationTimeout: false
   explicitDocImports: false
   flattenGlobalSecurity: true
   forwardCompatibleEnumsByDefault: true

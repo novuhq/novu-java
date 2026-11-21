@@ -74,6 +74,21 @@ public class AutoConfigure {
      * 
      * @param domain 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DomainsControllerGetDomainAutoConfigureResponse retrieve(@Nonnull String domain, @Nullable String idempotencyKey) {
+        return retrieve(domain, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve auto-configuration availability
+     * 
+     * <p>Returns whether DNS auto-configuration (Domain Connect) is available for this domain. When
+     * `available` is `false`, `manualRecords` lists the DNS records the customer must add manually.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -112,6 +127,25 @@ public class AutoConfigure {
      */
     public DomainsControllerStartDomainAutoConfigureResponse start(@Nonnull String domain, @Nonnull CreateDomainConnectApplyUrlDto body) {
         return start(domain, null, body,
+            null);
+    }
+
+    /**
+     * Start DNS auto-configuration
+     * 
+     * <p>Generates a signed redirect URL the customer can follow to apply Novu DNS records at their DNS
+     * provider. After the provider completes the flow, it redirects back to `redirectUri`.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DomainsControllerStartDomainAutoConfigureResponse start(
+            @Nonnull String domain, @Nullable String idempotencyKey,
+            @Nonnull CreateDomainConnectApplyUrlDto body) {
+        return start(domain, idempotencyKey, body,
             null);
     }
 

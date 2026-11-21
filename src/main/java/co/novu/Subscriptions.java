@@ -122,6 +122,24 @@ public class Subscriptions {
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerDeleteTopicSubscriptionsResponse delete(
+            @Nonnull String topicKey, @Nullable String idempotencyKey,
+            @Nonnull DeleteTopicSubscriptionsRequestDto body) {
+        return delete(topicKey, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Delete topic subscriptions
+     * 
+     * <p>Delete subscriptions for subscriberIds for a topic.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -163,6 +181,26 @@ public class Subscriptions {
             @Nonnull String topicKey, @Nonnull String identifier,
             @Nonnull UpdateTopicSubscriptionRequestDto body) {
         return update(topicKey, identifier, null,
+            body, null);
+    }
+
+    /**
+     * Update a topic subscription
+     * 
+     * <p>Update a subscription by its unique identifier for a topic. You can update the preferences and name
+     * associated with the subscription.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param identifier The unique identifier of the subscription
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerUpdateTopicSubscriptionResponse update(
+            @Nonnull String topicKey, @Nonnull String identifier,
+            @Nullable String idempotencyKey, @Nonnull UpdateTopicSubscriptionRequestDto body) {
+        return update(topicKey, identifier, idempotencyKey,
             body, null);
     }
 

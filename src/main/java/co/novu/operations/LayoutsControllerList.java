@@ -38,6 +38,7 @@ import java.lang.String;
 import java.lang.Throwable;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -52,6 +53,7 @@ public class LayoutsControllerList {
         final SDKConfiguration sdkConfiguration;
         final String baseUrl;
         final SecuritySource securitySource;
+        final Optional<Duration> timeout;
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
@@ -65,7 +67,8 @@ public class LayoutsControllerList {
             this.baseUrl = this.sdkConfiguration.serverUrl();
             this.securitySource = this.sdkConfiguration.securitySource();
             Optional.ofNullable(options)
-                    .ifPresent(o -> o.validate(List.of(Options.Option.RETRY_CONFIG)));
+                    .ifPresent(o -> o.validate(List.of(Options.Option.RETRY_CONFIG, Options.Option.TIMEOUT)));
+            this.timeout = Optional.ofNullable(options).flatMap(Options::timeout).or(sdkConfiguration::timeout);
             this.retryStatusCodes = List.of("408", "409", "429", "5XX");
             this.retryConfig = Optional.ofNullable(options)
                     .flatMap(Options::retryConfig)
@@ -115,7 +118,8 @@ public class LayoutsControllerList {
             String url = Utils.generateURL(
                     this.baseUrl,
                     "/v2/layouts");
-            HTTPRequest req = new HTTPRequest(url, "GET");
+            HTTPRequest req = new HTTPRequest(url, "GET")
+                    .timeout(this.timeout);
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
@@ -262,7 +266,6 @@ public class LayoutsControllerList {
     public static class Async extends Base
             implements AsyncRequestOperation<LayoutsControllerListRequest, co.novu.models.operations.async.LayoutsControllerListResponse> {
         private final ScheduledExecutorService retryScheduler;
-
         public Async(
                 @Nonnull SDKConfiguration sdkConfiguration, @Nullable Options options,
                 @Nullable ScheduledExecutorService retryScheduler, Headers _headers) {

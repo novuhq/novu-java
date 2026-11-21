@@ -71,6 +71,24 @@ public class AsyncTopicsSubscribers {
      * @param externalSubscriberId The external subscriber id
      * @param topicKey The topic key
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TopicsV1ControllerGetTopicSubscriberResponse>} - The async response
+     */
+    public CompletableFuture<TopicsV1ControllerGetTopicSubscriberResponse> check(
+            @Nonnull String externalSubscriberId, @Nonnull String topicKey,
+            @Nullable String idempotencyKey) {
+        return check(
+                externalSubscriberId, topicKey, idempotencyKey,
+                null);
+    }
+
+    /**
+     * Check topic subscriber
+     * 
+     * <p>Check if a subscriber belongs to a certain topic
+     * 
+     * @param externalSubscriberId The external subscriber id
+     * @param topicKey The topic key
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<TopicsV1ControllerGetTopicSubscriberResponse>} - The async response
      */

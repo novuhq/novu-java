@@ -166,6 +166,25 @@ public class Topics {
      * @param failIfExists If true, the request will fail if a topic with the same key already exists
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerUpsertTopicResponse upsert(
+            @Nullable Boolean failIfExists, @Nullable String idempotencyKey,
+            @Nonnull CreateUpdateTopicRequestDto body) {
+        return upsert(failIfExists, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Create a topic
+     * 
+     * <p>Creates a new topic if it does not exist, or updates an existing topic if it already exists. Use
+     * ?failIfExists=true to prevent updates.
+     * 
+     * @param failIfExists If true, the request will fail if a topic with the same key already exists
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -201,6 +220,20 @@ public class Topics {
      */
     public TopicsControllerGetTopicResponse get(@Nonnull String topicKey) {
         return get(topicKey, null, null);
+    }
+
+    /**
+     * Retrieve a topic
+     * 
+     * <p>Retrieve a topic by its unique key identifier **topicKey**
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerGetTopicResponse get(@Nonnull String topicKey, @Nullable String idempotencyKey) {
+        return get(topicKey, idempotencyKey, null);
     }
 
     /**
@@ -257,6 +290,24 @@ public class Topics {
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerUpdateTopicResponse modify(
+            @Nonnull String topicKey, @Nullable String idempotencyKey,
+            @Nonnull UpdateTopicRequestDto body) {
+        return modify(topicKey, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update a topic
+     * 
+     * <p>Update a topic name or data by its unique key identifier **topicKey**
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -294,6 +345,21 @@ public class Topics {
      */
     public TopicsControllerDeleteTopicResponse remove(@Nonnull String topicKey) {
         return remove(topicKey, null, null);
+    }
+
+    /**
+     * Delete a topic
+     * 
+     * <p>Delete a topic by its unique key identifier **topicKey**.
+     * This action is irreversible and will remove all subscriptions to the topic.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerDeleteTopicResponse remove(@Nonnull String topicKey, @Nullable String idempotencyKey) {
+        return remove(topicKey, idempotencyKey, null);
     }
 
     /**
@@ -354,6 +420,25 @@ public class Topics {
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerCreateTopicSubscriptionsResponse createSubscription(
+            @Nonnull String topicKey, @Nullable String idempotencyKey,
+            @Nonnull CreateTopicSubscriptionsRequestDto body) {
+        return createSubscription(topicKey, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Create topic subscriptions
+     * 
+     * <p>This api will create subscription for subscriberIds for a topic.
+     * Its like subscribing to a common interest group. if topic does not exist, it will be created.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -390,6 +475,24 @@ public class Topics {
      */
     public TopicsControllerGetTopicSubscriptionResponse getSubscriptionById(@Nonnull String topicKey, @Nonnull String identifier) {
         return getSubscriptionById(topicKey, identifier, null,
+            null);
+    }
+
+    /**
+     * Retrieve a topic subscription
+     * 
+     * <p>Retrieve a subscription by its unique identifier for a topic.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param identifier The unique identifier of the subscription
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public TopicsControllerGetTopicSubscriptionResponse getSubscriptionById(
+            @Nonnull String topicKey, @Nonnull String identifier,
+            @Nullable String idempotencyKey) {
+        return getSubscriptionById(topicKey, identifier, idempotencyKey,
             null);
     }
 

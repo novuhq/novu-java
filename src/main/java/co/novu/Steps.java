@@ -69,6 +69,24 @@ public class Steps {
      * @param workflowId 
      * @param stepId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerGetWorkflowStepDataResponse get(
+            @Nonnull String workflowId, @Nonnull String stepId,
+            @Nullable String idempotencyKey) {
+        return get(workflowId, stepId, idempotencyKey,
+            null);
+    }
+
+    /**
+     * Retrieve workflow step
+     * 
+     * <p>Retrieves data for a specific step in a workflow
+     * 
+     * @param workflowId 
+     * @param stepId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

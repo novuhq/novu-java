@@ -83,6 +83,28 @@ public class AsyncSubscribersMessages2 {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersV1ControllerMarkMessagesAsResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public CompletableFuture<SubscribersV1ControllerMarkMessagesAsResponse> markAllAs(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull MessageMarkAsRequestDto body) {
+        return markAllAs(
+                subscriberId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update notifications state
+     * 
+     * <p>This API is deprecated, use v2 API instead. Update subscriber's multiple in-app notifications state
+     * such as seen, read, unseen or unread by **subscriberId**.
+     * **messageId** is of type mongodbId of notifications.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerMarkMessagesAsResponse>} - The async response
      * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.

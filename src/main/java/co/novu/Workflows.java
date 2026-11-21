@@ -105,6 +105,20 @@ public class Workflows {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerCreateResponse create(@Nullable String idempotencyKey, @Nonnull CreateWorkflowDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a workflow
+     * 
+     * <p>Creates a new workflow in the Novu Cloud environment
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -192,6 +206,24 @@ public class Workflows {
      * @param workflowId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerUpdateResponse update(
+            @Nonnull String workflowId, @Nullable String idempotencyKey,
+            @Nonnull UpdateWorkflowDto body) {
+        return update(workflowId, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update a workflow
+     * 
+     * <p>Updates the details of an existing workflow, here **workflowId** is the identifier of the workflow
+     * 
+     * @param workflowId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -238,6 +270,24 @@ public class Workflows {
      * @param workflowId 
      * @param environmentId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerGetWorkflowResponse workflowDetails(
+            @Nonnull String workflowId, @Nullable String environmentId,
+            @Nullable String idempotencyKey) {
+        return workflowDetails(workflowId, environmentId, idempotencyKey,
+            null);
+    }
+
+    /**
+     * Retrieve a workflow
+     * 
+     * <p>Fetches details of a specific workflow by its unique identifier **workflowId**
+     * 
+     * @param workflowId 
+     * @param environmentId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -273,6 +323,20 @@ public class Workflows {
      */
     public WorkflowControllerRemoveWorkflowResponse delete(@Nonnull String workflowId) {
         return delete(workflowId, null, null);
+    }
+
+    /**
+     * Delete a workflow
+     * 
+     * <p>Removes a specific workflow by its unique identifier **workflowId**
+     * 
+     * @param workflowId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerRemoveWorkflowResponse delete(@Nonnull String workflowId, @Nullable String idempotencyKey) {
+        return delete(workflowId, idempotencyKey, null);
     }
 
     /**
@@ -329,6 +393,24 @@ public class Workflows {
      * @param workflowId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerPatchWorkflowResponse modify(
+            @Nonnull String workflowId, @Nullable String idempotencyKey,
+            @Nonnull PatchWorkflowDto body) {
+        return modify(workflowId, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update a workflow
+     * 
+     * <p>Partially updates a workflow by its unique identifier **workflowId**
+     * 
+     * @param workflowId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -365,6 +447,24 @@ public class Workflows {
      */
     public WorkflowControllerSyncResponse sync(@Nonnull String workflowId, @Nonnull SyncWorkflowDto body) {
         return sync(workflowId, null, body,
+            null);
+    }
+
+    /**
+     * Sync a workflow
+     * 
+     * <p>Synchronizes a workflow to the target environment
+     * 
+     * @param workflowId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public WorkflowControllerSyncResponse sync(
+            @Nonnull String workflowId, @Nullable String idempotencyKey,
+            @Nonnull SyncWorkflowDto body) {
+        return sync(workflowId, idempotencyKey, body,
             null);
     }
 

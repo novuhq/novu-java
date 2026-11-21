@@ -894,11 +894,14 @@ Update an agent by its external identifier.
 package hello.world;
 
 import co.novu.Novu;
+import co.novu.models.components.AgentBehaviorDto;
 import co.novu.models.components.UpdateAgentRequestDto;
 import co.novu.models.errors.ErrorDto;
 import co.novu.models.errors.ValidationErrorDto;
 import co.novu.models.operations.AgentsControllerUpdateAgentResponse;
 import java.lang.Exception;
+import java.util.List;
+import java.util.Map;
 
 public class Application {
 
@@ -911,6 +914,15 @@ public class Application {
         AgentsControllerUpdateAgentResponse res = sdk.agents().update()
                 .identifier("<value>")
                 .body(UpdateAgentRequestDto.builder()
+                    .behavior(AgentBehaviorDto.builder()
+                        .accessRule(Map.ofEntries(
+                            Map.entry("in", List.of(
+                                Map.ofEntries(
+                                    Map.entry("var", "context.tenant.data.plan")),
+                                List.of(
+                                    "pro",
+                                    "enterprise")))))
+                        .build())
                     .build())
                 .call();
 

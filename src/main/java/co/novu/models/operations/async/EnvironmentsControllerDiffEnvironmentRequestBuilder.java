@@ -16,6 +16,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 public class EnvironmentsControllerDiffEnvironmentRequestBuilder {
@@ -52,6 +53,11 @@ public class EnvironmentsControllerDiffEnvironmentRequestBuilder {
 
     public EnvironmentsControllerDiffEnvironmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public EnvironmentsControllerDiffEnvironmentRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

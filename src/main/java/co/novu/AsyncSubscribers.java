@@ -73,6 +73,7 @@ public class AsyncSubscribers {
     private final SDKConfiguration sdkConfiguration;
     private final AsyncSubscribersNotifications1 notifications;
     private final AsyncPreferences preferences;
+    private final AsyncTokens tokens;
     private final AsyncCredentials credentials;
     private final AsyncSubscribersMessages1 messages;
     private final Subscribers syncSDK;
@@ -81,6 +82,7 @@ public class AsyncSubscribers {
         this.sdkConfiguration = sdkConfiguration;
         this.notifications = new AsyncSubscribersNotifications1(syncSDK.notifications(), this.sdkConfiguration);
         this.preferences = new AsyncPreferences(syncSDK.preferences(), this.sdkConfiguration);
+        this.tokens = new AsyncTokens(syncSDK.tokens(), this.sdkConfiguration);
         this.credentials = new AsyncCredentials(syncSDK.credentials(), this.sdkConfiguration);
         this.messages = new AsyncSubscribersMessages1(syncSDK.messages(), this.sdkConfiguration);
         this.syncSDK = syncSDK;
@@ -92,6 +94,10 @@ public class AsyncSubscribers {
 
     public final AsyncPreferences preferences() {
         return preferences;
+    }
+
+    public final AsyncTokens tokens() {
+        return tokens;
     }
 
     public final AsyncCredentials credentials() {
@@ -199,6 +205,26 @@ public class AsyncSubscribers {
      * @param failIfExists If true, the request will fail if a subscriber with the same subscriberId already exists
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerCreateSubscriberResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerCreateSubscriberResponse> create(
+            @Nullable Boolean failIfExists, @Nullable String idempotencyKey,
+            @Nonnull CreateSubscriberRequestDto body) {
+        return create(
+                failIfExists, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Create a subscriber
+     * 
+     * <p>Create a subscriber with the subscriber attributes.
+     * **subscriberId** is a required field, rest other fields are optional, if the subscriber already
+     * exists, it will be updated
+     * 
+     * @param failIfExists If true, the request will fail if a subscriber with the same subscriberId already exists
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerCreateSubscriberResponse>} - The async response
      */
@@ -238,6 +264,20 @@ public class AsyncSubscribers {
      */
     public CompletableFuture<SubscribersControllerGetSubscriberResponse> get(@Nonnull String subscriberId) {
         return get(subscriberId, null, null);
+    }
+
+    /**
+     * Retrieve a subscriber
+     * 
+     * <p>Retrieve a subscriber by its unique key identifier **subscriberId**.
+     * **subscriberId** field is required.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerGetSubscriberResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerGetSubscriberResponse> get(@Nonnull String subscriberId, @Nullable String idempotencyKey) {
+        return get(subscriberId, idempotencyKey, null);
     }
 
     /**
@@ -289,6 +329,25 @@ public class AsyncSubscribers {
     public CompletableFuture<SubscribersControllerPatchSubscriberResponse> update(@Nonnull String subscriberId, @Nonnull PatchSubscriberRequestDto body) {
         return update(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Update a subscriber
+     * 
+     * <p>Update a subscriber by its unique key identifier **subscriberId**.
+     * **subscriberId** is a required field, rest other fields are optional
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerPatchSubscriberResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerPatchSubscriberResponse> update(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull PatchSubscriberRequestDto body) {
+        return update(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 
@@ -353,6 +412,21 @@ public class AsyncSubscribers {
      * 
      * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerRemoveSubscriberResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerRemoveSubscriberResponse> delete(@Nonnull String subscriberId, @Nullable String idempotencyKey) {
+        return delete(subscriberId, idempotencyKey, null);
+    }
+
+    /**
+     * Delete a subscriber
+     * 
+     * <p>Deletes a subscriber entity from the Novu platform along with associated messages, preferences, and
+     * topic subscriptions.
+     * **subscriberId** is a required field.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerRemoveSubscriberResponse>} - The async response
      */
@@ -392,6 +466,20 @@ public class AsyncSubscribers {
      */
     public CompletableFuture<SubscribersV1ControllerBulkCreateSubscribersResponse> createBulk(@Nonnull BulkSubscriberCreateDto body) {
         return createBulk(null, body, null);
+    }
+
+    /**
+     * Bulk create subscribers
+     * 
+     * <p>Using this endpoint multiple subscribers can be created at once. The bulk API is limited to 500
+     * subscribers per request.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersV1ControllerBulkCreateSubscribersResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersV1ControllerBulkCreateSubscribersResponse> createBulk(@Nullable String idempotencyKey, @Nonnull BulkSubscriberCreateDto body) {
+        return createBulk(idempotencyKey, body, null);
     }
 
     /**
@@ -445,6 +533,26 @@ public class AsyncSubscribers {
     public CompletableFuture<SubscribersControllerUpdateSubscriberPreferencesResponse> updatePreferences(@Nonnull String subscriberId, @Nonnull PatchSubscriberPreferencesDto body) {
         return updatePreferences(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Update subscriber preferences
+     * 
+     * <p>Update subscriber preferences by its unique key identifier **subscriberId**.
+     * **workflowId** is optional field, if provided, this API will update that workflow preference,
+     * otherwise it will update global preferences
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerUpdateSubscriberPreferencesResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerUpdateSubscriberPreferencesResponse> updatePreferences(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull PatchSubscriberPreferencesDto body) {
+        return updatePreferences(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 
@@ -514,6 +622,26 @@ public class AsyncSubscribers {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersV1ControllerUpdateSubscriberChannelResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersV1ControllerUpdateSubscriberChannelResponse> updateCredentials(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateSubscriberChannelRequestDto body) {
+        return updateCredentials(
+                subscriberId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update provider credentials
+     * 
+     * <p>Update credentials for a provider such as **slack** and **FCM**.
+     * **providerId** is required field. This API creates the **deviceTokens** or replaces the existing
+     * ones.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerUpdateSubscriberChannelResponse>} - The async response
      */
@@ -557,6 +685,26 @@ public class AsyncSubscribers {
     public CompletableFuture<SubscribersV1ControllerDeleteSubscriberCredentialsResponse> removeCredentials(@Nonnull String subscriberId, @Nonnull String providerId) {
         return removeCredentials(
                 subscriberId, providerId, null,
+                null);
+    }
+
+    /**
+     * Delete provider credentials
+     * 
+     * <p>Delete subscriber credentials for a provider such as **slack** and **FCM** by **providerId**.
+     * This action is irreversible and will remove the credentials for the provider for particular
+     * **subscriberId**.
+     * 
+     * @param subscriberId 
+     * @param providerId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersV1ControllerDeleteSubscriberCredentialsResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersV1ControllerDeleteSubscriberCredentialsResponse> removeCredentials(
+            @Nonnull String subscriberId, @Nonnull String providerId,
+            @Nullable String idempotencyKey) {
+        return removeCredentials(
+                subscriberId, providerId, idempotencyKey,
                 null);
     }
 
@@ -615,6 +763,27 @@ public class AsyncSubscribers {
     public CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse> markAllMessages(@Nonnull String subscriberId, @Nonnull MarkAllMessageAsRequestDto body) {
         return markAllMessages(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Update all notifications state
+     * 
+     * <p>This API is deprecated, use v2 API instead. Update all subscriber in-app notifications state such as
+     * read, unread, seen or unseen by **subscriberId**.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public CompletableFuture<SubscribersV1ControllerMarkAllUnreadAsReadResponse> markAllMessages(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull MarkAllMessageAsRequestDto body) {
+        return markAllMessages(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 
