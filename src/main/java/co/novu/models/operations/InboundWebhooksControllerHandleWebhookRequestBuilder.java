@@ -15,6 +15,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Object;
 import java.lang.String;
+import java.time.Duration;
 import java.util.Map;
 
 public class InboundWebhooksControllerHandleWebhookRequestBuilder {
@@ -57,6 +58,11 @@ public class InboundWebhooksControllerHandleWebhookRequestBuilder {
 
     public InboundWebhooksControllerHandleWebhookRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public InboundWebhooksControllerHandleWebhookRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

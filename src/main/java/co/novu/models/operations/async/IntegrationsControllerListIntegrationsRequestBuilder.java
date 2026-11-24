@@ -14,6 +14,7 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 public class IntegrationsControllerListIntegrationsRequestBuilder {
@@ -38,6 +39,11 @@ public class IntegrationsControllerListIntegrationsRequestBuilder {
 
     public IntegrationsControllerListIntegrationsRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public IntegrationsControllerListIntegrationsRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

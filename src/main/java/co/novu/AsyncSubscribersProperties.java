@@ -72,6 +72,24 @@ public class AsyncSubscribersProperties {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse> updateOnlineStatus(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateSubscriberOnlineFlagRequestDto body) {
+        return updateOnlineStatus(
+                subscriberId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update subscriber online status
+     * 
+     * <p>Update the subscriber online status by its unique key identifier **subscriberId**
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse>} - The async response
      */

@@ -73,6 +73,25 @@ public class Credentials {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerModifySubscriberChannelResponse upsert(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateSubscriberChannelRequestDto body) {
+        return upsert(subscriberId, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Upsert provider credentials
+     * 
+     * <p>Upsert credentials for a provider such as **slack** and **FCM**.
+     * **providerId** is required field. This API creates **deviceTokens** or appends to the existing ones.
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

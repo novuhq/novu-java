@@ -76,6 +76,25 @@ public class AsyncWorkflowsSteps {
      * @param stepId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<WorkflowControllerGeneratePreviewResponse>} - The async response
+     */
+    public CompletableFuture<WorkflowControllerGeneratePreviewResponse> generatePreview(
+            @Nonnull String workflowId, @Nonnull String stepId,
+            @Nullable String idempotencyKey, @Nonnull GeneratePreviewRequestDto body) {
+        return generatePreview(
+                workflowId, stepId, idempotencyKey,
+                body, null);
+    }
+
+    /**
+     * Generate a step preview
+     * 
+     * <p>Generates a preview for a specific workflow step by its unique identifier **stepId**
+     * 
+     * @param workflowId 
+     * @param stepId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<WorkflowControllerGeneratePreviewResponse>} - The async response
      */

@@ -70,6 +70,24 @@ public class SubscribersProperties {
      * @param subscriberId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersV1ControllerUpdateSubscriberOnlineFlagResponse updateOnlineStatus(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateSubscriberOnlineFlagRequestDto body) {
+        return updateOnlineStatus(subscriberId, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update subscriber online status
+     * 
+     * <p>Update the subscriber online status by its unique key identifier **subscriberId**
+     * 
+     * @param subscriberId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

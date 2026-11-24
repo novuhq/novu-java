@@ -13,6 +13,7 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.time.Duration;
 
 public class SubscribersV1ControllerGetUnseenCountRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -27,6 +28,11 @@ public class SubscribersV1ControllerGetUnseenCountRequestBuilder {
 
     public SubscribersV1ControllerGetUnseenCountRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public SubscribersV1ControllerGetUnseenCountRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

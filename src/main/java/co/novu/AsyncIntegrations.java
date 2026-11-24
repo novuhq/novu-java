@@ -130,6 +130,19 @@ public class AsyncIntegrations {
      * returned, credentials field is returned as an empty object.
      * 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<IntegrationsControllerListIntegrationsResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerListIntegrationsResponse> list(@Nullable String idempotencyKey) {
+        return list(idempotencyKey, null);
+    }
+
+    /**
+     * List all integrations
+     * 
+     * <p>List all the channels integrations created in the organization. Only integration metadata is
+     * returned, credentials field is returned as an empty object.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerListIntegrationsResponse>} - The async response
      */
@@ -169,6 +182,21 @@ public class AsyncIntegrations {
      */
     public CompletableFuture<IntegrationsControllerCreateIntegrationResponse> create(@Nonnull CreateIntegrationRequestDto body) {
         return create(null, body, null);
+    }
+
+    /**
+     * Create an integration
+     * 
+     * <p>Create an integration for the current environment the user is based on the API key provided.
+     * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerCreateIntegrationResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerCreateIntegrationResponse> create(@Nullable String idempotencyKey, @Nonnull CreateIntegrationRequestDto body) {
+        return create(idempotencyKey, body, null);
     }
 
     /**
@@ -236,6 +264,26 @@ public class AsyncIntegrations {
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerUpdateIntegrationByIdResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerUpdateIntegrationByIdResponse> update(
+            @Nonnull String integrationId, @Nullable String idempotencyKey,
+            @Nonnull UpdateIntegrationRequestDto body) {
+        return update(
+                integrationId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update an integration
+     * 
+     * <p>Update an integration by its unique key identifier **integrationId**.
+     * Each provider supports different credentials, check the provider documentation for more details.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
+     * 
+     * @param integrationId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerUpdateIntegrationByIdResponse>} - The async response
      */
@@ -277,6 +325,21 @@ public class AsyncIntegrations {
      */
     public CompletableFuture<IntegrationsControllerRemoveIntegrationResponse> delete(@Nonnull String integrationId) {
         return delete(integrationId, null, null);
+    }
+
+    /**
+     * Delete an integration
+     * 
+     * <p>Delete an integration by its unique key identifier **integrationId**.
+     * This action is irreversible. Only integration metadata is returned, credentials field is returned as
+     * empty object.
+     * 
+     * @param integrationId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<IntegrationsControllerRemoveIntegrationResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerRemoveIntegrationResponse> delete(@Nonnull String integrationId, @Nullable String idempotencyKey) {
+        return delete(integrationId, idempotencyKey, null);
     }
 
     /**
@@ -331,6 +394,22 @@ public class AsyncIntegrations {
      */
     public CompletableFuture<IntegrationsControllerAutoConfigureIntegrationResponse> autoConfigure(@Nonnull String integrationId) {
         return autoConfigure(integrationId, null, null);
+    }
+
+    /**
+     * Auto-configure an integration for inbound webhooks
+     * 
+     * <p>Auto-configure an integration by its unique key identifier **integrationId** for inbound webhook
+     * support.
+     * This will automatically generate required webhook signing keys and configure webhook endpoints. Only
+     * integration metadata is returned, credentials field is returned as an empty object.
+     * 
+     * @param integrationId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<IntegrationsControllerAutoConfigureIntegrationResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerAutoConfigureIntegrationResponse> autoConfigure(@Nonnull String integrationId, @Nullable String idempotencyKey) {
+        return autoConfigure(integrationId, idempotencyKey, null);
     }
 
     /**
@@ -398,6 +477,22 @@ public class AsyncIntegrations {
      * 
      * @param integrationId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<IntegrationsControllerSetIntegrationAsPrimaryResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerSetIntegrationAsPrimaryResponse> setPrimary(@Nonnull String integrationId, @Nullable String idempotencyKey) {
+        return setPrimary(integrationId, idempotencyKey, null);
+    }
+
+    /**
+     * Update integration as primary
+     * 
+     * <p>Update an integration as **primary** by its unique key identifier **integrationId**.
+     * This API will set the integration as primary for that channel in the current environment.
+     * Primary integration is used to deliver notification for sms and email channels in the workflow.
+     * Only integration metadata is returned, credentials field is returned as an empty object.
+     * 
+     * @param integrationId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerSetIntegrationAsPrimaryResponse>} - The async response
      */
@@ -439,6 +534,25 @@ public class AsyncIntegrations {
     public CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse> createMobileLink(@Nonnull String integrationIdentifier, @Nonnull IssueIntegrationMobileLinkRequestDto body) {
         return createMobileLink(
                 integrationIdentifier, null, body,
+                null);
+    }
+
+    /**
+     * Issue a short-lived mobile setup link for an existing integration
+     * 
+     * <p>Returns an opaque, single-use setup token plus a mobile URL for configuring an existing chat
+     * integration. Telegram is the only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerCreateIntegrationMobileLinkResponse> createMobileLink(
+            @Nonnull String integrationIdentifier, @Nullable String idempotencyKey,
+            @Nonnull IssueIntegrationMobileLinkRequestDto body) {
+        return createMobileLink(
+                integrationIdentifier, idempotencyKey, body,
                 null);
     }
 
@@ -500,6 +614,20 @@ public class AsyncIntegrations {
      * 
      * @param integrationIdentifier 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse> integrationsControllerConfigureIntegrationWebhook(@Nonnull String integrationIdentifier, @Nullable String idempotencyKey) {
+        return integrationsControllerConfigureIntegrationWebhook(integrationIdentifier, idempotencyKey, null);
+    }
+
+    /**
+     * Configure a chat integration webhook
+     * 
+     * <p>Registers the Novu webhook URL with the chat provider for the specified integration. Telegram is the
+     * only supported provider initially.
+     * 
+     * @param integrationIdentifier 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerConfigureIntegrationWebhookResponse>} - The async response
      */
@@ -538,6 +666,19 @@ public class AsyncIntegrations {
      */
     public CompletableFuture<IntegrationsControllerGetActiveIntegrationsResponse> listActiveDirect() {
         return listActive(null, null);
+    }
+
+    /**
+     * List active integrations
+     * 
+     * <p>List all the active integrations created in the organization. Only integration metadata is returned,
+     * credentials field is returned as an empty object.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<IntegrationsControllerGetActiveIntegrationsResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGetActiveIntegrationsResponse> listActive(@Nullable String idempotencyKey) {
+        return listActive(idempotencyKey, null);
     }
 
     /**
@@ -600,6 +741,22 @@ public class AsyncIntegrations {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse> generateConnectOAuthUrl(@Nullable String idempotencyKey, @Nonnull GenerateConnectOauthUrlRequestDto body) {
+        return generateConnectOAuthUrl(idempotencyKey, body, null);
+    }
+
+    /**
+     * Generate OAuth URL for a workspace/tenant connection
+     * 
+     * <p>Generate an OAuth URL that creates a workspace or tenant-level channel connection (Slack workspace
+     * install, MS Teams admin consent, or Webex integration authorization).
+     * 
+     * <p>The generated URL expires after 5 minutes.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerGenerateConnectOAuthUrlResponse>} - The async response
      */
@@ -639,6 +796,20 @@ public class AsyncIntegrations {
      */
     public CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse> linkChannelEndpoint(@Nonnull LinkChannelEndpointRequestDto body) {
         return linkChannelEndpoint(null, body, null);
+    }
+
+    /**
+     * Issue a URL to link a subscriber chat identity
+     * 
+     * <p>Returns a provider-specific URL the subscriber opens to link their chat identity. The integration
+     * provider is resolved from integrationIdentifier; Telegram returns a deep link.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerLinkChannelEndpointResponse> linkChannelEndpoint(@Nullable String idempotencyKey, @Nonnull LinkChannelEndpointRequestDto body) {
+        return linkChannelEndpoint(idempotencyKey, body, null);
     }
 
     /**
@@ -704,6 +875,22 @@ public class AsyncIntegrations {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse>} - The async response
+     */
+    public CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse> generateLinkUserOAuthUrl(@Nullable String idempotencyKey, @Nonnull GenerateLinkUserOauthUrlRequestDto body) {
+        return generateLinkUserOAuthUrl(idempotencyKey, body, null);
+    }
+
+    /**
+     * Generate OAuth URL to link a subscriber user identity
+     * 
+     * <p>Generate an OAuth URL that links a specific subscriber to their chat identity (Slack user ID, MS
+     * Teams user OID, or Webex person).
+     * 
+     * <p>The generated URL expires after 5 minutes.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<IntegrationsControllerGenerateLinkUserOAuthUrlResponse>} - The async response
      */
@@ -753,6 +940,25 @@ public class AsyncIntegrations {
     @Deprecated
     public CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse> generateChatOAuthUrl(@Nonnull GenerateChatOauthUrlRequestDto body) {
         return generateChatOAuthUrl(null, body, null);
+    }
+
+    /**
+     * Generate chat OAuth URL
+     * 
+     * <p>**Deprecated** — use `POST /integrations/channel-connections/oauth` (connect) or `POST
+     * /integrations/channel-endpoints/oauth` (link_user) instead.
+     * Generate an OAuth URL for chat integrations like Slack, MS Teams, and Webex.
+     * This URL allows subscribers to authorize the integration, enabling the system to send messages
+     * through their chat workspace. The generated URL expires after 5 minutes.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse>} - The async response
+     * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+     */
+    @Deprecated
+    public CompletableFuture<IntegrationsControllerGetChatOAuthUrlResponse> generateChatOAuthUrl(@Nullable String idempotencyKey, @Nonnull GenerateChatOauthUrlRequestDto body) {
+        return generateChatOAuthUrl(idempotencyKey, body, null);
     }
 
     /**

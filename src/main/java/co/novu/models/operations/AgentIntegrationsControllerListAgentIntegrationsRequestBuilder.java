@@ -13,6 +13,7 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.time.Duration;
 
 public class AgentIntegrationsControllerListAgentIntegrationsRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -27,6 +28,11 @@ public class AgentIntegrationsControllerListAgentIntegrationsRequestBuilder {
 
     public AgentIntegrationsControllerListAgentIntegrationsRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public AgentIntegrationsControllerListAgentIntegrationsRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

@@ -87,6 +87,20 @@ public class EnvironmentVariables {
      * 
      * @param search Filter variables by key (case-insensitive partial match)
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentVariablesControllerListEnvironmentVariablesResponse list(@Nullable String search, @Nullable String idempotencyKey) {
+        return list(search, idempotencyKey, null);
+    }
+
+    /**
+     * List all variables
+     * 
+     * <p>Returns all environment variables for the current organization. Secret values are masked.
+     * 
+     * @param search Filter variables by key (case-insensitive partial match)
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -137,6 +151,22 @@ public class EnvironmentVariables {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentVariablesControllerCreateEnvironmentVariableResponse create(@Nullable String idempotencyKey, @Nonnull CreateEnvironmentVariableRequestDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a variable
+     * 
+     * <p>Creates a new environment variable. Keys must be uppercase with underscores only (e.g. BASE_URL).
+     * 
+     * <p>Secret variables are encrypted at rest and masked in API responses.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -172,6 +202,20 @@ public class EnvironmentVariables {
      */
     public EnvironmentVariablesControllerGetEnvironmentVariableResponse retrieve(@Nonnull String variableKey) {
         return retrieve(variableKey, null, null);
+    }
+
+    /**
+     * Get environment variable
+     * 
+     * <p>Returns a single environment variable by key. Secret values are masked.
+     * 
+     * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentVariablesControllerGetEnvironmentVariableResponse retrieve(@Nonnull String variableKey, @Nullable String idempotencyKey) {
+        return retrieve(variableKey, idempotencyKey, null);
     }
 
     /**
@@ -237,6 +281,27 @@ public class EnvironmentVariables {
      * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentVariablesControllerUpdateEnvironmentVariableResponse update(
+            @Nonnull String variableKey, @Nullable String idempotencyKey,
+            @Nonnull UpdateEnvironmentVariableRequestDto body) {
+        return update(variableKey, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update a variable
+     * 
+     * <p>Updates an existing environment variable. Providing `values` merges them into the existing
+     * per-environment values by `_environmentId`; envs not present in the request keep their stored value.
+     * Submitting the masked secret placeholder (the value returned by read endpoints for secret variables)
+     * as a real value is rejected.
+     * 
+     * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -272,6 +337,20 @@ public class EnvironmentVariables {
      */
     public EnvironmentVariablesControllerDeleteEnvironmentVariableResponse delete(@Nonnull String variableKey) {
         return delete(variableKey, null, null);
+    }
+
+    /**
+     * Delete environment variable
+     * 
+     * <p>Deletes an environment variable by key.
+     * 
+     * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentVariablesControllerDeleteEnvironmentVariableResponse delete(@Nonnull String variableKey, @Nullable String idempotencyKey) {
+        return delete(variableKey, idempotencyKey, null);
     }
 
     /**
@@ -318,6 +397,21 @@ public class EnvironmentVariables {
      */
     public EnvironmentVariablesControllerGetEnvironmentVariableUsageResponse usage(@Nonnull String variableKey) {
         return usage(variableKey, null, null);
+    }
+
+    /**
+     * Retrieve a variable usage
+     * 
+     * <p>Returns the workflows that reference this environment variable via `&lbrace;&lbrace;env.KEY&rbrace;&rbrace;` in their step
+     * controls. **variableId** is required.
+     * 
+     * @param variableKey The unique key of the environment variable (e.g. BASE_URL)
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public EnvironmentVariablesControllerGetEnvironmentVariableUsageResponse usage(@Nonnull String variableKey, @Nullable String idempotencyKey) {
+        return usage(variableKey, idempotencyKey, null);
     }
 
     /**

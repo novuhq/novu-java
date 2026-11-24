@@ -13,6 +13,7 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class TranslationControllerGetMasterJsonEndpointRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -42,6 +43,11 @@ public class TranslationControllerGetMasterJsonEndpointRequestBuilder {
 
     public TranslationControllerGetMasterJsonEndpointRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public TranslationControllerGetMasterJsonEndpointRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

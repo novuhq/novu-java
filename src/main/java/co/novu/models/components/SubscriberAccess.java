@@ -26,13 +26,17 @@ import java.util.Optional;
  * reply; on custom-code / self-hosted agents, the turn is forwarded to the bridge with a null
  * subscriber. "restricted" rejects unknown senders with a managed denial reply (any runtime).
  * 
- * <p>Optional on update (partial PATCH). Persisted agents always have a value — managed create defaults
- * to "open"; self-hosted create defaults to "restricted".
+ * <p>"rule" requires a known subscriber and accessRule must evaluate truthy for every message, edit,
+ * delete, click and reaction; unknown senders, an invalid rule and an evaluation error are refused; a
+ * missing field evaluates as JSON Logic says. Optional on update (partial PATCH). Persisted agents
+ * always have a value — managed create defaults to "open"; self-hosted create defaults to
+ * "restricted".
  */
 public class SubscriberAccess {
 
     public static final SubscriberAccess OPEN = new SubscriberAccess("open");
     public static final SubscriberAccess RESTRICTED = new SubscriberAccess("restricted");
+    public static final SubscriberAccess RULE = new SubscriberAccess("rule");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
@@ -108,6 +112,7 @@ public class SubscriberAccess {
         Map<String, SubscriberAccess> map = new LinkedHashMap<>();
         map.put("open", OPEN);
         map.put("restricted", RESTRICTED);
+        map.put("rule", RULE);
         return map;
     }
 
@@ -115,6 +120,7 @@ public class SubscriberAccess {
         Map<String, SubscriberAccessEnum> map = new HashMap<>();
         map.put("open", SubscriberAccessEnum.OPEN);
         map.put("restricted", SubscriberAccessEnum.RESTRICTED);
+        map.put("rule", SubscriberAccessEnum.RULE);
         return map;
     }
     
@@ -122,7 +128,8 @@ public class SubscriberAccess {
     public enum SubscriberAccessEnum {
 
         OPEN("open"),
-        RESTRICTED("restricted"),;
+        RESTRICTED("restricted"),
+        RULE("rule"),;
 
         private final String value;
 

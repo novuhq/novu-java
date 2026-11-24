@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -58,6 +59,11 @@ public class SubscribersControllerMarkNotificationAsReadRequestBuilder {
 
     public SubscribersControllerMarkNotificationAsReadRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public SubscribersControllerMarkNotificationAsReadRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

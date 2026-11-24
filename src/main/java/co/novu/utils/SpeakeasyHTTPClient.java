@@ -5,6 +5,7 @@ package co.novu.utils;
 
 import co.novu.utils.Blob;
 
+import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -13,14 +14,21 @@ import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
+import java.net.http.HttpTimeoutException;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Flow;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class SpeakeasyHTTPClient implements HTTPClient {
 
@@ -35,6 +43,8 @@ public class SpeakeasyHTTPClient implements HTTPClient {
 
     // uppercase
     private static Set<String> redactedHeaders = Set.of("AUTHORIZATION", "X-API-KEY");
+
+    private static final ScheduledThreadPoolExecutor DEADLINES = deadlineScheduler();
 
     private final HttpClient client = HttpClient.newHttpClient();
 
@@ -119,7 +129,12 @@ public class SpeakeasyHTTPClient implements HTTPClient {
     public HttpResponse<InputStream> send(HttpRequest request)
             throws IOException, InterruptedException, URISyntaxException {
         request = logRequest(request, isDebugLoggingEnabled());
-        var response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+        long startNanos = System.nanoTime();
+        HttpResponse<InputStream> response = client.send(request, HttpResponse.BodyHandlers.ofInputStream());
+        long remainingNanos = remainingNanos(request, startNanos);
+        if (remainingNanos != Long.MAX_VALUE) {
+            response = new ResponseWithBody<>(response, in -> new DeadlineInputStream(in, remainingNanos));
+        }
         response = logResponse(response, isDebugLoggingEnabled());
         return response;
     }
@@ -127,10 +142,278 @@ public class SpeakeasyHTTPClient implements HTTPClient {
     @Override
     public CompletableFuture<HttpResponse<Blob>> sendAsync(HttpRequest request) {
         request = logRequest(request, isDebugLoggingEnabled());
+        long startNanos = System.nanoTime();
+        HttpRequest sent = request;
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofPublisher())
-                .thenApply(response ->
-                        // TODO: log responses when helper for Blob is setup
-                        new ResponseWithBody<>(response, Blob::from));
+                .thenApply(response -> {
+                    long remainingNanos = remainingNanos(sent, startNanos);
+                    // TODO: log responses when helper for Blob is setup
+                    return new ResponseWithBody<>(response, publisher -> Blob.from(remainingNanos == Long.MAX_VALUE
+                            ? publisher
+                            : new DeadlinePublisher(publisher, remainingNanos)));
+                });
+    }
+
+    private static ScheduledThreadPoolExecutor deadlineScheduler() {
+        ScheduledThreadPoolExecutor scheduler = new ScheduledThreadPoolExecutor(1, r -> {
+            Thread thread = new Thread(r, "speakeasy-request-deadline");
+            thread.setDaemon(true);
+            return thread;
+        });
+        scheduler.setRemoveOnCancelPolicy(true);
+        return scheduler;
+    }
+
+    private static long remainingNanos(HttpRequest request, long startNanos) {
+        if (!request.timeout().isPresent()) {
+            return Long.MAX_VALUE;
+        }
+        return Math.max(0, request.timeout().get().toNanos() - (System.nanoTime() - startNanos));
+    }
+
+    private static HttpTimeoutException timeoutException(Throwable cause) {
+        HttpTimeoutException e = new HttpTimeoutException("request timed out");
+        if (cause != null) {
+            e.initCause(cause);
+        }
+        return e;
+    }
+
+    private static final class DeadlineInputStream extends FilterInputStream {
+        private final ScheduledFuture<?> deadline;
+        private volatile boolean expired;
+
+        DeadlineInputStream(InputStream in, long remainingNanos) {
+            super(in);
+            this.deadline = DEADLINES.schedule(this::expire, remainingNanos, TimeUnit.NANOSECONDS);
+        }
+
+        private void expire() {
+            expired = true;
+            try {
+                in.close();
+            } catch (IOException ignored) {
+            }
+        }
+
+        @Override
+        public int read() throws IOException {
+            try {
+                return finish(in.read());
+            } catch (IOException e) {
+                throw expired ? timeoutException(e) : e;
+            }
+        }
+
+        @Override
+        public int read(byte[] b, int off, int len) throws IOException {
+            try {
+                return finish(in.read(b, off, len));
+            } catch (IOException e) {
+                throw expired ? timeoutException(e) : e;
+            }
+        }
+
+        private int finish(int n) throws IOException {
+            if (expired) {
+                throw timeoutException(null);
+            }
+            if (n == -1) {
+                deadline.cancel(false);
+            }
+            return n;
+        }
+
+        @Override
+        public void close() throws IOException {
+            deadline.cancel(false);
+            super.close();
+        }
+    }
+
+    private static final class DeadlinePublisher implements Flow.Publisher<List<ByteBuffer>> {
+        private final Flow.Publisher<List<ByteBuffer>> source;
+        private final ScheduledFuture<?> deadline;
+        private DeadlineSubscriber subscriber;
+        private boolean expired;
+
+        DeadlinePublisher(Flow.Publisher<List<ByteBuffer>> source, long remainingNanos) {
+            this.source = source;
+            this.deadline = DEADLINES.schedule(this::expire, remainingNanos, TimeUnit.NANOSECONDS);
+        }
+
+        @Override
+        public void subscribe(Flow.Subscriber<? super List<ByteBuffer>> downstream) {
+            DeadlineSubscriber s = new DeadlineSubscriber(downstream, deadline);
+            boolean late;
+            synchronized (this) {
+                late = expired;
+                if (!late) {
+                    subscriber = s;
+                }
+            }
+            if (late) {
+                downstream.onSubscribe(new Flow.Subscription() {
+                    @Override
+                    public void request(long n) {
+                    }
+
+                    @Override
+                    public void cancel() {
+                    }
+                });
+                downstream.onError(timeoutException(null));
+                return;
+            }
+            source.subscribe(s);
+        }
+
+        private void expire() {
+            DeadlineSubscriber s;
+            synchronized (this) {
+                expired = true;
+                s = subscriber;
+            }
+            if (s != null) {
+                s.expire();
+                return;
+            }
+            source.subscribe(new Flow.Subscriber<List<ByteBuffer>>() {
+                @Override
+                public void onSubscribe(Flow.Subscription subscription) {
+                    subscription.cancel();
+                }
+
+                @Override
+                public void onNext(List<ByteBuffer> item) {
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                }
+
+                @Override
+                public void onComplete() {
+                }
+            });
+        }
+    }
+
+    private static final class DeadlineSubscriber implements Flow.Subscriber<List<ByteBuffer>> {
+        private final Flow.Subscriber<? super List<ByteBuffer>> downstream;
+        private final ScheduledFuture<?> deadline;
+        private Flow.Subscription upstream;
+        private boolean subscribed;
+        private boolean emitting;
+        private boolean expirePending;
+        private boolean done;
+
+        DeadlineSubscriber(Flow.Subscriber<? super List<ByteBuffer>> downstream, ScheduledFuture<?> deadline) {
+            this.downstream = downstream;
+            this.deadline = deadline;
+        }
+
+        @Override
+        public void onSubscribe(Flow.Subscription subscription) {
+            boolean expired;
+            synchronized (this) {
+                upstream = subscription;
+                expired = done;
+            }
+            if (expired) {
+                subscription.cancel();
+            }
+            downstream.onSubscribe(new Flow.Subscription() {
+                @Override
+                public void request(long n) {
+                    subscription.request(n);
+                }
+
+                @Override
+                public void cancel() {
+                    deadline.cancel(false);
+                    subscription.cancel();
+                }
+            });
+            boolean signal;
+            synchronized (this) {
+                subscribed = true;
+                signal = expirePending;
+                expirePending = false;
+            }
+            if (signal) {
+                downstream.onError(timeoutException(null));
+            }
+        }
+
+        @Override
+        public void onNext(List<ByteBuffer> item) {
+            synchronized (this) {
+                if (done) {
+                    return;
+                }
+                emitting = true;
+            }
+            boolean signal;
+            try {
+                downstream.onNext(item);
+            } finally {
+                synchronized (this) {
+                    emitting = false;
+                    signal = subscribed && expirePending;
+                    if (signal) {
+                        expirePending = false;
+                    }
+                }
+            }
+            if (signal) {
+                downstream.onError(timeoutException(null));
+            }
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            synchronized (this) {
+                if (done) {
+                    return;
+                }
+                done = true;
+            }
+            deadline.cancel(false);
+            downstream.onError(throwable);
+        }
+
+        @Override
+        public void onComplete() {
+            synchronized (this) {
+                if (done) {
+                    return;
+                }
+                done = true;
+            }
+            deadline.cancel(false);
+            downstream.onComplete();
+        }
+
+        void expire() {
+            Flow.Subscription toCancel;
+            boolean signal;
+            synchronized (this) {
+                if (done) {
+                    return;
+                }
+                done = true;
+                toCancel = upstream;
+                signal = subscribed && !emitting;
+                expirePending = !signal;
+            }
+            if (toCancel != null) {
+                toCancel.cancel();
+            }
+            if (signal) {
+                CompletableFuture.runAsync(() -> downstream.onError(timeoutException(null)));
+            }
+        }
     }
 
     private HttpRequest logRequest(HttpRequest request, boolean logBody) {

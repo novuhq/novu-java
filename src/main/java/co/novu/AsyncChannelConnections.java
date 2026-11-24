@@ -130,6 +130,20 @@ public class AsyncChannelConnections {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<ChannelConnectionsControllerCreateChannelConnectionResponse>} - The async response
+     */
+    public CompletableFuture<ChannelConnectionsControllerCreateChannelConnectionResponse> create(@Nullable String idempotencyKey, @Nonnull CreateChannelConnectionRequestDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a channel connection
+     * 
+     * <p>Create a new channel connection for a resource for given integration. Only one channel connection is
+     * allowed per resource and integration.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<ChannelConnectionsControllerCreateChannelConnectionResponse>} - The async response
      */
@@ -167,6 +181,19 @@ public class AsyncChannelConnections {
      */
     public CompletableFuture<ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse> retrieve(@Nonnull String identifier) {
         return retrieve(identifier, null, null);
+    }
+
+    /**
+     * Retrieve a channel connection
+     * 
+     * <p>Retrieve a specific channel connection by its unique identifier.
+     * 
+     * @param identifier The unique identifier of the channel connection
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse>} - The async response
+     */
+    public CompletableFuture<ChannelConnectionsControllerGetChannelConnectionByIdentifierResponse> retrieve(@Nonnull String identifier, @Nullable String idempotencyKey) {
+        return retrieve(identifier, idempotencyKey, null);
     }
 
     /**
@@ -226,6 +253,24 @@ public class AsyncChannelConnections {
      * @param identifier The unique identifier of the channel connection
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<ChannelConnectionsControllerUpdateChannelConnectionResponse>} - The async response
+     */
+    public CompletableFuture<ChannelConnectionsControllerUpdateChannelConnectionResponse> update(
+            @Nonnull String identifier, @Nullable String idempotencyKey,
+            @Nonnull UpdateChannelConnectionRequestDto body) {
+        return update(
+                identifier, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update a channel connection
+     * 
+     * <p>Update an existing channel connection by its unique identifier.
+     * 
+     * @param identifier The unique identifier of the channel connection
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<ChannelConnectionsControllerUpdateChannelConnectionResponse>} - The async response
      */
@@ -263,6 +308,19 @@ public class AsyncChannelConnections {
      */
     public CompletableFuture<ChannelConnectionsControllerDeleteChannelConnectionResponse> delete(@Nonnull String identifier) {
         return delete(identifier, null, null);
+    }
+
+    /**
+     * Delete a channel connection
+     * 
+     * <p>Delete a specific channel connection by its unique identifier.
+     * 
+     * @param identifier The unique identifier of the channel connection
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<ChannelConnectionsControllerDeleteChannelConnectionResponse>} - The async response
+     */
+    public CompletableFuture<ChannelConnectionsControllerDeleteChannelConnectionResponse> delete(@Nonnull String identifier, @Nullable String idempotencyKey) {
+        return delete(identifier, idempotencyKey, null);
     }
 
     /**

@@ -131,6 +131,23 @@ public class Notifications {
      * 
      * @param notificationId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public NotificationsControllerGetNotificationResponse get(@Nonnull String notificationId, @Nullable String idempotencyKey) {
+        return get(notificationId, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve an event
+     * 
+     * <p>Retrieve an event by its unique key identifier **notificationId**.
+     * Here **notificationId** is of mongodbId type.
+     * This API returns the event details - execution logs, status, actual notification (message) generated
+     * by each workflow step.
+     * 
+     * @param notificationId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails

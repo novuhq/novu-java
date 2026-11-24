@@ -1,0 +1,15 @@
+# BaseSubscriberFieldsDto
+
+
+## Fields
+
+| Field                                                 | Type                                                  | Required                                              | Description                                           | Example                                               |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `firstName`                                           | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | First name of the subscriber                          | John                                                  |
+| `lastName`                                            | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | Last name of the subscriber                           | Doe                                                   |
+| `email`                                               | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | Email address of the subscriber                       | john.doe@example.com                                  |
+| `phone`                                               | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | Phone number of the subscriber                        | +1234567890                                           |
+| `avatar`                                              | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | Avatar URL or identifier                              | https://example.com/avatar.jpg                        |
+| `locale`                                              | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | Locale of the subscriber                              | en-US                                                 |
+| `timezone`                                            | *JsonNullable\<String>*                               | :heavy_minus_sign:                                    | Timezone of the subscriber                            | America/New_York                                      |
+| `data`                                                | Map\<String, *Object*>                                | :heavy_minus_sign:                                    | Additional custom data associated with the subscriber |                                                       |

@@ -142,6 +142,23 @@ public class ChannelEndpoints {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body Channel endpoint creation request. The structure varies based on the type field.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ChannelEndpointsControllerCreateChannelEndpointResponse create(@Nullable String idempotencyKey, @Nonnull ChannelEndpointsControllerCreateChannelEndpointRequestBody body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a channel endpoint
+     * 
+     * <p>Create a new channel endpoint for a resource.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body Channel endpoint creation request. The structure varies based on the type field.
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -183,6 +200,23 @@ public class ChannelEndpoints {
      */
     public ChannelEndpointsControllerGetChannelEndpointResponse get(@Nonnull String identifier) {
         return get(identifier, null, null);
+    }
+
+    /**
+     * Retrieve a channel endpoint
+     * 
+     * <p>Retrieve a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param identifier The unique identifier of the channel endpoint
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ChannelEndpointsControllerGetChannelEndpointResponse get(@Nonnull String identifier, @Nullable String idempotencyKey) {
+        return get(identifier, idempotencyKey, null);
     }
 
     /**
@@ -251,6 +285,27 @@ public class ChannelEndpoints {
      * @param identifier The unique identifier of the channel endpoint
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ChannelEndpointsControllerUpdateChannelEndpointResponse update(
+            @Nonnull String identifier, @Nullable String idempotencyKey,
+            @Nonnull UpdateChannelEndpointRequestDto body) {
+        return update(identifier, idempotencyKey, body,
+            null);
+    }
+
+    /**
+     * Update a channel endpoint
+     * 
+     * <p>Update an existing channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param identifier The unique identifier of the channel endpoint
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -292,6 +347,23 @@ public class ChannelEndpoints {
      */
     public ChannelEndpointsControllerDeleteChannelEndpointResponse delete(@Nonnull String identifier) {
         return delete(identifier, null, null);
+    }
+
+    /**
+     * Delete a channel endpoint
+     * 
+     * <p>Delete a specific channel endpoint by its unique identifier.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param identifier The unique identifier of the channel endpoint
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ChannelEndpointsControllerDeleteChannelEndpointResponse delete(@Nonnull String identifier, @Nullable String idempotencyKey) {
+        return delete(identifier, idempotencyKey, null);
     }
 
     /**

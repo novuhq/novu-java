@@ -1,0 +1,9 @@
+# CreateSubscriberTokenResponseDto
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  | Example                                                                                      |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `token`                                                                                      | *String*                                                                                     | :heavy_check_mark:                                                                           | Novu-signed login token for the subscriber. Exchange it in the browser for an Inbox session. |                                                                                              |
+| `expiresAt`                                                                                  | [OffsetDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html)    | :heavy_check_mark:                                                                           | When the token expires, in ISO 8601.                                                         | 2025-01-01T00:10:00.000Z                                                                     |

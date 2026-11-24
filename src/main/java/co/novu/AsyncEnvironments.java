@@ -110,6 +110,25 @@ public class AsyncEnvironments {
      * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse> diff(
+            @Nonnull String targetEnvironmentId, @Nullable String idempotencyKey,
+            @Nonnull DiffEnvironmentRequestDto body) {
+        return diff(
+                targetEnvironmentId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Compare resources between environments
+     * 
+     * <p>Compares workflows and other resources between the development and target environments, returning
+     * detailed diff information including additions, modifications, and deletions.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to compare against
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<EnvironmentsControllerDiffEnvironmentResponse>} - The async response
      */
@@ -151,6 +170,25 @@ public class AsyncEnvironments {
     public CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse> publish(@Nonnull String targetEnvironmentId, @Nonnull PublishEnvironmentRequestDto body) {
         return publish(
                 targetEnvironmentId, null, body,
+                null);
+    }
+
+    /**
+     * Publish resources to target environment
+     * 
+     * <p>Publishes all workflows and resources from the development environment to the target environment.
+     * Optionally specify specific resources to publish or use dryRun mode to preview changes.
+     * 
+     * @param targetEnvironmentId Target environment ID (MongoDB ObjectId) to publish resources to
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerPublishEnvironmentResponse> publish(
+            @Nonnull String targetEnvironmentId, @Nullable String idempotencyKey,
+            @Nonnull PublishEnvironmentRequestDto body) {
+        return publish(
+                targetEnvironmentId, idempotencyKey, body,
                 null);
     }
 
@@ -215,6 +253,21 @@ public class AsyncEnvironments {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<EnvironmentsControllerV1CreateEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerV1CreateEnvironmentResponse> create(@Nullable String idempotencyKey, @Nonnull CreateEnvironmentRequestDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create an environment
+     * 
+     * <p>Creates a new environment within the current organization.
+     * Environments allow you to manage different stages of your application development lifecycle.
+     * Each environment has its own set of API keys and configurations.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<EnvironmentsControllerV1CreateEnvironmentResponse>} - The async response
      */
@@ -253,6 +306,19 @@ public class AsyncEnvironments {
      */
     public CompletableFuture<EnvironmentsControllerV1ListMyEnvironmentsResponse> listDirect() {
         return list(null, null);
+    }
+
+    /**
+     * List all environments
+     * 
+     * <p>This API returns a list of environments for the current organization.
+     * Each environment contains its configuration, API keys (if user has access), and metadata.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<EnvironmentsControllerV1ListMyEnvironmentsResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerV1ListMyEnvironmentsResponse> list(@Nullable String idempotencyKey) {
+        return list(idempotencyKey, null);
     }
 
     /**
@@ -313,6 +379,25 @@ public class AsyncEnvironments {
      * @param environmentId The unique identifier of the environment
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<EnvironmentsControllerV1UpdateMyEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerV1UpdateMyEnvironmentResponse> update(
+            @Nonnull String environmentId, @Nullable String idempotencyKey,
+            @Nonnull UpdateEnvironmentRequestDto body) {
+        return update(
+                environmentId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Update an environment
+     * 
+     * <p>Update an environment by its unique identifier **environmentId**.
+     * You can modify the environment name, identifier, color, and other configuration settings.
+     * 
+     * @param environmentId The unique identifier of the environment
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<EnvironmentsControllerV1UpdateMyEnvironmentResponse>} - The async response
      */
@@ -352,6 +437,20 @@ public class AsyncEnvironments {
      */
     public CompletableFuture<EnvironmentsControllerV1DeleteEnvironmentResponse> delete(@Nonnull String environmentId) {
         return delete(environmentId, null, null);
+    }
+
+    /**
+     * Delete an environment
+     * 
+     * <p>Delete an environment by its unique identifier **environmentId**.
+     * This action is irreversible and will remove the environment and all its associated data.
+     * 
+     * @param environmentId The unique identifier of the environment
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<EnvironmentsControllerV1DeleteEnvironmentResponse>} - The async response
+     */
+    public CompletableFuture<EnvironmentsControllerV1DeleteEnvironmentResponse> delete(@Nonnull String environmentId, @Nullable String idempotencyKey) {
+        return delete(environmentId, idempotencyKey, null);
     }
 
     /**

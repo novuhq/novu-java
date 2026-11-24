@@ -13,6 +13,7 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.time.Duration;
 
 public class MessagesControllerGetMessagesRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -27,6 +28,11 @@ public class MessagesControllerGetMessagesRequestBuilder {
 
     public MessagesControllerGetMessagesRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public MessagesControllerGetMessagesRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

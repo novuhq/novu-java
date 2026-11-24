@@ -71,6 +71,24 @@ public class AsyncSteps {
      * @param workflowId 
      * @param stepId 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<WorkflowControllerGetWorkflowStepDataResponse>} - The async response
+     */
+    public CompletableFuture<WorkflowControllerGetWorkflowStepDataResponse> get(
+            @Nonnull String workflowId, @Nonnull String stepId,
+            @Nullable String idempotencyKey) {
+        return get(
+                workflowId, stepId, idempotencyKey,
+                null);
+    }
+
+    /**
+     * Retrieve workflow step
+     * 
+     * <p>Retrieves data for a specific step in a workflow
+     * 
+     * @param workflowId 
+     * @param stepId 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<WorkflowControllerGetWorkflowStepDataResponse>} - The async response
      */

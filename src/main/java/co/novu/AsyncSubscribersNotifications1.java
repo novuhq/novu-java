@@ -194,6 +194,26 @@ public class AsyncSubscribersNotifications1 {
      * @param notificationId The identifier of the notification
      * @param contextKeys Context keys for filtering
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerDeleteNotificationResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerDeleteNotificationResponse> delete(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return delete(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey, null);
+    }
+
+    /**
+     * Delete a notification
+     * 
+     * <p>Delete a specific in-app (inbox) notification permanently by its unique identifier
+     * **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerDeleteNotificationResponse>} - The async response
      */
@@ -338,6 +358,25 @@ public class AsyncSubscribersNotifications1 {
      * @param notificationId The identifier of the notification
      * @param contextKeys Context keys for filtering
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerArchiveNotificationResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerArchiveNotificationResponse> archive(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return archive(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey, null);
+    }
+
+    /**
+     * Archive a notification
+     * 
+     * <p>Archive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerArchiveNotificationResponse>} - The async response
      */
@@ -381,6 +420,25 @@ public class AsyncSubscribersNotifications1 {
         return markAsRead(
                 subscriberId, notificationId, null,
                 null, null);
+    }
+
+    /**
+     * Mark a notification as read
+     * 
+     * <p>Mark a specific in-app (inbox) notification as read by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerMarkNotificationAsReadResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerMarkNotificationAsReadResponse> markAsRead(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return markAsRead(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey, null);
     }
 
     /**
@@ -491,6 +549,25 @@ public class AsyncSubscribersNotifications1 {
      * @param notificationId The identifier of the notification
      * @param contextKeys Context keys for filtering
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerUnarchiveNotificationResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerUnarchiveNotificationResponse> unarchive(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return unarchive(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey, null);
+    }
+
+    /**
+     * Unarchive a notification
+     * 
+     * <p>Unarchive a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerUnarchiveNotificationResponse>} - The async response
      */
@@ -534,6 +611,25 @@ public class AsyncSubscribersNotifications1 {
         return markAsUnread(
                 subscriberId, notificationId, null,
                 null, null);
+    }
+
+    /**
+     * Mark a notification as unread
+     * 
+     * <p>Mark a specific in-app (inbox) notification as unread by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerMarkNotificationAsUnreadResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerMarkNotificationAsUnreadResponse> markAsUnread(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return markAsUnread(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey, null);
     }
 
     /**
@@ -599,6 +695,25 @@ public class AsyncSubscribersNotifications1 {
      * @param notificationId The identifier of the notification
      * @param contextKeys Context keys for filtering
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerUnsnoozeNotificationResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerUnsnoozeNotificationResponse> unsnooze(
+            @Nonnull String subscriberId, @Nonnull String notificationId,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return unsnooze(
+                subscriberId, notificationId, contextKeys,
+                idempotencyKey, null);
+    }
+
+    /**
+     * Unsnooze a notification
+     * 
+     * <p>Unsnooze a specific in-app (inbox) notification by its unique identifier **notificationId**.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param notificationId The identifier of the notification
+     * @param contextKeys Context keys for filtering
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerUnsnoozeNotificationResponse>} - The async response
      */
@@ -643,6 +758,25 @@ public class AsyncSubscribersNotifications1 {
     public CompletableFuture<SubscribersControllerArchiveAllNotificationsResponse> archiveAll(@Nonnull String subscriberId, @Nonnull UpdateAllSubscriberNotificationsDto body) {
         return archiveAll(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Archive all notifications
+     * 
+     * <p>Archive all in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerArchiveAllNotificationsResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerArchiveAllNotificationsResponse> archiveAll(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return archiveAll(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 
@@ -714,6 +848,27 @@ public class AsyncSubscribersNotifications1 {
      * @param subscriberId The identifier of the subscriber
      * @param filters Array of filter objects (max 30) to count notifications by different criteria
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<SubscribersControllerGetSubscriberNotificationsCountResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerGetSubscriberNotificationsCountResponse> count(
+            @Nonnull String subscriberId, @Nonnull String filters,
+            @Nullable String idempotencyKey) {
+        return count(
+                subscriberId, filters, idempotencyKey,
+                null);
+    }
+
+    /**
+     * Retrieve subscriber notifications count
+     * 
+     * <p>Retrieve count of in-app (inbox) notifications for a subscriber by its unique key identifier
+     * **subscriberId**.
+     * Supports multiple filters to count in-app (inbox) notifications by different criteria, including
+     * context keys.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param filters Array of filter objects (max 30) to count notifications by different criteria
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerGetSubscriberNotificationsCountResponse>} - The async response
      */
@@ -755,6 +910,25 @@ public class AsyncSubscribersNotifications1 {
     public CompletableFuture<SubscribersControllerDeleteAllNotificationsResponse> deleteAll(@Nonnull String subscriberId, @Nonnull UpdateAllSubscriberNotificationsDto body) {
         return deleteAll(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Delete all notifications
+     * 
+     * <p>Permanently delete all in-app (inbox) notifications matching the specified filters. Supports
+     * context-based filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerDeleteAllNotificationsResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerDeleteAllNotificationsResponse> deleteAll(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return deleteAll(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 
@@ -820,6 +994,25 @@ public class AsyncSubscribersNotifications1 {
      * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerMarkAllNotificationsAsReadResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerMarkAllNotificationsAsReadResponse> markAllAsRead(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return markAllAsRead(
+                subscriberId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Mark all notifications as read
+     * 
+     * <p>Mark all in-app (inbox) notifications matching the specified filters as read. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerMarkAllNotificationsAsReadResponse>} - The async response
      */
@@ -873,6 +1066,25 @@ public class AsyncSubscribersNotifications1 {
      * @param subscriberId The identifier of the subscriber
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerArchiveAllReadNotificationsResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerArchiveAllReadNotificationsResponse> archiveAllRead(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull UpdateAllSubscriberNotificationsDto body) {
+        return archiveAllRead(
+                subscriberId, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Archive all read notifications
+     * 
+     * <p>Archive all read in-app (inbox) notifications matching the specified filters. Supports context-based
+     * filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<SubscribersControllerArchiveAllReadNotificationsResponse>} - The async response
      */
@@ -912,6 +1124,24 @@ public class AsyncSubscribersNotifications1 {
     public CompletableFuture<SubscribersControllerMarkNotificationsAsSeenResponse> markAsSeen(@Nonnull String subscriberId, @Nonnull MarkSubscriberNotificationsAsSeenDto body) {
         return markAsSeen(
                 subscriberId, null, body,
+                null);
+    }
+
+    /**
+     * Mark notifications as seen
+     * 
+     * <p>Mark specific and multiple in-app (inbox) notifications as seen. Supports context-based filtering.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<SubscribersControllerMarkNotificationsAsSeenResponse>} - The async response
+     */
+    public CompletableFuture<SubscribersControllerMarkNotificationsAsSeenResponse> markAsSeen(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull MarkSubscriberNotificationsAsSeenDto body) {
+        return markAsSeen(
+                subscriberId, idempotencyKey, body,
                 null);
     }
 

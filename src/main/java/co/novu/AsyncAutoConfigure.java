@@ -75,6 +75,20 @@ public class AsyncAutoConfigure {
      * 
      * @param domain 
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<DomainsControllerGetDomainAutoConfigureResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerGetDomainAutoConfigureResponse> retrieve(@Nonnull String domain, @Nullable String idempotencyKey) {
+        return retrieve(domain, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve auto-configuration availability
+     * 
+     * <p>Returns whether DNS auto-configuration (Domain Connect) is available for this domain. When
+     * `available` is `false`, `manualRecords` lists the DNS records the customer must add manually.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<DomainsControllerGetDomainAutoConfigureResponse>} - The async response
      */
@@ -116,6 +130,25 @@ public class AsyncAutoConfigure {
     public CompletableFuture<DomainsControllerStartDomainAutoConfigureResponse> start(@Nonnull String domain, @Nonnull CreateDomainConnectApplyUrlDto body) {
         return start(
                 domain, null, body,
+                null);
+    }
+
+    /**
+     * Start DNS auto-configuration
+     * 
+     * <p>Generates a signed redirect URL the customer can follow to apply Novu DNS records at their DNS
+     * provider. After the provider completes the flow, it redirects back to `redirectUri`.
+     * 
+     * @param domain 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<DomainsControllerStartDomainAutoConfigureResponse>} - The async response
+     */
+    public CompletableFuture<DomainsControllerStartDomainAutoConfigureResponse> start(
+            @Nonnull String domain, @Nullable String idempotencyKey,
+            @Nonnull CreateDomainConnectApplyUrlDto body) {
+        return start(
+                domain, idempotencyKey, body,
                 null);
     }
 

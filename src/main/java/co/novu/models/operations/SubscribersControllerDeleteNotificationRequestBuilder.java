@@ -14,6 +14,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 import java.util.List;
 
 public class SubscribersControllerDeleteNotificationRequestBuilder {
@@ -56,6 +57,11 @@ public class SubscribersControllerDeleteNotificationRequestBuilder {
 
     public SubscribersControllerDeleteNotificationRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public SubscribersControllerDeleteNotificationRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 
