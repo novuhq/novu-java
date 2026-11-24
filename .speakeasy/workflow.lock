@@ -1,4 +1,4 @@
-speakeasyVersion: 1.809.0
+speakeasyVersion: 1.811.0
 sources:
     'DEPRECATED: Novu API. Use -openapi.{json,yaml} instead.':
         sourceNamespace: novu-oas
@@ -9,19 +9,19 @@ sources:
             - 3.12.0
     novu-OAS:
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:c4dd0297214808aad67ba44cd8babc1bf586695120d1a68c0b73720b2cd1bd75
-        sourceBlobDigest: sha256:f9dea6f9448c2560eb3fb8fefa02d5f5c8e4f9f5a7495751c5fdbe2d2cd0ca81
+        sourceRevisionDigest: sha256:5ae3ab8fe1f620126fc1520beacd672332ec8b63241de21427ecef4c9744393e
+        sourceBlobDigest: sha256:ec53a706519af0a47dd88f3e85c0f868862a27372613d9136679f21fb70491de
         tags:
             - latest
-            - 3.19.2
+            - 3.20.0
 targets:
     novu:
         source: novu-OAS
         sourceNamespace: novu-oas
-        sourceRevisionDigest: sha256:c4dd0297214808aad67ba44cd8babc1bf586695120d1a68c0b73720b2cd1bd75
-        sourceBlobDigest: sha256:f9dea6f9448c2560eb3fb8fefa02d5f5c8e4f9f5a7495751c5fdbe2d2cd0ca81
+        sourceRevisionDigest: sha256:5ae3ab8fe1f620126fc1520beacd672332ec8b63241de21427ecef4c9744393e
+        sourceBlobDigest: sha256:ec53a706519af0a47dd88f3e85c0f868862a27372613d9136679f21fb70491de
         codeSamplesNamespace: novu-oas-java-code-samples
-        codeSamplesRevisionDigest: sha256:a3bb32a5ca8668526e20f75a9646ab84c394673dd5d3508cf5035b7fa2a2b4ba
+        codeSamplesRevisionDigest: sha256:01c2d7b331953fe51d13def4fad14710575a25ac13e9c016b409490da191d4cc
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

@@ -14,6 +14,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class SubscribersControllerGetSubscriberNotificationsCountRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -49,6 +50,11 @@ public class SubscribersControllerGetSubscriberNotificationsCountRequestBuilder 
 
     public SubscribersControllerGetSubscriberNotificationsCountRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public SubscribersControllerGetSubscriberNotificationsCountRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

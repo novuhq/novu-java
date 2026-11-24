@@ -14,6 +14,7 @@ import co.novu.utils.RetryConfig;
 import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 public class SubscribersControllerSnoozeNotificationRequestBuilder {
@@ -29,6 +30,11 @@ public class SubscribersControllerSnoozeNotificationRequestBuilder {
 
     public SubscribersControllerSnoozeNotificationRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public SubscribersControllerSnoozeNotificationRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

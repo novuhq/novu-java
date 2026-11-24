@@ -123,6 +123,23 @@ public class AsyncTranslations {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TranslationControllerCreateTranslationEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerCreateTranslationEndpointResponse> create(@Nullable String idempotencyKey, @Nonnull CreateTranslationRequestDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a translation
+     * 
+     * <p>Create a translation for a specific workflow and locale, if the translation already exists, it will
+     * be updated
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TranslationControllerCreateTranslationEndpointResponse>} - The async response
      */
@@ -172,6 +189,28 @@ public class AsyncTranslations {
         return get(
                 resourceType, resourceId, locale,
                 null, null);
+    }
+
+    /**
+     * Retrieve a translation
+     * 
+     * <p>Retrieve a specific translation by resource type, resource ID and locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param resourceType Resource type
+     * @param resourceId Resource ID
+     * @param locale Locale code
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TranslationControllerGetSingleTranslationResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerGetSingleTranslationResponse> get(
+            @Nonnull TranslationControllerGetSingleTranslationResourceType resourceType, @Nonnull String resourceId,
+            @Nonnull String locale, @Nullable String idempotencyKey) {
+        return get(
+                resourceType, resourceId, locale,
+                idempotencyKey, null);
     }
 
     /**
@@ -238,6 +277,28 @@ public class AsyncTranslations {
         return delete(
                 resourceType, resourceId, locale,
                 null, null);
+    }
+
+    /**
+     * Delete a translation
+     * 
+     * <p>Delete a specific translation by resource type, resource ID and locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param resourceType Resource type
+     * @param resourceId Resource ID
+     * @param locale Locale code
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TranslationControllerDeleteTranslationEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerDeleteTranslationEndpointResponse> delete(
+            @Nonnull TranslationControllerDeleteTranslationEndpointResourceType resourceType, @Nonnull String resourceId,
+            @Nonnull String locale, @Nullable String idempotencyKey) {
+        return delete(
+                resourceType, resourceId, locale,
+                idempotencyKey, null);
     }
 
     /**
@@ -319,6 +380,25 @@ public class AsyncTranslations {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TranslationControllerUploadTranslationFilesResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerUploadTranslationFilesResponse> uploadFiles(@Nullable String idempotencyKey, @Nonnull TranslationControllerUploadTranslationFilesRequestBody body) {
+        return uploadFiles(idempotencyKey, body, null);
+    }
+
+    /**
+     * Upload translation files
+     * 
+     * <p>Upload one or more JSON translation files for a specific workflow. Files name must match the locale,
+     * e.g. en_US.json.
+     * 
+     * <p>Supports both "files" and "files[]" field names for backwards compatibility.
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TranslationControllerUploadTranslationFilesResponse>} - The async response
      */
@@ -364,6 +444,27 @@ public class AsyncTranslations {
     public CompletableFuture<TranslationControllerDeleteTranslationGroupEndpointResponse> removeGroup(@Nonnull TranslationControllerDeleteTranslationGroupEndpointResourceType resourceType, @Nonnull String resourceId) {
         return removeGroup(
                 resourceType, resourceId, null,
+                null);
+    }
+
+    /**
+     * Delete a translation group
+     * 
+     * <p>Delete an entire translation group and all its translations
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param resourceType Resource type
+     * @param resourceId Resource ID
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TranslationControllerDeleteTranslationGroupEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerDeleteTranslationGroupEndpointResponse> removeGroup(
+            @Nonnull TranslationControllerDeleteTranslationGroupEndpointResourceType resourceType, @Nonnull String resourceId,
+            @Nullable String idempotencyKey) {
+        return removeGroup(
+                resourceType, resourceId, idempotencyKey,
                 null);
     }
 
@@ -440,6 +541,28 @@ public class AsyncTranslations {
      * @param resourceType Resource type
      * @param resourceId Resource ID
      * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TranslationControllerGetTranslationGroupEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerGetTranslationGroupEndpointResponse> groupDetails(
+            @Nonnull TranslationControllerGetTranslationGroupEndpointResourceType resourceType, @Nonnull String resourceId,
+            @Nullable String idempotencyKey) {
+        return groupDetails(
+                resourceType, resourceId, idempotencyKey,
+                null);
+    }
+
+    /**
+     * Retrieve a translation group
+     * 
+     * <p>Retrieves a single translation group by resource type (workflow, layout) and resource ID
+     * (workflowId, layoutId)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param resourceType Resource type
+     * @param resourceId Resource ID
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return {@code CompletableFuture<TranslationControllerGetTranslationGroupEndpointResponse>} - The async response
      */
@@ -482,6 +605,22 @@ public class AsyncTranslations {
      */
     public CompletableFuture<TranslationControllerGetMasterJsonEndpointResponse> getMasterDirect() {
         return getMaster(null, null, null);
+    }
+
+    /**
+     * Retrieve master translations JSON
+     * 
+     * <p>Retrieve all translations for a locale in master JSON format organized by resourceId (workflowId)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param locale Locale to export. If not provided, exports organization default locale
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<TranslationControllerGetMasterJsonEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerGetMasterJsonEndpointResponse> getMaster(@Nullable String locale, @Nullable String idempotencyKey) {
+        return getMaster(locale, idempotencyKey, null);
     }
 
     /**
@@ -549,6 +688,22 @@ public class AsyncTranslations {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TranslationControllerImportMasterJsonEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerImportMasterJsonEndpointResponse> importMaster(@Nullable String idempotencyKey, @Nonnull ImportMasterJsonRequestDto body) {
+        return importMaster(idempotencyKey, body, null);
+    }
+
+    /**
+     * Import master translations JSON
+     * 
+     * <p>Import translations for multiple workflows from master JSON format for a specific locale
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TranslationControllerImportMasterJsonEndpointResponse>} - The async response
      */
@@ -594,6 +749,23 @@ public class AsyncTranslations {
      */
     public CompletableFuture<TranslationControllerUploadMasterJsonEndpointResponse> masterUpload(@Nonnull TranslationControllerUploadMasterJsonEndpointRequestBody body) {
         return masterUpload(null, body, null);
+    }
+
+    /**
+     * Upload master translations JSON file
+     * 
+     * <p>Upload a master JSON file containing translations for multiple workflows. Locale is automatically
+     * detected from filename (e.g., en_US.json)
+     * 
+     * <p>This operation requires either Security#secretKey or Security#secretKey to be set via the {@code
+     * security} builder method when initializing the SDK.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<TranslationControllerUploadMasterJsonEndpointResponse>} - The async response
+     */
+    public CompletableFuture<TranslationControllerUploadMasterJsonEndpointResponse> masterUpload(@Nullable String idempotencyKey, @Nonnull TranslationControllerUploadMasterJsonEndpointRequestBody body) {
+        return masterUpload(idempotencyKey, body, null);
     }
 
     /**

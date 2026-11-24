@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class SubscribersV1ControllerBulkCreateSubscribersRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -44,6 +45,11 @@ public class SubscribersV1ControllerBulkCreateSubscribersRequestBuilder {
 
     public SubscribersV1ControllerBulkCreateSubscribersRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public SubscribersV1ControllerBulkCreateSubscribersRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class EventsControllerTriggerRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -44,6 +45,11 @@ public class EventsControllerTriggerRequestBuilder {
 
     public EventsControllerTriggerRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public EventsControllerTriggerRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

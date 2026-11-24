@@ -79,6 +79,26 @@ public class Preferences {
      * @param criticality 
      * @param contextKeys Context keys for filtering preferences (e.g., ["tenant:acme"])
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerGetSubscriberPreferencesResponse list(
+            @Nonnull String subscriberId, @Nullable Criticality criticality,
+            @Nullable List<String> contextKeys, @Nullable String idempotencyKey) {
+        return list(subscriberId, criticality, contextKeys,
+            idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve subscriber preferences
+     * 
+     * <p>Retrieve subscriber channel preferences by its unique key identifier **subscriberId**.
+     * This API returns all five channels preferences for all workflows and global preferences.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param criticality 
+     * @param contextKeys Context keys for filtering preferences (e.g., ["tenant:acme"])
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -120,6 +140,25 @@ public class Preferences {
      */
     public SubscribersControllerBulkUpdateSubscriberPreferencesResponse bulkUpdate(@Nonnull String subscriberId, @Nonnull BulkUpdateSubscriberPreferencesDto body) {
         return bulkUpdate(subscriberId, null, body,
+            null);
+    }
+
+    /**
+     * Bulk update subscriber preferences
+     * 
+     * <p>Bulk update subscriber preferences by its unique key identifier **subscriberId**.
+     * This API allows updating multiple workflow preferences in a single request.
+     * 
+     * @param subscriberId The identifier of the subscriber
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public SubscribersControllerBulkUpdateSubscriberPreferencesResponse bulkUpdate(
+            @Nonnull String subscriberId, @Nullable String idempotencyKey,
+            @Nonnull BulkUpdateSubscriberPreferencesDto body) {
+        return bulkUpdate(subscriberId, idempotencyKey, body,
             null);
     }
 

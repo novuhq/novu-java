@@ -93,6 +93,23 @@ public class Contexts {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ContextsControllerCreateContextResponse create(@Nullable String idempotencyKey, @Nonnull CreateContextRequestDto body) {
+        return create(idempotencyKey, body, null);
+    }
+
+    /**
+     * Create a context
+     * 
+     * <p>Create a new context with the specified type, id, and data. Returns 409 if context already exists.
+     * 
+     * <p>**type** and **id** are required fields, **data** is optional, if the context already exists, it
+     * returns the 409 response
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -211,6 +228,28 @@ public class Contexts {
      * @param type Context type
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ContextsControllerUpdateContextResponse update(
+            @Nonnull String id, @Nonnull String type,
+            @Nullable String idempotencyKey, @Nonnull UpdateContextRequestDto body) {
+        return update(id, type, idempotencyKey,
+            body, null);
+    }
+
+    /**
+     * Update a context
+     * 
+     * <p>Update the data of an existing context.
+     * **type** and **id** are required fields, **data** is required. Only the data field is updated, the
+     * rest of the context is not affected.
+     * If the context does not exist, it returns the 404 response
+     * 
+     * @param id Context ID
+     * @param type Context type
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -264,6 +303,25 @@ public class Contexts {
      * @param id Context ID
      * @param type Context type
      * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ContextsControllerGetContextResponse get(
+            @Nonnull String id, @Nonnull String type,
+            @Nullable String idempotencyKey) {
+        return get(id, type, idempotencyKey,
+            null);
+    }
+
+    /**
+     * Retrieve a context
+     * 
+     * <p>Retrieve a specific context by its type and id.
+     * **type** and **id** are required fields, if the context does not exist, it returns the 404 response
+     * 
+     * @param id Context ID
+     * @param type Context type
+     * @param idempotencyKey A header for idempotency purposes
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -302,6 +360,25 @@ public class Contexts {
      */
     public ContextsControllerDeleteContextResponse delete(@Nonnull String id, @Nonnull String type) {
         return delete(id, type, null,
+            null);
+    }
+
+    /**
+     * Delete a context
+     * 
+     * <p>Delete a context by its type and id.
+     * **type** and **id** are required fields, if the context does not exist, it returns the 404 response
+     * 
+     * @param id Context ID
+     * @param type Context type
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ContextsControllerDeleteContextResponse delete(
+            @Nonnull String id, @Nonnull String type,
+            @Nullable String idempotencyKey) {
+        return delete(id, type, idempotencyKey,
             null);
     }
 

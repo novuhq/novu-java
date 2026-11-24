@@ -74,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.20.0'
+implementation 'co.novu:novu-java:3.21.0'
 ```
 
 Maven:
@@ -82,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.20.0</version>
+    <version>3.21.0</version>
 </dependency>
 ```
 
@@ -685,6 +685,10 @@ public class Application {
 * [markAsSeen](docs/sdks/subscribersnotifications1/README.md#markasseen) - Mark notifications as seen
 * [~~getUnseenCount~~](docs/sdks/subscribersnotifications1/README.md#getunseencount) - Retrieve unseen notifications count :warning: **Deprecated**
 
+#### [Subscribers.Tokens](docs/sdks/tokens/README.md)
+
+* [create](docs/sdks/tokens/README.md#create) - Create a subscriber login token
+
 ### [Subscribers.Credentials](docs/sdks/credentials/README.md)
 
 * [upsert](docs/sdks/credentials/README.md#upsert) - Upsert provider credentials
@@ -1050,9 +1054,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 149 methods.*
-* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 149 methods.*
-* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 149 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 150 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 150 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 150 methods.*
 
 
 </details>

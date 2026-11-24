@@ -126,6 +126,24 @@ public class AsyncSubscriptions {
      * @param topicKey The key identifier of the topic
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<TopicsControllerDeleteTopicSubscriptionsResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerDeleteTopicSubscriptionsResponse> delete(
+            @Nonnull String topicKey, @Nullable String idempotencyKey,
+            @Nonnull DeleteTopicSubscriptionsRequestDto body) {
+        return delete(
+                topicKey, idempotencyKey, body,
+                null);
+    }
+
+    /**
+     * Delete topic subscriptions
+     * 
+     * <p>Delete subscriptions for subscriberIds for a topic.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<TopicsControllerDeleteTopicSubscriptionsResponse>} - The async response
      */
@@ -170,6 +188,26 @@ public class AsyncSubscriptions {
             @Nonnull UpdateTopicSubscriptionRequestDto body) {
         return update(
                 topicKey, identifier, null,
+                body, null);
+    }
+
+    /**
+     * Update a topic subscription
+     * 
+     * <p>Update a subscription by its unique identifier for a topic. You can update the preferences and name
+     * associated with the subscription.
+     * 
+     * @param topicKey The key identifier of the topic
+     * @param identifier The unique identifier of the subscription
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<TopicsControllerUpdateTopicSubscriptionResponse>} - The async response
+     */
+    public CompletableFuture<TopicsControllerUpdateTopicSubscriptionResponse> update(
+            @Nonnull String topicKey, @Nonnull String identifier,
+            @Nullable String idempotencyKey, @Nonnull UpdateTopicSubscriptionRequestDto body) {
+        return update(
+                topicKey, identifier, idempotencyKey,
                 body, null);
     }
 

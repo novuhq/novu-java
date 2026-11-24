@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class ChannelConnectionsControllerCreateChannelConnectionRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -44,6 +45,11 @@ public class ChannelConnectionsControllerCreateChannelConnectionRequestBuilder {
 
     public ChannelConnectionsControllerCreateChannelConnectionRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public ChannelConnectionsControllerCreateChannelConnectionRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

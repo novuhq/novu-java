@@ -365,6 +365,26 @@ public class AsyncNovu {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<EventsControllerTriggerResponse>} - The async response
+     */
+    public CompletableFuture<EventsControllerTriggerResponse> trigger(@Nullable String idempotencyKey, @Nonnull TriggerEventRequestDto body) {
+        return trigger(idempotencyKey, body, null);
+    }
+
+    /**
+     * Trigger event
+     * 
+     * <p>Trigger event is the main (and only) way to send notifications to subscribers. The trigger
+     * identifier is used to match the particular workflow associated with it. Maximum number of recipients
+     * can be 100.
+     * 
+     * <p>Additional information can be passed according the body interface below.
+     * To prevent duplicate triggers, you can optionally pass a **transactionId** in the request body. If
+     * the same **transactionId** is used again, the trigger will be ignored. The retention period depends
+     * on your billing tier.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<EventsControllerTriggerResponse>} - The async response
      */
@@ -403,6 +423,20 @@ public class AsyncNovu {
      */
     public CompletableFuture<EventsControllerCancelResponse> cancel(@Nonnull String transactionId) {
         return cancel(transactionId, null, null);
+    }
+
+    /**
+     * Cancel triggered event
+     * 
+     * <p>Using a previously generated transactionId during the event trigger,
+     * will cancel any active or pending workflows. This is useful to cancel active digests, delays etc...
+     * 
+     * @param transactionId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<EventsControllerCancelResponse>} - The async response
+     */
+    public CompletableFuture<EventsControllerCancelResponse> cancel(@Nonnull String transactionId, @Nullable String idempotencyKey) {
+        return cancel(transactionId, idempotencyKey, null);
     }
 
     /**
@@ -464,6 +498,21 @@ public class AsyncNovu {
      * 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return {@code CompletableFuture<EventsControllerBroadcastEventToAllResponse>} - The async response
+     */
+    public CompletableFuture<EventsControllerBroadcastEventToAllResponse> broadcast(@Nullable String idempotencyKey, @Nonnull TriggerEventToAllRequestDto body) {
+        return broadcast(idempotencyKey, body, null);
+    }
+
+    /**
+     * Broadcast event to all
+     * 
+     * <p>Trigger a broadcast event to all existing subscribers, could be used to send announcements, etc.
+     * 
+     * <p>In the future could be used to trigger events to a subset of subscribers based on defined filters.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return {@code CompletableFuture<EventsControllerBroadcastEventToAllResponse>} - The async response
      */
@@ -502,6 +551,20 @@ public class AsyncNovu {
      */
     public CompletableFuture<EventsControllerTriggerBulkResponse> triggerBulk(@Nonnull BulkTriggerEventDto body) {
         return triggerBulk(null, body, null);
+    }
+
+    /**
+     * Bulk trigger event
+     * 
+     * <p>Using this endpoint you can trigger multiple events at once, to avoid multiple calls to the API.
+     * The bulk API is limited to 100 events per request.
+     * 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
+     * @return {@code CompletableFuture<EventsControllerTriggerBulkResponse>} - The async response
+     */
+    public CompletableFuture<EventsControllerTriggerBulkResponse> triggerBulk(@Nullable String idempotencyKey, @Nonnull BulkTriggerEventDto body) {
+        return triggerBulk(idempotencyKey, body, null);
     }
 
     /**

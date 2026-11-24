@@ -42,6 +42,7 @@ import java.lang.String;
 import java.lang.Throwable;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -56,6 +57,7 @@ public class AgentsControllerUpdateAgent {
         final SDKConfiguration sdkConfiguration;
         final String baseUrl;
         final SecuritySource securitySource;
+        final Optional<Duration> timeout;
         final List<String> retryStatusCodes;
         final RetryConfig retryConfig;
         final HTTPClient client;
@@ -69,7 +71,8 @@ public class AgentsControllerUpdateAgent {
             this.baseUrl = this.sdkConfiguration.serverUrl();
             this.securitySource = this.sdkConfiguration.securitySource();
             Optional.ofNullable(options)
-                    .ifPresent(o -> o.validate(List.of(Options.Option.RETRY_CONFIG)));
+                    .ifPresent(o -> o.validate(List.of(Options.Option.RETRY_CONFIG, Options.Option.TIMEOUT)));
+            this.timeout = Optional.ofNullable(options).flatMap(Options::timeout).or(sdkConfiguration::timeout);
             this.retryStatusCodes = List.of("408", "409", "429", "5XX");
             this.retryConfig = Optional.ofNullable(options)
                     .flatMap(Options::retryConfig)
@@ -121,7 +124,8 @@ public class AgentsControllerUpdateAgent {
                     this.baseUrl,
                     "/v1/agents/{identifier}",
                     request, null);
-            HTTPRequest req = new HTTPRequest(url, "PATCH");
+            HTTPRequest req = new HTTPRequest(url, "PATCH")
+                    .timeout(this.timeout);
             Object convertedRequest = Utils.convertToShape(
                     request,
                     JsonShape.DEFAULT,
@@ -276,7 +280,6 @@ public class AgentsControllerUpdateAgent {
     public static class Async extends Base
             implements AsyncRequestOperation<AgentsControllerUpdateAgentRequest, co.novu.models.operations.async.AgentsControllerUpdateAgentResponse> {
         private final ScheduledExecutorService retryScheduler;
-
         public Async(
                 @Nonnull SDKConfiguration sdkConfiguration, @Nullable Options options,
                 @Nullable ScheduledExecutorService retryScheduler, Headers _headers) {

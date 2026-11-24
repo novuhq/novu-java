@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class EnvironmentsControllerV1CreateEnvironmentRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -44,6 +45,11 @@ public class EnvironmentsControllerV1CreateEnvironmentRequestBuilder {
 
     public EnvironmentsControllerV1CreateEnvironmentRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public EnvironmentsControllerV1CreateEnvironmentRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

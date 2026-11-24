@@ -17,6 +17,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.Boolean;
 import java.lang.String;
+import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 
 public class TopicsControllerUpsertTopicRequestBuilder {
@@ -53,6 +54,11 @@ public class TopicsControllerUpsertTopicRequestBuilder {
 
     public TopicsControllerUpsertTopicRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public TopicsControllerUpsertTopicRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

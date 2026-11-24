@@ -15,6 +15,7 @@ import co.novu.utils.Utils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import java.lang.String;
+import java.time.Duration;
 
 public class ContextsControllerUpdateContextRequestBuilder {
     private final SDKConfiguration sdkConfiguration;
@@ -56,6 +57,11 @@ public class ContextsControllerUpdateContextRequestBuilder {
 
     public ContextsControllerUpdateContextRequestBuilder retryConfig(RetryConfig retryConfig) {
         this.optionsBuilder.retryConfig(retryConfig);
+        return this;
+    }
+
+    public ContextsControllerUpdateContextRequestBuilder timeout(Duration timeout) {
+        this.optionsBuilder.timeout(timeout);
         return this;
     }
 

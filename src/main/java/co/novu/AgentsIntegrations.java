@@ -90,6 +90,26 @@ public class AgentsIntegrations {
      * @param novuAnalyticsSource 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentIntegrationsControllerAddAgentIntegrationResponse create(
+            @Nonnull String identifier, @Nonnull String novuAnalyticsSource,
+            @Nullable String idempotencyKey, @Nonnull AddAgentIntegrationRequestDto body) {
+        return create(identifier, novuAnalyticsSource, idempotencyKey,
+            body, null);
+    }
+
+    /**
+     * Create an agent integration
+     * 
+     * <p>Create a link between an agent (by identifier) and an integration (by integration **identifier**,
+     * not the internal _id).
+     * 
+     * @param identifier 
+     * @param novuAnalyticsSource 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -187,6 +207,25 @@ public class AgentsIntegrations {
      * @param agentIntegrationId 
      * @param idempotencyKey A header for idempotency purposes
      * @param body 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentIntegrationsControllerUpdateAgentIntegrationResponse update(
+            @Nonnull String identifier, @Nonnull String agentIntegrationId,
+            @Nullable String idempotencyKey, @Nonnull UpdateAgentIntegrationRequestDto body) {
+        return update(identifier, agentIntegrationId, idempotencyKey,
+            body, null);
+    }
+
+    /**
+     * Update an agent integration
+     * 
+     * <p>Update which integration a link points to (by integration **identifier**, not the internal _id).
+     * 
+     * @param identifier 
+     * @param agentIntegrationId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param body 
      * @param options additional options
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -226,6 +265,24 @@ public class AgentsIntegrations {
      */
     public AgentIntegrationsControllerRemoveAgentIntegrationResponse delete(@Nonnull String identifier, @Nonnull String agentIntegrationId) {
         return delete(identifier, agentIntegrationId, null,
+            null);
+    }
+
+    /**
+     * Delete an agent integration
+     * 
+     * <p>Delete a specific agent-integration link by its document id.
+     * 
+     * @param identifier 
+     * @param agentIntegrationId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public AgentIntegrationsControllerRemoveAgentIntegrationResponse delete(
+            @Nonnull String identifier, @Nonnull String agentIntegrationId,
+            @Nullable String idempotencyKey) {
+        return delete(identifier, agentIntegrationId, idempotencyKey,
             null);
     }
 
