@@ -74,7 +74,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'co.novu:novu-java:3.21.0'
+implementation 'co.novu:novu-java:3.22.0'
 ```
 
 Maven:
@@ -82,7 +82,7 @@ Maven:
 <dependency>
     <groupId>co.novu</groupId>
     <artifactId>novu-java</artifactId>
-    <version>3.21.0</version>
+    <version>3.22.0</version>
 </dependency>
 ```
 
@@ -526,6 +526,19 @@ public class Application {
 ### [Activity](docs/sdks/activity/README.md)
 
 * [track](docs/sdks/activity/README.md#track) - Track provider activity and engagement events
+* [getWorkflowRun](docs/sdks/activity/README.md#getworkflowrun) - Retrieve workflow run
+
+### [Activity.Requests](docs/sdks/requests/README.md)
+
+* [list](docs/sdks/requests/README.md#list) - List activity requests
+
+### [Activity.WorkflowRuns](docs/sdks/workflowruns/README.md)
+
+* [list](docs/sdks/workflowruns/README.md#list) - List workflow runs
+
+### [ActivityRequests](docs/sdks/activityrequests/README.md)
+
+* [get](docs/sdks/activityrequests/README.md#get) - Retrieve activity request
 
 ### [Agents](docs/sdks/agents/README.md)
 
@@ -1054,9 +1067,9 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`NovuException`](./src/main/java/models/errors/NovuException.java)**:
-* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 150 methods.*
-* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 150 methods.*
-* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 150 methods.*
+* [`co.novu.models.errors.PayloadValidationExceptionDto`](./src/main/java/models/errors/co.novu.models.errors.PayloadValidationExceptionDto.java): Status code `400`. Applicable to 3 of 154 methods.*
+* [`co.novu.models.errors.SubscriberResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.SubscriberResponseDtoException.java): Created. Status code `409`. Applicable to 1 of 154 methods.*
+* [`co.novu.models.errors.TopicResponseDtoException`](./src/main/java/models/errors/co.novu.models.errors.TopicResponseDtoException.java): OK. Status code `409`. Applicable to 1 of 154 methods.*
 
 
 </details>

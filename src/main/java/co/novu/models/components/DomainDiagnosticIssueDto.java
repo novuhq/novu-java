@@ -19,7 +19,7 @@ public class DomainDiagnosticIssueDto {
 
 
     @JsonProperty("severity")
-    private Severity severity;
+    private DomainDiagnosticIssueDtoSeverity severity;
 
 
     @JsonProperty("message")
@@ -34,7 +34,7 @@ public class DomainDiagnosticIssueDto {
     @JsonCreator
     public DomainDiagnosticIssueDto(
             @JsonProperty("code") @Nonnull DomainDiagnosticIssueDtoCode code,
-            @JsonProperty("severity") @Nonnull Severity severity,
+            @JsonProperty("severity") @Nonnull DomainDiagnosticIssueDtoSeverity severity,
             @JsonProperty("message") @Nonnull String message,
             @JsonProperty("fix") @Nonnull String fix) {
         this.code = Optional.ofNullable(code)
@@ -51,7 +51,7 @@ public class DomainDiagnosticIssueDto {
         return this.code;
     }
 
-    public Severity severity() {
+    public DomainDiagnosticIssueDtoSeverity severity() {
         return this.severity;
     }
 
@@ -77,7 +77,7 @@ public class DomainDiagnosticIssueDto {
     }
 
 
-    public DomainDiagnosticIssueDto withSeverity(@Nonnull Severity severity) {
+    public DomainDiagnosticIssueDto withSeverity(@Nonnull DomainDiagnosticIssueDtoSeverity severity) {
         this.severity = Utils.checkNotNull(severity, "severity");
         return this;
     }
@@ -135,7 +135,7 @@ public class DomainDiagnosticIssueDto {
 
         private DomainDiagnosticIssueDtoCode code;
 
-        private Severity severity;
+        private DomainDiagnosticIssueDtoSeverity severity;
 
         private String message;
 
@@ -150,7 +150,7 @@ public class DomainDiagnosticIssueDto {
             return this;
         }
 
-        public Builder severity(@Nonnull Severity severity) {
+        public Builder severity(@Nonnull DomainDiagnosticIssueDtoSeverity severity) {
             this.severity = Utils.checkNotNull(severity, "severity");
             return this;
         }

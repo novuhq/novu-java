@@ -77,7 +77,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
      * Filter by severity levels
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=severity")
-    private List<Severity> severity;
+    private List<SubscribersControllerGetSubscriberNotificationsSeverity> severity;
 
     /**
      * Filter notifications created on or after this timestamp (Unix timestamp in milliseconds)
@@ -115,7 +115,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
             @Nullable Boolean snoozed,
             @Nullable Boolean seen,
             @Nullable String data,
-            @Nullable List<Severity> severity,
+            @Nullable List<SubscribersControllerGetSubscriberNotificationsSeverity> severity,
             @Nullable Double createdGte,
             @Nullable Double createdLte,
             @Nullable List<String> contextKeys,
@@ -212,7 +212,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
     /**
      * Filter by severity levels
      */
-    public Optional<List<Severity>> severity() {
+    public Optional<List<SubscribersControllerGetSubscriberNotificationsSeverity>> severity() {
         return Optional.ofNullable(this.severity);
     }
 
@@ -333,7 +333,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
     /**
      * Filter by severity levels
      */
-    public SubscribersControllerGetSubscriberNotificationsRequest withSeverity(@Nullable List<Severity> severity) {
+    public SubscribersControllerGetSubscriberNotificationsRequest withSeverity(@Nullable List<SubscribersControllerGetSubscriberNotificationsSeverity> severity) {
         this.severity = severity;
         return this;
     }
@@ -455,7 +455,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
 
         private String data;
 
-        private List<Severity> severity;
+        private List<SubscribersControllerGetSubscriberNotificationsSeverity> severity;
 
         private Double createdGte;
 
@@ -543,7 +543,7 @@ public class SubscribersControllerGetSubscriberNotificationsRequest {
         /**
          * Filter by severity levels
          */
-        public Builder severity(@Nullable List<Severity> severity) {
+        public Builder severity(@Nullable List<SubscribersControllerGetSubscriberNotificationsSeverity> severity) {
             this.severity = severity;
             return this;
         }

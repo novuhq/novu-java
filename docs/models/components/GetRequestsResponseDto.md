@@ -1,0 +1,11 @@
+# GetRequestsResponseDto
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `data`                                                                           | List\<[RequestLogResponseDto](../../models/components/RequestLogResponseDto.md)> | :heavy_check_mark:                                                               | Request log data                                                                 |
+| `total`                                                                          | *double*                                                                         | :heavy_check_mark:                                                               | Total number of requests                                                         |
+| `pageSize`                                                                       | *Optional\<Double>*                                                              | :heavy_minus_sign:                                                               | Page size                                                                        |
+| `page`                                                                           | *Optional\<Double>*                                                              | :heavy_minus_sign:                                                               | Current page number                                                              |

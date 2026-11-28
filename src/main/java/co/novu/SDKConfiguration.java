@@ -19,9 +19,9 @@ import java.util.concurrent.ScheduledExecutorService;
 public class SDKConfiguration {
 
     private static final String LANGUAGE = "java";
-    public static final String OPENAPI_DOC_VERSION = "3.20.0";
-    public static final String SDK_VERSION = "3.21.0";
-    public static final String GEN_VERSION = "2.968.1";
+    public static final String OPENAPI_DOC_VERSION = "3.21.0";
+    public static final String SDK_VERSION = "3.22.0";
+    public static final String GEN_VERSION = "2.969.4";
     private static final String BASE_PACKAGE = "co.novu";
     public static final String USER_AGENT = 
             String.format("speakeasy-sdk/%s %s %s %s %s",

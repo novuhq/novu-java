@@ -5,9 +5,13 @@ package co.novu;
 
 import static co.novu.operations.Operations.RequestOperation;
 
+import co.novu.models.operations.ActivityControllerGetWorkflowRunRequest;
+import co.novu.models.operations.ActivityControllerGetWorkflowRunRequestBuilder;
+import co.novu.models.operations.ActivityControllerGetWorkflowRunResponse;
 import co.novu.models.operations.InboundWebhooksControllerHandleWebhookRequest;
 import co.novu.models.operations.InboundWebhooksControllerHandleWebhookRequestBuilder;
 import co.novu.models.operations.InboundWebhooksControllerHandleWebhookResponse;
+import co.novu.operations.ActivityControllerGetWorkflowRun;
 import co.novu.operations.InboundWebhooksControllerHandleWebhook;
 import co.novu.utils.Headers;
 import co.novu.utils.Options;
@@ -22,10 +26,22 @@ public class Activity {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
     private final AsyncActivity asyncSDK;
+    private final Requests requests;
+    private final WorkflowRuns workflowRuns;
 
     Activity(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.requests = new Requests(this.sdkConfiguration);
+        this.workflowRuns = new WorkflowRuns(this.sdkConfiguration);
         this.asyncSDK = new AsyncActivity(this, sdkConfiguration);
+    }
+
+    public final Requests requests() {
+        return requests;
+    }
+
+    public final WorkflowRuns workflowRuns() {
+        return workflowRuns;
     }
 
     /**
@@ -107,6 +123,64 @@ public class Activity {
                 body);
         RequestOperation<InboundWebhooksControllerHandleWebhookRequest, InboundWebhooksControllerHandleWebhookResponse> operation
               = new InboundWebhooksControllerHandleWebhook.Sync(sdkConfiguration, options, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @return The call builder
+     */
+    public ActivityControllerGetWorkflowRunRequestBuilder getWorkflowRun() {
+        return new ActivityControllerGetWorkflowRunRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @param workflowRunId 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ActivityControllerGetWorkflowRunResponse getWorkflowRun(@Nonnull String workflowRunId) {
+        return getWorkflowRun(workflowRunId, null, null);
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @param workflowRunId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ActivityControllerGetWorkflowRunResponse getWorkflowRun(@Nonnull String workflowRunId, @Nullable String idempotencyKey) {
+        return getWorkflowRun(workflowRunId, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @param workflowRunId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public ActivityControllerGetWorkflowRunResponse getWorkflowRun(
+            @Nonnull String workflowRunId, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        ActivityControllerGetWorkflowRunRequest request = new ActivityControllerGetWorkflowRunRequest(workflowRunId, idempotencyKey);
+        RequestOperation<ActivityControllerGetWorkflowRunRequest, ActivityControllerGetWorkflowRunResponse> operation
+              = new ActivityControllerGetWorkflowRun.Sync(sdkConfiguration, options, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
