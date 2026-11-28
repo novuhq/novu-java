@@ -18,36 +18,36 @@ import java.util.Optional;
  * without runtime errors. Instances are immutable singletons with reference equality.
  * Use {@code asEnum()} for switch expressions.
  */
-public class Severity {
+public class DomainDiagnosticIssueDtoSeverity {
 
-    public static final Severity WARN = new Severity("warn");
-    public static final Severity ERROR = new Severity("error");
+    public static final DomainDiagnosticIssueDtoSeverity WARN = new DomainDiagnosticIssueDtoSeverity("warn");
+    public static final DomainDiagnosticIssueDtoSeverity ERROR = new DomainDiagnosticIssueDtoSeverity("error");
 
     // This map will grow whenever a Color gets created with a new
     // unrecognized value (a potential memory leak if the user is not
     // careful). Keep this field lower case to avoid clashing with
     // generated member names which will always be upper cased (Java
     // convention)
-    private static final Map<String, Severity> values = createValuesMap();
-    private static final Map<String, SeverityEnum> enums = createEnumsMap();
+    private static final Map<String, DomainDiagnosticIssueDtoSeverity> values = createValuesMap();
+    private static final Map<String, DomainDiagnosticIssueDtoSeverityEnum> enums = createEnumsMap();
 
     private final String value;
 
-    private Severity(String value) {
+    private DomainDiagnosticIssueDtoSeverity(String value) {
         this.value = value;
     }
 
     /**
-     * Returns a Severity with the given value. For a specific value the 
+     * Returns a DomainDiagnosticIssueDtoSeverity with the given value. For a specific value the 
      * returned object will always be a singleton so reference equality 
      * is satisfied when the values are the same.
      * 
-     * @param value value to be wrapped as Severity
+     * @param value value to be wrapped as DomainDiagnosticIssueDtoSeverity
      */ 
     @JsonCreator
-    public static Severity of(String value) {
-        synchronized (Severity.class) {
-            return values.computeIfAbsent(value, v -> new Severity(v));
+    public static DomainDiagnosticIssueDtoSeverity of(String value) {
+        synchronized (DomainDiagnosticIssueDtoSeverity.class) {
+            return values.computeIfAbsent(value, v -> new DomainDiagnosticIssueDtoSeverity(v));
         }
     }
 
@@ -56,7 +56,7 @@ public class Severity {
         return value;
     }
 
-    public Optional<SeverityEnum> asEnum() {
+    public Optional<DomainDiagnosticIssueDtoSeverityEnum> asEnum() {
         return Optional.ofNullable(enums.getOrDefault(value, null));
     }
 
@@ -77,45 +77,45 @@ public class Severity {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Severity other = (Severity) obj;
+        DomainDiagnosticIssueDtoSeverity other = (DomainDiagnosticIssueDtoSeverity) obj;
         return Objects.equals(value, other.value);
     }
 
     @Override
     public String toString() {
-        return "Severity [value=" + value + "]";
+        return "DomainDiagnosticIssueDtoSeverity [value=" + value + "]";
     }
 
     // return an array just like an enum
-    public static Severity[] values() {
-        synchronized (Severity.class) {
-            return values.values().toArray(new Severity[] {});
+    public static DomainDiagnosticIssueDtoSeverity[] values() {
+        synchronized (DomainDiagnosticIssueDtoSeverity.class) {
+            return values.values().toArray(new DomainDiagnosticIssueDtoSeverity[] {});
         }
     }
 
-    private static final Map<String, Severity> createValuesMap() {
-        Map<String, Severity> map = new LinkedHashMap<>();
+    private static final Map<String, DomainDiagnosticIssueDtoSeverity> createValuesMap() {
+        Map<String, DomainDiagnosticIssueDtoSeverity> map = new LinkedHashMap<>();
         map.put("warn", WARN);
         map.put("error", ERROR);
         return map;
     }
 
-    private static final Map<String, SeverityEnum> createEnumsMap() {
-        Map<String, SeverityEnum> map = new HashMap<>();
-        map.put("warn", SeverityEnum.WARN);
-        map.put("error", SeverityEnum.ERROR);
+    private static final Map<String, DomainDiagnosticIssueDtoSeverityEnum> createEnumsMap() {
+        Map<String, DomainDiagnosticIssueDtoSeverityEnum> map = new HashMap<>();
+        map.put("warn", DomainDiagnosticIssueDtoSeverityEnum.WARN);
+        map.put("error", DomainDiagnosticIssueDtoSeverityEnum.ERROR);
         return map;
     }
     
     
-    public enum SeverityEnum {
+    public enum DomainDiagnosticIssueDtoSeverityEnum {
 
         WARN("warn"),
         ERROR("error"),;
 
         private final String value;
 
-        private SeverityEnum(String value) {
+        private DomainDiagnosticIssueDtoSeverityEnum(String value) {
             this.value = value;
         }
 

@@ -8,7 +8,7 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-public enum Severity {
+public enum SubscribersControllerGetSubscriberNotificationsSeverity {
     HIGH("high"),
     MEDIUM("medium"),
     LOW("low"),
@@ -17,7 +17,7 @@ public enum Severity {
     @JsonValue
     private final String value;
 
-    Severity(String value) {
+    SubscribersControllerGetSubscriberNotificationsSeverity(String value) {
         this.value = value;
     }
     
@@ -25,8 +25,8 @@ public enum Severity {
         return value;
     }
     
-    public static Optional<Severity> fromValue(String value) {
-        for (Severity o: Severity.values()) {
+    public static Optional<SubscribersControllerGetSubscriberNotificationsSeverity> fromValue(String value) {
+        for (SubscribersControllerGetSubscriberNotificationsSeverity o: SubscribersControllerGetSubscriberNotificationsSeverity.values()) {
             if (Objects.deepEquals(o.value, value)) {
                 return Optional.of(o);
             }

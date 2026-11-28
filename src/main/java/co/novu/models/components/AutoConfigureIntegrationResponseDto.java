@@ -35,19 +35,30 @@ public class AutoConfigureIntegrationResponseDto {
     @JsonProperty("integration")
     private Integration integration;
 
+    /**
+     * The URL the provider sends delivery events to. Set it in the provider yourself when
+     * auto-configuration fails.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("webhookUrl")
+    private String webhookUrl;
+
     @JsonCreator
     public AutoConfigureIntegrationResponseDto(
             @JsonProperty("success") boolean success,
             @JsonProperty("message") @Nullable String message,
-            @JsonProperty("integration") @Nullable Integration integration) {
+            @JsonProperty("integration") @Nullable Integration integration,
+            @JsonProperty("webhookUrl") @Nullable String webhookUrl) {
         this.success = success;
         this.message = message;
         this.integration = integration;
+        this.webhookUrl = webhookUrl;
     }
     
     public AutoConfigureIntegrationResponseDto(
             boolean success) {
-        this(success, null, null);
+        this(success, null, null,
+            null);
     }
 
     /**
@@ -69,6 +80,14 @@ public class AutoConfigureIntegrationResponseDto {
      */
     public Optional<Integration> integration() {
         return Optional.ofNullable(this.integration);
+    }
+
+    /**
+     * The URL the provider sends delivery events to. Set it in the provider yourself when
+     * auto-configuration fails.
+     */
+    public Optional<String> webhookUrl() {
+        return Optional.ofNullable(this.webhookUrl);
     }
 
     public static Builder builder() {
@@ -103,6 +122,16 @@ public class AutoConfigureIntegrationResponseDto {
     }
 
 
+    /**
+     * The URL the provider sends delivery events to. Set it in the provider yourself when
+     * auto-configuration fails.
+     */
+    public AutoConfigureIntegrationResponseDto withWebhookUrl(@Nullable String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+        return this;
+    }
+
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -115,13 +144,15 @@ public class AutoConfigureIntegrationResponseDto {
         return 
             Utils.enhancedDeepEquals(this.success, other.success) &&
             Utils.enhancedDeepEquals(this.message, other.message) &&
-            Utils.enhancedDeepEquals(this.integration, other.integration);
+            Utils.enhancedDeepEquals(this.integration, other.integration) &&
+            Utils.enhancedDeepEquals(this.webhookUrl, other.webhookUrl);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            success, message, integration);
+            success, message, integration,
+            webhookUrl);
     }
     
     @Override
@@ -129,7 +160,8 @@ public class AutoConfigureIntegrationResponseDto {
         return Utils.toString(AutoConfigureIntegrationResponseDto.class,
                 "success", success,
                 "message", message,
-                "integration", integration);
+                "integration", integration,
+                "webhookUrl", webhookUrl);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -140,6 +172,8 @@ public class AutoConfigureIntegrationResponseDto {
         private String message;
 
         private Integration integration;
+
+        private String webhookUrl;
 
         private Builder() {
           // force use of static builder() method
@@ -169,9 +203,19 @@ public class AutoConfigureIntegrationResponseDto {
             return this;
         }
 
+        /**
+         * The URL the provider sends delivery events to. Set it in the provider yourself when
+         * auto-configuration fails.
+         */
+        public Builder webhookUrl(@Nullable String webhookUrl) {
+            this.webhookUrl = webhookUrl;
+            return this;
+        }
+
         public AutoConfigureIntegrationResponseDto build() {
             return new AutoConfigureIntegrationResponseDto(
-                success, message, integration);
+                success, message, integration,
+                webhookUrl);
         }
 
     }

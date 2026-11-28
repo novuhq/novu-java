@@ -5,9 +5,13 @@ package co.novu;
 
 import static co.novu.operations.Operations.AsyncRequestOperation;
 
+import co.novu.models.operations.ActivityControllerGetWorkflowRunRequest;
 import co.novu.models.operations.InboundWebhooksControllerHandleWebhookRequest;
+import co.novu.models.operations.async.ActivityControllerGetWorkflowRunRequestBuilder;
+import co.novu.models.operations.async.ActivityControllerGetWorkflowRunResponse;
 import co.novu.models.operations.async.InboundWebhooksControllerHandleWebhookRequestBuilder;
 import co.novu.models.operations.async.InboundWebhooksControllerHandleWebhookResponse;
+import co.novu.operations.ActivityControllerGetWorkflowRun;
 import co.novu.operations.InboundWebhooksControllerHandleWebhook;
 import co.novu.utils.Headers;
 import co.novu.utils.Options;
@@ -22,11 +26,23 @@ import java.util.concurrent.CompletableFuture;
 public class AsyncActivity {
     private static final Headers _headers = Headers.EMPTY;
     private final SDKConfiguration sdkConfiguration;
+    private final AsyncRequests requests;
+    private final AsyncWorkflowRuns workflowRuns;
     private final Activity syncSDK;
 
     AsyncActivity(Activity syncSDK, SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+        this.requests = new AsyncRequests(syncSDK.requests(), this.sdkConfiguration);
+        this.workflowRuns = new AsyncWorkflowRuns(syncSDK.workflowRuns(), this.sdkConfiguration);
         this.syncSDK = syncSDK;
+    }
+
+    public final AsyncRequests requests() {
+        return requests;
+    }
+
+    public final AsyncWorkflowRuns workflowRuns() {
+        return workflowRuns;
     }
 
     /**
@@ -108,6 +124,65 @@ public class AsyncActivity {
                 body);
         AsyncRequestOperation<InboundWebhooksControllerHandleWebhookRequest, InboundWebhooksControllerHandleWebhookResponse> operation
               = new InboundWebhooksControllerHandleWebhook.Async(
+                                    sdkConfiguration, options, sdkConfiguration.retryScheduler(),
+                                    _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @return The async call builder
+     */
+    public ActivityControllerGetWorkflowRunRequestBuilder getWorkflowRun() {
+        return new ActivityControllerGetWorkflowRunRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @param workflowRunId 
+     * @return {@code CompletableFuture<ActivityControllerGetWorkflowRunResponse>} - The async response
+     */
+    public CompletableFuture<ActivityControllerGetWorkflowRunResponse> getWorkflowRun(@Nonnull String workflowRunId) {
+        return getWorkflowRun(workflowRunId, null, null);
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @param workflowRunId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @return {@code CompletableFuture<ActivityControllerGetWorkflowRunResponse>} - The async response
+     */
+    public CompletableFuture<ActivityControllerGetWorkflowRunResponse> getWorkflowRun(@Nonnull String workflowRunId, @Nullable String idempotencyKey) {
+        return getWorkflowRun(workflowRunId, idempotencyKey, null);
+    }
+
+    /**
+     * Retrieve workflow run
+     * 
+     * <p>Retrieve detailed information for a specific workflow run by ID.
+     * 
+     * @param workflowRunId 
+     * @param idempotencyKey A header for idempotency purposes
+     * @param options additional options
+     * @return {@code CompletableFuture<ActivityControllerGetWorkflowRunResponse>} - The async response
+     */
+    public CompletableFuture<ActivityControllerGetWorkflowRunResponse> getWorkflowRun(
+            @Nonnull String workflowRunId, @Nullable String idempotencyKey,
+            @Nullable Options options) {
+        ActivityControllerGetWorkflowRunRequest request = new ActivityControllerGetWorkflowRunRequest(workflowRunId, idempotencyKey);
+        AsyncRequestOperation<ActivityControllerGetWorkflowRunRequest, ActivityControllerGetWorkflowRunResponse> operation
+              = new ActivityControllerGetWorkflowRun.Async(
                                     sdkConfiguration, options, sdkConfiguration.retryScheduler(),
                                     _headers);
         return operation.doRequest(request)
